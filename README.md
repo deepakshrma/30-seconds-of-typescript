@@ -1,33 +1,21 @@
-# Website
+# 30-seconds-of-typescript
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+This repo is fully inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). I am converting all JS to Typescript so that this can be used fro both Typescript and deno.
 
-### Installation
+## How to use[Deno]
 
-```
-$ yarn
-```
-
-### Local Development
-
-```
-$ yarn start
+```ts
+import { all } from "https://denopkg.com/deepakshrma/30-seconds-of-coden/util.ts";
+all([{ name: "D" }, { name: "D2" }], hasName); //true
 ```
 
-This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+## How to test using Deno
 
-### Build
-
-```
-$ yarn build
+```bash
+deno test util.test.ts
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+### Contribute
 
-### Deployment
-
-```
-$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Docs: [/docs](/docs)
+Util: [/util.ts](/util.ts)

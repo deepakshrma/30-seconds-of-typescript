@@ -7,8 +7,8 @@ module.exports = {
   url: "https://your-docusaurus-test-site.com",
   baseUrl: "/",
   favicon: "img/favicon.ico",
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "deepakshrma", // Usually your GitHub org/user name.
+  projectName: "30-seconds-of-typescript", // Usually your repo name.
   ...configs,
   themeConfig: {
     ...configs.themeConfig,
@@ -43,7 +43,7 @@ module.exports = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
-            "https://github.com/facebook/docusaurus/edit/master/website/",
+            "https://github.com/deepakshrma/30-seconds-of-typescript/edit/master",
         },
         // blog: {
         //   showReadingTime: true,
