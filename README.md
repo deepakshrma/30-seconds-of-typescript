@@ -1,11 +1,13 @@
 # 30-seconds-of-typescript
 
-This repo is fully inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). I am converting all JS to Typescript so that this can be used fro both Typescript and deno.
+This repo is highly inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). I am converting all JS to Typescript so that it can be used for both Typescript and deno.
+
+**Note:** I am refactoring code and fixing bug along with conversion.
 
 ## How to use[Deno]
 
 ```ts
-import { all } from "https://denopkg.com/deepakshrma/30-seconds-of-coden/util.ts";
+import { all } from "https://denopkg.com/deepakshrma/30-seconds-of-typescript/index.ts";
 all([{ name: "D" }, { name: "D2" }], hasName); //true
 ```
 
@@ -15,7 +17,11 @@ all([{ name: "D" }, { name: "D2" }], hasName); //true
 deno test util.test.ts
 ```
 
-### Contribute
+### Contribution
 
-Docs: [/docs](/docs)
-Util: [/util.ts](/util.ts)
+- Docs: [/docs](/docs)
+- Util: [/util.ts](/util.ts)
+
+The working website can be found at [https://deepakshrma.github.io/30-seconds-of-typescript/docs/all](https://deepakshrma.github.io/30-seconds-of-typescript/docs/all)
+
+This website is build using docusaurus.

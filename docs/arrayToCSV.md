@@ -1,4 +1,6 @@
 ---
+id: arrayToCSV
+sidebar_label: ArrayToCSV
 title: arrayToCSV
 tags: array,string,intermediate
 ---
@@ -9,14 +11,19 @@ Use `Array.prototype.map()` and `Array.prototype.join(delimiter)` to combine ind
 Use `Array.prototype.join('\n')` to combine all rows into a CSV string, separating each row with a newline.
 Omit the second argument, `delimiter`, to use a default delimiter of `,`.
 
-```js
-const arrayToCSV = (arr, delimiter = ',') =>
+```ts
+type StringOrNumber = string | number;
+const arrayToCSV = (arr: StringOrNumber[][], delimiter = ",") =>
   arr
-    .map(v => v.map(x => (isNaN(x) ? `"${x.replace(/"/g, '""')}"` : x)).join(delimiter))
-    .join('\n');
+    .map((v) =>
+      v
+        .map((x) => (typeof x === "string" ? `"${x.replace(/"/g, '""')}"` : x))
+        .join(delimiter)
+    )
+    .join("\n");
 ```
 
-```js
+```ts
 arrayToCSV([['a', 'b'], ['c', 'd']]); // '"a","b"\n"c","d"'
 arrayToCSV([['a', 'b'], ['c', 'd']], ';'); // '"a";"b"\n"c";"d"'
 arrayToCSV([['a', '"b" great'], ['c', 3.1415]]); // '"a","""b"" great"\n"c",3.1415'

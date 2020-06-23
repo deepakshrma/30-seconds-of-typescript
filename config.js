@@ -2,6 +2,7 @@ module.exports = {
   plugins: [
     // require.resolve("@docusaurus/plugin-google-analytics"),
     require.resolve("@docusaurus/plugin-sitemap"),
+    [require.resolve("docusaurus-lunr-search"), { languages: ["en"] }],
   ],
   stylesheets: [
     {
@@ -21,11 +22,11 @@ module.exports = {
     footer: {
       links: [
         {
-          title: 'Docs',
+          title: "Docs",
           items: [
             {
-              label: '30 Seconds of Typescript',
-              to: 'docs/',
+              label: "30 Seconds of Typescript",
+              to: "docs/",
             },
             // {
             //   label: 'Second Doc',

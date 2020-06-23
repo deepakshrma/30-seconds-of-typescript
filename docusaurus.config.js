@@ -3,7 +3,7 @@ const configs = require("./config");
 module.exports = {
   title: "30 Seconds of Typescript- Inspired by 30-seconds-of-code",
   tagline:
-    "30 Seconds of Typescript, Code Snippets in Typescript to increase productivity",
+    "30 Seconds of Typescript, Code Snippets in Typescript to increase productivity[WIP]",
   url: "https://your-docusaurus-test-site.com",
   baseUrl: "/30-seconds-of-typescript/",
   favicon: "img/favicon.ico",

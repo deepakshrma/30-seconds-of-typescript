@@ -1,4 +1,6 @@
 ---
+id: and
+sidebar_label: And
 title: and
 tags: math,logic,beginner
 ---
@@ -7,11 +9,12 @@ Returns `true` if both arguments are `true`, `false` otherwise.
 
 Use the logical and (`&&`) operator on the two given values.
 
-```js
-const and = (a, b) => a && b;
+```ts
+const and = <T extends any = boolean>(a: T, b: T) =>
+  Boolean(a) && Boolean(b);
 ```
 
-```js
+```ts
 and(true, true); // true
 and(true, false); // false
 and(false, false); // false
