@@ -5,7 +5,7 @@ module.exports = {
   tagline:
     "30 Seconds of Typescript, Code Snippets in Typescript to increase productivity",
   url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  baseUrl: "/30-seconds-of-typescript/",
   favicon: "img/favicon.ico",
   organizationName: "deepakshrma", // Usually your GitHub org/user name.
   projectName: "30-seconds-of-typescript", // Usually your repo name.
