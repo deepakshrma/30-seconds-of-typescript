@@ -15,9 +15,9 @@ module.exports = {
     prism: {
       defaultLanguage: "ts",
     },
-    googleAnalytics: {
-      trackingID: "",
-    },
+    // googleAnalytics: {
+    //   trackingID: "",
+    // },
     footer: {
       links: [
         {
