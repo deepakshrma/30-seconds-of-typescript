@@ -1,4 +1,6 @@
 ---
+id: bind
+sidebar_label: Bind
 title: bind
 tags: function,object,intermediate
 ---
@@ -8,15 +10,32 @@ Creates a function that invokes `fn` with a given context, optionally adding any
 Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`.
 Use `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments.
 
-```js
-const bind = (fn, context, ...boundArgs) => (...args) => fn.apply(context, [...boundArgs, ...args]);
+```ts
+export const bind = <T extends any>(
+  fn: (...args: any[]) => any,
+  context: T,
+  ...boundArgs: any[]
+) => (...args: any[]) => fn.apply(context, [...boundArgs, ...args]);
 ```
+
+**TS:** You need to bind `this` type
+
+```ts
+const freddy = { user: "fred" };
+function greet(this: typeof freddy, greeting: string, punctuation: string) {
+  return greeting + " " + this.user + punctuation;
+}
+const freddyBound = bind(greet, freddy);
+console.log(freddyBound("hi", "!")); // 'hi fred!'
+```
+
+**JS Version:**
 
 ```js
 function greet(greeting, punctuation) {
-  return greeting + ' ' + this.user + punctuation;
+  return greeting + " " + this.user + punctuation;
 }
-const freddy = { user: 'fred' };
+const freddy = { user: "fred" };
 const freddyBound = bind(greet, freddy);
-console.log(freddyBound('hi', '!')); // 'hi fred!'
+console.log(freddyBound("hi", "!")); // 'hi fred!'
 ```

@@ -8,6 +8,16 @@ import {
   aperture,
   approximatelyEqual,
   arrayToCSV,
+  arrayToHtmlList,
+  ary,
+  attempt,
+  attempt2,
+  average,
+  averageBy,
+  bifurcate,
+  bifurcateBy,
+  binary,
+  bind,
 } from "./util.ts";
 
 // accumulate
@@ -99,4 +109,113 @@ Deno.test("approximatelyEqual #1", () => {
     ]),
     `"a","""b"" great"\n"c",3.1415`
   );
+});
+
+// Mock document
+const elm = { innerHTML: "" };
+let document = {
+  elm,
+  querySelector: (id: string): any => {
+    return elm;
+  },
+};
+
+// TODO
+// // arrayToHtmlList
+// Deno.test("aperture #1", () => {
+//   arrayToHtmlList([1, 2, 3, "test"], "fakeid");
+//   assertEquals(
+//     document.elm.innerHTML,
+//     `<li>1</li><li>2</li><li>3</li><li>test</li>`
+//   );
+//   document.elm.innerHTML = "";
+//   arrayToHtmlList(["item1", "item2"], "myListID");
+//   assertEquals(document.elm.innerHTML, `<li>item1</li><li>item2</li>`);
+// });
+
+// ary
+Deno.test("ary #1", () => {
+  const firstTwoMax = ary(Math.max, 2);
+  assertEquals(
+    [[2, 6, 12], [6, 4, 8], [10]].map((x) => firstTwoMax(...x)),
+    [6, 6, 10]
+  );
+});
+
+// attempt
+Deno.test("attempt #1", () => {
+  const isValidNumber = (num: number) => {
+    if (num >= 0) {
+      return num;
+    }
+    throw new Error("Invalid number");
+  };
+  const ten = attempt(isValidNumber, 10);
+  assertEquals(ten, 10);
+
+  const error = attempt(isValidNumber, -1);
+  assertEquals(error instanceof Error, true);
+  assertEquals(error.message, "Invalid number");
+});
+
+// attempt2
+Deno.test("attempt2 #1", () => {
+  const isValidNumber = (num: number) => {
+    if (num >= 0) {
+      return num;
+    }
+    throw new Error("Invalid number");
+  };
+  const [ten] = attempt2(isValidNumber, 10);
+  assertEquals(ten, 10);
+
+  const [res, error] = attempt2(isValidNumber, -1);
+  assertEquals(res, null);
+  assertEquals(error instanceof Error, true);
+  assertEquals(error.message, "Invalid number");
+});
+
+// average
+Deno.test("average #1", () => {
+  assertEquals(average(1, 2, 3, 4), 2.5);
+  assertEquals(average(...[1, 2, 3]), 2);
+});
+
+// averageBy
+Deno.test("averageBy #1", () => {
+  assertEquals(
+    averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o: any) => o.n),
+    5
+  );
+  assertEquals(averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 5);
+});
+
+// bifurcate
+Deno.test("bifurcate #1", () => {
+  assertEquals(
+    bifurcate(["beep", "boop", "foo", "bar"], [true, true, false, true]),
+    [["beep", "boop", "bar"], ["foo"]]
+  );
+});
+
+// bifurcateBy
+Deno.test("bifurcateBy #2", () => {
+  const [filtered] = bifurcateBy(["beep", "boop", undefined, null, 1], Boolean);
+  assertEquals(filtered, ["beep", "boop", 1]);
+});
+// binary
+Deno.test("binary #2", () => {
+  const max = binary(Math.max)(1, 2, 3);
+  assertEquals(max, 2);
+  assertEquals(["2", "1", "0"].map(binary(Math.max)), [2, 1, 2]);
+});
+
+// bind
+Deno.test("bind #2", () => {
+  const freddy = { user: "fred" };
+  function greet(this: typeof freddy, greeting: string, punctuation: string) {
+    return greeting + " " + this.user + punctuation;
+  }
+  const freddyBound = bind(greet, freddy);
+  assertEquals(freddyBound("hi", "!"), "hi fred!");
 });

@@ -1,4 +1,6 @@
 ---
+id: bifurcateBy
+sidebar_label: BifurcateBy
 title: bifurcateBy
 tags: array,function,intermediate
 ---
@@ -7,11 +9,30 @@ Splits values into two groups according to a predicate function, which specifies
 
 Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.
 
-```js
-const bifurcateBy = (arr, fn) =>
-  arr.reduce((acc, val, i) => (acc[fn(val, i) ? 0 : 1].push(val), acc), [[], []]);
+```ts
+type Predicate<T> = (item: T) => boolean;
+
+const bifurcateBy = <T extends any>(arr: T[], filter: Predicate<T>) =>
+  arr.reduce(
+    (acc, val) => {
+      acc[filter(val) ? 0 : 1].push(val);
+      return acc;
+    },
+    [[] as T[], [] as T[]]
+  );
 ```
 
-```js
-bifurcateBy(['beep', 'boop', 'foo', 'bar'], x => x[0] === 'b'); // [ ['beep', 'boop', 'bar'], ['foo'] ]
+```ts
+bifurcateBy(["beep", "boop", "foo", "bar"], (x: string) => x[0] === "b"); // [ ['beep', 'boop', 'bar'], ['foo'] ]
+
+// To Get Filtered(falsy) values
+
+const [filtered] = bifurcateBy(["beep", "boop", undefined, null, 1], Boolean); // filtered == ["beep", "boop", 1]
+
+assertEquals(
+  bifurcate(["beep", "boop", "foo", "bar"], (item: string) =>
+    item.startsWith("b")
+  ),
+  [["beep", "boop", "bar"], ["foo"]]
+);
 ```

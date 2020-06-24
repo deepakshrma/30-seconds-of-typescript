@@ -1,4 +1,6 @@
 ---
+id: arrayToHtmlList
+sidebar_label: ArrayToHtmlList
 title: arrayToHtmlList
 tags: browser,array,intermediate
 ---
@@ -7,14 +9,15 @@ Converts the given array elements into `<li>` tags and appends them to the list 
 
 Use `Array.prototype.map()`, `document.querySelector()`, and an anonymous inner closure to create a list of html tags.
 
-```js
-const arrayToHtmlList = (arr, listID) =>
-  (el => (
-    (el = document.querySelector('#' + listID)),
-    (el.innerHTML += arr.map(item => `<li>${item}</li>`).join(''))
-  ))();
+```ts
+const arrayToHtmlList = (arr: (string | number)[], listID: string) => {
+  let el = document.querySelector("#" + listID);
+  if (el) {
+    el.innerHTML += arr.map((item) => `<li>${item}</li>`).join("");
+  }
+};
 ```
 
-```js
-arrayToHtmlList(['item 1', 'item 2'], 'myListID');
+```ts
+arrayToHtmlList(["item 1", "item 2"], "myListID"); // <li>item1</li><li>item2</li>
 ```
