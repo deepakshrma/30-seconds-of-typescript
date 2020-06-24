@@ -1,7 +1,7 @@
 ---
 id: bind
-sidebar_label: Bind
-title: bind
+sidebar_label: bind
+title: Bind
 tags: function,object,intermediate
 ---
 

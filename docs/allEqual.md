@@ -1,7 +1,7 @@
 ---
 id: allEqual
-sidebar_label: AllEqual
-title: allEqual
+sidebar_label: allEqual
+title: AllEqual
 tags: array,function,beginner
 ---
 

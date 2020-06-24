@@ -1,4 +1,6 @@
 ---
+id: colorize
+sidebar_label: colorize
 title: colorize
 tags: node,string,intermediate
 ---
@@ -8,29 +10,32 @@ Add special characters to text to print in color in the console (combined with `
 Use template literals and special characters to add the appropriate color code to the string output.
 For background colors, add a special character that resets the background color at the end of the string.
 
-```js
-const colorize = (...args) => ({
-  black: `\x1b[30m${args.join(' ')}`,
-  red: `\x1b[31m${args.join(' ')}`,
-  green: `\x1b[32m${args.join(' ')}`,
-  yellow: `\x1b[33m${args.join(' ')}`,
-  blue: `\x1b[34m${args.join(' ')}`,
-  magenta: `\x1b[35m${args.join(' ')}`,
-  cyan: `\x1b[36m${args.join(' ')}`,
-  white: `\x1b[37m${args.join(' ')}`,
-  bgBlack: `\x1b[40m${args.join(' ')}\x1b[0m`,
-  bgRed: `\x1b[41m${args.join(' ')}\x1b[0m`,
-  bgGreen: `\x1b[42m${args.join(' ')}\x1b[0m`,
-  bgYellow: `\x1b[43m${args.join(' ')}\x1b[0m`,
-  bgBlue: `\x1b[44m${args.join(' ')}\x1b[0m`,
-  bgMagenta: `\x1b[45m${args.join(' ')}\x1b[0m`,
-  bgCyan: `\x1b[46m${args.join(' ')}\x1b[0m`,
-  bgWhite: `\x1b[47m${args.join(' ')}\x1b[0m`
-});
+```ts
+export const colorize = new (class {
+  color = (code: number, ended = false, ...messages: any[]) =>
+    `\x1b[${code}m${messages.join(" ")}${ended ? "\x1b[0m" : ""}`;
+  black = this.color.bind(null, 30, false);
+  red = this.color.bind(null, 31, false);
+  green = this.color.bind(null, 32, false);
+  yellow = this.color.bind(this, 33, false);
+  blue = this.color.bind(this, 34, false);
+  magenta = this.color.bind(this, 35, false);
+  cyan = this.color.bind(this, 36, false);
+  white = this.color.bind(this, 37, false);
+  bgBlack = this.color.bind(this, 40, true);
+  bgRed = this.color.bind(this, 41, true);
+  bgGreen = this.color.bind(this, 42, true);
+  bgYellow = this.color.bind(this, 43, true);
+  bgBlue = this.color.bind(this, 44, true);
+  bgMagenta = this.color.bind(this, 45, true);
+  bgCyan = this.color.bind(this, 46, true);
+  bgWhite = this.color.bind(this, 47, true);
+})();
 ```
 
-```js
-console.log(colorize('foo').red); // 'foo' (red letters)
-console.log(colorize('foo', 'bar').bgBlue); // 'foo bar' (blue background)
-console.log(colorize(colorize('foo').yellow, colorize('foo').green).bgWhite); // 'foo bar' (first word in yellow letters, second word in green letters, white background for both)
+```ts
+console.log(colorize.red("foo")); // 'foo' (red letters)
+console.log(colorize.bgBlue("foo", "bar")); // 'foo bar' (blue background)
+console.log(colorize.bgWhite(colorize.yellow("foo"), colorize.green("foo"))); // 'foo bar' (first
+//word in yellow letters, second word in green letters, white background for both)
 ```

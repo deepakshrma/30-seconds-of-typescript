@@ -1,7 +1,7 @@
 ---
 id: bifurcate
-sidebar_label: Bifurcate
-title: bifurcate
+sidebar_label: bifurcate
+title: Bifurcate
 tags: array,intermediate
 ---
 

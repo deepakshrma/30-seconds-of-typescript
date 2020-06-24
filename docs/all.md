@@ -1,7 +1,7 @@
 ---
 id: all
-sidebar_label: All
-title: all
+sidebar_label: all
+title: All
 tags: array,function,beginner
 ---
 

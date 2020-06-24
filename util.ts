@@ -257,3 +257,132 @@ export const bind = <T extends any>(
   context: T,
   ...boundArgs: any[]
 ) => (...args: any[]) => fn.apply(context, [...boundArgs, ...args]);
+
+/**
+ * Binds methods of an object to the object itself, overwriting the existing method
+ * Use `Array.prototype.forEach()` to return a `function` that uses `Function.prototype.apply()` to apply the given context (`obj`) to `fn` for each function specified.
+ *
+ * @param obj {any}
+ * @param fns {string[]}
+ */
+export const bindAll = (obj: any, ...fns: string[]) =>
+  fns.forEach((key: string) => {
+    if (typeof obj[key] === "function") {
+      const f = obj[key];
+      obj[key] = function (...args: any[]) {
+        return f.apply(obj, args);
+      };
+    }
+  });
+
+/**
+ * Evaluates the binomial coefficient of two integers `n` and `k`.
+ *
+ * Use `Number.isNaN()` to check if any of the two values is `NaN`.
+ * Check if `k` is less than `0`, greater than or equal to `n`, equal to `1` or `n - 1` and return the appropriate result.
+ * Check if `n - k` is less than `k` and switch their values accordingly.
+ * Loop from `2` through `k` and calculate the binomial coefficient.
+ * Use `Math.round()` to account for rounding errors in the calculation.
+ *
+ * @param n {number}
+ * @param k {number}
+ */
+export const binomialCoefficient = (n: number, k: number): number => {
+  if (Number.isNaN(n) || Number.isNaN(k)) return NaN;
+  if (k < 0 || k > n) return 0;
+  if (k === 0 || k === n) return 1;
+  if (k === 1 || k === n - 1) return n;
+  if (n - k < k) k = n - k;
+  let res = n;
+  for (let j = 2; j <= k; j++) res *= (n - j + 1) / j;
+  return Math.round(res);
+};
+
+/**
+ * Returns `true` if both functions return `true` for a given set of arguments, `false` otherwise.
+ * Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`.
+ *
+ * @param f
+ * @param g
+ */
+type Func<T> = (...args: T[]) => any;
+export const both = <T extends any>(f: Func<T>, g: Func<T>) => (...args: T[]) =>
+  f(...args) && g(...args);
+
+/**
+ *   Capitalizes the first letter of a string.
+ *
+ * Use array destructuring and `String.prototype.toUpperCase()` to capitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again.
+ * Omit the `lowerRest` parameter to keep the rest of the string intact, or set it to `true` to convert to lowercase.
+ *
+ *
+ * @param str {string}
+ * @param lowerRest {boolean}
+ */
+export const capitalize = (str: string = "", lowerRest = false): string =>
+  str.slice(0, 1).toUpperCase() +
+  (lowerRest ? str.slice(1).toLowerCase() : str.slice(1));
+
+/**
+ * Capitalizes the first letter of every word in a string.
+ * Use `String.prototype.replace()` to match the first character of each word and `String.prototype.toUpperCase()` to capitalize it.
+ *
+ * @param str {string}
+ */
+export const capitalizeEveryWord = (str: string = "") =>
+  str.replace(/\b[a-z]/g, (char) => char.toUpperCase());
+
+/**
+ * Casts the provided value as an array if it's not one.
+ *
+ * Use `Array.prototype.isArray()` to determine if `val` is an array and return it as-is or encapsulated in an array accordingly.
+ * @param val
+ */
+export const castArray = (val: any): any[] =>
+  Array.isArray(val) ? val : [val];
+
+/**
+ * Converts Celsius to Fahrenheit.
+ * Follows the conversion formula `F =  1.8C + 32`.
+ * @param degrees
+ */
+export const celsiusToFahrenheit = (degrees: number) => 1.8 * degrees + 32;
+
+/**
+ * Chunks an array into smaller arrays of a specified size.
+ *
+ * Use `Array.from()` to create a new array, that fits the number of chunks that will be produced.
+ * Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`.
+ * If the original array can't be split evenly, the final chunk will contain the remaining elements.
+ *
+ * @param arr {any[]}
+ * @param size {number}
+ */
+export const chunk = (arr: any[], size: number) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (_: any, i: number) =>
+    arr.slice(i * size, i * size + size)
+  );
+export const colorize = new (class {
+  color = (code: number, ended = false, ...messages: any[]) =>
+    `\x1b[${code}m${messages.join(" ")}${ended ? "\x1b[0m" : ""}`;
+  black = this.color.bind(null, 30, false);
+  red = this.color.bind(null, 31, false);
+  green = this.color.bind(null, 32, false);
+  yellow = this.color.bind(this, 33, false);
+  blue = this.color.bind(this, 34, false);
+  magenta = this.color.bind(this, 35, false);
+  cyan = this.color.bind(this, 36, false);
+  white = this.color.bind(this, 37, false);
+  bgBlack = this.color.bind(this, 40, true);
+  bgRed = this.color.bind(this, 41, true);
+  bgGreen = this.color.bind(this, 42, true);
+  bgYellow = this.color.bind(this, 43, true);
+  bgBlue = this.color.bind(this, 44, true);
+  bgMagenta = this.color.bind(this, 45, true);
+  bgCyan = this.color.bind(this, 46, true);
+  bgWhite = this.color.bind(this, 47, true);
+})();
+
+// console.log(colorize.black("foo")); // 'foo' (red letters)
+// console.log(colorize.bgBlue("foo", "bar")); // 'foo bar' (blue background)
+// console.log(colorize.bgWhite(colorize.yellow("foo"), colorize.green("foo"))); // 'foo bar' (first

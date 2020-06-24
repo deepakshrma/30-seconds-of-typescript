@@ -1,7 +1,7 @@
 ---
 id: averageBy
-sidebar_label: AverageBy
-title: averageBy
+sidebar_label: averageBy
+title: AverageBy
 tags: math,array,function,intermediate
 ---
 

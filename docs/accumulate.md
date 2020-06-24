@@ -1,7 +1,7 @@
 ---
 id: accumulate
-sidebar_label: Accumulate
-title: accumulate
+sidebar_label: accumulate
+title: Accumulate
 tags: math,array,beginner
 ---
 

@@ -17,6 +17,7 @@ module.exports = {
       logo: {
         alt: "30 Seconds of Typescript Logo",
         src: "img/logo.svg",
+        
       },
       links: [
         {

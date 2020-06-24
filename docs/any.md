@@ -1,7 +1,7 @@
 ---
 id: any
-sidebar_label: Any|Some
-title: any
+sidebar_label: any|some
+title: Any
 tags: array,function,beginner
 ---
 

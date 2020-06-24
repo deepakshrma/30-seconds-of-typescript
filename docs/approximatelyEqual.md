@@ -1,7 +1,7 @@
 ---
 id: approximatelyEqual
-sidebar_label: ApproximatelyEqual
-title: approximatelyEqual
+sidebar_label: approximatelyEqual
+title: ApproximatelyEqual
 tags: math,beginner
 ---
 

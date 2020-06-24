@@ -1,0 +1,17 @@
+{
+  "markdown id": {
+    "prefix": "mdid",
+    "body": ["id: $1", "sidebar_label: $1"],
+    "description": "mdid"
+  },
+  "deno test": {
+    "prefix": "dtest",
+    "body": [
+      "// $1",
+      "Deno.test(\"$1 #1\", () => {",
+      "  assertEquals($1, true);",
+      "});"
+    ],
+    "description": "test"
+  }
+}

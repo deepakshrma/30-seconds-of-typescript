@@ -1,7 +1,7 @@
 ---
 id: aperture
-sidebar_label: Aperture
-title: aperture
+sidebar_label: aperture
+title: Aperture
 tags: array,intermediate
 ---
 

@@ -1,5 +1,7 @@
 ---
-title: capitalize
+id: capitalize
+sidebar_label: capitalize
+title: Capitalize
 tags: string,array,intermediate
 ---
 
@@ -8,12 +10,13 @@ Capitalizes the first letter of a string.
 Use array destructuring and `String.prototype.toUpperCase()` to capitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again.
 Omit the `lowerRest` parameter to keep the rest of the string intact, or set it to `true` to convert to lowercase.
 
-```js
-const capitalize = ([first, ...rest], lowerRest = false) =>
-  first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''));
+```ts
+const capitalize = (str: string = "", lowerRest = false): string =>
+  str.slice(0, 1).toUpperCase() +
+  (lowerRest ? str.slice(1).toLowerCase() : str.slice(1));
 ```
 
-```js
-capitalize('fooBar'); // 'FooBar'
-capitalize('fooBar', true); // 'Foobar'
+```ts
+capitalize("fooBar"); // 'FooBar'
+capitalize("fooBar", true); // 'Foobar'
 ```

@@ -1,7 +1,7 @@
 ---
 id: ary
-sidebar_label: Ary
-title: ary
+sidebar_label: ary
+title: Ary
 tags: function,intermediate
 ---
 

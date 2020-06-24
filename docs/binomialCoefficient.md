@@ -1,5 +1,7 @@
 ---
-title: binomialCoefficient
+id: binomialCoefficient
+sidebar_label: binomialCoefficient
+title: BinomialCoefficient
 tags: math,intermediate
 ---
 
@@ -11,8 +13,8 @@ Check if `n - k` is less than `k` and switch their values accordingly.
 Loop from `2` through `k` and calculate the binomial coefficient.
 Use `Math.round()` to account for rounding errors in the calculation.
 
-```js
-const binomialCoefficient = (n, k) => {
+```ts
+const binomialCoefficient = (n: number, k: number): number => {
   if (Number.isNaN(n) || Number.isNaN(k)) return NaN;
   if (k < 0 || k > n) return 0;
   if (k === 0 || k === n) return 1;
@@ -24,6 +26,8 @@ const binomialCoefficient = (n, k) => {
 };
 ```
 
-```js
+```ts
 binomialCoefficient(8, 2); // 28
+const result = binomialCoefficient(8, 2);
+assertEquals(result, 28);
 ```

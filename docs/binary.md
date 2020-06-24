@@ -1,7 +1,7 @@
 ---
 id: binary
-sidebar_label: Binary
-title: binary
+sidebar_label: binary
+title: Binary
 tags: function,beginner
 ---
 

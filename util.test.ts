@@ -18,6 +18,14 @@ import {
   bifurcateBy,
   binary,
   bind,
+  bindAll,
+  binomialCoefficient,
+  both,
+  capitalize,
+  capitalizeEveryWord,
+  castArray,
+  celsiusToFahrenheit,
+  chunk,
 } from "./util.ts";
 
 // accumulate
@@ -203,19 +211,95 @@ Deno.test("bifurcateBy #2", () => {
   const [filtered] = bifurcateBy(["beep", "boop", undefined, null, 1], Boolean);
   assertEquals(filtered, ["beep", "boop", 1]);
 });
+
 // binary
-Deno.test("binary #2", () => {
+Deno.test("binary #1", () => {
   const max = binary(Math.max)(1, 2, 3);
   assertEquals(max, 2);
   assertEquals(["2", "1", "0"].map(binary(Math.max)), [2, 1, 2]);
 });
 
 // bind
-Deno.test("bind #2", () => {
+Deno.test("bind #1", () => {
   const freddy = { user: "fred" };
   function greet(this: typeof freddy, greeting: string, punctuation: string) {
     return greeting + " " + this.user + punctuation;
   }
   const freddyBound = bind(greet, freddy);
   assertEquals(freddyBound("hi", "!"), "hi fred!");
+});
+
+// bindAll
+Deno.test("bindAll #1", () => {
+  var user = {
+    first: "deepak",
+    last: "V",
+    getName: function () {
+      return `${this.first} ${this.last}`;
+    },
+    getSalute: function () {
+      return `Mr. ${this.last}`;
+    },
+  };
+  bindAll(user, "getName");
+  assertEquals(user.getName(), "deepak V");
+  assertEquals(user.getSalute(), "Mr. V");
+});
+
+// bindAll
+Deno.test("bindAll #2", () => {
+  class User {
+    #name = "Test";
+    getName() {
+      return this.#name;
+    }
+  }
+  const user = new User();
+  bindAll(user, "getName");
+
+  const getName = user.getName;
+  assertEquals(getName(), "Test");
+});
+
+// binomialCoefficient
+Deno.test("binomialCoefficient #1", () => {
+  const result = binomialCoefficient(8, 2);
+  assertEquals(result, 28);
+  assertEquals(binomialCoefficient(5, 3), 10);
+});
+
+// both
+Deno.test("both #1", () => {
+  const isEven = (num: number) => num % 2 === 0;
+  const isPositive = (num: number) => num > 0;
+  const isPositiveEven = both(isEven, isPositive);
+  assertEquals(isPositiveEven(4), true);
+  assertEquals(isPositiveEven(-2), false);
+});
+
+// capitalize
+Deno.test("capitalize #1", () => {
+  assertEquals(capitalize("fooBar"), "FooBar");
+  assertEquals(capitalize("fooBar", true), "Foobar");
+});
+
+// capitalizeEveryWord
+Deno.test("capitalizeEveryWord #1", () => {
+  assertEquals(capitalizeEveryWord("fooBar foo"), "FooBar Foo");
+});
+
+// castArray
+Deno.test("castArray #1", () => {
+  assertEquals(castArray("foo"), ["foo"]);
+  assertEquals(castArray([1]), [1]);
+});
+
+// celsiusToFahrenheit
+Deno.test("celsiusToFahrenheit #1", () => {
+  assertEquals(celsiusToFahrenheit(33), 91.4);
+});
+
+// chunk
+Deno.test("chunk #1", () => {
+  assertEquals(chunk([1, 2, 3, 4, 5], 2), [[1, 2], [3, 4], [5]]);
 });

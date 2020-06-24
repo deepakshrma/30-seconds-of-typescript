@@ -1,7 +1,7 @@
 ---
 id: average
-sidebar_label: Average
-title: average
+sidebar_label: average
+title: Average
 tags: math,array,beginner
 ---
 

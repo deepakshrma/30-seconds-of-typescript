@@ -12,7 +12,7 @@ module.exports = {
     },
   ],
   themeConfig: {
-    sidebarCollapsible: false,
+    // sidebarCollapsible: false,
     prism: {
       defaultLanguage: "ts",
     },

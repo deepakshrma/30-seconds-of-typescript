@@ -1,4 +1,6 @@
 ---
+id: chunk
+sidebar_label: chunk
 title: chunk
 tags: array,intermediate
 ---
@@ -10,8 +12,8 @@ Use `Array.prototype.slice()` to map each element of the new array to a chunk th
 If the original array can't be split evenly, the final chunk will contain the remaining elements.
 
 ```js
-const chunk = (arr, size) =>
-  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+export const chunk = (arr: any[], size: number) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (_: any, i: number) =>
     arr.slice(i * size, i * size + size)
   );
 ```
