@@ -3,6 +3,8 @@ title: chainAsync
 tags: function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Chains asynchronous functions.
 
 Loop through an array of functions containing asynchronous events, calling `next` when each asynchronous event has completed.

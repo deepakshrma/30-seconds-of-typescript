@@ -5,6 +5,10 @@ title: celsiusToFahrenheit
 tags: math,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Converts Celsius to Fahrenheit.
 
 Follows the conversion formula `F = 1.8C + 32`.

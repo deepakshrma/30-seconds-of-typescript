@@ -5,6 +5,10 @@ title: BindAll
 tags: object,function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Binds methods of an object to the object itself, overwriting the existing method.
 
 Use `Array.prototype.forEach()` to return a `function` that uses `Function.prototype.apply()` to apply the given context (`obj`) to `fn` for each function specified.

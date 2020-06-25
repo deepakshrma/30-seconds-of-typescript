@@ -3,6 +3,8 @@ title: copyToClipboard
 tags: browser,string,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Copy a string to the clipboard. 
 Only works as a result of user action (i.e. inside a `click` event listener).
 

@@ -3,6 +3,8 @@ title: bottomVisible
 tags: browser,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Returns `true` if the bottom of the page is visible, `false` otherwise.
 
 Use `scrollY`, `scrollHeight` and `clientHeight` to determine if the bottom of the page is visible.

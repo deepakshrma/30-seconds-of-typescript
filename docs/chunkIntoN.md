@@ -3,6 +3,8 @@ title: chunkIntoN
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Chunks an array into `n` smaller arrays.
 
 Use `Math.ceil()` and `Array.prototype.length` to get the size of each chunk.

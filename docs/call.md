@@ -3,6 +3,8 @@ title: call
 tags: function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Given a key and a set of arguments, call them when given a context. Primarily useful in composition.
 
 Use a closure to call a stored key with stored arguments.

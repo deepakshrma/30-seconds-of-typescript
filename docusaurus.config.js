@@ -3,8 +3,8 @@ const configs = require("./config");
 module.exports = {
   title: "30 Seconds of Typescript- Inspired by 30-seconds-of-code",
   tagline:
-    "30 Seconds of Typescript, Code Snippets in Typescript to increase productivity[WIP]",
-  url: "https://your-docusaurus-test-site.com",
+    "30 Seconds of Typescript, Code Snippets to increase productivity[WIP]",
+  url: "https://deepakshrma.github.io/30-seconds-of-typescript/docs/",
   baseUrl: "/30-seconds-of-typescript/",
   favicon: "img/favicon.ico",
   organizationName: "deepakshrma", // Usually your GitHub org/user name.
@@ -17,7 +17,6 @@ module.exports = {
       logo: {
         alt: "30 Seconds of Typescript Logo",
         src: "img/logo.svg",
-        
       },
       links: [
         {
@@ -46,12 +45,6 @@ module.exports = {
           editUrl:
             "https://github.com/deepakshrma/30-seconds-of-typescript/edit/master",
         },
-        // blog: {
-        //   showReadingTime: true,
-        //   // Please change this to your repo.
-        //   editUrl:
-        //     'https://github.com/facebook/docusaurus/edit/master/website/blog/',
-        // },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },

@@ -3,6 +3,8 @@ title: CSVToJSON
 tags: string,array,object,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Converts a comma-separated values (CSV) string to a 2D array of objects.
 The first row of the string is used as the title row.
 

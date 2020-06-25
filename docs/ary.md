@@ -5,6 +5,10 @@ title: Ary
 tags: function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Creates a function that accepts up to `n` arguments, ignoring any additional arguments.
 
 Call the provided function, `fn`, with up to `n` arguments, using `Array.prototype.slice(0, n)` and the spread operator (`...`).

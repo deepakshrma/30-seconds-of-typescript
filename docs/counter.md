@@ -3,6 +3,8 @@ title: counter
 tags: browser,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Creates a counter with the specified range, step and duration for the specified selector.
 
 Check if `step` has the proper sign and change it accordingly.

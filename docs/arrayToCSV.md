@@ -5,6 +5,10 @@ title: ArrayToCSV
 tags: array,string,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Converts a 2D array to a comma-separated values (CSV) string.
 
 Use `Array.prototype.map()` and `Array.prototype.join(delimiter)` to combine individual 1D arrays (rows) into strings.

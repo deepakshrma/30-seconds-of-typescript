@@ -5,6 +5,10 @@ title: ArrayToHtmlList
 tags: browser,array,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Converts the given array elements into `<li>` tags and appends them to the list of the given id.
 
 Use `Array.prototype.map()`, `document.querySelector()`, and an anonymous inner closure to create a list of html tags.

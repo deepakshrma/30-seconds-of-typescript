@@ -5,6 +5,10 @@ title: ApproximatelyEqual
 tags: math,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Checks if two numbers are approximately equal to each other.
 
 Use `Math.abs()` to compare the absolute difference of the two values to `epsilon`.

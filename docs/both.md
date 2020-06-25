@@ -5,6 +5,10 @@ title: Both
 tags: function,logic,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Returns `true` if both functions return `true` for a given set of arguments, `false` otherwise.
 
 Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`.

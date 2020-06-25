@@ -3,6 +3,8 @@ title: atob
 tags: node,string,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Decodes a string of data which has been encoded using base-64 encoding.
 
 Create a `Buffer` for the given string with base-64 encoding and use `Buffer.toString('binary')` to return the decoded string.

@@ -3,6 +3,8 @@ title: coalesceFactory
 tags: type,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Returns a customized coalesce function that returns the first argument that returns `true` from the provided argument validation function.
 
 Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function.

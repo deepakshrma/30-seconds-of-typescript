@@ -5,6 +5,10 @@ title: BinomialCoefficient
 tags: math,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Evaluates the binomial coefficient of two integers `n` and `k`.
 
 Use `Number.isNaN()` to check if any of the two values is `NaN`.

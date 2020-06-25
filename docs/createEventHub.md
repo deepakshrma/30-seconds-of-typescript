@@ -3,6 +3,8 @@ title: createEventHub
 tags: browser,event,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Creates a pub/sub ([publish–subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)) event hub with `emit`, `on`, and `off` methods.
 
 Use `Object.create(null)` to create an empty `hub` object that does not inherit properties from `Object.prototype`.

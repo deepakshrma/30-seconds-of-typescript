@@ -3,6 +3,8 @@ title: byteSize
 tags: string,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Returns the length of a string in bytes.
 
 Convert a given string to a [`Blob` Object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) and find its `size`.

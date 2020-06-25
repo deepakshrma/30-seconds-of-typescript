@@ -5,6 +5,10 @@ title: colorize
 tags: node,string,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-nodejs-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Add special characters to text to print in color in the console (combined with `console.log()`).
 
 Use template literals and special characters to add the appropriate color code to the string output.
@@ -31,9 +35,16 @@ export const colorize = new (class {
   bgCyan = this.color.bind(this, 46, true);
   bgWhite = this.color.bind(this, 47, true);
 })();
+
+const color = colorize;
 ```
 
 ```ts
+console.log(color.red("foo")); // 'foo' (red letters)
+console.log(color.bgBlue("foo", "bar")); // 'foo bar' (blue background)
+console.log(color.bgWhite(color.yellow("foo"), color.green("foo"))); // 'foo bar' (first
+//word in yellow letters, second word in green letters, white background for both)
+
 console.log(colorize.red("foo")); // 'foo' (red letters)
 console.log(colorize.bgBlue("foo", "bar")); // 'foo bar' (blue background)
 console.log(colorize.bgWhite(colorize.yellow("foo"), colorize.green("foo"))); // 'foo bar' (first

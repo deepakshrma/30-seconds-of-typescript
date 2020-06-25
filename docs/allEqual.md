@@ -5,6 +5,10 @@ title: AllEqual
 tags: array,function,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Check if all elements in an array are equal.
 
 Use `Array.prototype.every()` to check if all the elements of the array are the same as the first one.

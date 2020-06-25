@@ -1,5 +1,6 @@
 export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
+export type Func<T> = (...args: T[]) => any;
 
 /**
  * Returns an array of partial sums.
@@ -305,7 +306,6 @@ export const binomialCoefficient = (n: number, k: number): number => {
  * @param f
  * @param g
  */
-type Func<T> = (...args: T[]) => any;
 export const both = <T extends any>(f: Func<T>, g: Func<T>) => (...args: T[]) =>
   f(...args) && g(...args);
 
@@ -362,6 +362,13 @@ export const chunk = (arr: any[], size: number) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (_: any, i: number) =>
     arr.slice(i * size, i * size + size)
   );
+
+/**
+ * Add special characters to text to print in color in the console (combined with `console.log()`).
+ *
+ * Use template literals and special characters to add the appropriate color code to the string output.
+ * For background colors, add a special character that resets the background color at the end of the string.
+ */
 export const colorize = new (class {
   color = (code: number, ended = false, ...messages: any[]) =>
     `\x1b[${code}m${messages.join(" ")}${ended ? "\x1b[0m" : ""}`;
@@ -383,6 +390,100 @@ export const colorize = new (class {
   bgWhite = this.color.bind(this, 47, true);
 })();
 
+/**
+ * Add special characters to text to print in color in the console (combined with `console.log()`).
+ *
+ * Use template literals and special characters to add the appropriate color code to the string output.
+ * For background colors, add a special character that resets the background color at the end of the string.
+ */
+export const color = colorize;
+
 // console.log(colorize.black("foo")); // 'foo' (red letters)
 // console.log(colorize.bgBlue("foo", "bar")); // 'foo bar' (blue background)
 // console.log(colorize.bgWhite(colorize.yellow("foo"), colorize.green("foo"))); // 'foo bar' (first
+
+/**
+ * Removes falsy values from an array.
+ * Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, `""`, `undefined`, and `NaN`).
+ *
+ * @param arr {any[]}
+ */
+export const compact = (arr: any[]) => arr.filter(Boolean);
+
+/**
+ * Returns a string with whitespaces compacted.
+ * Use `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space.
+ *
+ * @param str {string}
+ */
+export const compactWhitespace = (str: string) => str.replace(/\s{2,}/g, " ");
+
+/**
+ * Returns a function that is the logical complement of the given function, `fn`.
+ *
+ * Use the logical not (`!`) operator on the result of calling `fn` with any supplied `args`.
+ *
+ * @param fn {Func<any>}
+ */
+export const complement = (fn: Func<any>) => (...args: any[]) => !fn(...args);
+
+/**
+ * Performs right-to-left function composition.
+ *
+ * Use `Array.prototype.reduce()` to perform right-to-left function composition.
+ * The last (rightmost) function can accept one or more arguments; the remaining functions must be unary.
+ *
+ * @param fns {...fns: Func<any>[]}
+ */
+
+export const compose = (...fns: Func<any>[]) =>
+  fns.reduce((f, g) => (...args: any[]) => f(...castArray(g(...args))));
+
+/**
+ * Performs left-to-right function composition.
+ *
+ * Use `Array.prototype.reduce()` to perform left-to-right function composition.
+ * The first (leftmost) function can accept one or more arguments; the remaining functions must be unary. *
+ * @param fns {...fns: Func<any>[]}
+ */
+
+export const composeRight = (...fns: Func<any>[]) =>
+  fns.reduce((f, g) => (...args: any[]) => g(...castArray(f(...args))));
+
+/**
+ * Returns `true` if the given string contains any whitespace characters, `false` otherwise.
+ *
+ * Use `RegExp.prototype.test()` with an appropriate regular expression to check if the given string contains any whitespace characters.
+ *
+ * @param str {string}
+ */
+export const containsWhitespace = (str: string) => /\s/.test(str);
+
+/**
+ * Groups the elements of an array based on the given function and returns the count of elements in each group.
+ *
+ * Use `Array.prototype.map()` to map the values of an array to a function or property name.
+ * Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
+ *
+ * @param arr {T[]} here <T extends any>
+ * @param fn fn: Func<T> | string
+ */
+export const countBy = <T extends any>(arr: T[], fn: Func<T> | string) => {
+  const mapper = typeof fn === "function" ? fn : (val: any) => val[fn];
+  return arr.reduce((acc, val) => {
+    const value = mapper(val);
+    acc[value] = (acc[value] || 0) + 1;
+    return acc;
+  }, {} as any);
+};
+
+/**
+ * Counts the occurrences of a value in an array.
+ *
+ * Use `Array.prototype.reduce()` to increment a counter each time you encounter the specific value inside the array.
+ *
+ * @param arr {T[]}
+ * @param val {T}
+ */
+export const countOccurrences = <T extends any>(arr: T[], val: T) =>
+  arr.reduce((a, v) => (v === val ? a + 1 : a), 0);

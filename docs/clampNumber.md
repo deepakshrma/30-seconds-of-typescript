@@ -3,6 +3,8 @@ title: clampNumber
 tags: math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Clamps `num` within the inclusive range specified by the boundary values `a` and `b`.
 
 If `num` falls within the range, return `num`.

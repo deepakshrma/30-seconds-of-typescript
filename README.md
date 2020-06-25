@@ -1,6 +1,6 @@
 # 30-seconds-of-typescript
 
-This repo is highly inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). I am converting all JS to Typescript so that it can be used for both Typescript and deno.
+This repo is highly inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). I am converting all JS to Typescript so that it can be used for both Typescript and deno. It has utility function like lodash can be used and anywhere with simplicity.
 
 **Note:** I am refactoring code and fixing bug along with conversion.
 

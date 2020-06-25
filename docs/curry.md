@@ -3,6 +3,8 @@ title: curry
 tags: function,recursion,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Curries a function.
 
 Use recursion.

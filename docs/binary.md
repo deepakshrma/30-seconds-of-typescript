@@ -5,6 +5,10 @@ title: Binary
 tags: function,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Creates a function that accepts up to two arguments, ignoring any additional arguments.
 
 Call the provided function, `fn`, with the first two arguments given.

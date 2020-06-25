@@ -3,6 +3,8 @@ title: createElement
 tags: browser,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Creates an element from a string (without appending it to the document).
 If the given string contains multiple elements, only the first one will be returned.
 

@@ -5,6 +5,10 @@ title: Attempt
 tags: function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.
 
 Use a `try... catch` block to return either the result of the function or an appropriate error.

@@ -1,16 +1,22 @@
 ---
+id: compact
+sidebar_label: compact
 title: compact
 tags: array,beginner
 ---
+
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Removes falsy values from an array.
 
 Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, `""`, `undefined`, and `NaN`).
 
-```js
-const compact = arr => arr.filter(Boolean);
+```ts
+const compact = (arr) => arr.filter(Boolean);
 ```
 
-```js
-compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]); // [ 1, 2, 3, 'a', 's', 34 ]
+```ts
+compact([0, 1, false, 2, "", 3, "a", Number("e") * 23, NaN, "s", 34]); // [ 1, 2, 3, 'a', 's', 34 ]
 ```

@@ -3,6 +3,8 @@ title: coalesce
 tags: type,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Returns the first defined, non-null argument.
 
 Use `Array.prototype.find()` and `Array.prototype.includes()` to find the first value that is not equal to `undefined` or `null`.

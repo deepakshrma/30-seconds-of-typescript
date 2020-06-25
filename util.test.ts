@@ -26,6 +26,14 @@ import {
   castArray,
   celsiusToFahrenheit,
   chunk,
+  compact,
+  compactWhitespace,
+  complement,
+  compose,
+  composeRight,
+  containsWhitespace,
+  countBy,
+  countOccurrences,
 } from "./util.ts";
 
 // accumulate
@@ -302,4 +310,78 @@ Deno.test("celsiusToFahrenheit #1", () => {
 // chunk
 Deno.test("chunk #1", () => {
   assertEquals(chunk([1, 2, 3, 4, 5], 2), [[1, 2], [3, 4], [5]]);
+});
+
+// compact
+Deno.test("compact #1", () => {
+  assertEquals(
+    compact([0, 1, false, 2, "", 3, "a", Number("e") * 23, NaN, "s", 34]),
+    [1, 2, 3, "a", "s", 34]
+  );
+});
+
+// compactWhitespace
+Deno.test("compactWhitespace #1", () => {
+  assertEquals(compactWhitespace("Lorem    Ipsum"), "Lorem Ipsum");
+  assertEquals(compactWhitespace("Lorem \n Ipsum"), "Lorem Ipsum");
+});
+
+// complement
+Deno.test("complement #1", () => {
+  const isEven = (num: number) => num % 2 === 0;
+  const isOdd = complement(isEven);
+  assertEquals(isOdd(2), false);
+  assertEquals(isOdd(3), true);
+});
+// compose
+Deno.test("compose #1", () => {
+  const add = (x: number, y: number) => x + y; // 13 + 3 = 16
+  const add3 = (x: number) => [x + 3, 3]; // [10+3, 3] = [13, 3]
+  const multiply = (x: number, y: number) => x * y; // 5* 2 = 10
+  const multiplyAndAdd3 = compose(add, add3, multiply);
+  assertEquals(multiplyAndAdd3(5, 2), 16);
+});
+
+// composeRight
+Deno.test("composeRight #1", () => {
+  const add = (x: number, y: number) => x + y; // 13 + 3 = 16
+  const add3 = (x: number) => [x + 3, 3]; // [10+3, 3] = [13, 3]
+  const multiply = (x: number, y: number) => x * y; // 5* 2 = 10
+  const multiplyAndAdd3 = composeRight(multiply, add3, add);
+  assertEquals(multiplyAndAdd3(5, 2), 16);
+});
+
+// containsWhitespace
+Deno.test("containsWhitespace #1", () => {
+  assertEquals(containsWhitespace("lorem"), false);
+  assertEquals(containsWhitespace("lorem ipsum"), true);
+});
+
+// countBy
+Deno.test("countBy #1", () => {
+  assertEquals(countBy([6.1, 4.2, 6.3], Math.floor), { 4: 1, 6: 2 });
+  assertEquals(countBy(["one", "two", "three"], "length"), { 3: 2, 5: 1 });
+});
+
+// countBy
+Deno.test("countBy #2", () => {
+  assertEquals(
+    countBy(
+      [{ name: "Deepak" }, { name: "Deepak2" }, { name: "Deepak" }],
+      "name"
+    ),
+    { Deepak: 2, Deepak2: 1 }
+  );
+  assertEquals(
+    countBy(
+      [{ name: "Deepak" }, { name: "Deepak2" }, { name: "Deepak" }],
+      (user: any) => user.name
+    ),
+    { Deepak: 2, Deepak2: 1 }
+  );
+});
+
+// countOccurrences
+Deno.test("countOccurrences #1", () => {
+  assertEquals(countOccurrences([1, 1, 2, 1, 2, 3], 1), 3);
 });

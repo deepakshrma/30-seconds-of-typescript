@@ -3,6 +3,8 @@ title: CSVToArray
 tags: string,array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+
 Converts a comma-separated values (CSV) string to a 2D array.
 
 Use `Array.prototype.slice()` and `Array.prototype.indexOf('\n')` to remove the first row (title row) if `omitFirstRow` is `true`.
