@@ -11,6 +11,18 @@ import { all } from "https://denopkg.com/deepakshrma/30-seconds-of-typescript/in
 all([{ name: "D" }, { name: "D2" }], hasName); //true
 ```
 
+## How to HTML|JS
+
+```html
+<script type="module">
+  import * as util from "https://raw.githubusercontent.com/deepakshrma/30-seconds-of-typescript/master/util.ts";
+  const el = util.createElement(
+    `<div class="container"><p>Hello! This is created using createElement!! </p></div>`
+  );
+  document.body.appendChild(el);
+</script>
+```
+
 ## How to test using Deno
 
 ```bash

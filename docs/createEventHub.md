@@ -1,9 +1,13 @@
 ---
+id: createEventHub
+sidebar_label: createEventHub
 title: createEventHub
 tags: browser,event,advanced
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Creates a pub/sub ([publish–subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)) event hub with `emit`, `on`, and `off` methods.
 
@@ -13,39 +17,69 @@ For `on`, create an array for the event if it does not yet exist, then use `Arra
 to the array.
 For `off`, use `Array.prototype.findIndex()` to find the index of the handler in the event array and remove it using `Array.prototype.splice()`.
 
-```js
-const createEventHub = () => ({
+```ts
+const createEventHub = <T extends any>() => ({
   hub: Object.create(null),
-  emit(event, data) {
-    (this.hub[event] || []).forEach(handler => handler(data));
+  emit(event: string, data?: T) {
+    (this.hub[event] || []).forEach((handler: Func<T | undefined>) =>
+      handler(data)
+    );
   },
-  on(event, handler) {
+  on(event: string, handler: Func<T>) {
     if (!this.hub[event]) this.hub[event] = [];
     this.hub[event].push(handler);
   },
-  off(event, handler) {
-    const i = (this.hub[event] || []).findIndex(h => h === handler);
+  off(event: string, handler: Func<T>) {
+    const i = (this.hub[event] || []).findIndex((h: Func<T>) => h === handler);
     if (i > -1) this.hub[event].splice(i, 1);
-    if (this.hub[event].length === 0) delete this.hub[event];
-  }
+    if (this.hub[event]?.length === 0) delete this.hub[event];
+  },
 });
 ```
 
-```js
-const handler = data => console.log(data);
-const hub = createEventHub();
-let increment = 0;
+**Basic String emitter:**
+
+```ts
+const handler = (data: string) => console.log(data);
+const hub = createEventHub<string>();
 
 // Subscribe: listen for different types of events
-hub.on('message', handler);
-hub.on('message', () => console.log('Message event fired'));
-hub.on('increment', () => increment++);
+hub.on("message", handler);
+hub.on("message", () => console.log("Message event fired"));
 
 // Publish: emit events to invoke all handlers subscribed to them, passing the data to them as an argument
-hub.emit('message', 'hello world'); // logs 'hello world' and 'Message event fired'
-hub.emit('message', { hello: 'world' }); // logs the object and 'Message event fired'
-hub.emit('increment'); // `increment` variable is now 1
+hub.emit("message", "hello world"); // logs 'hello world' and 'Message event fired'
 
 // Unsubscribe: stop a specific handler from listening to the 'message' event
-hub.off('message', handler);
+hub.off("message", handler);
+hub.emit("message", "hello world");
+```
+
+**Number Incremental:**
+
+```ts
+let increment = 0;
+const numEmitter = createEventHub<number>();
+const incrementHandler = () => increment++;
+numEmitter.on("increment", incrementHandler);
+numEmitter.emit("increment"); // `increment` variable is now 1
+numEmitter.emit("increment"); // `increment` variable is now 1
+numEmitter.off("increment", incrementHandler);
+numEmitter.emit("increment"); // `increment` variable is now 1
+assertEquals(increment, 2);
+```
+
+**User Emitter:**
+
+```ts
+interface User {
+  name: string;
+}
+let user: User | undefined;
+const userEmitter = createEventHub<User>();
+const updateUser = (u: User) => (user = u);
+userEmitter.on("update", updateUser);
+userEmitter.emit("update", { name: "Deepak" });
+
+assertEquals(user, { name: "Deepak" });
 ```

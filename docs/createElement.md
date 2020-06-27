@@ -1,8 +1,11 @@
 ---
+id: createElement
+sidebar_label: createElement
 title: createElement
 tags: browser,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 
 Creates an element from a string (without appending it to the document).
@@ -12,15 +15,23 @@ Use `document.createElement()` to create a new element.
 Set its `innerHTML` to the string supplied as the argument.
 Use `ParentNode.firstElementChild` to return the element version of the string.
 
-```js
-const createElement = str => {
-  const el = document.createElement('div');
+```ts
+const createElement = (str: string) => {
+  const el = document.createElement("div");
   el.innerHTML = str;
   return el.firstElementChild;
 };
 ```
 
 ```js
+const createElement = (str) => {
+  const el = document.createElement("div");
+  el.innerHTML = str;
+  return el.firstElementChild;
+};
+```
+
+```ts
 const el = createElement(
   `<div class="container">
     <p>Hello!</p>

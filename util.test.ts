@@ -34,6 +34,7 @@ import {
   containsWhitespace,
   countBy,
   countOccurrences,
+  createEventHub,
 } from "./util.ts";
 
 // accumulate
@@ -384,4 +385,41 @@ Deno.test("countBy #2", () => {
 // countOccurrences
 Deno.test("countOccurrences #1", () => {
   assertEquals(countOccurrences([1, 1, 2, 1, 2, 3], 1), 3);
+});
+
+// createEventHub
+Deno.test("createEventHub #1", () => {
+  const handler = (data: string) => console.log(data);
+  const hub = createEventHub<string>();
+
+  // Subscribe: listen for different types of events
+  hub.on("message", handler);
+  hub.on("message", () => console.log("Message event fired"));
+
+  // Publish: emit events to invoke all handlers subscribed to them, passing the data to them as an argument
+  hub.emit("message", "hello world"); // logs 'hello world' and 'Message event fired'
+
+  // Unsubscribe: stop a specific handler from listening to the 'message' event
+  hub.off("message", handler);
+  hub.emit("message", "hello world");
+
+  let increment = 0;
+  const numEmitter = createEventHub<number>();
+  const incrementHandler = () => increment++;
+  numEmitter.on("increment", incrementHandler);
+  numEmitter.emit("increment"); // `increment` variable is now 1
+  numEmitter.emit("increment"); // `increment` variable is now 1
+  numEmitter.off("increment", incrementHandler);
+  numEmitter.emit("increment"); // `increment` variable is now 1
+  assertEquals(increment, 2);
+
+  let user: User | undefined;
+  interface User {
+    name: string;
+  }
+  const userEmitter = createEventHub<User>();
+  const updateUser = (u: User) => (user = u);
+  userEmitter.on("update", updateUser);
+  userEmitter.emit("update", { name: "Deepak" });
+  assertEquals(user, { name: "Deepak" });
 });

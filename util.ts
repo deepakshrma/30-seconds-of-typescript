@@ -1,3 +1,6 @@
+declare global {
+  let document: any;
+}
 export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
 export type Func<T> = (...args: T[]) => any;
@@ -106,9 +109,7 @@ export const arrayToCSV = (arr: (string | number)[][], delimiter = ",") =>
         .join(delimiter)
     )
     .join("\n");
-declare global {
-  let document: any;
-}
+
 /**
  * Converts the given array elements into `<li>` tags and appends them to the list of the given id.
  * Use `Array.prototype.map()`, `document.querySelector()`, and an anonymous inner closure to create a list of html tags.
@@ -487,3 +488,47 @@ export const countBy = <T extends any>(arr: T[], fn: Func<T> | string) => {
  */
 export const countOccurrences = <T extends any>(arr: T[], val: T) =>
   arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+/**
+ * Creates an element from a string (without appending it to the document).
+ * if the given string contains multiple elements, only the first one will be returned.
+ *
+ * Use `document.createElement()` to create a new element.
+ * Set its `innerHTML` to the string supplied as the argument.
+ * Use `ParentNode.firstElementChild` to return the element version of the string.
+ *
+ * @param str { string }
+ */
+export const createElement = (str: string) => {
+  const el = document.createElement("div");
+  el.innerHTML = str;
+  return el.firstElementChild;
+};
+
+/**
+ * Creates a pub/sub ([publish–subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)) event hub with `emit`, `on`, and `off` methods.
+ *
+ * Use `Object.create(null)` to create an empty `hub` object that does not inherit properties from `Object.prototype`.
+ * For `emit`, resolve the array of handlers based on the `event` argument and then run each one with `Array.prototype.forEach()` by passing in the data as an argument.
+ * For `on`, create an array for the event if it does not yet exist, then use `Array.prototype.push()` to add the handler
+ * to the array.
+ * For `off`, use `Array.prototype.findIndex()` to find the index of the handler in the event array and remove it using `Array.prototype.splice()`.
+ *
+ */
+export const createEventHub = <T extends any>() => ({
+  hub: Object.create(null),
+  emit(event: string, data?: T) {
+    (this.hub[event] || []).forEach((handler: Func<T | undefined>) =>
+      handler(data)
+    );
+  },
+  on(event: string, handler: Func<T>) {
+    if (!this.hub[event]) this.hub[event] = [];
+    this.hub[event].push(handler);
+  },
+  off(event: string, handler: Func<T>) {
+    const i = (this.hub[event] || []).findIndex((h: Func<T>) => h === handler);
+    if (i > -1) this.hub[event].splice(i, 1);
+    if (this.hub[event]?.length === 0) delete this.hub[event];
+  },
+});

@@ -57,6 +57,10 @@ module.exports = {
       "createEventHub",
       "currentURL",
       "curry",
+      "createDirIfNotExists",
+      "createDirIfNotExistsSync",
+      "createElement",
+      "createEventHub",
     ],
   },
 };

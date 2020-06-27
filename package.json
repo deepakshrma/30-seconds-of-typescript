@@ -6,7 +6,8 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy"
+    "deploy": "GIT_USER=deepakshrma USE_SSH=true docusaurus deploy",
+    "prettify": "prettier *.ts --write && prettier *.js --write && prettier docs/*.md --write"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.58",
@@ -27,5 +28,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|ts|html|css|md|mdx)": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5"
   }
 }

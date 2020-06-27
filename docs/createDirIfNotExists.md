@@ -1,18 +1,29 @@
 ---
+id: createDirIfNotExists
+sidebar_label: createDirIfNotExists
 title: createDirIfNotExists
 tags: node,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![NODE](https://img.shields.io/badge/supports-nodejs-green.svg?style=flat-square)
+
 Creates a directory, if it does not exist.
 
-Use `fs.existsSync()` to check if the directory exists, `fs.mkdirSync()` to create it.
+Use `fs.exists()` to check if the directory exists, `fs.mkdir()` to create it. Checkout `createDirIfNotExistsSync` for synchronous API.
 
-```js
-const fs = require("fs");
-const createDirIfNotExists = (dir) =>
-  !fs.existsSync(dir) ? fs.mkdirSync(dir) : undefined;
+```ts
+const { mkdir, exists } = require("fs");
+const { promisify } = require("util");
+const mkdirP = promisify(mkdir);
+const existsP = promisify(exists);
+
+const createDirIfNotExists = async (dir: string) =>
+  !(await existsP(dir)) ? await mkdirP(dir) : undefined;
 ```
 
-```js
-createDirIfNotExists("test"); // creates the directory 'test', if it doesn't exist
+```ts
+(async function () {
+  console.log(await createDirIfNotExists("test")); // creates the directory 'test', if it doesn't exist
+})();
 ```
