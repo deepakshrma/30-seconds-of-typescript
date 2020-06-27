@@ -3,7 +3,7 @@ declare global {
 }
 export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
-export type Func<T> = (...args: T[]) => any;
+export type Func<T = any> = (...args: T[]) => any;
 
 /**
  * Returns an array of partial sums.
@@ -59,7 +59,7 @@ export const any = <T extends any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
  */
 export const some = <T extends any>(
   arr: T[],
-  fn: (t: T) => boolean = Boolean
+  fn: (t: T) => boolean = Boolean,
 ) => arr.some(fn);
 
 /**
@@ -88,7 +88,7 @@ export const aperture = <T extends any>(n: number, arr: T[]) =>
 export const approximatelyEqual = (
   v1: number,
   v2: number,
-  epsilon: number = 0.001
+  epsilon: number = 0.001,
 ) => Math.abs(v1 - v2) < epsilon;
 
 /**
@@ -132,9 +132,10 @@ export const arrayToHtmlList = (arr: (string | number)[], listID: string) => {
  * @param fn {function} {(...args: T[]) => any}
  * @param n {number}
  */
-export const ary = <T extends any>(fn: (...args: T[]) => any, n: number) => (
-  ...args: T[]
-) => fn(...args.slice(0, n));
+export const ary = <T extends any>(fn: (...args: T[]) => any, n: number) =>
+  (
+    ...args: T[]
+  ) => fn(...args.slice(0, n));
 
 // export const atob = (str: string) => Deno.Buffer.from(str, 'base64').toString('binary');
 
@@ -195,7 +196,7 @@ export const average = <T extends number>(...nums: number[]) =>
 type NumCollector<T> = (item: T) => number;
 export const averageBy = <T extends any>(
   arr: T[],
-  fn: NumCollector<T> | string
+  fn: NumCollector<T> | string,
 ) => {
   const mapper = typeof fn === "function" ? fn : (val: any) => val[fn];
   return arr.reduce((acc, val) => acc + mapper(val), 0) / arr.length;
@@ -215,7 +216,7 @@ export const bifurcate = <T extends any>(arr: T[], filter: boolean[]) =>
       acc[filter[i] ? 0 : 1].push(val);
       return acc;
     },
-    [[] as T[], [] as T[]]
+    [[] as T[], [] as T[]],
   );
 
 /**
@@ -232,7 +233,7 @@ export const bifurcateBy = <T extends any>(arr: T[], filter: Predicate<T>) =>
       acc[filter(val) ? 0 : 1].push(val);
       return acc;
     },
-    [[] as T[], [] as T[]]
+    [[] as T[], [] as T[]],
   );
 
 /**
@@ -242,8 +243,8 @@ export const bifurcateBy = <T extends any>(arr: T[], filter: Predicate<T>) =>
  * @param fn {function} {(...args: any[]) => any}
  * @returns {function} ([v1, v2]: any[]) => fn(v1, v2)
  */
-export const binary = (fn: (...args: any[]) => any) => (...[v1, v2]: any[]) =>
-  fn(v1, v2);
+export const binary = (fn: (...args: any[]) => any) =>
+  (...[v1, v2]: any[]) => fn(v1, v2);
 
 /**
  * Creates a function that invokes `fn` with a given context, optionally adding any additional supplied parameters to the beginning of the arguments.
@@ -307,8 +308,8 @@ export const binomialCoefficient = (n: number, k: number): number => {
  * @param f
  * @param g
  */
-export const both = <T extends any>(f: Func<T>, g: Func<T>) => (...args: T[]) =>
-  f(...args) && g(...args);
+export const both = <T extends any>(f: Func<T>, g: Func<T>) =>
+  (...args: T[]) => f(...args) && g(...args);
 
 /**
  *   Capitalizes the first letter of a string.
@@ -339,8 +340,7 @@ export const capitalizeEveryWord = (str: string = "") =>
  * Use `Array.prototype.isArray()` to determine if `val` is an array and return it as-is or encapsulated in an array accordingly.
  * @param val
  */
-export const castArray = (val: any): any[] =>
-  Array.isArray(val) ? val : [val];
+export const castArray = (val: any): any[] => Array.isArray(val) ? val : [val];
 
 /**
  * Converts Celsius to Fahrenheit.
@@ -360,8 +360,9 @@ export const celsiusToFahrenheit = (degrees: number) => 1.8 * degrees + 32;
  * @param size {number}
  */
 export const chunk = (arr: any[], size: number) =>
-  Array.from({ length: Math.ceil(arr.length / size) }, (_: any, i: number) =>
-    arr.slice(i * size, i * size + size)
+  Array.from(
+    { length: Math.ceil(arr.length / size) },
+    (_: any, i: number) => arr.slice(i * size, i * size + size),
   );
 
 /**
@@ -426,7 +427,7 @@ export const compactWhitespace = (str: string) => str.replace(/\s{2,}/g, " ");
  *
  * @param fn {Func<any>}
  */
-export const complement = (fn: Func<any>) => (...args: any[]) => !fn(...args);
+export const complement = (fn: Func) => (...args: any[]) => !fn(...args);
 
 /**
  * Performs right-to-left function composition.
@@ -437,7 +438,7 @@ export const complement = (fn: Func<any>) => (...args: any[]) => !fn(...args);
  * @param fns {...fns: Func<any>[]}
  */
 
-export const compose = (...fns: Func<any>[]) =>
+export const compose = (...fns: Func[]) =>
   fns.reduce((f, g) => (...args: any[]) => f(...castArray(g(...args))));
 
 /**
@@ -448,7 +449,7 @@ export const compose = (...fns: Func<any>[]) =>
  * @param fns {...fns: Func<any>[]}
  */
 
-export const composeRight = (...fns: Func<any>[]) =>
+export const composeRight = (...fns: Func[]) =>
   fns.reduce((f, g) => (...args: any[]) => g(...castArray(f(...args))));
 
 /**
@@ -532,3 +533,68 @@ export const createEventHub = <T extends any>() => ({
     if (this.hub[event]?.length === 0) delete this.hub[event];
   },
 });
+
+/**
+ * Converts a comma-separated values (CSV) string to a 2D array.
+ *
+ * Use `Array.prototype.slice()` and `Array.prototype.indexOf('\n')` to remove the first row (title row) if `omitFirstRow` is `true`.
+ * Use `String.prototype.split('\n')` to create a string for each row, then `String.prototype.split(delimiter)` to separate the values in each row.
+ * Omit the second argument, `delimiter`, to use a default delimiter of `,`.
+ * Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string.
+ *
+ * @param data {string}
+ * @param delimiter {string} @default ","
+ * @param omitFirstRow {boolean}  @default false
+ */
+export const CSVToArray = (
+  data: string,
+  delimiter = ",",
+  omitFirstRow = false,
+) =>
+  data
+    .slice(omitFirstRow ? data.indexOf("\n") + 1 : 0)
+    .split("\n")
+    .map((v) => v.split(delimiter));
+
+/**
+ * Converts a comma-separated values (CSV) string to a 2D array of objects.
+ * The first row of the string is used as the title row.
+ *
+ * Use `Array.prototype.slice()` and `Array.prototype.indexOf('\n')` and `String.prototype.split(delimiter)` to separate the first row (title row) into values.
+ * Use `String.prototype.split('\n')` to create a string for each row, then `Array.prototype.map()` and `String.prototype.split(delimiter)` to separate the values in each row.
+ * Use `Array.prototype.reduce()` to create an object for each row's values, with the keys parsed from the title row.
+ * Omit the second argument, `delimiter`, to use a default delimiter of `,`.
+ * @param data {string}
+ * @param delimiter {string} @default ","
+ */
+
+type StringMap<T extends any = string> = { [key: string]: T };
+
+export const CSVToJSON = (data: string, delimiter = ",") => {
+  const titles: string[] = data.slice(0, data.indexOf("\n")).split(delimiter);
+  return data
+    .slice(data.indexOf("\n") + 1)
+    .split("\n")
+    .map((v) => {
+      const values = v.split(delimiter);
+      return titles.reduce(
+        (obj, title, index) => ((obj[title] = values[index]), obj),
+        {} as StringMap,
+      );
+    });
+};
+
+/**
+ * Curries a function.
+ *
+ * Use recursion.
+ * If the number of provided arguments (`args`) is sufficient, call the passed function `fn`.
+ * Otherwise, return a curried function `fn` that expects the rest of the arguments.
+ * If you want to curry a function that accepts a variable number of arguments (a variadic function, e.g. `Math.min()`), you can optionally pass the number of arguments to the second parameter `arity`.
+ *
+ * @param fn {Func}
+ * @param arity {number} number of argument `fn` can have
+ * @param args {...any[]} var args, pass initial values
+ */
+export const curry = (fn: Func, arity = fn.length, ...args: any[]): any =>
+  arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);

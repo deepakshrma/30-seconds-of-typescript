@@ -35,6 +35,9 @@ import {
   countBy,
   countOccurrences,
   createEventHub,
+  CSVToArray,
+  CSVToJSON,
+  curry,
 } from "./util.ts";
 
 // accumulate
@@ -75,7 +78,7 @@ Deno.test("and #1", () => {
 Deno.test("any #2", () => {
   assertEquals(
     any([1, 2, 3, 4], (x: number) => x >= 2),
-    true
+    true,
   );
   assertEquals(any([0, 0, 1, 0]), true);
 });
@@ -107,7 +110,7 @@ Deno.test("approximatelyEqual #1", () => {
       ["a", "b"],
       ["c", "d"],
     ]),
-    `"a","b"\n"c","d"`
+    `"a","b"\n"c","d"`,
   );
   assertEquals(
     arrayToCSV(
@@ -115,16 +118,16 @@ Deno.test("approximatelyEqual #1", () => {
         ["a", "b"],
         ["c", "d"],
       ],
-      ";"
+      ";",
     ),
-    `"a";"b"\n"c";"d"`
+    `"a";"b"\n"c";"d"`,
   );
   assertEquals(
     arrayToCSV([
       ["a", '"b" great'],
       ["c", 3.1415],
     ]),
-    `"a","""b"" great"\n"c",3.1415`
+    `"a","""b"" great"\n"c",3.1415`,
   );
 });
 
@@ -155,7 +158,7 @@ Deno.test("ary #1", () => {
   const firstTwoMax = ary(Math.max, 2);
   assertEquals(
     [[2, 6, 12], [6, 4, 8], [10]].map((x) => firstTwoMax(...x)),
-    [6, 6, 10]
+    [6, 6, 10],
   );
 });
 
@@ -202,7 +205,7 @@ Deno.test("average #1", () => {
 Deno.test("averageBy #1", () => {
   assertEquals(
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o: any) => o.n),
-    5
+    5,
   );
   assertEquals(averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 5);
 });
@@ -211,7 +214,7 @@ Deno.test("averageBy #1", () => {
 Deno.test("bifurcate #1", () => {
   assertEquals(
     bifurcate(["beep", "boop", "foo", "bar"], [true, true, false, true]),
-    [["beep", "boop", "bar"], ["foo"]]
+    [["beep", "boop", "bar"], ["foo"]],
   );
 });
 
@@ -317,7 +320,7 @@ Deno.test("chunk #1", () => {
 Deno.test("compact #1", () => {
   assertEquals(
     compact([0, 1, false, 2, "", 3, "a", Number("e") * 23, NaN, "s", 34]),
-    [1, 2, 3, "a", "s", 34]
+    [1, 2, 3, "a", "s", 34],
   );
 });
 
@@ -369,16 +372,16 @@ Deno.test("countBy #2", () => {
   assertEquals(
     countBy(
       [{ name: "Deepak" }, { name: "Deepak2" }, { name: "Deepak" }],
-      "name"
+      "name",
     ),
-    { Deepak: 2, Deepak2: 1 }
+    { Deepak: 2, Deepak2: 1 },
   );
   assertEquals(
     countBy(
       [{ name: "Deepak" }, { name: "Deepak2" }, { name: "Deepak" }],
-      (user: any) => user.name
+      (user: any) => user.name,
     ),
-    { Deepak: 2, Deepak2: 1 }
+    { Deepak: 2, Deepak2: 1 },
   );
 });
 
@@ -389,20 +392,6 @@ Deno.test("countOccurrences #1", () => {
 
 // createEventHub
 Deno.test("createEventHub #1", () => {
-  const handler = (data: string) => console.log(data);
-  const hub = createEventHub<string>();
-
-  // Subscribe: listen for different types of events
-  hub.on("message", handler);
-  hub.on("message", () => console.log("Message event fired"));
-
-  // Publish: emit events to invoke all handlers subscribed to them, passing the data to them as an argument
-  hub.emit("message", "hello world"); // logs 'hello world' and 'Message event fired'
-
-  // Unsubscribe: stop a specific handler from listening to the 'message' event
-  hub.off("message", handler);
-  hub.emit("message", "hello world");
-
   let increment = 0;
   const numEmitter = createEventHub<number>();
   const incrementHandler = () => increment++;
@@ -422,4 +411,38 @@ Deno.test("createEventHub #1", () => {
   userEmitter.on("update", updateUser);
   userEmitter.emit("update", { name: "Deepak" });
   assertEquals(user, { name: "Deepak" });
+});
+
+// CSVToArray
+Deno.test("CSVToArray #1", () => {
+  assertEquals(CSVToArray("a,b\nc,d"), [
+    ["a", "b"],
+    ["c", "d"],
+  ]);
+  assertEquals(CSVToArray("a;b\nc;d", ";"), [
+    ["a", "b"],
+    ["c", "d"],
+  ]);
+  assertEquals(CSVToArray("col1,col2\na,b\nc,d", ",", true), [
+    ["a", "b"],
+    ["c", "d"],
+  ]);
+});
+
+// CSVToJSON
+Deno.test("CSVToJSON #1", () => {
+  assertEquals(CSVToJSON("col1,col2\na,b\nc,d"), [
+    { col1: "a", col2: "b" },
+    { col1: "c", col2: "d" },
+  ]);
+  assertEquals(CSVToJSON("col1;col2\na;b\nc;d", ";"), [
+    { col1: "a", col2: "b" },
+    { col1: "c", col2: "d" },
+  ]);
+});
+
+// curry
+Deno.test("curry #1", () => {
+  assertEquals(curry(Math.pow)(2)(10), 1024);
+  assertEquals(curry(Math.min, 3)(10)(50)(2), 2);
 });

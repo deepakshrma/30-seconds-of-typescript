@@ -62,6 +62,8 @@ module.exports = {
       "createDirIfNotExistsSync",
       "createElement",
       "createEventHub",
+      "CSVToArray",
+      "CSVToJSON",
     ],
   },
 };

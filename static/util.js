@@ -138,7 +138,10 @@ System.register("util", [], function (exports_1, context_1) {
     countBy,
     countOccurrences,
     createElement,
-    createEventHub;
+    createEventHub,
+    CSVToArray,
+    CSVToJSON,
+    curry;
   var __moduleName = context_1 && context_1.id;
   return {
     setters: [],
@@ -687,6 +690,61 @@ System.register("util", [], function (exports_1, context_1) {
           },
         }))
       );
+      /**
+       * Converts a comma-separated values (CSV) string to a 2D array.
+       *
+       * Use `Array.prototype.slice()` and `Array.prototype.indexOf('\n')` to remove the first row (title row) if `omitFirstRow` is `true`.
+       * Use `String.prototype.split('\n')` to create a string for each row, then `String.prototype.split(delimiter)` to separate the values in each row.
+       * Omit the second argument, `delimiter`, to use a default delimiter of `,`.
+       * Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string.
+       *
+       * @param data {string}
+       * @param delimiter {string} @default ","
+       * @param omitFirstRow {boolean}  @default false
+       */
+      exports_1(
+        "CSVToArray",
+        (CSVToArray = (data, delimiter = ",", omitFirstRow = false) =>
+          data
+            .slice(omitFirstRow ? data.indexOf("\n") + 1 : 0)
+            .split("\n")
+            .map((v) => v.split(delimiter)))
+      );
+      exports_1(
+        "CSVToJSON",
+        (CSVToJSON = (data, delimiter = ",") => {
+          const titles = data.slice(0, data.indexOf("\n")).split(delimiter);
+          return data
+            .slice(data.indexOf("\n") + 1)
+            .split("\n")
+            .map((v) => {
+              const values = v.split(delimiter);
+              return titles.reduce(
+                (obj, title, index) => ((obj[title] = values[index]), obj),
+                {}
+              );
+            });
+        })
+      );
+      /**
+       * Curries a function.
+       *
+       * Use recursion.
+       * If the number of provided arguments (`args`) is sufficient, call the passed function `fn`.
+       * Otherwise, return a curried function `fn` that expects the rest of the arguments.
+       * If you want to curry a function that accepts a variable number of arguments (a variadic function, e.g. `Math.min()`), you can optionally pass the number of arguments to the second parameter `arity`.
+       *
+       * @param fn {Func}
+       * @param arity {number} number of argument `fn` can have
+       * @param args {...any[]} var args, pass initial values
+       */
+      exports_1(
+        "curry",
+        (curry = (fn, arity = fn.length, ...args) =>
+          arity <= args.length
+            ? fn(...args)
+            : curry.bind(null, fn, arity, ...args))
+      );
     },
   };
 });
@@ -731,3 +789,6 @@ export const countBy = __exp["countBy"];
 export const countOccurrences = __exp["countOccurrences"];
 export const createElement = __exp["createElement"];
 export const createEventHub = __exp["createEventHub"];
+export const CSVToArray = __exp["CSVToArray"];
+export const CSVToJSON = __exp["CSVToJSON"];
+export const curry = __exp["curry"];

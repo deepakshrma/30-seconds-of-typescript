@@ -31,12 +31,15 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && lint-staged"
+      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && git add util.js static/util.js && lint-staged"
     }
   },
   "lint-staged": {
-    "*.(js|ts|html|css|md|mdx)": [
+    "*.(js|html|css|md|mdx)": [
       "prettier --write"
+    ],
+    "*.(ts)": [
+      "deno fmt"
     ]
   },
   "devDependencies": {
