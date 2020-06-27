@@ -1,6 +1,7 @@
 module.exports = {
   someSidebar: {
     "30-seconds-of-ts": [
+      "introduction",
       "accumulate",
       "all",
       "allEqual",
