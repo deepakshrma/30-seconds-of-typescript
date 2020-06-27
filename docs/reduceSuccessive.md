@@ -9,7 +9,10 @@ Use `Array.prototype.reduce()` to apply the given function to the given array, s
 
 ```js
 const reduceSuccessive = (arr, fn, acc) =>
-  arr.reduce((res, val, i, arr) => (res.push(fn(res.slice(-1)[0], val, i, arr)), res), [acc]);
+  arr.reduce(
+    (res, val, i, arr) => (res.push(fn(res.slice(-1)[0], val, i, arr)), res),
+    [acc]
+  );
 ```
 
 ```js

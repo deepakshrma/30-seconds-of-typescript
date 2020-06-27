@@ -9,12 +9,12 @@ Use `String.prototype.padStart()` and `String.prototype.padEnd()` to pad both si
 Omit the third argument, `char`, to use the whitespace character as the default padding character.
 
 ```js
-const pad = (str, length, char = ' ') =>
+const pad = (str, length, char = " ") =>
   str.padStart((str.length + length) / 2, char).padEnd(length, char);
 ```
 
 ```js
-pad('cat', 8); // '  cat   '
-pad(String(42), 6, '0'); // '004200'
-pad('foobar', 3); // 'foobar'
+pad("cat", 8); // '  cat   '
+pad(String(42), 6, "0"); // '004200'
+pad("foobar", 3); // 'foobar'
 ```

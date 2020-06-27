@@ -9,7 +9,7 @@ Checks whether a number is odd or even using the modulo (`%`) operator.
 Returns `true` if the number is odd, `false` if the number is even.
 
 ```js
-const isOdd = num => num % 2 === 1;
+const isOdd = (num) => num % 2 === 1;
 ```
 
 ```js

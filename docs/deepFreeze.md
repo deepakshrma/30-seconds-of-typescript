@@ -10,16 +10,17 @@ Call `Object.freeze(obj)` recursively on all properties, checking if each one is
 Finally, use `Object.freeze()` to freeze the given object.
 
 ```js
-const deepFreeze = obj => {
-  Object.keys(obj).forEach(prop => {
-    if (obj[prop] === 'object' && !Object.isFrozen(obj[prop])) deepFreeze(v[prop]);
+const deepFreeze = (obj) => {
+  Object.keys(obj).forEach((prop) => {
+    if (obj[prop] === "object" && !Object.isFrozen(obj[prop]))
+      deepFreeze(v[prop]);
   });
   return Object.freeze(obj);
 };
 ```
 
 ```js
-'use strict';
+"use strict";
 
 const o = deepFreeze([1, [2, 3]]);
 

@@ -10,17 +10,19 @@ If the value of a key contains a dot delimiter (`.`), use `Array.prototype.split
 Otherwise, add the appropriate key-value pair to the accumulator object.
 
 ```js
-const unflattenObject = obj =>
+const unflattenObject = (obj) =>
   Object.keys(obj).reduce((acc, k) => {
-    if (k.indexOf('.') !== -1) {
-      const keys = k.split('.');
+    if (k.indexOf(".") !== -1) {
+      const keys = k.split(".");
       Object.assign(
         acc,
         JSON.parse(
-          '{' +
-            keys.map((v, i) => (i !== keys.length - 1 ? `"${v}":{` : `"${v}":`)).join('') +
+          "{" +
+            keys
+              .map((v, i) => (i !== keys.length - 1 ? `"${v}":{` : `"${v}":`))
+              .join("") +
             obj[k] +
-            '}'.repeat(keys.length)
+            "}".repeat(keys.length)
         )
       );
     } else acc[k] = obj[k];
@@ -29,5 +31,5 @@ const unflattenObject = obj =>
 ```
 
 ```js
-unflattenObject({ 'a.b.c': 1, d: 1 }); // { a: { b: { c: 1 } }, d: 1 }
+unflattenObject({ "a.b.c": 1, d: 1 }); // { a: { b: { c: 1 } }, d: 1 }
 ```

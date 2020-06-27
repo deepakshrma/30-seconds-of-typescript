@@ -11,10 +11,10 @@ Use `Array.prototype.reduce()` to convert the filtered keys back to an object wi
 ```js
 const omitBy = (obj, fn) =>
   Object.keys(obj)
-    .filter(k => !fn(obj[k], k))
+    .filter((k) => !fn(obj[k], k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 ```
 
 ```js
-omitBy({ a: 1, b: '2', c: 3 }, x => typeof x === 'number'); // { b: '2' }
+omitBy({ a: 1, b: "2", c: 3 }, (x) => typeof x === "number"); // { b: '2' }
 ```

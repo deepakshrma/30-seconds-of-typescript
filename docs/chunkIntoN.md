@@ -18,7 +18,7 @@ const chunkIntoN = (arr, n) => {
   return Array.from({ length: n }, (v, i) =>
     arr.slice(i * size, i * size + size)
   );
-}
+};
 ```
 
 ```js

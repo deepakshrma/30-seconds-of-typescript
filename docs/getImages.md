@@ -9,7 +9,9 @@ Use `Element.prototype.getElementsByTagName()` to fetch all `<img>` elements ins
 
 ```js
 const getImages = (el, includeDuplicates = false) => {
-  const images = [...el.getElementsByTagName('img')].map(img => img.getAttribute('src'));
+  const images = [...el.getElementsByTagName("img")].map((img) =>
+    img.getAttribute("src")
+  );
   return includeDuplicates ? images : [...new Set(images)];
 };
 ```

@@ -10,7 +10,7 @@ On the filtered array, use `Array.prototype.map()` to return the new object usin
 
 ```js
 const reducedFilter = (data, keys, fn) =>
-  data.filter(fn).map(el =>
+  data.filter(fn).map((el) =>
     keys.reduce((acc, key) => {
       acc[key] = el[key];
       return acc;
@@ -22,15 +22,15 @@ const reducedFilter = (data, keys, fn) =>
 const data = [
   {
     id: 1,
-    name: 'john',
-    age: 24
+    name: "john",
+    age: 24,
   },
   {
     id: 2,
-    name: 'mike',
-    age: 50
-  }
+    name: "mike",
+    age: 50,
+  },
 ];
 
-reducedFilter(data, ['id', 'name'], item => item.age > 24); // [{ id: 2, name: 'mike'}]
+reducedFilter(data, ["id", "name"], (item) => item.age > 24); // [{ id: 2, name: 'mike'}]
 ```

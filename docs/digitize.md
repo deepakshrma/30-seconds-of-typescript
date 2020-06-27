@@ -9,7 +9,7 @@ Convert the number to a string, using the spread operator (`...`) to build an ar
 Use `Array.prototype.map()` and `parseInt()` to transform each value to an integer.
 
 ```js
-const digitize = n => [...`${n}`].map(i => parseInt(i));
+const digitize = (n) => [...`${n}`].map((i) => parseInt(i));
 ```
 
 ```js

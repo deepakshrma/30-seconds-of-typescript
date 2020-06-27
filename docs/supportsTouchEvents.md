@@ -10,7 +10,8 @@ Check if `ontouchstart` exists in `window` or `window.DocumentTouch` is true and
 ```js
 const supportsTouchEvents = () =>
   window &&
-  ('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
+  ("ontouchstart" in window ||
+    (window.DocumentTouch && document instanceof window.DocumentTouch));
 ```
 
 ```js

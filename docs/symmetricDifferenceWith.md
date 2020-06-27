@@ -9,8 +9,8 @@ Use `Array.prototype.filter()` and `Array.prototype.findIndex()` to find the app
 
 ```js
 const symmetricDifferenceWith = (arr, val, comp) => [
-  ...arr.filter(a => val.findIndex(b => comp(a, b)) === -1),
-  ...val.filter(a => arr.findIndex(b => comp(a, b)) === -1)
+  ...arr.filter((a) => val.findIndex((b) => comp(a, b)) === -1),
+  ...val.filter((a) => arr.findIndex((b) => comp(a, b)) === -1),
 ];
 ```
 

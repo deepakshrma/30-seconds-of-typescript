@@ -9,15 +9,17 @@ The array should be ordered from best performer to worst performer (winner -> lo
 
 Use the exponent `**` operator and math operators to compute the expected score (chance of winning).
 of each opponent and compute the new rating for each.
-Loop through the ratings, using each permutation to compute the post-Elo rating for each player in a pairwise fashion. 
+Loop through the ratings, using each permutation to compute the post-Elo rating for each player in a pairwise fashion.
 Omit the second argument to use the default `kFactor` of 32.
 
 ```js
 const elo = ([...ratings], kFactor = 32, selfRating) => {
   const [a, b] = ratings;
-  const expectedScore = (self, opponent) => 1 / (1 + 10 ** ((opponent - self) / 400));
+  const expectedScore = (self, opponent) =>
+    1 / (1 + 10 ** ((opponent - self) / 400));
   const newRating = (rating, i) =>
-    (selfRating || rating) + kFactor * (i - expectedScore(i ? a : b, i ? b : a));
+    (selfRating || rating) +
+    kFactor * (i - expectedScore(i ? a : b, i ? b : a));
   if (ratings.length === 2) return [newRating(a, 1), newRating(b, 0)];
 
   for (let i = 0, len = ratings.length; i < len; i++) {

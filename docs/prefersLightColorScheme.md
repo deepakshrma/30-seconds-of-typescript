@@ -9,7 +9,9 @@ Use `window.matchMedia()` with the appropriate media query to check the user col
 
 ```js
 const prefersLightColorScheme = () =>
-  window && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  window &&
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: light)").matches;
 ```
 
 ```js

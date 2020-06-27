@@ -10,7 +10,7 @@ Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep
 ```js
 const difference = (a, b) => {
   const s = new Set(b);
-  return a.filter(x => !s.has(x));
+  return a.filter((x) => !s.has(x));
 };
 ```
 

@@ -12,10 +12,11 @@ Otherwise, it adds the appropriate prefixed key-value pair to the accumulator ob
 You should always omit the second argument, `prefix`, unless you want every key to have a prefix.
 
 ```js
-const flattenObject = (obj, prefix = '') =>
+const flattenObject = (obj, prefix = "") =>
   Object.keys(obj).reduce((acc, k) => {
-    const pre = prefix.length ? prefix + '.' : '';
-    if (typeof obj[k] === 'object') Object.assign(acc, flattenObject(obj[k], pre + k));
+    const pre = prefix.length ? prefix + "." : "";
+    if (typeof obj[k] === "object")
+      Object.assign(acc, flattenObject(obj[k], pre + k));
     else acc[pre + k] = obj[k];
     return acc;
   }, {});

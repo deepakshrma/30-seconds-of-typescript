@@ -12,7 +12,7 @@ Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.
 const yesterday = () => {
   let t = new Date();
   t.setDate(t.getDate() - 1);
-  return t.toISOString().split('T')[0];
+  return t.toISOString().split("T")[0];
 };
 ```
 

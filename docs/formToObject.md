@@ -9,16 +9,16 @@ Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.
 Collect the object from the array, using `Array.prototype.reduce()`.
 
 ```js
-const formToObject = form =>
+const formToObject = (form) =>
   Array.from(new FormData(form)).reduce(
     (acc, [key, value]) => ({
       ...acc,
-      [key]: value
+      [key]: value,
     }),
     {}
   );
 ```
 
 ```js
-formToObject(document.querySelector('#form')); // { email: 'test@email.com', name: 'Test Name' }
+formToObject(document.querySelector("#form")); // { email: 'test@email.com', name: 'Test Name' }
 ```

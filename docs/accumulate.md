@@ -16,7 +16,6 @@ Use `Array.prototype.reduce()`, `Array.prototype.slice(-1)` and the unary `+` op
 ```ts
 const accumulate = (...nums: number[]): number[] =>
   nums.reduce((acc: number[], n) => [...acc, n + +acc.slice(-1)], []);
-
 ```
 
 ```ts

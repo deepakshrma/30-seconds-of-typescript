@@ -11,7 +11,7 @@ Omit the second argument, `ms`, to set the timeout at a default of 0 ms.
 ```js
 const debounce = (fn, ms = 0) => {
   let timeoutId;
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -20,7 +20,7 @@ const debounce = (fn, ms = 0) => {
 
 ```js
 window.addEventListener(
-  'resize',
+  "resize",
   debounce(() => {
     console.log(window.innerWidth);
     console.log(window.innerHeight);

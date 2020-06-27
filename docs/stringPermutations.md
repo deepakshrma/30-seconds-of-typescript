@@ -13,18 +13,22 @@ Use `Array.prototype.map()` to combine the letter with each partial permutation,
 Base cases are for string `length` equal to `2` or `1`.
 
 ```js
-const stringPermutations = str => {
+const stringPermutations = (str) => {
   if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];
   return str
-    .split('')
+    .split("")
     .reduce(
       (acc, letter, i) =>
-        acc.concat(stringPermutations(str.slice(0, i) + str.slice(i + 1)).map(val => letter + val)),
+        acc.concat(
+          stringPermutations(str.slice(0, i) + str.slice(i + 1)).map(
+            (val) => letter + val
+          )
+        ),
       []
     );
 };
 ```
 
 ```js
-stringPermutations('abc'); // ['abc','acb','bac','bca','cab','cba']
+stringPermutations("abc"); // ['abc','acb','bac','bca','cab','cba']
 ```

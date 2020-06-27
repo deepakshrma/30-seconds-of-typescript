@@ -9,7 +9,10 @@ Use `Array.prototype.filter()` and `Array.prototype.includes()` on each array to
 
 ```js
 const uniqueSymmetricDifference = (a, b) => [
-  ...new Set([...a.filter(v => !b.includes(v)), ...b.filter(v => !a.includes(v))])
+  ...new Set([
+    ...a.filter((v) => !b.includes(v)),
+    ...b.filter((v) => !a.includes(v)),
+  ]),
 ];
 ```
 

@@ -11,7 +11,7 @@ Create a `Set` from each array, then use `Array.prototype.filter()` on each of t
 const symmetricDifference = (a, b) => {
   const sA = new Set(a),
     sB = new Set(b);
-  return [...a.filter(x => !sB.has(x)), ...b.filter(x => !sA.has(x))];
+  return [...a.filter((x) => !sB.has(x)), ...b.filter((x) => !sA.has(x))];
 };
 ```
 

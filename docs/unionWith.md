@@ -9,9 +9,15 @@ Create a `Set` with all values of `a` and values in `b` for which the comparator
 
 ```js
 const unionWith = (a, b, comp) =>
-  Array.from(new Set([...a, ...b.filter(x => a.findIndex(y => comp(x, y)) === -1)]));
+  Array.from(
+    new Set([...a, ...b.filter((x) => a.findIndex((y) => comp(x, y)) === -1)])
+  );
 ```
 
 ```js
-unionWith([1, 1.2, 1.5, 3, 0], [1.9, 3, 0, 3.9], (a, b) => Math.round(a) === Math.round(b)); // [1, 1.2, 1.5, 3, 0, 3.9]
+unionWith(
+  [1, 1.2, 1.5, 3, 0],
+  [1.9, 3, 0, 3.9],
+  (a, b) => Math.round(a) === Math.round(b)
+); // [1, 1.2, 1.5, 3, 0, 3.9]
 ```

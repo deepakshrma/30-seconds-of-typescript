@@ -9,7 +9,7 @@ Use `Math.random()` to generate a random number, multiply it by `length` and rou
 This method also works with strings.
 
 ```js
-const sample = arr => arr[Math.floor(Math.random() * arr.length)];
+const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
 ```
 
 ```js

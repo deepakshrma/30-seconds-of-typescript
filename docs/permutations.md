@@ -13,12 +13,15 @@ Use `Array.prototype.map()` to combine the element with each partial permutation
 Base cases are for array `length` equal to `2` or `1`.
 
 ```js
-const permutations = arr => {
+const permutations = (arr) => {
   if (arr.length <= 2) return arr.length === 2 ? [arr, [arr[1], arr[0]]] : arr;
   return arr.reduce(
     (acc, item, i) =>
       acc.concat(
-        permutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map(val => [item, ...val])
+        permutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map((val) => [
+          item,
+          ...val,
+        ])
       ),
     []
   );

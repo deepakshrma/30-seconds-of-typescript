@@ -5,7 +5,9 @@ title: CSVToJSON
 tags: string,array,object,advanced
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Converts a comma-separated values (CSV) string to a 2D array of objects.
 The first row of the string is used as the title row.
@@ -16,6 +18,8 @@ Use `Array.prototype.reduce()` to create an object for each row's values, with t
 Omit the second argument, `delimiter`, to use a default delimiter of `,`.
 
 ```ts
+type StringMap<T extends any = string> = { [key: string]: T };
+
 const CSVToJSON = (data: string, delimiter = ",") => {
   const titles: string[] = data.slice(0, data.indexOf("\n")).split(delimiter);
   return data

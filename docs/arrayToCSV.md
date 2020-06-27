@@ -28,7 +28,19 @@ const arrayToCSV = (arr: StringOrNumber[][], delimiter = ",") =>
 ```
 
 ```ts
-arrayToCSV([['a', 'b'], ['c', 'd']]); // '"a","b"\n"c","d"'
-arrayToCSV([['a', 'b'], ['c', 'd']], ';'); // '"a";"b"\n"c";"d"'
-arrayToCSV([['a', '"b" great'], ['c', 3.1415]]); // '"a","""b"" great"\n"c",3.1415'
+arrayToCSV([
+  ["a", "b"],
+  ["c", "d"],
+]); // '"a","b"\n"c","d"'
+arrayToCSV(
+  [
+    ["a", "b"],
+    ["c", "d"],
+  ],
+  ";"
+); // '"a";"b"\n"c";"d"'
+arrayToCSV([
+  ["a", '"b" great'],
+  ["c", 3.1415],
+]); // '"a","""b"" great"\n"c",3.1415'
 ```

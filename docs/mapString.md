@@ -12,11 +12,11 @@ The callback function, `fn`, takes three arguments (the current character, the i
 ```js
 const mapString = (str, fn) =>
   str
-    .split('')
+    .split("")
     .map((c, i) => fn(c, i, str))
-    .join('');
+    .join("");
 ```
 
 ```js
-mapString('lorem ipsum', c => c.toUpperCase()); // 'LOREM IPSUM'
+mapString("lorem ipsum", (c) => c.toUpperCase()); // 'LOREM IPSUM'
 ```

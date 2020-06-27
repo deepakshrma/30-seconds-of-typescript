@@ -14,9 +14,8 @@ Creates a function that accepts up to two arguments, ignoring any additional arg
 Call the provided function, `fn`, with the first two arguments given.
 
 ```ts
-export const binary = (fn: (...args: any[]) => any) => (
-  ...[v1, v2]: any[]
-) => fn(v1, v2);
+export const binary = (fn: (...args: any[]) => any) => (...[v1, v2]: any[]) =>
+  fn(v1, v2);
 ```
 
 ```ts

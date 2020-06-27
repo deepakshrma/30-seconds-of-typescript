@@ -11,9 +11,9 @@ Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype
 const forOwnRight = (obj, fn) =>
   Object.keys(obj)
     .reverse()
-    .forEach(key => fn(obj[key], key, obj));
+    .forEach((key) => fn(obj[key], key, obj));
 ```
 
 ```js
-forOwnRight({ foo: 'bar', a: 1 }, v => console.log(v)); // 1, 'bar'
+forOwnRight({ foo: "bar", a: 1 }, (v) => console.log(v)); // 1, 'bar'
 ```

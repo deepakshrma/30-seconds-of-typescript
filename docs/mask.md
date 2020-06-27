@@ -10,11 +10,12 @@ Omit the second argument, `num`, to keep a default of `4` characters unmasked. I
 Omit the third argument, `mask`, to use a default character of `'*'` for the mask.
 
 ```js
-const mask = (cc, num = 4, mask = '*') => `${cc}`.slice(-num).padStart(`${cc}`.length, mask);
+const mask = (cc, num = 4, mask = "*") =>
+  `${cc}`.slice(-num).padStart(`${cc}`.length, mask);
 ```
 
 ```js
 mask(1234567890); // '******7890'
 mask(1234567890, 3); // '*******890'
-mask(1234567890, -4, '$'); // '$$$$567890'
+mask(1234567890, -4, "$"); // '$$$$567890'
 ```

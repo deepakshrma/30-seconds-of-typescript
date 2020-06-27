@@ -10,10 +10,11 @@ Omit the `upperRest` parameter to keep the rest of the string intact, or set it 
 
 ```js
 const decapitalize = ([first, ...rest], upperRest = false) =>
-  first.toLowerCase() + (upperRest ? rest.join('').toUpperCase() : rest.join(''));
+  first.toLowerCase() +
+  (upperRest ? rest.join("").toUpperCase() : rest.join(""));
 ```
 
 ```js
-decapitalize('FooBar'); // 'fooBar'
-decapitalize('FooBar', true); // 'fOOBAR'
+decapitalize("FooBar"); // 'fooBar'
+decapitalize("FooBar", true); // 'fOOBAR'
 ```

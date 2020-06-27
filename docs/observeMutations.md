@@ -11,7 +11,9 @@ Omit the third argument, `options`, to use the default [options](https://develop
 
 ```js
 const observeMutations = (element, callback, options) => {
-  const observer = new MutationObserver(mutations => mutations.forEach(m => callback(m)));
+  const observer = new MutationObserver((mutations) =>
+    mutations.forEach((m) => callback(m))
+  );
   observer.observe(
     element,
     Object.assign(
@@ -21,7 +23,7 @@ const observeMutations = (element, callback, options) => {
         attributeOldValue: true,
         characterData: true,
         characterDataOldValue: true,
-        subtree: true
+        subtree: true,
       },
       options
     )
