@@ -3,6 +3,9 @@ title: renderElement
 tags: browser,recursion,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Renders the given DOM tree in the specified DOM element.
 
 Destructure the first argument into `type` and `props`, use `type` to determine if the given element is a text element.

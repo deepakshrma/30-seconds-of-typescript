@@ -3,6 +3,9 @@ title: factorial
 tags: math,recursion,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Calculates the factorial of a number.
 
 Use recursion.

@@ -3,6 +3,9 @@ title: partition
 tags: array,object,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Groups the elements into two arrays, depending on the provided function's truthiness for each element.
 
 Use `Array.prototype.reduce()` to create an array of two arrays.

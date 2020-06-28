@@ -3,6 +3,9 @@ title: initialize2DArray
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Initializes a 2D array of given width and height and value.
 
 Use `Array.prototype.map()` to generate h rows where each is a new array of size w initialize with value. If the value is not provided, default to `null`.

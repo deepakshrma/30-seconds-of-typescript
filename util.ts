@@ -660,3 +660,123 @@ export const debounce = (fn: Function, ms = 300) => {
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
 };
+
+/**
+ * Creates a deep clone of an object.
+ *
+ * Use recursion.
+ * Check if the passed object is `null` and, if so, return `null`.
+ * Use `Object.assign()` and an empty object (`{}`) to create a shallow clone of the original.
+ * Use `Object.keys()` and `Array.prototype.forEach()` to determine which key-value pairs need to be deep cloned.
+ *
+ * @param obj {any}
+ */
+export const deepClone = (obj: any) => {
+  if (obj === null) return null;
+  let clone = { ...obj };
+  Object.keys(clone).forEach(
+    (
+      key,
+    ) => (clone[key] = typeof obj[key] === "object"
+      ? deepClone(obj[key])
+      : obj[key]),
+  );
+  return Array.isArray(obj) && obj.length
+    ? (clone.length = obj.length) && Array.from(clone)
+    : Array.isArray(obj)
+    ? Array.from(obj)
+    : clone;
+};
+
+/**
+ * Deep flattens an array.
+ *
+ * Use recursion.[polyfill for `Array.prototype.flat`]
+ * Use `Array.prototype.concat()` with an empty array (`[]`) and the spread operator (`...`) to flatten an array.
+ * Recursively flatten each element that is an array.
+ *
+ * @param arr {any[]}
+ */
+export const deepFlatten = (arr: any[]): any[] => {
+  if (typeof Array.prototype.flat !== "undefined") return arr.flat(Infinity);
+  return [].concat(
+    ...arr.map((v: any) => (Array.isArray(v) ? deepFlatten(v) : v)),
+  );
+};
+
+/**
+ * Deep freezes an object.
+ *
+ * Use `Object.keys()` to get all the properties of the passed object, `Array.prototype.forEach()` to iterate over them.
+ * Call `Object.freeze(obj)` recursively on all properties, checking if each one is frozen using `Object.isFrozen()` and applying `deepFreeze()` as necessary.
+ * Finally, use `Object.freeze()` to freeze the given object.
+ *
+ * @param obj
+ */
+export const deepFreeze = (obj: any) => {
+  Object.keys(obj).forEach((prop) => {
+    if (typeof obj[prop] === "object" && !Object.isFrozen(obj[prop])) {
+      deepFreeze(obj[prop]);
+    }
+  });
+  return Object.freeze(obj);
+};
+
+/**
+ * Returns the target value in a nested JSON object, based on the `keys` array.
+ *
+ * Compare the keys you want in the nested JSON object as an `Array`.
+ * Use `Array.prototype.reduce()` to get value from nested JSON object one by one.
+ * If the key exists in object, return target value, otherwise, return `null`.
+ *
+ * @param obj {any}
+ * @param keys {string | (string | number)[],}
+ * @param defaultValue {null | undefined } @default undefined
+ * @param delimiter {string} @default "."
+ */
+export const deepGet = (
+  obj: any,
+  keys: string | (string | number)[],
+  defaultValue: null | undefined = undefined,
+  delimiter = ".",
+) => {
+  if (isString(keys)) {
+    keys = keys.split(delimiter);
+  }
+  return keys.reduce((xs, x) => (xs && xs[x] ? xs[x] : defaultValue), obj);
+};
+
+/**
+ * Assigns default values for all properties in an object that are `undefined`.
+ *
+ * Use `Object.assign()` to create a new empty object and copy the original one to maintain key order, use spread operator `...` to combine the default values, finally use `obj` again to overwrite properties that originally had a value.
+ *
+ * @param obj {any}
+ * @param defs {any[]}
+ */
+export const defaults = (obj: any, ...defs: any[]) =>
+  Object.assign({}, obj, ...defs, obj);
+
+/**
+ * Invokes the provided function after `wait` milliseconds.
+ *
+ * Use `setTimeout()` to delay execution of `fn`.
+ * Use the spread (`...`) operator to supply the function with an arbitrary number of arguments.
+ *
+ * @param fn {Func} any function
+ * @param wait {number} in ms
+ * @param args {any[]}, arguments for fn
+ */
+export const delay = (fn: Func, wait: number, ...args: any[]) =>
+  setTimeout(fn, wait, ...args);
+
+/**
+ * Return a promise, Resolve after `wait` milliseconds.
+ *
+ * @param wait {number} in ms
+ * @param args{any[]}, arguments for Promise
+ */
+export const delayedPromise = (wait: number = 300, ...args: any[]) =>
+  new Promise((resolve) => {
+    delay(resolve, wait, ...args);
+  });

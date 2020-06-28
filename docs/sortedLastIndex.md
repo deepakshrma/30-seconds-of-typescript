@@ -3,6 +3,9 @@ title: sortedLastIndex
 tags: array,math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the highest index at which value should be inserted into array in order to maintain its sort order.
 
 Check if the array is sorted in descending order (loosely).

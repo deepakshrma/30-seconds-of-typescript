@@ -3,6 +3,9 @@ title: toCurrency
 tags: math,string,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Take a number and return specified currency formatting.
 
 Use `Intl.NumberFormat` to enable country / currency sensitive formatting.

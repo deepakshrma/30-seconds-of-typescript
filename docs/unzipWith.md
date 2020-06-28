@@ -3,6 +3,9 @@ title: unzipWith
 tags: array,function,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates an array of elements, ungrouping the elements in an array produced by [zip](#zip) and applying the provided function.
 
 Use `Math.max.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array.

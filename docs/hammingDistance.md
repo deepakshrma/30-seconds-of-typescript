@@ -3,6 +3,9 @@ title: hammingDistance
 tags: math,regexp,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Calculates the Hamming distance between two values.
 
 Use the XOR operator (`^`) to find the bit difference between the two numbers, convert to a binary string using `toString(2)`.

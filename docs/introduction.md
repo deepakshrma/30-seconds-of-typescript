@@ -3,6 +3,9 @@ title: 30-seconds-of-typescript
 tags: introduction, beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 This repo is highly inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). I am converting all JS to Typescript so that it can be used for Typescript, Modern HTML|JS and Deno.
 
 ![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)

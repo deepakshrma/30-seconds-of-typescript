@@ -3,6 +3,9 @@ title: when
 tags: function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Tests a value, `x`, against a predicate function. If `true`, return `fn(x)`. Else, return `x`.
 
 Return a function expecting a single value, `x`, that returns the appropriate value based on `pred`.

@@ -3,6 +3,9 @@ title: flattenObject
 tags: object,recursion,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Flatten an object with the paths for keys.
 
 Use recursion.

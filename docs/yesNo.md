@@ -3,6 +3,9 @@ title: yesNo
 tags: string,regexp,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.
 
 Use `RegExp.test()` to check if the string evaluates to `y/yes` or `n/no`.

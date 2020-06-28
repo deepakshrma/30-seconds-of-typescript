@@ -3,6 +3,9 @@ title: isObjectLike
 tags: type,object,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Checks if a value is object-like.
 
 Check if the provided value is not `null` and its `typeof` is equal to `'object'`.

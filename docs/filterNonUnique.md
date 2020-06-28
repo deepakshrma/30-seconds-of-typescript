@@ -3,6 +3,9 @@ title: filterNonUnique
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Filters out the non-unique values in an array.
 
 Use `Array.prototype.filter()` for an array containing only the unique values.

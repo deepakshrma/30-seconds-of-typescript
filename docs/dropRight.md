@@ -3,6 +3,9 @@ title: dropRight
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns a new array with `n` elements removed from the right.
 
 Use `Array.prototype.slice()` to remove the specified number of elements from the right.

@@ -3,6 +3,9 @@ title: isPrime
 tags: math,beginner,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Checks if the provided integer is a prime number.
 
 Check numbers from `2` to the square root of the given number.

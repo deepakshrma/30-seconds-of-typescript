@@ -3,6 +3,9 @@ title: unfold
 tags: function,array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Builds an array, using an iterator function and an initial seed value.
 
 Use a `while` loop and `Array.prototype.push()` to call the function repeatedly until it returns `false`.

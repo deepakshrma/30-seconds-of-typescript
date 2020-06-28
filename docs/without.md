@@ -3,6 +3,9 @@ title: without
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Filters out the elements of an array, that have one of the specified values.
 
 Use `Array.prototype.filter()` to create an array excluding(using `!Array.includes()`) all given values.

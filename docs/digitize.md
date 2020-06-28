@@ -3,6 +3,9 @@ title: digitize
 tags: math,array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Converts a number to an array of digits.
 
 Convert the number to a string, using the spread operator (`...`) to build an array.

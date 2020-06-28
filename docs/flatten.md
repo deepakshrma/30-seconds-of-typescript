@@ -3,6 +3,9 @@ title: flatten
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Flattens an array up to the specified depth.
 
 Use recursion, decrementing `depth` by 1 for each level of depth.

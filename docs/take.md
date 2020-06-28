@@ -3,6 +3,9 @@ title: take
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns an array with n elements removed from the beginning.
 
 Use `Array.prototype.slice()` to create a slice of the array with `n` elements taken from the beginning.

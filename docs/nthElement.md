@@ -3,6 +3,9 @@ title: nthElement
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the nth element of an array.
 
 Use `Array.prototype.slice()` to get an array containing the nth element at the first place.

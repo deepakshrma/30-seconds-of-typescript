@@ -3,6 +3,9 @@ title: distance
 tags: math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the distance between two points.
 
 Use `Math.hypot()` to calculate the Euclidean distance between two points.

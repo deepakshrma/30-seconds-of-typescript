@@ -3,6 +3,9 @@ title: elementContains
 tags: browser,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns `true` if the `parent` element contains the `child` element, `false` otherwise.
 
 Check that `parent` is not the same element as `child`, use `parent.contains(child)` to check if the `parent` element contains the `child` element.

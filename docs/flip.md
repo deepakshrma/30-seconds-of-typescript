@@ -3,6 +3,9 @@ title: flip
 tags: function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Flip takes a function as an argument, then makes the first argument the last.
 
 Return a closure that takes variadic inputs, and splices the last argument to make it the first argument before applying the rest.

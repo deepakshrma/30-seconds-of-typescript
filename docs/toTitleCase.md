@@ -3,6 +3,9 @@ title: toTitleCase
 tags: string,regepx,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Converts a string to title case.
 
 Break the string into words, using a regexp, and combine them capitalizing the first letter of each word and adding a whitespace between them.

@@ -3,6 +3,9 @@ title: functions
 tags: object,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns an array of function property names from own (and optionally inherited) enumerable properties of an object.
 
 Use `Object.keys(obj)` to iterate over the object's own properties.

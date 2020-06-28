@@ -3,6 +3,9 @@ title: runAsync
 tags: browser,function,advanced,promise,url
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Runs a function in a separate thread by using a [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers), allowing long running functions to not block the UI.
 
 Create a new `Worker` using a `Blob` object URL, the contents of which should be the stringified version of the supplied function.

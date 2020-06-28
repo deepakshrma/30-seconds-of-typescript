@@ -3,6 +3,9 @@ title: getDaysDiffBetweenDates
 tags: date,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the difference (in days) between two dates.
 
 Calculate the difference (in days) between two `Date` objects.

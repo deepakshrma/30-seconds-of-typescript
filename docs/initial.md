@@ -3,6 +3,9 @@ title: initial
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns all the elements of an array except the last one.
 
 Use `arr.slice(0,-1)` to return all but the last element of the array.

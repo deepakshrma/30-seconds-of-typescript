@@ -3,6 +3,9 @@ title: gcd
 tags: math,recursion,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Calculates the greatest common divisor between two or more numbers/arrays.
 
 The inner `_gcd` function uses recursion.

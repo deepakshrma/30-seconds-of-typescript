@@ -3,6 +3,9 @@ title: parseCookie
 tags: browser,string,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Parse an HTTP Cookie header string and return an object of all cookie name-value pairs.
 
 Use `String.prototype.split(';')` to separate key-value pairs from each other.

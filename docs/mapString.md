@@ -3,6 +3,9 @@ title: mapString
 tags: string,array,function,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates a new string with the results of calling a provided function on every character in the calling string.
 
 Use `String.prototype.split('')` and `Array.prototype.map()` to call the provided function, `fn`, for each character in `str`.

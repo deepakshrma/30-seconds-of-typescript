@@ -3,6 +3,9 @@ title: pullAtIndex
 tags: array,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Mutates the original array to filter out the values at the specified indexes.
 
 Use `Array.prototype.filter()` and `Array.prototype.includes()` to pull out the values that are not needed.

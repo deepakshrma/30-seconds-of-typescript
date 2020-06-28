@@ -3,6 +3,9 @@ title: listenOnce
 tags: browser,event,closure,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Adds an event listener to an element that will only run the callback the first time the event is triggered.
 
 Use `EventTarget.addEventListener()` to add an event listener to an element, storing the reference in a variable.

@@ -3,6 +3,9 @@ title: maxN
 tags: array,math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the `n` maximum elements from the provided array.
 If `n` is greater than or equal to the provided array's length, then return the original array (sorted in descending order).
 

@@ -3,6 +3,9 @@ title: zipWith
 tags: array,function,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates an array of elements, grouped based on the position in the original arrays and using function as the last value to specify how grouped values should be combined.
 
 Check if the last argument provided is a function.

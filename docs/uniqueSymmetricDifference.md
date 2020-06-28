@@ -3,6 +3,9 @@ title: uniqueSymmetricDifference
 tags: array,math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the unique symmetric difference between two arrays, not containing duplicate values from either array.
 
 Use `Array.prototype.filter()` and `Array.prototype.includes()` on each array to remove values contained in the other, then create a `Set` from the results, removing duplicate values.

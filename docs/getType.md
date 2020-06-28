@@ -3,6 +3,9 @@ title: getType
 tags: type,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the native type of a value.
 
 Return `'undefined'` or `'null'` if the value is `undefined` or `null`.

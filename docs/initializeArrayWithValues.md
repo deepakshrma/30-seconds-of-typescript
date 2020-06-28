@@ -3,6 +3,9 @@ title: initializeArrayWithValues
 tags: array,math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Initializes and fills an array with the specified values.
 
 Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.

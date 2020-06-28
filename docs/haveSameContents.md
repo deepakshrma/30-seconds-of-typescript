@@ -3,6 +3,9 @@ title: haveSameContents
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns `true` if two arrays contain the same elements regardless of order, `false` otherwise.
 
 Use a `for...of` loop over a `Set` created from the values of both arrays.

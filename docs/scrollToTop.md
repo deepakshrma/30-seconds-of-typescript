@@ -3,6 +3,9 @@ title: scrollToTop
 tags: browser,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Smooth-scrolls to the top of the page.
 
 Get distance from top using `document.documentElement.scrollTop` or `document.body.scrollTop`.

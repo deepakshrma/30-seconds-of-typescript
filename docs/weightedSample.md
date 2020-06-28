@@ -3,6 +3,9 @@ title: weightedSample
 tags: array,random,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns a random element from an array, using the provided `weights` as the probabilities for each element.
 
 Use `Array.prototype.reduce()` to create an array of partial sums for each value in `weights`.

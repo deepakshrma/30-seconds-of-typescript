@@ -3,6 +3,9 @@ title: either
 tags: function,logic,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns `true` if at least one function returns `true` for a given set of arguments, `false` otherwise.
 
 Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.

@@ -3,6 +3,9 @@ title: toOrdinalSuffix
 tags: math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Adds an ordinal suffix to a number.
 
 Use the modulo operator (`%`) to find values of single and tens digits.

@@ -3,6 +3,9 @@ title: isObject
 tags: type,object,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns a boolean determining if the passed value is an object or not.
 
 Uses the `Object` constructor to create an object wrapper for the given value.

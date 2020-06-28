@@ -3,6 +3,9 @@ title: inRange
 tags: math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Checks if the given number falls within the given range.
 
 Use arithmetic comparison to check if the given number is in the specified range.

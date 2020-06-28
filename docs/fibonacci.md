@@ -3,6 +3,9 @@ title: fibonacci
 tags: math,array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Generates an array, containing the Fibonacci sequence, up until the nth term.
 
 Create an empty array of the specific length, initializing the first two values (`0` and `1`).

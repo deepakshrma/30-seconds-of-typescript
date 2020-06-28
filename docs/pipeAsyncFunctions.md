@@ -3,6 +3,9 @@ title: pipeAsyncFunctions
 tags: function,promise,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Performs left-to-right function composition for asynchronous functions.
 
 Use `Array.prototype.reduce()` and the spread operator (`...`) to perform function composition using `Promise.then()`.

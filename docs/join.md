@@ -3,6 +3,9 @@ title: join
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Joins all elements of an array into a string and returns this string.
 Uses a separator and an end separator.
 

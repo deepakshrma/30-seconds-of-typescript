@@ -3,6 +3,9 @@ title: juxt
 tags: array,function,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Takes several functions as argument and returns a function that is the juxtaposition of those functions.
 
 Use `Array.prototype.map()` to return a `fn` that can take a variable number of `args`.

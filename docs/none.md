@@ -3,6 +3,9 @@ title: none
 tags: array,function,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns `true` if the provided predicate function returns `false` for all elements in a collection, `false` otherwise.
 
 Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.

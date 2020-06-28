@@ -3,6 +3,9 @@ title: isBrowser
 tags: browser,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Determines if the current runtime environment is a browser so that front-end modules can run on the server (Node) without throwing errors.
 
 Use `Array.prototype.includes()` on the `typeof` values of both `window` and `document` (globals usually only available in a browser environment unless they were explicitly defined), which will return `true` if one of them is `undefined`.

@@ -3,6 +3,9 @@ title: initializeArrayWithRange
 tags: array,math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive with their common difference `step`.
 
 Use `Array.from()` to create an array of the desired length, `(end - start + 1)/step`, and a map function to fill it with the desired values in the given range.

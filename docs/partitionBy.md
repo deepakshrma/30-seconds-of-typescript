@@ -3,6 +3,9 @@ title: partitionBy
 tags: array,object,function,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Applies `fn` to each value in `arr`, splitting it each time `fn` returns a new value.
 
 Use `Array.prototype.reduce()` with an accumulator object that will hold the resulting array and the last value returned from `fn`.

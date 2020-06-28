@@ -3,6 +3,9 @@ title: initializeNDArray
 tags: array,recursion,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Create a n-dimensional array with given value.
 
 Use recursion.

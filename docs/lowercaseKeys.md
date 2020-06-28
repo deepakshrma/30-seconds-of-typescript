@@ -3,6 +3,9 @@ title: lowercaseKeys
 tags: object,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates a new object from the specified object, where all the keys are in lowercase.
 
 Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object.

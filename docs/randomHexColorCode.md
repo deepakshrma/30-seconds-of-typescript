@@ -3,6 +3,9 @@ title: randomHexColorCode
 tags: math,random,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Generates a random hexadecimal color code.
 
 Use `Math.random` to generate a random 24-bit(6x4bits) hexadecimal number.

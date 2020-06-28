@@ -3,6 +3,9 @@ title: off
 tags: browser,event,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Removes an event listener from an element.
 
 Use `EventTarget.removeEventListener()` to remove an event listener from an element.

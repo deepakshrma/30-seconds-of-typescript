@@ -3,6 +3,9 @@ title: insertAt
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Mutates the original array to insert the given values at the specified index.
 
 Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.

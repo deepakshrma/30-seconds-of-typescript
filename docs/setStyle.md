@@ -3,6 +3,9 @@ title: setStyle
 tags: browser,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Sets the value of a CSS rule for the specified HTML element.
 
 Use `element.style` to set the value of the CSS rule for the specified element to `val`.

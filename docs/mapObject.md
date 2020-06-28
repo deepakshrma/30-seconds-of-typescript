@@ -3,6 +3,9 @@ title: mapObject
 tags: array,object,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Maps the values of an array to an object using a function, where the key-value pairs consist of the original value as the key and the result of the function as the value.
 
 Use `Array.prototype.reduce()` to apply `fn` to each element in `arr` and combine the results into an object.

@@ -1,6 +1,7 @@
 import {
   assertEquals,
   assertThrows,
+  assertNotEquals,
 } from "https://deno.land/std/testing/asserts.ts";
 import {
   accumulate,
@@ -44,6 +45,12 @@ import {
   curry,
   dayOfYear,
   debounce,
+  deepClone,
+  deepFlatten,
+  deepFreeze,
+  deepGet,
+  defaults,
+  delayedPromise,
 } from "./util.ts";
 
 // accumulate
@@ -476,10 +483,6 @@ Deno.test("dayOfYear #1", () => {
     "Invalid Date string",
   );
 });
-const delay = (ms: number = 300) =>
-  new Promise((r) => {
-    setTimeout(r, ms);
-  });
 // debounce
 Deno.test("debounce #1", async () => {
   let counter = 0;
@@ -489,9 +492,97 @@ Deno.test("debounce #1", async () => {
   const debouncedUpdate = debounce(updateState);
   debouncedUpdate(); // counter == 1
   debouncedUpdate(); // counter == 1
-  await delay(); // counter == 1
+  await delayedPromise(); // counter == 1
   assertEquals(counter, 1);
   debouncedUpdate(); // counter == 2
-  await delay(); // counter == 2
+  await delayedPromise(); // counter == 2
   assertEquals(counter, 2);
 });
+
+// deepClone
+Deno.test("deepClone #1", () => {
+  const a = { foo: "bar", obj: { a: 1, b: 2 }, arr: [1, 2, 3] };
+  const b = deepClone(a); // a !== b, a.obj !== b.obj
+  assertEquals(a.foo, b.foo);
+  assertEquals(a === b, false);
+  assertEquals(a.obj, b.obj);
+  assertEquals(a.arr, b.arr);
+});
+
+// deepFlatten
+Deno.test("deepFlatten #1", () => {
+  assertEquals(deepFlatten([1, [2], [[3], 4], 5]), [1, 2, 3, 4, 5]);
+  assertEquals(deepFlatten([1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]), [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+  ]);
+});
+
+// deepFreeze
+Deno.test("deepFreeze #1", () => {
+  const o = deepFreeze([1, [2, 3]]);
+  assertThrows(
+    () => {
+      o[0] = 3; // not allowed
+    },
+    TypeError,
+    "Cannot assign to read only property '0' of object '[object Array]'",
+  );
+  assertThrows(
+    () => {
+      o[1][1] = 4; // not allowed as well
+    },
+    TypeError,
+    "Cannot assign to read only property '1' of object '[object Array]'",
+  );
+});
+
+// deepGet
+Deno.test("deepGet #1", () => {
+  let index = 2;
+  const data = {
+    foo: {
+      foz: [1, 2, 3],
+      bar: {
+        baz: ["a", "b", "c"],
+      },
+    },
+  };
+  assertEquals(deepGet(data, ["foo", "foz", index]), 3);
+  assertEquals(deepGet(data, ["foo", "bar", "baz", 8, "foz"]), undefined);
+  assertEquals(deepGet(data, "foo.foz.2"), 3);
+  assertEquals(deepGet(data, "foo->foz->2", null, "->"), 3);
+  assertEquals(deepGet(data, "foo.bar.baz.8.foz", null), null);
+});
+
+// defaults
+Deno.test("defaults #1", () => {
+  assertEquals(defaults({ a: 1 }, { b: 2 }, { a: 3 }), { a: 1, b: 2 });
+  const props = {
+    style: {
+      width: 100,
+      color: "black",
+    },
+  };
+  let style = defaults(props.style, { height: 200, backgroundColor: "grey" });
+  assertEquals(style, {
+    width: 100,
+    color: "black",
+    height: 200,
+    backgroundColor: "grey",
+  });
+});
+
+// // delay
+// Deno.test("delay #1", () => {
+
+//   assertEquals(delay, true);
+// });

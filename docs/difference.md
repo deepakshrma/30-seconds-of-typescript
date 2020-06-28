@@ -3,6 +3,9 @@ title: difference
 tags: array,math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the difference between two arrays.
 
 Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values not contained in `b`.

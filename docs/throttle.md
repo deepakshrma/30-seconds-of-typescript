@@ -3,6 +3,9 @@ title: throttle
 tags: function,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds
 
 Use `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`.

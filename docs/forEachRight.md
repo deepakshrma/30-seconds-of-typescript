@@ -3,6 +3,9 @@ title: forEachRight
 tags: array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Executes a provided function once for each array element, starting from the array's last element.
 
 Use `Array.prototype.slice()` to clone the given array, `Array.prototype.reverse()` to reverse it and `Array.prototype.forEach()` to iterate over the reversed array.

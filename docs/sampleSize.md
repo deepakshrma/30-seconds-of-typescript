@@ -3,6 +3,9 @@ title: sampleSize
 tags: array,random,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Gets `n` random elements at unique keys from `array` up to the size of `array`.
 
 Shuffle the array using the [Fisher-Yates algorithm](https://github.com/30-seconds/30-seconds-of-code#shuffle).

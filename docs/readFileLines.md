@@ -3,6 +3,9 @@ title: readFileLines
 tags: node,array,string,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns an array of lines from the specified file.
 
 Use `readFileSync` function in `fs` node package to create a `Buffer` from a file.

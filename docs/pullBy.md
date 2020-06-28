@@ -3,6 +3,9 @@ title: pullBy
 tags: array,function,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Mutates the original array to filter out the values specified, based on a given iterator function.
 
 Check if the last argument provided in a function.

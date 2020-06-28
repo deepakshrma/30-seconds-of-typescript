@@ -3,6 +3,9 @@ id: mdx
 title: Powered by MDX
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 You can write JSX and use React components within your Markdown thanks to [MDX](https://mdxjs.com/).
 
 export const Highlight = ({children, color}) => ( <span style={{

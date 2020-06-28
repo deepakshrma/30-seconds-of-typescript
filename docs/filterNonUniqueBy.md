@@ -3,6 +3,9 @@ title: filterNonUniqueBy
 tags: array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Filters out the non-unique values in an array, based on a provided comparator function.
 
 Use `Array.prototype.filter()` and `Array.prototype.every()` for an array containing only the unique values, based on the comparator function, `fn`.

@@ -3,6 +3,9 @@ title: toCamelCase
 tags: string,regexp,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Converts a string to camelcase.
 
 Break the string into words and combine them capitalizing the first letter of each word, using a regexp.

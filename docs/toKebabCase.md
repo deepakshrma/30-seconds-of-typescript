@@ -3,6 +3,9 @@ title: toKebabCase
 tags: string,regexp,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Converts a string to kebab case.
 
 Break the string into words and combine them adding `-` as a separator, using a regexp.

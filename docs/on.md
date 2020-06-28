@@ -3,6 +3,9 @@ title: on
 tags: browser,event,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Adds an event listener to an element with the ability to use event delegation.
 
 Use `EventTarget.addEventListener()` to add an event listener to an element.

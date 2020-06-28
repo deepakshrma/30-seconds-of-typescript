@@ -3,6 +3,9 @@ title: round
 tags: math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Rounds a number to a specified amount of digits.
 
 Use `Math.round()` and template literals to round the number to the specified number of digits.

@@ -3,6 +3,9 @@ title: indentString
 tags: string,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Indents each line in the provided string.
 
 Use `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line.

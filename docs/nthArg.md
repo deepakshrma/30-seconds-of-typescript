@@ -3,6 +3,9 @@ title: nthArg
 tags: function,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates a function that gets the argument at index `n`. If `n` is negative, the nth argument from the end is returned.
 
 Use `Array.prototype.slice()` to get the desired argument at index `n`.

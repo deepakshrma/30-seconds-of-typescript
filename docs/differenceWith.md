@@ -3,6 +3,9 @@ title: differenceWith
 tags: array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Filters out all values from an array for which the comparator function does not return `true`.
 
 Use `Array.prototype.filter()` and `Array.prototype.findIndex()` to find the appropriate values.

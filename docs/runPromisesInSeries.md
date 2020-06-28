@@ -3,6 +3,9 @@ title: runPromisesInSeries
 tags: function,promise,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Runs an array of promises in series.
 
 Use `Array.prototype.reduce()` to create a promise chain, where each promise returns the next promise when resolved.

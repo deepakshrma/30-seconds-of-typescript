@@ -3,6 +3,9 @@ title: prettyBytes
 tags: string,math,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Converts a number in bytes to a human-readable string.
 
 Use an array dictionary of units to be accessed based on the exponent.

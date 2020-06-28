@@ -3,6 +3,9 @@ title: uniqueElements
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns all unique values in an array.
 
 Create a `Set` from the given array to discard duplicated values, then use the spread operator (`...`) to convert it back to an array.

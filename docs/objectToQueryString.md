@@ -3,6 +3,9 @@ title: objectToQueryString
 tags: object,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns a query string generated from the key-value pairs of the given object.
 
 Use `Array.prototype.reduce()` on `Object.entries(queryParameters)` to create the query string.

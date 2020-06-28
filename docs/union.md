@@ -3,6 +3,9 @@ title: union
 tags: array,math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns every element that exists in any of the two arrays once.
 
 Create a `Set` with all values of `a` and `b` and convert to an array.

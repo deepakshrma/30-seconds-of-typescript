@@ -3,6 +3,9 @@ title: reject
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Filters an array's values based on a predicate function, returning only values for which the predicate function returns `false`.
 
 Use `Array.prototype.filter()` in combination with the predicate function, `pred`, to return only the values for which `pred()` returns `false`.

@@ -3,6 +3,9 @@ title: pad
 tags: string,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Pads a string on both sides with the specified character, if it's shorter than the specified length.
 
 Use `String.prototype.padStart()` and `String.prototype.padEnd()` to pad both sides of the given string.

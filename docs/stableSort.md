@@ -3,6 +3,9 @@ title: stableSort
 tags: array,sort,advanced,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Performs stable sorting of an array, preserving the initial indexes of items when their values are the same.
 Does not mutate the original array, but returns a new array instead.
 

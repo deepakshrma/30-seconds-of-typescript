@@ -3,6 +3,9 @@ title: tail
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns all elements in an array except for the first one.
 
 Return `Array.prototype.slice(1)` if the array's `length` is more than `1`, otherwise, return the whole array.

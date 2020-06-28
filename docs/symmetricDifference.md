@@ -3,6 +3,9 @@ title: symmetricDifference
 tags: array,math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the symmetric difference between two arrays, without filtering out duplicate values.
 
 Create a `Set` from each array, then use `Array.prototype.filter()` on each of them to only keep values not contained in the other.

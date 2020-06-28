@@ -3,6 +3,9 @@ title: size
 tags: object,array,string,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Gets the size of an array, object or string.
 
 Get type of `val` (`array`, `object` or `string`).

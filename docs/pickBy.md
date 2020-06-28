@@ -3,6 +3,9 @@ title: pickBy
 tags: object,array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates an object composed of the properties the given function returns truthy for. The function is invoked with two arguments: (value, key).
 
 Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a falsy value.

@@ -3,6 +3,9 @@ title: httpPut
 tags: browser,url,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Makes a `PUT` request to the passed URL.
 
 Use `XMLHttpRequest` web api to make a `put` request to the given `url`.

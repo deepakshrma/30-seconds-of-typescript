@@ -3,6 +3,9 @@ title: isSameDate
 tags: date,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Check if a date is the same as another date.
 
 Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one.

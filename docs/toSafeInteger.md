@@ -3,6 +3,9 @@ title: toSafeInteger
 tags: math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Converts a value to a safe integer.
 
 Use `Math.max()` and `Math.min()` to find the closest safe value.

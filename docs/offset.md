@@ -3,6 +3,9 @@ title: offset
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Moves the specified amount of elements to the end of the array.
 
 Use `Array.prototype.slice()` twice to get the elements after the specified index and the elements before that.

@@ -3,6 +3,9 @@ title: triggerEvent
 tags: browser,event,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Triggers a specific event on a given element, optionally passing custom data.
 
 Use `new CustomEvent()` to create an event from the specified `eventType` and details.

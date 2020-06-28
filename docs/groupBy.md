@@ -3,6 +3,9 @@ title: groupBy
 tags: array,object,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Groups the elements of an array based on the given function.
 
 Use `Array.prototype.map()` to map the values of an array to a function or property name.

@@ -3,6 +3,9 @@ title: smoothScroll
 tags: browser,css,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Smoothly scrolls the element on which it's called into the visible area of the browser window.
 
 Use `.scrollIntoView` method to scroll the element.

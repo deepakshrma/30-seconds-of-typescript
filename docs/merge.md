@@ -3,6 +3,9 @@ title: merge
 tags: object,array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates a new object from the combination of two or more objects.
 
 Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys.

@@ -3,6 +3,9 @@ title: toggleClass
 tags: browser,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Toggles a class for an HTML element.
 
 Use `element.classList.toggle()` to toggle the specified class for the element.

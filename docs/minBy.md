@@ -3,6 +3,9 @@ title: minBy
 tags: math,array,function,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the minimum value of an array, after mapping each element to a value using the provided function.
 
 Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.min()` to get the minimum value.

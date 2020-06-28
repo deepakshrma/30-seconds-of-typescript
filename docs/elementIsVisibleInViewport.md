@@ -3,6 +3,9 @@ title: elementIsVisibleInViewport
 tags: browser,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns `true` if the element specified is visible in the viewport, `false` otherwise.
 
 Use `Element.getBoundingClientRect()` and the `window.inner(Width|Height)` values

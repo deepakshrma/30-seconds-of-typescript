@@ -3,6 +3,9 @@ title: dig
 tags: object,recursion,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the target value in a nested JSON object, based on the given key.
 
 Use the `in` operator to check if `target` exists in `obj`.

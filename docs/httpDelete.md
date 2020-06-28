@@ -3,6 +3,9 @@ title: httpDelete
 tags: browser,url,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Makes a `DELETE` request to the passed URL.
 
 Use `XMLHttpRequest` web api to make a `delete` request to the given `url`.

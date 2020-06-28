@@ -3,6 +3,9 @@ title: getMeridiemSuffixOfInteger
 tags: date,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Converts an integer to a suffixed string, adding `am` or `pm` based on its value.
 
 Use the modulo operator (`%`) and conditional checks to transform an integer to a stringified 12-hour format with meridiem suffix.

@@ -3,6 +3,9 @@ title: hz
 tags: function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the number of times a function executed per second.
 `hz` is the unit for `hertz`, the unit of frequency defined as one cycle per second.
 

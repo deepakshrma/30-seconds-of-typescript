@@ -3,6 +3,9 @@ title: findLastIndex
 tags: array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the index of the last element for which the provided function returns a truthy value.
 
 Use `Array.prototype.map()` to map each element to an array with its index and value.

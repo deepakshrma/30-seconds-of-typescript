@@ -3,6 +3,9 @@ title: elo
 tags: math,array,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Computes the new ratings between two or more opponents using the [Elo rating system](https://en.wikipedia.org/wiki/Elo_rating_system). It takes an array
 of pre-ratings and returns an array containing post-ratings.
 The array should be ordered from best performer to worst performer (winner -> loser).

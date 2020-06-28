@@ -3,6 +3,9 @@ title: normalizeLineEndings
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Normalizes line endings in a string.
 
 Use `String.prototype.replace()` and a regular expression to match and replace line endings with the `normalized` version.

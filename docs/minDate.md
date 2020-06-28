@@ -3,6 +3,9 @@ title: minDate
 tags: date,math,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the minimum of the given dates.
 
 Use the ES6 spread syntax to find the minimum date value, `new Date()` to convert it to a `Date` object.

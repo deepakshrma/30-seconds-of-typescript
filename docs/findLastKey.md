@@ -3,6 +3,9 @@ title: findLastKey
 tags: object,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the last key that satisfies the provided testing function.
 Otherwise `undefined` is returned.
 

@@ -3,6 +3,10 @@ title: deepClone
 tags: object,recursion,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+
 Creates a deep clone of an object.
 
 Use recursion.
@@ -10,10 +14,10 @@ Check if the passed object is `null` and, if so, return `null`.
 Use `Object.assign()` and an empty object (`{}`) to create a shallow clone of the original.
 Use `Object.keys()` and `Array.prototype.forEach()` to determine which key-value pairs need to be deep cloned.
 
-```js
-const deepClone = (obj) => {
+```ts
+export const deepClone = (obj: any) => {
   if (obj === null) return null;
-  let clone = Object.assign({}, obj);
+  let clone = { ...obj };
   Object.keys(clone).forEach(
     (key) =>
       (clone[key] =
@@ -27,7 +31,8 @@ const deepClone = (obj) => {
 };
 ```
 
-```js
-const a = { foo: "bar", obj: { a: 1, b: 2 } };
-const b = deepClone(a); // a !== b, a.obj !== b.obj
+```ts
+const a = { foo: "bar", obj: { a: 1, b: 2 }, arr: [1, 2, 3] };
+const b = deepClone(a); // a !== b, a.obj !== b.obj,
+// a.arr[0] === b.arr[0]
 ```

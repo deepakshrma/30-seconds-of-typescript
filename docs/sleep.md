@@ -3,6 +3,9 @@ title: sleep
 tags: function,promise,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Delays the execution of an asynchronous function.
 
 Delay executing part of an `async` function, by putting it to sleep, returning a `Promise`.

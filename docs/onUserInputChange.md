@@ -3,6 +3,9 @@ title: onUserInputChange
 tags: browser,event,advanced
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Run the callback whenever the user input type changes (`mouse` or `touch`). Useful for enabling/disabling code depending on the input device. This process is dynamic and works with hybrid devices (e.g. touchscreen laptops).
 
 Use two event listeners. Assume `mouse` input initially and bind a `touchstart` event listener to the document.

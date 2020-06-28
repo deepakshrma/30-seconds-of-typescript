@@ -1,5 +1,6 @@
 {
   "name": "30-seconds-of-typescript",
+  "description": "This repo is highly inspired by 30-seconds-of-code[Typescript version].",
   "version": "0.0.0",
   "private": true,
   "scripts": {

@@ -3,6 +3,9 @@ title: recordAnimationFrames
 tags: browser,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Invokes the provided callback on each animation frame.
 
 Use recursion.

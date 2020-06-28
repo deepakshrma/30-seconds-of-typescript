@@ -3,6 +3,9 @@ title: uncurry
 tags: function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Uncurries a function up to depth `n`.
 
 Return a variadic function.

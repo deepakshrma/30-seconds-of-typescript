@@ -3,6 +3,9 @@ title: reduceWhich
 tags: array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the minimum/maximum value of an array, after applying the provided function to set comparing rule.
 
 Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.

@@ -3,6 +3,9 @@ title: dropRightWhile
 tags: array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Removes elements from the end of an array until the passed function returns `true`. Returns the remaining elements in the array.
 
 Loop through the array, using `Array.prototype.slice()` to drop the last element of the array until the returned value from the function is `true`.

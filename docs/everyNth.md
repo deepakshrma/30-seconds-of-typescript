@@ -3,6 +3,9 @@ title: everyNth
 tags: array,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns every nth element in an array.
 
 Use `Array.prototype.filter()` to create a new array that contains every nth element of a given array.

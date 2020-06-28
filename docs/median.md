@@ -3,6 +3,9 @@ title: median
 tags: math,array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns the median of an array of numbers.
 
 Find the middle of the array, use `Array.prototype.sort()` to sort the values.

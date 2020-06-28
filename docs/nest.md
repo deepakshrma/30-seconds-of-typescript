@@ -3,6 +3,9 @@ title: nest
 tags: object,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Given a flat array of objects linked to one another, it will nest them recursively.
 Useful for nesting comments, such as the ones on reddit.com.
 

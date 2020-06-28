@@ -3,6 +3,9 @@ title: isWeekday
 tags: date,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Results in a boolean representation of a specific date.
 
 Pass the specific date object firstly.

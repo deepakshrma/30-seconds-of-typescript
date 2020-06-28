@@ -3,6 +3,9 @@ title: stripHTMLTags
 tags: string,regexp,beginner
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Removes HTML/XML tags from string.
 
 Use a regular expression to remove HTML/XML tags from a string.

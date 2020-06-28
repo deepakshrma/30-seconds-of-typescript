@@ -3,6 +3,9 @@ title: times
 tags: function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Iterates over a callback `n` times
 
 Use `Function.call()` to call `fn` `n` times or until it returns `false`.

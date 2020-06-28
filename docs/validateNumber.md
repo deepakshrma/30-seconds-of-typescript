@@ -3,6 +3,9 @@ title: validateNumber
 tags: math,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns `true` if the given value is a number, `false` otherwise.
 
 Use `!isNaN()` in combination with `parseFloat()` to check if the argument is a number.

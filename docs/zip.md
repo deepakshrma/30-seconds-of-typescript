@@ -3,6 +3,9 @@ title: zip
 tags: array,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Creates an array of elements, grouped based on the position in the original arrays.
 
 Use `Math.max.apply()` to get the longest array in the arguments.

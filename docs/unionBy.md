@@ -3,6 +3,9 @@ title: unionBy
 tags: array,function,intermediate
 ---
 
+![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
+![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+
 Returns every element that exists in any of the two arrays once, after applying the provided function to each array element of both.
 
 Create a `Set` by applying all `fn` to all values of `a`.
