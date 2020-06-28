@@ -1,13 +1,16 @@
 {
   "name": "30-seconds-of-typescript",
   "description": "This repo is highly inspired by 30-seconds-of-code[Typescript version].",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.2",
+  "private": false,
   "scripts": {
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "code-gen": "node scripts/code_snippet.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "GIT_USER=deepakshrma USE_SSH=true docusaurus deploy",
+    "extension": "node scripts/vs_code.js",
+    "extension:publish": "node scripts/vs_code.js --publish",
     "prettify": "prettier *.ts --write && prettier *.js --write && prettier docs/*.md --write"
   },
   "dependencies": {
@@ -32,7 +35,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && git add util.js static/util.js && lint-staged"
+      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && npm run code-gen && git add util.js static/util.js && lint-staged"
     }
   },
   "lint-staged": {
@@ -44,8 +47,46 @@
     ]
   },
   "devDependencies": {
+    "@types/vscode": "^1.34.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "vsce": "^1.77.0"
+  },
+  "main": "util.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepakshrma/30-seconds-of-typescript.git"
+  },
+  "keywords": [
+    "typescript",
+    "javascript",
+    "productivity"
+  ],
+  "author": "deepakshrma <deepak.m.shrma@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deepakshrma/30-seconds-of-typescript/issues"
+  },
+  "homepage": "https://github.com/deepakshrma/30-seconds-of-typescript#readme",
+  "icon": "assets/icon_128x128.png",
+  "displayName": "30-seconds-of-typescript",
+  "publisher": "imdeepak",
+  "engines": {
+    "vscode": "^1.34.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "typescript",
+        "path": "./snippets/typescript.json"
+      }
+    ]
   }
 }

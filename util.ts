@@ -4,6 +4,7 @@ declare global {
 export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
 export type Func<T = any> = (...args: T[]) => any;
+
 /**
  * Guard Function to check string type
  *
@@ -12,9 +13,16 @@ export type Func<T = any> = (...args: T[]) => any;
 export function isString<T extends any>(str: string | T): str is string {
   return typeof str === "string";
 }
+
+/**
+ * Validate date
+ *
+ * @param date {Date}
+ */
 export function isValidDate(date: Date) {
   return date instanceof Date && !isNaN(date.getTime());
 }
+
 /**
  * Returns an array of partial sums.
  * Use `Array.prototype.reduce()`, `Array.prototype.slice(-1)` and the unary `+` operator to add each value to the unary array containing the previous sum.
@@ -460,7 +468,6 @@ export const complement = (fn: Func) => (...args: any[]) => !fn(...args);
  *
  * @param fns {...fns: Func<any>[]}
  */
-
 export const compose = (...fns: Func[]) =>
   fns.reduce((f, g) => (...args: any[]) => f(...castArray(g(...args))));
 
@@ -471,7 +478,6 @@ export const compose = (...fns: Func[]) =>
  * The first (leftmost) function can accept one or more arguments; the remaining functions must be unary. *
  * @param fns {...fns: Func<any>[]}
  */
-
 export const composeRight = (...fns: Func[]) =>
   fns.reduce((f, g) => (...args: any[]) => g(...castArray(f(...args))));
 

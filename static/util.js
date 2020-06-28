@@ -162,6 +162,11 @@ System.register("util", [], function (exports_1, context_1) {
     return typeof str === "string";
   }
   exports_1("isString", isString);
+  /**
+   * Validate date
+   *
+   * @param date {Date}
+   */
   function isValidDate(date) {
     return date instanceof Date && !isNaN(date.getTime());
   }
