@@ -1,7 +1,5 @@
 ---
-id: arrayToHtmlList
-sidebar_label: arrayToHtmlList
-title: ArrayToHtmlList
+title: arayToHtmlList
 tags: browser,array,intermediate
 ---
 

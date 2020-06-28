@@ -1,7 +1,5 @@
 ---
-id: capitalize
-sidebar_label: capitalize
-title: Capitalize
+title: capitalize
 tags: string,array,intermediate
 ---
 

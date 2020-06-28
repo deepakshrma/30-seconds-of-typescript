@@ -1,6 +1,4 @@
 ---
-id: capitalizeEveryWord
-sidebar_label: capitalizeEveryWord
 title: capitalizeEveryWord
 tags: string,regexp,intermediate
 ---

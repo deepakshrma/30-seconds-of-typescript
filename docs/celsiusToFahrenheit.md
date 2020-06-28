@@ -1,6 +1,4 @@
 ---
-id: celsiusToFahrenheit
-sidebar_label: celsiusToFahrenheit
 title: celsiusToFahrenheit
 tags: math,beginner
 ---

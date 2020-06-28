@@ -1,6 +1,4 @@
 ---
-id: introduction
-sidebar_label: introduction
 title: 30-seconds-of-typescript
 tags: introduction, beginner
 ---

@@ -1,6 +1,4 @@
 ---
-id: containsWhitespace
-sidebar_label: containsWhitespace
 title: containsWhitespace
 tags: string,regexp,beginner
 ---

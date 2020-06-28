@@ -1,6 +1,4 @@
 ---
-id: CSVToArray
-sidebar_label: CSVToArray
 title: CSVToArray
 tags: string,array,intermediate
 ---

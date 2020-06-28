@@ -1,7 +1,5 @@
 ---
-id: and
-sidebar_label: and
-title: And
+title: and
 tags: math,logic,beginner
 ---
 

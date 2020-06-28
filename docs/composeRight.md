@@ -1,6 +1,4 @@
 ---
-id: composeRight
-sidebar_label: composeRight
 title: composeRight
 tags: function,intermediate
 ---

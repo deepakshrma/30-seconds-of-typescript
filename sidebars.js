@@ -59,7 +59,6 @@ module.exports = {
       "createEventHub",
       "CSVToArray",
       "CSVToJSON",
-
       "currentURL",
       "curry",
       "dayOfYear",

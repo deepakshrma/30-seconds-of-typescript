@@ -1,6 +1,4 @@
 ---
-id: createElement
-sidebar_label: createElement
 title: createElement
 tags: browser,beginner
 ---

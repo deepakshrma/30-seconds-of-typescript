@@ -1,6 +1,4 @@
 ---
-id: CSVToJSON
-sidebar_label: CSVToJSON
 title: CSVToJSON
 tags: string,array,object,advanced
 ---

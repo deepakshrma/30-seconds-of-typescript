@@ -1,7 +1,5 @@
 ---
-id: bifurcateBy
-sidebar_label: bifurcateBy
-title: BifurcateBy
+title: bifurcateBy
 tags: array,function,intermediate
 ---
 

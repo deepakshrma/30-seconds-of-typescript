@@ -1,7 +1,5 @@
 ---
-id: binomialCoefficient
-sidebar_label: binomialCoefficient
-title: BinomialCoefficient
+title: binomialCoefficient
 tags: math,intermediate
 ---
 

@@ -1,7 +1,5 @@
 ---
-id: attempt
-sidebar_label: attempt
-title: Attempt
+title: attempt
 tags: function,intermediate
 ---
 

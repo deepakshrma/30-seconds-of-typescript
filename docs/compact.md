@@ -1,6 +1,4 @@
 ---
-id: compact
-sidebar_label: compact
 title: compact
 tags: array,beginner
 ---

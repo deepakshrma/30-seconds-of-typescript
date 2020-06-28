@@ -1,6 +1,4 @@
 ---
-id: createDirIfNotExistsSync
-sidebar_label: createDirIfNotExistsSync
 title: createDirIfNotExistsSync
 tags: node,beginner
 ---

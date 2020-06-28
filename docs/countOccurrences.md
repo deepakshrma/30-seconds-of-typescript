@@ -1,6 +1,4 @@
 ---
-id: countOccurrences
-sidebar_label: countOccurrences
 title: countOccurrences
 tags: array,intermediate
 ---

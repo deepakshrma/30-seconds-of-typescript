@@ -1,6 +1,4 @@
 ---
-id: createEventHub
-sidebar_label: createEventHub
 title: createEventHub
 tags: browser,event,advanced
 ---

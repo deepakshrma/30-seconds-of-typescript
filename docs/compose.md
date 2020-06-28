@@ -1,6 +1,4 @@
 ---
-id: compose
-sidebar_label: compose
 title: compose
 tags: function,intermediate
 ---

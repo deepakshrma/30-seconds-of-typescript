@@ -1,6 +1,4 @@
 ---
-id: countBy
-sidebar_label: countBy
 title: countBy
 tags: array,object,intermediate
 ---

@@ -1,6 +1,4 @@
 ---
-id: colorize
-sidebar_label: colorize
 title: colorize
 tags: node,string,intermediate
 ---

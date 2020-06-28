@@ -1,7 +1,5 @@
 ---
-id: approximatelyEqual
-sidebar_label: approximatelyEqual
-title: ApproximatelyEqual
+title: approximatelyEqual
 tags: math,beginner
 ---
 

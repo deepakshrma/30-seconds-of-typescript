@@ -1,7 +1,5 @@
 ---
-id: arrayToCSV
-sidebar_label: arrayToCSV
-title: ArrayToCSV
+title: arrayToCSV
 tags: array,string,intermediate
 ---
 

@@ -1,6 +1,4 @@
 ---
-id: chunk
-sidebar_label: chunk
 title: chunk
 tags: array,intermediate
 ---

@@ -1,6 +1,4 @@
 ---
-id: complement
-sidebar_label: complement
 title: complement
 tags: function,logic,beginner
 ---

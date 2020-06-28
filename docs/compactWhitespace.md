@@ -1,6 +1,4 @@
 ---
-id: compactWhitespace
-sidebar_label: compactWhitespace
 title: compactWhitespace
 tags: string,regexp,beginner
 ---

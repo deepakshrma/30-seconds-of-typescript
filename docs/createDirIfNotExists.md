@@ -1,6 +1,4 @@
 ---
-id: createDirIfNotExists
-sidebar_label: createDirIfNotExists
 title: createDirIfNotExists
 tags: node,beginner
 ---

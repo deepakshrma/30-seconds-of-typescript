@@ -1,6 +1,4 @@
 ---
-id: allEqual
-sidebar_label: allEqual
 title: AllEqual
 tags: array,function,beginner
 ---

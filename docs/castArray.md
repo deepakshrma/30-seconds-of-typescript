@@ -1,6 +1,4 @@
 ---
-id: castArray
-sidebar_label: castArray
 title: castArray
 tags: type,array,beginner
 ---

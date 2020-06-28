@@ -1,7 +1,5 @@
 ---
-id: bindAll
-sidebar_label: bindAll
-title: BindAll
+title: bindAll
 tags: object,function,intermediate
 ---
 

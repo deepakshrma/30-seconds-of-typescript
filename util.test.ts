@@ -1,4 +1,7 @@
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+import {
+  assertEquals,
+  assertThrows,
+} from "https://deno.land/std/testing/asserts.ts";
 import {
   accumulate,
   all,
@@ -21,6 +24,7 @@ import {
   bindAll,
   binomialCoefficient,
   both,
+  call,
   capitalize,
   capitalizeEveryWord,
   castArray,
@@ -38,6 +42,8 @@ import {
   CSVToArray,
   CSVToJSON,
   curry,
+  dayOfYear,
+  debounce,
 } from "./util.ts";
 
 // accumulate
@@ -445,4 +451,47 @@ Deno.test("CSVToJSON #1", () => {
 Deno.test("curry #1", () => {
   assertEquals(curry(Math.pow)(2)(10), 1024);
   assertEquals(curry(Math.min, 3)(10)(50)(2), 2);
+});
+
+// call
+Deno.test("call #1", () => {
+  Promise.resolve([1, 2, 3])
+    .then(call("map", (x: number) => 2 * x))
+    .then((x: number[]) => assertEquals(x, [2, 4, 6]));
+  const map = call.bind(null, "map");
+  Promise.resolve([1, 2, 3])
+    .then(map((x: number) => 2 * x))
+    .then((x: number[]) => assertEquals(x, [2, 4, 6]));
+});
+
+// dayOfYear
+Deno.test("dayOfYear #1", () => {
+  assertEquals(dayOfYear(new Date(2020, 5, 28)), 180);
+  assertEquals(dayOfYear("2020-06-28T10:46:39.856Z"), 180);
+  assertThrows(
+    () => {
+      dayOfYear("2020-06-28T1s");
+    },
+    Error,
+    "Invalid Date string",
+  );
+});
+const delay = (ms: number = 300) =>
+  new Promise((r) => {
+    setTimeout(r, ms);
+  });
+// debounce
+Deno.test("debounce #1", async () => {
+  let counter = 0;
+  const updateState = () => {
+    counter++;
+  };
+  const debouncedUpdate = debounce(updateState);
+  debouncedUpdate(); // counter == 1
+  debouncedUpdate(); // counter == 1
+  await delay(); // counter == 1
+  assertEquals(counter, 1);
+  debouncedUpdate(); // counter == 2
+  await delay(); // counter == 2
+  assertEquals(counter, 2);
 });

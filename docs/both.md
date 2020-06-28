@@ -1,7 +1,5 @@
 ---
-id: both
-sidebar_label: both
-title: Both
+title: both
 tags: function,logic,beginner
 ---
 

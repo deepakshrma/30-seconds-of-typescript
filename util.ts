@@ -4,7 +4,17 @@ declare global {
 export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
 export type Func<T = any> = (...args: T[]) => any;
-
+/**
+ * Guard Function to check string type
+ *
+ * @param str {string|T}
+ */
+export function isString<T extends any>(str: string | T): str is string {
+  return typeof str === "string";
+}
+export function isValidDate(date: Date) {
+  return date instanceof Date && !isNaN(date.getTime());
+}
 /**
  * Returns an array of partial sums.
  * Use `Array.prototype.reduce()`, `Array.prototype.slice(-1)` and the unary `+` operator to add each value to the unary array containing the previous sum.
@@ -311,6 +321,19 @@ export const binomialCoefficient = (n: number, k: number): number => {
 export const both = <T extends any>(f: Func<T>, g: Func<T>) =>
   (...args: T[]) => f(...args) && g(...args);
 
+// TODO: need refactor types
+
+/**
+ * Given a key and a set of arguments, call them when given a context. Primarily useful in composition.
+ *
+ * Use a closure to call a stored key with stored arguments.
+ *
+ * @param key {string}
+ * @param args {any[]}
+ */
+export const call = (key: string, ...args: any[]) =>
+  (context: any) => context[key](...args);
+
 /**
  *   Capitalizes the first letter of a string.
  *
@@ -598,3 +621,42 @@ export const CSVToJSON = (data: string, delimiter = ",") => {
  */
 export const curry = (fn: Func, arity = fn.length, ...args: any[]): any =>
   arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);
+
+/**
+ * dayOfYear: Gets the day of the year from a `Date` object.
+ *
+ * Use `new Date()` and `Date.prototype.getFullYear()` to get the first day of the year as a `Date` object, subtract it from the provided `date` and divide with the milliseconds in each day to get the result.
+ * Use `Math.floor()` to appropriately round the resulting day count to an integer.
+ *
+ * @param date {Date| string}
+ * */
+export const dayOfYear = (date: Date | string): number => {
+  if (isString<Date>(date)) {
+    date = new Date(date);
+  }
+  if (!isValidDate(date)) throw new Error(`Invalid Date string`);
+  return Math.floor(
+    (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) /
+      1000 /
+      60 /
+      60 /
+      24,
+  );
+};
+
+/**
+ * Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.
+ *
+ * Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.
+ * Omit the second argument, `ms`, to set the timeout at a default of 0 ms.
+ *
+ * @param fn { Function }
+ * @param ms {number} @default 300ms
+ */
+export const debounce = (fn: Function, ms = 300) => {
+  let timeoutId: number;
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
