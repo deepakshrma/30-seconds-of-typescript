@@ -122,6 +122,7 @@ System.register("util", [], function (exports_1, context_1) {
     bindAll,
     binomialCoefficient,
     both,
+    call,
     capitalize,
     capitalizeEveryWord,
     castArray,
@@ -141,8 +142,23 @@ System.register("util", [], function (exports_1, context_1) {
     createEventHub,
     CSVToArray,
     CSVToJSON,
-    curry;
+    curry,
+    dayOfYear,
+    debounce;
   var __moduleName = context_1 && context_1.id;
+  /**
+   * Guard Function to check string type
+   *
+   * @param str {string|T}
+   */
+  function isString(str) {
+    return typeof str === "string";
+  }
+  exports_1("isString", isString);
+  function isValidDate(date) {
+    return date instanceof Date && !isNaN(date.getTime());
+  }
+  exports_1("isValidDate", isValidDate);
   return {
     setters: [],
     execute: function () {
@@ -446,6 +462,19 @@ System.register("util", [], function (exports_1, context_1) {
         "both",
         (both = (f, g) => (...args) => f(...args) && g(...args))
       );
+      // TODO: need refactor types
+      /**
+       * Given a key and a set of arguments, call them when given a context. Primarily useful in composition.
+       *
+       * Use a closure to call a stored key with stored arguments.
+       *
+       * @param key {string}
+       * @param args {any[]}
+       */
+      exports_1(
+        "call",
+        (call = (key, ...args) => (context) => context[key](...args))
+      );
       /**
        *   Capitalizes the first letter of a string.
        *
@@ -745,11 +774,56 @@ System.register("util", [], function (exports_1, context_1) {
             ? fn(...args)
             : curry.bind(null, fn, arity, ...args))
       );
+      /**
+       * dayOfYear: Gets the day of the year from a `Date` object.
+       *
+       * Use `new Date()` and `Date.prototype.getFullYear()` to get the first day of the year as a `Date` object, subtract it from the provided `date` and divide with the milliseconds in each day to get the result.
+       * Use `Math.floor()` to appropriately round the resulting day count to an integer.
+       *
+       * @param date {Date| string}
+       * */
+      exports_1(
+        "dayOfYear",
+        (dayOfYear = (date) => {
+          if (isString(date)) {
+            date = new Date(date);
+          }
+          if (!isValidDate(date)) throw new Error(`Invalid Date string`);
+          return Math.floor(
+            (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) /
+              1000 /
+              60 /
+              60 /
+              24
+          );
+        })
+      );
+      /**
+       * Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.
+       *
+       * Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.
+       * Omit the second argument, `ms`, to set the timeout at a default of 0 ms.
+       *
+       * @param fn { Function }
+       * @param ms {number} @default 300ms
+       */
+      exports_1(
+        "debounce",
+        (debounce = (fn, ms = 300) => {
+          let timeoutId;
+          return function (...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => fn.apply(this, args), ms);
+          };
+        })
+      );
     },
   };
 });
 
 const __exp = __instantiate("util", false);
+export const isString = __exp["isString"];
+export const isValidDate = __exp["isValidDate"];
 export const accumulate = __exp["accumulate"];
 export const all = __exp["all"];
 export const allEqual = __exp["allEqual"];
@@ -772,6 +846,7 @@ export const bind = __exp["bind"];
 export const bindAll = __exp["bindAll"];
 export const binomialCoefficient = __exp["binomialCoefficient"];
 export const both = __exp["both"];
+export const call = __exp["call"];
 export const capitalize = __exp["capitalize"];
 export const capitalizeEveryWord = __exp["capitalizeEveryWord"];
 export const castArray = __exp["castArray"];
@@ -792,3 +867,5 @@ export const createEventHub = __exp["createEventHub"];
 export const CSVToArray = __exp["CSVToArray"];
 export const CSVToJSON = __exp["CSVToJSON"];
 export const curry = __exp["curry"];
+export const dayOfYear = __exp["dayOfYear"];
+export const debounce = __exp["debounce"];
