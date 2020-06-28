@@ -15,3 +15,4 @@ util.test.ts
 docs
 .docusaurus
 _package.json
+.private.key
