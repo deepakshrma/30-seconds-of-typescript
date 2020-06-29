@@ -13,7 +13,7 @@ Use `Array.prototype.every()` to test if all elements in the collection return `
 Omit the second argument, `fn`, to use `Boolean` as a default.
 
 ```ts
-const all = <T extends any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
+const all = <T = any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
   arr.every(fn);
 ```
 

@@ -16,7 +16,7 @@ to the array.
 For `off`, use `Array.prototype.findIndex()` to find the index of the handler in the event array and remove it using `Array.prototype.splice()`.
 
 ```ts
-const createEventHub = <T extends any>() => ({
+const createEventHub = <T = any>() => ({
   hub: Object.create(null),
   emit(event: string, data?: T) {
     (this.hub[event] || []).forEach((handler: Func<T | undefined>) =>

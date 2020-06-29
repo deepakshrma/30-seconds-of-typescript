@@ -13,7 +13,7 @@ Use `Array.prototype.map()` to map the values of an array to a function or prope
 Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
 
 ```ts
-export const countBy = <T extends any>(arr: T[], fn: Func<T> | string) => {
+export const countBy = <T = any>(arr: T[], fn: Func<T> | string) => {
   const mapper = typeof fn === "function" ? fn : (val: any) => val[fn];
   return arr.reduce((acc, val) => {
     const value = mapper(val);

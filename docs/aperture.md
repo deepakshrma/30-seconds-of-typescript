@@ -13,7 +13,7 @@ Use `Array.prototype.slice()` and `Array.prototype.map()` to create an array of 
 If `n` is greater than the length of `arr`, return an empty array.
 
 ```ts
-const aperture = <T extends any>(n: number, arr: T[]) =>
+const aperture = <T = any>(n: number, arr: T[]) =>
   n >= arr.length
     ? []
     : arr.slice(n - 1).map((v, i) => [...arr.slice(i, i + n - 1), v]);

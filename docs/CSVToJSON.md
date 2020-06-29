@@ -16,7 +16,7 @@ Use `Array.prototype.reduce()` to create an object for each row's values, with t
 Omit the second argument, `delimiter`, to use a default delimiter of `,`.
 
 ```ts
-type StringMap<T extends any = string> = { [key: string]: T };
+type StringMap<T = string> = { [key: string]: T };
 
 const CSVToJSON = (data: string, delimiter = ",") => {
   const titles: string[] = data.slice(0, data.indexOf("\n")).split(delimiter);

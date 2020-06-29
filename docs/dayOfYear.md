@@ -12,7 +12,7 @@ Use `new Date()` and `Date.prototype.getFullYear()` to get the first day of the 
 Use `Math.floor()` to appropriately round the resulting day count to an integer.
 
 ```ts
-function isString<T extends any>(str: string | T): str is string {
+function isString<T = any>(str: string | T): str is string {
   return typeof str === "string";
 }
 function isValidDate(date: Date) {

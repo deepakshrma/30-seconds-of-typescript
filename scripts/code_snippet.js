@@ -14,8 +14,7 @@ async function main() {
     .map((x) => "/*" + x);
   snippets.map((snippet) => {
     snippet = snippet.trim() + "\n";
-    const name =
-      snippet.match(/export function (.+)</) ||
+    const name = snippet.match(/export function (.+)</) ||
       snippet.match(/export function (.+)\(/) ||
       snippet.match(/export const (.+) = \(/) ||
       snippet.match(/export const (.+) = </) ||
@@ -25,16 +24,19 @@ async function main() {
       snippetJSON[`30_${name[1]}`] = {
         prefix: `30_${name[1]}`,
         body: snippet.split("\n"),
-        description:
-          description && description[0]
-            ? description[0].replace(/\/?\s?[\*]+\s?\/?|@.+/g, "")
-            : name[1],
+        description: description && description[0]
+          ? description[0].replace(/\/?\s?[\*]+\s?\/?|@.+/g, "")
+          : name[1],
       };
     }
   });
   await wf(
     join(process.cwd(), "snippets/typescript.json"),
-    JSON.stringify(snippetJSON, null, 2)
+    JSON.stringify(snippetJSON, null, 2),
+  );
+  await wf(
+    join(process.cwd(), "snippets/typescriptreact.json"),
+    JSON.stringify(snippetJSON, null, 2),
   );
 }
 main();

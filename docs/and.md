@@ -12,7 +12,7 @@ Returns `true` if both arguments are `true`, `false` otherwise.
 Use the logical and (`&&`) operator on the two given values.
 
 ```ts
-const and = <T extends any = boolean>(a: T, b: T) => Boolean(a) && Boolean(b);
+const and = <T = any = boolean>(a: T, b: T) => Boolean(a) && Boolean(b);
 ```
 
 ```ts

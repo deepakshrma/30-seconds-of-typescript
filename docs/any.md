@@ -13,7 +13,7 @@ Use `Array.prototype.some()` to test if any elements in the collection return `t
 Omit the second argument, `fn`, to use `Boolean` as a default.
 
 ```ts
-const any = <T extends any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
+const any = <T = any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
   arr.some(fn);
 ```
 

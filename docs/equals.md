@@ -3,8 +3,9 @@ title: equals
 tags: object,array,type,advanced
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Performs a deep comparison between two values to determine if they are equivalent.
 
@@ -12,7 +13,7 @@ Check if the two values are identical, if they are both `Date` objects with the 
 Check if only one value is `null` or `undefined` or if their prototypes differ.
 If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys, then use `Array.prototype.every()` to check if every key in the first value exists in the second one and if they are equivalent by calling this method recursively.
 
-```js
+```ts
 const equals = (a, b) => {
   if (a === b) return true;
   if (a instanceof Date && b instanceof Date)
@@ -26,10 +27,13 @@ const equals = (a, b) => {
 };
 ```
 
-```js
+```ts
 equals(
   { a: [2, { e: 3 }], b: [4], c: "foo" },
   { a: [2, { e: 3 }], b: [4], c: "foo" }
 ); // true
 equals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true
+
+// equals(1, "1");// compile error
+deepEquals(1, "1"); //false// no compile error
 ```

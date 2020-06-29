@@ -51,6 +51,17 @@ import {
   deepGet,
   defaults,
   delayedPromise,
+  either,
+  equals,
+  deepEquals,
+  escapeHTML,
+  escapeRegExp,
+  memoize,
+  factorial,
+  fahrenheitToCelsius,
+  filterNonUnique,
+  filterNonUniqueBy,
+  findKey,
 } from "./util.ts";
 
 // accumulate
@@ -586,3 +597,116 @@ Deno.test("defaults #1", () => {
 
 //   assertEquals(delay, true);
 // });
+
+// either
+Deno.test("either #1", () => {
+  const isEven = (num: number) => num % 2 === 0;
+  const isPositive = (num: number) => num > 0;
+  const isPositiveOrEven = either(isPositive, isEven);
+  assertEquals(isPositiveOrEven(4), true);
+  assertEquals(isPositiveOrEven(3), true);
+  interface User {
+    name: string;
+    age: number;
+  }
+  const user1: User = {
+    name: "deepak",
+    age: 18,
+  };
+  const user2: User = {
+    name: "Martha",
+    age: 21,
+  };
+  const isDeepak = (u: User) => u.name === "deepak";
+  const isAdult = (minAge: number, u: User) => u.age > minAge;
+  assertEquals(either(isDeepak, isAdult.bind(null, 18))(user1), true);
+  assertEquals(either(isDeepak, isAdult.bind(null, 21))(user2), false);
+});
+
+// equals
+Deno.test("equals #1", () => {
+  assertEquals(
+    equals(
+      { a: [2, { e: 3 }], b: [4], c: "foo" },
+      { a: [2, { e: 3 }], b: [4], c: "foo" },
+    ),
+    true,
+  );
+  // assertEquals(equals(1, "1"), true);// compile error
+  assertEquals(deepEquals(1, "1"), false); // no compile error
+});
+
+// escapeHTML
+Deno.test("escapeHTML #1", () => {
+  assertEquals(
+    escapeHTML('<a href="#">Me & you</a>'),
+    "&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;",
+  );
+});
+
+// escapeRegExp
+Deno.test("escapeRegExp #1", () => {
+  assertEquals(escapeRegExp("(test)"), "\\(test\\)");
+});
+
+// factorial
+Deno.test("factorial #1", () => {
+  assertEquals(factorial(6), 720);
+});
+
+// memoize
+Deno.test("memoize #1", () => {
+  const factorialCache = memoize(factorial);
+  assertEquals(factorialCache(70), Number("1.197857166996989e+100"));
+  assertEquals(factorialCache(70), Number("1.197857166996989e+100"));
+});
+
+// fahrenheitToCelsius
+Deno.test("fahrenheitToCelsius #1", () => {
+  assertEquals(fahrenheitToCelsius(32), 0);
+});
+
+// filterNonUnique
+Deno.test("filterNonUnique #1", () => {
+  assertEquals(
+    filterNonUnique<number>([1, 2, 2, 3, 4, 4, 5]),
+    [1, 3, 5],
+  );
+  assertEquals(filterNonUnique([1, 2, 2, 3, 4, 4, 5, "s"]), [1, 3, 5, "s"]);
+  assertEquals(
+    filterNonUnique<number | string>([1, 2, 2, 3, 4, 4, 5, "s"]),
+    [1, 3, 5, "s"],
+  );
+});
+
+// filterNonUniqueBy
+Deno.test("filterNonUniqueBy #1", () => {
+  assertEquals(
+    filterNonUniqueBy(
+      [
+        { id: 0, value: "a" },
+        { id: 1, value: "b" },
+        { id: 2, value: "c" },
+        { id: 1, value: "d" },
+        { id: 0, value: "e" },
+      ],
+      (a, b) => a.id == b.id,
+    ),
+    [{ id: 2, value: "c" }],
+  );
+});
+
+// findKey
+Deno.test("findKey #1", () => {
+  assertEquals(
+    findKey(
+      {
+        barney: { age: 36, active: true },
+        fred: { age: 40, active: false },
+        pebbles: { age: 1, active: true },
+      },
+      (o: any) => o["active"],
+    ),
+    "barney",
+  );
+});

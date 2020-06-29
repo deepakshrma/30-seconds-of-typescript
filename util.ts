@@ -5,12 +5,21 @@ export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
 export type Func<T = any> = (...args: T[]) => any;
 
+export enum HTMLEscapeChars {
+  "&" = "&amp;",
+  "<" = "&lt;",
+  ">" = "&gt;",
+  "'" = "&#39;",
+  '"' = "&quot;",
+}
+const htmlEscapeReg = new RegExp(`[${Object.keys(HTMLEscapeChars)}]`, "g");
+
 /**
  * Guard Function to check string type
  *
  * @param str {string|T}
  */
-export function isString<T extends any>(str: string | T): str is string {
+export function isString<T = any>(str: string | T): str is string {
   return typeof str === "string";
 }
 
@@ -35,18 +44,18 @@ export const accumulate = (...nums: number[]): number[] =>
 /**
  * Returns `true` if the provided predicate function returns `true` for all elements in a collection, `false` otherwise.
  *
- * @param arr:{T[]} <T extends any>
+ * @param arr:{T[]} <T = any>
  * @param fn {function} {(t: T) => boolean } Predicate, default Boolean
  */
-export const all = <T extends any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
+export const all = <T = any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
   arr.every(fn);
 
 /**
  * Check if all elements in an array are equal.
  *
- * @param arr {T[]} <T extends any>
+ * @param arr {T[]} <T = any>
  */
-export const allEqual = <T extends any>(arr: T[]) =>
+export const allEqual = <T = any>(arr: T[]) =>
   arr.every((val) => val === arr[0]);
 
 /**
@@ -55,30 +64,27 @@ export const allEqual = <T extends any>(arr: T[]) =>
  * @param a {any}
  * @param b {any}
  */
-export const and = <T extends any = boolean>(a: T, b: T) =>
-  Boolean(a) && Boolean(b);
+export const and = <T = any>(a: T, b: T) => Boolean(a) && Boolean(b);
 
 /**
  * Returns `true` if the provided predicate function returns `true` for at least one element in a collection, `false` otherwise.
  * Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.
  * Omit the second argument, `fn`, to use `Boolean` as a default.
  *
- * @param arr:{T[]} <T extends any>
+ * @param arr:{T[]} <T = any>
  * @param fn {function} {(t: T) => boolean } Predicate, default Boolean
  */
-export const any = <T extends any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
+export const any = <T = any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
   arr.some(fn);
 
 /**
  * Same as any
  *
- * @param arr:{T[]} <T extends any>
+ * @param arr:{T[]} <T = any>
  * @param fn {function} {(t: T) => boolean } Predicate, default Boolean
  */
-export const some = <T extends any>(
-  arr: T[],
-  fn: (t: T) => boolean = Boolean,
-) => arr.some(fn);
+export const some = <T = any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
+  arr.some(fn);
 
 /**
  * Returns an array of `n`-tuples of consecutive elements.
@@ -89,7 +95,7 @@ export const some = <T extends any>(
  * @param n
  * @param arr
  */
-export const aperture = <T extends any>(n: number, arr: T[]) =>
+export const aperture = <T = any>(n: number, arr: T[]) =>
   n >= arr.length
     ? []
     : arr.slice(n - 1).map((v, i) => [...arr.slice(i, i + n - 1), v]);
@@ -150,7 +156,7 @@ export const arrayToHtmlList = (arr: (string | number)[], listID: string) => {
  * @param fn {function} {(...args: T[]) => any}
  * @param n {number}
  */
-export const ary = <T extends any>(fn: (...args: T[]) => any, n: number) =>
+export const ary = <T = any>(fn: (...args: T[]) => any, n: number) =>
   (
     ...args: T[]
   ) => fn(...args.slice(0, n));
@@ -212,10 +218,7 @@ export const average = <T extends number>(...nums: number[]) =>
  * @param fn {NumCollector<T> | string}
  */
 type NumCollector<T> = (item: T) => number;
-export const averageBy = <T extends any>(
-  arr: T[],
-  fn: NumCollector<T> | string,
-) => {
+export const averageBy = <T = any>(arr: T[], fn: NumCollector<T> | string) => {
   const mapper = typeof fn === "function" ? fn : (val: any) => val[fn];
   return arr.reduce((acc, val) => acc + mapper(val), 0) / arr.length;
 };
@@ -225,10 +228,10 @@ export const averageBy = <T extends any>(
  *
  * Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`.
  *
- * @param arr {T[]} , <T extends any>
+ * @param arr {T[]} , <T = any>
  * @param filter {boolean[]}
  */
-export const bifurcate = <T extends any>(arr: T[], filter: boolean[]) =>
+export const bifurcate = <T = any>(arr: T[], filter: boolean[]) =>
   arr.reduce(
     (acc, val, i) => {
       acc[filter[i] ? 0 : 1].push(val);
@@ -242,10 +245,10 @@ export const bifurcate = <T extends any>(arr: T[], filter: boolean[]) =>
  *
  * Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.
  *
- * @param arr {T[]}, <T extends any>
+ * @param arr {T[]}, <T = any>
  * @param filter {Predicate<T>}
  */
-export const bifurcateBy = <T extends any>(arr: T[], filter: Predicate<T>) =>
+export const bifurcateBy = <T = any>(arr: T[], filter: Predicate<T>) =>
   arr.reduce(
     (acc, val) => {
       acc[filter(val) ? 0 : 1].push(val);
@@ -273,7 +276,7 @@ export const binary = (fn: (...args: any[]) => any) =>
  * @param context
  * @param boundArgs
  */
-export const bind = <T extends any>(
+export const bind = <T = any>(
   fn: (...args: any[]) => any,
   context: T,
   ...boundArgs: any[]
@@ -326,8 +329,8 @@ export const binomialCoefficient = (n: number, k: number): number => {
  * @param f
  * @param g
  */
-export const both = <T extends any>(f: Func<T>, g: Func<T>) =>
-  (...args: T[]) => f(...args) && g(...args);
+export const both = (f: Function, g: Function) =>
+  (...args: any[]) => f(...args) && g(...args);
 
 // TODO: need refactor types
 
@@ -496,10 +499,10 @@ export const containsWhitespace = (str: string) => /\s/.test(str);
  * Use `Array.prototype.map()` to map the values of an array to a function or property name.
  * Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
  *
- * @param arr {T[]} here <T extends any>
+ * @param arr {T[]} here <T = any>
  * @param fn fn: Func<T> | string
  */
-export const countBy = <T extends any>(arr: T[], fn: Func<T> | string) => {
+export const countBy = <T = any>(arr: T[], fn: Func<T> | string) => {
   const mapper = typeof fn === "function" ? fn : (val: any) => val[fn];
   return arr.reduce((acc, val) => {
     const value = mapper(val);
@@ -516,7 +519,7 @@ export const countBy = <T extends any>(arr: T[], fn: Func<T> | string) => {
  * @param arr {T[]}
  * @param val {T}
  */
-export const countOccurrences = <T extends any>(arr: T[], val: T) =>
+export const countOccurrences = <T = any>(arr: T[], val: T) =>
   arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
 /**
@@ -545,7 +548,7 @@ export const createElement = (str: string) => {
  * For `off`, use `Array.prototype.findIndex()` to find the index of the handler in the event array and remove it using `Array.prototype.splice()`.
  *
  */
-export const createEventHub = <T extends any>() => ({
+export const createEventHub = <T = any>() => ({
   hub: Object.create(null),
   emit(event: string, data?: T) {
     (this.hub[event] || []).forEach((handler: Func<T | undefined>) =>
@@ -597,7 +600,7 @@ export const CSVToArray = (
  * @param delimiter {string} @default ","
  */
 
-type StringMap<T extends any = string> = { [key: string]: T };
+type StringMap<T = string> = { [key: string]: T };
 
 export const CSVToJSON = (data: string, delimiter = ",") => {
   const titles: string[] = data.slice(0, data.indexOf("\n")).split(delimiter);
@@ -786,3 +789,167 @@ export const delayedPromise = (wait: number = 300, ...args: any[]) =>
   new Promise((resolve) => {
     delay(resolve, wait, ...args);
   });
+
+/**
+ *  Returns `true` if at least one function returns `true` for a given set of arguments, `false` otherwise.
+ *
+ * Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.
+ *
+ * @param f { Function}
+ * @param g { Function}
+ */
+export const either = (f: Function, g: Function) =>
+  (...args: any[]) => f(...args) || g(...args);
+
+/**
+ * Performs a deep comparison between two values to determine if they are equivalent.
+ *
+ * Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).
+ * Check if only one value is `null` or `undefined` or if their prototypes differ.
+ * If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys, then use `Array.prototype.every()` to check if every key in the first value exists in the second one and if they are equivalent by calling this method recursively.
+ *
+ * @param a {<T = any = any>}
+ * @param b {<T = any = any>}
+ */
+export const equals = <T = any>(a: T, b: T): boolean => {
+  if (a === b) return true;
+  if (a instanceof Date && b instanceof Date) {
+    return a.getTime() === b.getTime();
+  }
+  if (!a || !b || (typeof a !== "object" && typeof b !== "object")) {
+    return a === b;
+  }
+  const objA = a as any;
+  const objB = b as any;
+  if (objA.prototype !== objA.prototype) return false;
+  let keys = Object.keys(objA);
+  if (keys.length !== Object.keys(objB).length) return false;
+  return keys.every((k: string) => equals(objA[k], objB[k]));
+};
+
+/**
+ * Performs a deep comparison between two values to determine if they are equivalent. Same as `equals`, but without type check
+ *
+ * Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).
+ * Check if only one value is `null` or `undefined` or if their prototypes differ.
+ * If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys, then use `Array.prototype.every()` to check if every key in the first value exists in the second one and if they are equivalent by calling this method recursively.
+ *
+ * @param a {any}
+ * @param b {any}
+ */
+export const deepEquals = (a: any, b: any): boolean => {
+  if (a === b) return true;
+  if (a instanceof Date && b instanceof Date) {
+    return a.getTime() === b.getTime();
+  }
+  if (!a || !b || (typeof a !== "object" && typeof b !== "object")) {
+    return a === b;
+  }
+  const objA = a;
+  const objB = b;
+  if (objA.prototype !== objA.prototype) return false;
+  let keys = Object.keys(objA);
+  if (keys.length !== Object.keys(objB).length) return false;
+  return keys.every((k: string) => equals(objA[k], objB[k]));
+};
+
+/**
+ * Escapes a string for use in HTML.
+ *
+ * Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped, using a callback function to replace each character instance with its associated escaped character using a dictionary (object).
+ *
+ * @param str {string}
+ */
+export const escapeHTML = (str: string) =>
+  str.replace(
+    htmlEscapeReg,
+    (tag: string) => (HTMLEscapeChars as StringMap<string>)[tag] || tag,
+  );
+
+/**
+ * Escapes a string to use in a regular expression.
+ *
+ * Use `String.prototype.replace()` to escape special characters.
+ *
+ * @param str
+ */
+export const escapeRegExp = (str: string) =>
+  str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * Calculates the factorial of a number.
+ *
+ *Use recursion.
+ *If `n` is less than or equal to `1`, return `1`.
+ *Otherwise, return the product of `n` and the factorial of `n - 1`.
+ *Throws an exception if `n` is a negative number.
+ *
+ * @param n {number}
+ */
+export const factorial = (n: number): number =>
+  n <= 1 ? 1 : n * factorial(n - 1);
+
+/**
+ * Returns the memoized (cached) function.
+ *
+ * Create an empty cache by instantiating a new `Map` object.
+ * Return a function which takes a single argument to be supplied to the memoized function by first checking if the function's output for that specific input value is already cached, or store and return it if not. The `function` keyword must be used in order to allow the memoized function to have its `this` context changed if necessary.
+ * Allow access to the `cache` by setting it as a property on the returned function.
+ *
+ * @param fn {Function}
+ */
+export const memoize = <T = any>(fn: Func<T>) => {
+  const cache = new Map();
+  const cached = function (this: any, val: T) {
+    return cache.has(val)
+      ? cache.get(val)
+      : cache.set(val, fn.call(this, val)) && cache.get(val);
+  };
+  cached.cache = cache;
+  return cached;
+};
+
+/**
+ * Converts Fahrenheit to Celsius.
+ *
+ * Follows the conversion formula `C = (F - 32) * 5/9`.
+ *
+ * @param degrees
+ */
+export const fahrenheitToCelsius = (degrees: number) =>
+  ((degrees - 32) * 5) / 9;
+
+/**
+ * Filters out the non-unique values in an array.
+ *
+ * Use `Array.prototype.filter()` for an array containing only the unique values.
+ *
+ * @param arr{any[]}
+ */
+export const filterNonUnique = <T = any>(arr: T[]) =>
+  arr.filter((i) => arr.indexOf(i) === arr.lastIndexOf(i));
+
+/**
+ * Filters out the non-unique values in an array, based on a provided comparator function.
+ *
+ * Use `Array.prototype.filter()` and `Array.prototype.every()` for an array containing only the unique values, based on the comparator function, `fn`.
+ * The comparator function takes four arguments: the values of the two elements being compared and their indexes.
+ *
+ * @param arr {T[]}
+ * @param fn {(obj1: T, obj2: T, index1: number, index2: number) => any}
+ */
+export const filterNonUniqueBy = <T = any>(
+  arr: T[],
+  fn: (obj1: T, obj2: T, index1: number, index2: number) => any,
+) => arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));
+
+/**
+ * Returns the first key that satisfies the provided testing function. Otherwise `undefined` is returned.
+ *
+ * Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test the provided function for each key-value pair. The callback receives three arguments - the value, the key and the object.
+ *
+ * @param obj { any }
+ * @param fn {key}
+ */
+export const findKey = (obj: any, fn: Function) =>
+  Object.keys(obj).find((key) => fn(obj[key], key, obj));

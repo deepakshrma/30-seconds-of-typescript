@@ -13,7 +13,7 @@ Return a `function` that uses `Function.prototype.apply()` to apply the given `c
 Use `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments.
 
 ```ts
-export const bind = <T extends any>(
+export const bind = <T = any>(
   fn: (...args: any[]) => any,
   context: T,
   ...boundArgs: any[]

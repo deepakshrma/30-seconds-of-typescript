@@ -14,7 +14,7 @@ Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to g
 ```ts
 type Predicate<T> = (item: T) => boolean;
 
-const bifurcateBy = <T extends any>(arr: T[], filter: Predicate<T>) =>
+const bifurcateBy = <T = any>(arr: T[], filter: Predicate<T>) =>
   arr.reduce(
     (acc, val) => {
       acc[filter(val) ? 0 : 1].push(val);

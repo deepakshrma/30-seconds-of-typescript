@@ -12,7 +12,7 @@ Counts the occurrences of a value in an array.
 Use `Array.prototype.reduce()` to increment a counter each time you encounter the specific value inside the array.
 
 ```ts
-const countOccurrences = <T extends any>(arr: T[], val: T) =>
+const countOccurrences = <T = any>(arr: T[], val: T) =>
   arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 ```
 

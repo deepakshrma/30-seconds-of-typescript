@@ -13,7 +13,7 @@ Use the logical and (`&&`) operator on the result of calling the two functions w
 
 ```ts
 type Func<T> = (...args: T[]) => any;
-export const both = <T extends any>(f: Func<T>, g: Func<T>) => (...args: T[]) =>
+export const both = <T = any>(f: Func<T>, g: Func<T>) => (...args: T[]) =>
   f(...args) && g(...args);
 ```
 

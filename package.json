@@ -1,7 +1,7 @@
 {
   "name": "30-seconds-of-typescript",
   "description": "This repo is highly inspired by 30-seconds-of-code[Typescript version].",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "scripts": {
     "start": "docusaurus start",
@@ -39,10 +39,10 @@
     }
   },
   "lint-staged": {
-    "*.(js|html|css|md|mdx)": [
+    "*.(html|css|md|mdx)": [
       "prettier --write"
     ],
-    "*.(ts)": [
+    "*.(ts|js)": [
       "deno fmt"
     ]
   },
@@ -73,7 +73,7 @@
   },
   "homepage": "https://github.com/deepakshrma/30-seconds-of-typescript#readme",
   "icon": "assets/icon_128x128.png",
-  "displayName": "30-seconds-of-typescript",
+  "displayName": "30 seconds of typescript",
   "publisher": "imdeepak",
   "engines": {
     "vscode": "^1.34.0"
@@ -86,6 +86,10 @@
       {
         "language": "typescript",
         "path": "./snippets/typescript.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/typescriptreact.json"
       }
     ]
   }

@@ -13,7 +13,7 @@ Use `Array.prototype.map()` to map each element to the value returned by `fn`, `
 
 ```ts
 type NumCollector<T> = (item: T) => number;
-const averageBy = <T extends any>(arr: T[], fn: NumCollector<T> | string) => {
+const averageBy = <T = any>(arr: T[], fn: NumCollector<T> | string) => {
   const mapper = typeof fn === "function" ? fn : (val: any) => val[fn];
   return arr.reduce((acc, val) => acc + mapper(val), 0) / arr.length;
 };

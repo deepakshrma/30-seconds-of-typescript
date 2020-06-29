@@ -15,7 +15,7 @@ If the key exists in object, return target value, otherwise, return `null`.
 
 ```ts
 // Guard
-function isString<T extends any>(str: string | T): str is string {
+function isString<T = any>(str: string | T): str is string {
   return typeof str === "string";
 }
 
