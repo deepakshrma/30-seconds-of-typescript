@@ -62,6 +62,14 @@ import {
   filterNonUnique,
   filterNonUniqueBy,
   findKey,
+  flatten,
+  forEachRight,
+  formatDuration,
+  get,
+  getAll,
+  getBaseURL,
+  getType,
+  getURLParameters,
 } from "./util.ts";
 
 // accumulate
@@ -709,4 +717,95 @@ Deno.test("findKey #1", () => {
     ),
     "barney",
   );
+});
+
+// flatten
+Deno.test("flatten #1", () => {
+  assertEquals(flatten([1, [2], 3, 4, 5]), [1, 2, 3, 4, 5]);
+  assertEquals(flatten([1, [2, [3, [4, 5], 6], 7], 8], 2), [
+    1,
+    2,
+    3,
+    [4, 5],
+    6,
+    7,
+    8,
+  ]);
+});
+
+// forEachRight
+Deno.test("forEachRight #1", () => {
+  let count = 0;
+  forEachRight([1, 2, 3, 4], (val: number, index: number, arr: number[]) => {
+    assertEquals(val - 1, index);
+    assertEquals(4 - ++count, index);
+  });
+});
+
+// formatDuration
+Deno.test("formatDuration #1", () => {
+  assertEquals(formatDuration(1001), "1 second, 1 millisecond");
+  assertEquals(
+    formatDuration(34325055574),
+    "397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds",
+  );
+});
+
+// get
+Deno.test("get #1", () => {
+  const obj = {
+    selector: { to: { val: "val to select" } },
+    target: [1, 2, { a: "test" }],
+  };
+  assertEquals(get(obj, "selector.to.val"), "val to select");
+  assertEquals(get(obj, "selector.to1.val", null), null);
+  assertEquals(get(obj, "selector.to1.val"), undefined);
+});
+
+// getAll
+Deno.test("getAll #1", () => {
+  const obj = {
+    selector: { to: { val: "val to select" } },
+    target: [1, 2, { a: "test" }],
+  };
+  assertEquals(getAll(obj, "selector.to.val", "target[0]", "target[2].a"), [
+    "val to select",
+    1,
+    "test",
+  ]);
+});
+
+// getBaseURL
+Deno.test("getBaseURL #1", () => {
+  assertEquals(
+    getBaseURL("http://url.com/page?name=Adam&surname=Smith"),
+    "http://url.com/page",
+  );
+});
+
+// getType
+Deno.test("getType #1", () => {
+  assertEquals(getType(new Set([1, 2, 3])), "set");
+  assertEquals(getType(null), "null");
+  assertEquals(getType(Deno), "object");
+});
+
+// getURLParameters
+Deno.test("getURLParameters #1", () => {
+  assertEquals(getURLParameters("google.com"), {});
+  assertEquals(
+    getURLParameters("http://url.com/page?name=Adam&surname=Smith&surname=Sm"),
+    { name: "Adam", surname: ["Smith", "Sm"] },
+  );
+  assertEquals(
+    getURLParameters(
+      "http://url.com/page?name=Adam&surname=Smith&surname=Sm&surname=Tm",
+    ),
+    { name: "Adam", surname: ["Smith", "Sm", "Tm"] },
+  );
+  assertEquals(
+    getURLParameters("http://url.com/page?name=Adam&surname=Smith"),
+    { name: "Adam", surname: "Smith" },
+  );
+  assertEquals(getURLParameters("google.com"), {});
 });

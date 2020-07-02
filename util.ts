@@ -112,7 +112,7 @@ export const aperture = <T = any>(n: number, arr: T[]) =>
 export const approximatelyEqual = (
   v1: number,
   v2: number,
-  epsilon: number = 0.001,
+  epsilon: number = 0.001
 ) => Math.abs(v1 - v2) < epsilon;
 
 /**
@@ -156,10 +156,9 @@ export const arrayToHtmlList = (arr: (string | number)[], listID: string) => {
  * @param fn {function} {(...args: T[]) => any}
  * @param n {number}
  */
-export const ary = <T = any>(fn: (...args: T[]) => any, n: number) =>
-  (
-    ...args: T[]
-  ) => fn(...args.slice(0, n));
+export const ary = <T = any>(fn: (...args: T[]) => any, n: number) => (
+  ...args: T[]
+) => fn(...args.slice(0, n));
 
 // export const atob = (str: string) => Deno.Buffer.from(str, 'base64').toString('binary');
 
@@ -237,7 +236,7 @@ export const bifurcate = <T = any>(arr: T[], filter: boolean[]) =>
       acc[filter[i] ? 0 : 1].push(val);
       return acc;
     },
-    [[] as T[], [] as T[]],
+    [[] as T[], [] as T[]]
   );
 
 /**
@@ -254,7 +253,7 @@ export const bifurcateBy = <T = any>(arr: T[], filter: Predicate<T>) =>
       acc[filter(val) ? 0 : 1].push(val);
       return acc;
     },
-    [[] as T[], [] as T[]],
+    [[] as T[], [] as T[]]
   );
 
 /**
@@ -264,8 +263,8 @@ export const bifurcateBy = <T = any>(arr: T[], filter: Predicate<T>) =>
  * @param fn {function} {(...args: any[]) => any}
  * @returns {function} ([v1, v2]: any[]) => fn(v1, v2)
  */
-export const binary = (fn: (...args: any[]) => any) =>
-  (...[v1, v2]: any[]) => fn(v1, v2);
+export const binary = (fn: (...args: any[]) => any) => (...[v1, v2]: any[]) =>
+  fn(v1, v2);
 
 /**
  * Creates a function that invokes `fn` with a given context, optionally adding any additional supplied parameters to the beginning of the arguments.
@@ -329,8 +328,8 @@ export const binomialCoefficient = (n: number, k: number): number => {
  * @param f
  * @param g
  */
-export const both = (f: Function, g: Function) =>
-  (...args: any[]) => f(...args) && g(...args);
+export const both = (f: Function, g: Function) => (...args: any[]) =>
+  f(...args) && g(...args);
 
 // TODO: need refactor types
 
@@ -342,8 +341,8 @@ export const both = (f: Function, g: Function) =>
  * @param key {string}
  * @param args {any[]}
  */
-export const call = (key: string, ...args: any[]) =>
-  (context: any) => context[key](...args);
+export const call = (key: string, ...args: any[]) => (context: any) =>
+  context[key](...args);
 
 /**
  *   Capitalizes the first letter of a string.
@@ -374,7 +373,8 @@ export const capitalizeEveryWord = (str: string = "") =>
  * Use `Array.prototype.isArray()` to determine if `val` is an array and return it as-is or encapsulated in an array accordingly.
  * @param val
  */
-export const castArray = (val: any): any[] => Array.isArray(val) ? val : [val];
+export const castArray = (val: any): any[] =>
+  Array.isArray(val) ? val : [val];
 
 /**
  * Converts Celsius to Fahrenheit.
@@ -394,9 +394,8 @@ export const celsiusToFahrenheit = (degrees: number) => 1.8 * degrees + 32;
  * @param size {number}
  */
 export const chunk = (arr: any[], size: number) =>
-  Array.from(
-    { length: Math.ceil(arr.length / size) },
-    (_: any, i: number) => arr.slice(i * size, i * size + size),
+  Array.from({ length: Math.ceil(arr.length / size) }, (_: any, i: number) =>
+    arr.slice(i * size, i * size + size)
   );
 
 /**
@@ -581,7 +580,7 @@ export const createEventHub = <T = any>() => ({
 export const CSVToArray = (
   data: string,
   delimiter = ",",
-  omitFirstRow = false,
+  omitFirstRow = false
 ) =>
   data
     .slice(omitFirstRow ? data.indexOf("\n") + 1 : 0)
@@ -611,7 +610,7 @@ export const CSVToJSON = (data: string, delimiter = ",") => {
       const values = v.split(delimiter);
       return titles.reduce(
         (obj, title, index) => ((obj[title] = values[index]), obj),
-        {} as StringMap,
+        {} as StringMap
       );
     });
 };
@@ -649,7 +648,7 @@ export const dayOfYear = (date: Date | string): number => {
       1000 /
       60 /
       60 /
-      24,
+      24
   );
 };
 
@@ -684,11 +683,9 @@ export const deepClone = (obj: any) => {
   if (obj === null) return null;
   let clone = { ...obj };
   Object.keys(clone).forEach(
-    (
-      key,
-    ) => (clone[key] = typeof obj[key] === "object"
-      ? deepClone(obj[key])
-      : obj[key]),
+    (key) =>
+      (clone[key] =
+        typeof obj[key] === "object" ? deepClone(obj[key]) : obj[key])
   );
   return Array.isArray(obj) && obj.length
     ? (clone.length = obj.length) && Array.from(clone)
@@ -709,7 +706,7 @@ export const deepClone = (obj: any) => {
 export const deepFlatten = (arr: any[]): any[] => {
   if (typeof Array.prototype.flat !== "undefined") return arr.flat(Infinity);
   return [].concat(
-    ...arr.map((v: any) => (Array.isArray(v) ? deepFlatten(v) : v)),
+    ...arr.map((v: any) => (Array.isArray(v) ? deepFlatten(v) : v))
   );
 };
 
@@ -747,7 +744,7 @@ export const deepGet = (
   obj: any,
   keys: string | (string | number)[],
   defaultValue: null | undefined = undefined,
-  delimiter = ".",
+  delimiter = "."
 ) => {
   if (isString(keys)) {
     keys = keys.split(delimiter);
@@ -798,8 +795,8 @@ export const delayedPromise = (wait: number = 300, ...args: any[]) =>
  * @param f { Function}
  * @param g { Function}
  */
-export const either = (f: Function, g: Function) =>
-  (...args: any[]) => f(...args) || g(...args);
+export const either = (f: Function, g: Function) => (...args: any[]) =>
+  f(...args) || g(...args);
 
 /**
  * Performs a deep comparison between two values to determine if they are equivalent.
@@ -863,7 +860,7 @@ export const deepEquals = (a: any, b: any): boolean => {
 export const escapeHTML = (str: string) =>
   str.replace(
     htmlEscapeReg,
-    (tag: string) => (HTMLEscapeChars as StringMap<string>)[tag] || tag,
+    (tag: string) => (HTMLEscapeChars as StringMap<string>)[tag] || tag
   );
 
 /**
@@ -940,7 +937,7 @@ export const filterNonUnique = <T = any>(arr: T[]) =>
  */
 export const filterNonUniqueBy = <T = any>(
   arr: T[],
-  fn: (obj1: T, obj2: T, index1: number, index2: number) => any,
+  fn: (obj1: T, obj2: T, index1: number, index2: number) => any
 ) => arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));
 
 /**
@@ -953,3 +950,183 @@ export const filterNonUniqueBy = <T = any>(
  */
 export const findKey = (obj: any, fn: Function) =>
   Object.keys(obj).find((key) => fn(obj[key], key, obj));
+
+/**
+ * Flattens an array up to the specified depth.
+ *
+ * Use recursion, decrementing `depth` by 1 for each level of depth.
+ * Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays.
+ * Base case, for `depth` equal to `1` stops recursion.
+ * Omit the second argument, `depth` to flatten only to a depth of `1` (single flatten).
+ *
+ *
+ * @param arr {any[]}
+ * @param depth
+ */
+export const flatten = (arr: any[], depth = 1): any[] => {
+  if (typeof Array.prototype.flat !== "undefined") return arr.flat(depth);
+  return arr.reduce(
+    (a, v) =>
+      a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v),
+    []
+  );
+};
+
+/**
+ * Executes a provided function once for each array element, starting from the array's last element.
+ *
+ * @param arr {any[]}
+ * @param callback { Function }
+ */
+export const forEachRight = (array: any[] = [], callback: Function) => {
+  for (let index = array.length - 1; index >= 0; index--) {
+    const element = array[index];
+    callback(element, index, array);
+  }
+};
+
+/**
+ * Returns the human readable format of the given number of milliseconds.
+ *
+ * Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`.
+ * Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values.
+ * Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.
+ * Use `String.prototype.join(', ')` to combine the values into a string.
+ *
+ * @param ms {number} in ms
+ */
+export const formatDuration = (ms: number) => {
+  ms = Math.abs(ms);
+  const time = {
+    day: Math.floor(ms / 86400000),
+    hour: Math.floor(ms / 3600000) % 24,
+    minute: Math.floor(ms / 60000) % 60,
+    second: Math.floor(ms / 1000) % 60,
+    millisecond: Math.floor(ms) % 1000,
+  };
+  return Object.entries(time)
+    .filter((val) => val[1] !== 0)
+    .map(([key, val]) => `${val} ${key}${val !== 1 ? "s" : ""}`)
+    .join(", ");
+};
+
+interface IFormData {
+  new (form: any): FormData;
+}
+/**
+ * Encode a set of form elements as an `object`.
+ *
+ * Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.
+ * Collect the object from the array, using `Array.prototype.reduce()`.
+ *
+ * @param form
+ */
+export const formToObject = (form: any) => {
+  const F = FormData as IFormData;
+  Array.from(new F(form)).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: value,
+    }),
+    {}
+  );
+};
+
+/**
+ * Retrieve a set of properties indicated by the given selectors from an object.
+ *
+ * Use `String.prototype.replace()` to replace square brackets with dots, `String.prototype.split('.')` to split each selector, `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by it.
+ *
+ * @param from {any}
+ * @param selectors {string}
+ */
+export const get = (
+  from: any,
+  selector: string,
+  defaultValue: any = undefined
+) =>
+  selector
+    .replace(/\[([^\[\]]*)\]/g, ".$1.")
+    .split(".")
+    .filter((t) => t !== "")
+    .reduce((prev, cur) => prev && prev[cur], from) || defaultValue;
+
+/**
+ * Retrieve a set of properties indicated by the given selectors(string[]) from an object.
+ *
+ * Use `Array.prototype.map()` for each selector, `String.prototype.replace()` to replace square brackets with dots, `String.prototype.split('.')` to split each selector, `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by it.
+ *
+ * @param from {any}
+ * @param selectors {string[]}
+ */
+export const getAll = (from: any, ...selectors: string[]) =>
+  [...selectors].map((s) => get(from, s));
+
+/**
+ * Returns the current URL without any parameters.
+ * Use `String.prototype.indexOf()` to check if the given `url` has parameters, `String.prototype.slice()` to remove them if necessary.
+ *
+ * @param url { string }
+ */
+export const getBaseURL = (url: string) =>
+  url.indexOf("?") > 0 ? url.slice(0, url.indexOf("?")) : url;
+
+/**
+ * Returns the native type of a value.
+ *
+ * Return `'undefined'` or `'null'` if the value is `undefined` or `null`.
+ * Otherwise, use `Object.prototype.constructor.name` to get the name of the constructor.
+ *
+ * @param v
+ */
+export const getType = (v: any) =>
+  v === undefined
+    ? "undefined"
+    : v === null
+    ? "null"
+    : v.constructor.name.toLowerCase();
+
+/**
+ * Returns an object containing the parameters of the current URL.
+ *
+ * Use `String.prototype.match()` with an appropriate regular expression to get all key-value pairs, `Array.prototype.reduce()` to map and combine them into a single object.
+ * Pass `location.search` as the argument to apply to the current `url`.
+ *
+ * @param url {string}
+ */
+type URLParamValue = { [key: string]: string | string[] };
+export const getURLParameters = (url: string) => {
+  return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce((a, v) => {
+    const [key, value] = v.split("=");
+    if (a[key]) {
+      a[key] = ((typeof a[key] === "string"
+        ? [a[key]]
+        : a[key]) as string[]).concat(value);
+    } else {
+      a[key] = value;
+    }
+    return a;
+  }, {} as URLParamValue);
+};
+
+/**
+ * Converts any map to Plain Object
+ *
+ * @param map
+ */
+interface MapLike<T = any, U = T | null>
+  extends Pick<Map<string, U>, "get" | "keys" | "values" | "entries"> {
+  [Symbol.iterator](): IterableIterator<T>;
+}
+export const mapToObject = <T = any, U = any>(map: MapLike<T, U>) => {
+  let result: { [key: string]: U | undefined } = {};
+  for (let [key, value] of map.entries()) {
+    result[key] = value;
+  }
+  return result;
+};
+// const pathname = url.split("?", 2)[1];
+// if (!pathname) return {};
+// if (typeof URLSearchParams !== undefined) {
+//   return mapToObject<[string, string]>(new URLSearchParams(pathname));
+// }

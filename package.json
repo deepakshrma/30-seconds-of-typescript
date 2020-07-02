@@ -1,7 +1,7 @@
 {
   "name": "30-seconds-of-typescript",
   "description": "User utility code snippets like lodash for typescript, typescriptreact(tsx) and deno [inspired by 30-seconds-of-code].",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "scripts": {
     "start": "docusaurus start",
@@ -35,15 +35,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && npm run code-gen && git add util.js static/util.js && lint-staged"
+      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && npm run code-gen && git add util.js static/util.js snippets && lint-staged"
     }
   },
   "lint-staged": {
-    "*.(html|css|md|mdx)": [
+    "*.(ts|js|html|css|md|mdx)": [
       "prettier --write"
-    ],
-    "*.(ts|js)": [
-      "deno fmt"
     ]
   },
   "devDependencies": {
@@ -59,7 +56,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepakshrma/30-seconds-of-typescript.git"
+    "url": "https://github.com/deepakshrma/30-seconds-of-typescript.git"
   },
   "keywords": [
     "deno",

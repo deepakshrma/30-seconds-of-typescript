@@ -3,8 +3,9 @@ title: formatDuration
 tags: date,math,string,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns the human readable format of the given number of milliseconds.
 
@@ -13,9 +14,9 @@ Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero val
 Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.
 Use `String.prototype.join(', ')` to combine the values into a string.
 
-```js
-const formatDuration = (ms) => {
-  if (ms < 0) ms = -ms;
+```ts
+const formatDuration = (ms: number) => {
+  ms = Math.abs(ms);
   const time = {
     day: Math.floor(ms / 86400000),
     hour: Math.floor(ms / 3600000) % 24,
@@ -30,7 +31,7 @@ const formatDuration = (ms) => {
 };
 ```
 
-```js
+```ts
 formatDuration(1001); // '1 second, 1 millisecond'
 formatDuration(34325055574); // '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'
 ```
