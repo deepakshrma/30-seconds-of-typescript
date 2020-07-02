@@ -100,7 +100,9 @@ let System, __instantiate;
 
 System.register("util", [], function (exports_1, context_1) {
   "use strict";
-  var accumulate,
+  var HTMLEscapeChars,
+    htmlEscapeReg,
+    accumulate,
     all,
     allEqual,
     and,
@@ -151,7 +153,28 @@ System.register("util", [], function (exports_1, context_1) {
     deepGet,
     defaults,
     delay,
-    delayedPromise;
+    delayedPromise,
+    either,
+    equals,
+    deepEquals,
+    escapeHTML,
+    escapeRegExp,
+    factorial,
+    memoize,
+    fahrenheitToCelsius,
+    filterNonUnique,
+    filterNonUniqueBy,
+    findKey,
+    flatten,
+    forEachRight,
+    formatDuration,
+    formToObject,
+    get,
+    getAll,
+    getBaseURL,
+    getType,
+    getURLParameters,
+    mapToObject;
   var __moduleName = context_1 && context_1.id;
   /**
    * Guard Function to check string type
@@ -174,6 +197,15 @@ System.register("util", [], function (exports_1, context_1) {
   return {
     setters: [],
     execute: function () {
+      (function (HTMLEscapeChars) {
+        HTMLEscapeChars["&"] = "&amp;";
+        HTMLEscapeChars["<"] = "&lt;";
+        HTMLEscapeChars[">"] = "&gt;";
+        HTMLEscapeChars["'"] = "&#39;";
+        HTMLEscapeChars['"'] = "&quot;";
+      })(HTMLEscapeChars || (HTMLEscapeChars = {}));
+      exports_1("HTMLEscapeChars", HTMLEscapeChars);
+      htmlEscapeReg = new RegExp(`[${Object.keys(HTMLEscapeChars)}]`, "g");
       /**
        * Returns an array of partial sums.
        * Use `Array.prototype.reduce()`, `Array.prototype.slice(-1)` and the unary `+` operator to add each value to the unary array containing the previous sum.
@@ -188,14 +220,14 @@ System.register("util", [], function (exports_1, context_1) {
       /**
        * Returns `true` if the provided predicate function returns `true` for all elements in a collection, `false` otherwise.
        *
-       * @param arr:{T[]} <T extends any>
+       * @param arr:{T[]} <T = any>
        * @param fn {function} {(t: T) => boolean } Predicate, default Boolean
        */
       exports_1("all", (all = (arr, fn = Boolean) => arr.every(fn)));
       /**
        * Check if all elements in an array are equal.
        *
-       * @param arr {T[]} <T extends any>
+       * @param arr {T[]} <T = any>
        */
       exports_1(
         "allEqual",
@@ -213,14 +245,14 @@ System.register("util", [], function (exports_1, context_1) {
        * Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.
        * Omit the second argument, `fn`, to use `Boolean` as a default.
        *
-       * @param arr:{T[]} <T extends any>
+       * @param arr:{T[]} <T = any>
        * @param fn {function} {(t: T) => boolean } Predicate, default Boolean
        */
       exports_1("any", (any = (arr, fn = Boolean) => arr.some(fn)));
       /**
        * Same as any
        *
-       * @param arr:{T[]} <T extends any>
+       * @param arr:{T[]} <T = any>
        * @param fn {function} {(t: T) => boolean } Predicate, default Boolean
        */
       exports_1("some", (some = (arr, fn = Boolean) => arr.some(fn)));
@@ -364,7 +396,7 @@ System.register("util", [], function (exports_1, context_1) {
        *
        * Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`.
        *
-       * @param arr {T[]} , <T extends any>
+       * @param arr {T[]} , <T = any>
        * @param filter {boolean[]}
        */
       exports_1(
@@ -383,7 +415,7 @@ System.register("util", [], function (exports_1, context_1) {
        *
        * Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.
        *
-       * @param arr {T[]}, <T extends any>
+       * @param arr {T[]}, <T = any>
        * @param filter {Predicate<T>}
        */
       exports_1(
@@ -658,7 +690,7 @@ System.register("util", [], function (exports_1, context_1) {
        * Use `Array.prototype.map()` to map the values of an array to a function or property name.
        * Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
        *
-       * @param arr {T[]} here <T extends any>
+       * @param arr {T[]} here <T = any>
        * @param fn fn: Func<T> | string
        */
       exports_1(
@@ -958,6 +990,358 @@ System.register("util", [], function (exports_1, context_1) {
             delay(resolve, wait, ...args);
           }))
       );
+      /**
+       *  Returns `true` if at least one function returns `true` for a given set of arguments, `false` otherwise.
+       *
+       * Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.
+       *
+       * @param f { Function}
+       * @param g { Function}
+       */
+      exports_1(
+        "either",
+        (either = (f, g) => (...args) => f(...args) || g(...args))
+      );
+      /**
+       * Performs a deep comparison between two values to determine if they are equivalent.
+       *
+       * Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).
+       * Check if only one value is `null` or `undefined` or if their prototypes differ.
+       * If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys, then use `Array.prototype.every()` to check if every key in the first value exists in the second one and if they are equivalent by calling this method recursively.
+       *
+       * @param a {<T = any = any>}
+       * @param b {<T = any = any>}
+       */
+      exports_1(
+        "equals",
+        (equals = (a, b) => {
+          if (a === b) return true;
+          if (a instanceof Date && b instanceof Date) {
+            return a.getTime() === b.getTime();
+          }
+          if (!a || !b || (typeof a !== "object" && typeof b !== "object")) {
+            return a === b;
+          }
+          const objA = a;
+          const objB = b;
+          if (objA.prototype !== objA.prototype) return false;
+          let keys = Object.keys(objA);
+          if (keys.length !== Object.keys(objB).length) return false;
+          return keys.every((k) => equals(objA[k], objB[k]));
+        })
+      );
+      /**
+       * Performs a deep comparison between two values to determine if they are equivalent. Same as `equals`, but without type check
+       *
+       * Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).
+       * Check if only one value is `null` or `undefined` or if their prototypes differ.
+       * If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys, then use `Array.prototype.every()` to check if every key in the first value exists in the second one and if they are equivalent by calling this method recursively.
+       *
+       * @param a {any}
+       * @param b {any}
+       */
+      exports_1(
+        "deepEquals",
+        (deepEquals = (a, b) => {
+          if (a === b) return true;
+          if (a instanceof Date && b instanceof Date) {
+            return a.getTime() === b.getTime();
+          }
+          if (!a || !b || (typeof a !== "object" && typeof b !== "object")) {
+            return a === b;
+          }
+          const objA = a;
+          const objB = b;
+          if (objA.prototype !== objA.prototype) return false;
+          let keys = Object.keys(objA);
+          if (keys.length !== Object.keys(objB).length) return false;
+          return keys.every((k) => equals(objA[k], objB[k]));
+        })
+      );
+      /**
+       * Escapes a string for use in HTML.
+       *
+       * Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped, using a callback function to replace each character instance with its associated escaped character using a dictionary (object).
+       *
+       * @param str {string}
+       */
+      exports_1(
+        "escapeHTML",
+        (escapeHTML = (str) =>
+          str.replace(htmlEscapeReg, (tag) => HTMLEscapeChars[tag] || tag))
+      );
+      /**
+       * Escapes a string to use in a regular expression.
+       *
+       * Use `String.prototype.replace()` to escape special characters.
+       *
+       * @param str
+       */
+      exports_1(
+        "escapeRegExp",
+        (escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      );
+      /**
+       * Calculates the factorial of a number.
+       *
+       *Use recursion.
+       *If `n` is less than or equal to `1`, return `1`.
+       *Otherwise, return the product of `n` and the factorial of `n - 1`.
+       *Throws an exception if `n` is a negative number.
+       *
+       * @param n {number}
+       */
+      exports_1(
+        "factorial",
+        (factorial = (n) => (n <= 1 ? 1 : n * factorial(n - 1)))
+      );
+      /**
+       * Returns the memoized (cached) function.
+       *
+       * Create an empty cache by instantiating a new `Map` object.
+       * Return a function which takes a single argument to be supplied to the memoized function by first checking if the function's output for that specific input value is already cached, or store and return it if not. The `function` keyword must be used in order to allow the memoized function to have its `this` context changed if necessary.
+       * Allow access to the `cache` by setting it as a property on the returned function.
+       *
+       * @param fn {Function}
+       */
+      exports_1(
+        "memoize",
+        (memoize = (fn) => {
+          const cache = new Map();
+          const cached = function (val) {
+            return cache.has(val)
+              ? cache.get(val)
+              : cache.set(val, fn.call(this, val)) && cache.get(val);
+          };
+          cached.cache = cache;
+          return cached;
+        })
+      );
+      /**
+       * Converts Fahrenheit to Celsius.
+       *
+       * Follows the conversion formula `C = (F - 32) * 5/9`.
+       *
+       * @param degrees
+       */
+      exports_1(
+        "fahrenheitToCelsius",
+        (fahrenheitToCelsius = (degrees) => ((degrees - 32) * 5) / 9)
+      );
+      /**
+       * Filters out the non-unique values in an array.
+       *
+       * Use `Array.prototype.filter()` for an array containing only the unique values.
+       *
+       * @param arr{any[]}
+       */
+      exports_1(
+        "filterNonUnique",
+        (filterNonUnique = (arr) =>
+          arr.filter((i) => arr.indexOf(i) === arr.lastIndexOf(i)))
+      );
+      /**
+       * Filters out the non-unique values in an array, based on a provided comparator function.
+       *
+       * Use `Array.prototype.filter()` and `Array.prototype.every()` for an array containing only the unique values, based on the comparator function, `fn`.
+       * The comparator function takes four arguments: the values of the two elements being compared and their indexes.
+       *
+       * @param arr {T[]}
+       * @param fn {(obj1: T, obj2: T, index1: number, index2: number) => any}
+       */
+      exports_1(
+        "filterNonUniqueBy",
+        (filterNonUniqueBy = (arr, fn) =>
+          arr.filter((v, i) =>
+            arr.every((x, j) => (i === j) === fn(v, x, i, j))
+          ))
+      );
+      /**
+       * Returns the first key that satisfies the provided testing function. Otherwise `undefined` is returned.
+       *
+       * Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test the provided function for each key-value pair. The callback receives three arguments - the value, the key and the object.
+       *
+       * @param obj { any }
+       * @param fn {key}
+       */
+      exports_1(
+        "findKey",
+        (findKey = (obj, fn) =>
+          Object.keys(obj).find((key) => fn(obj[key], key, obj)))
+      );
+      /**
+       * Flattens an array up to the specified depth.
+       *
+       * Use recursion, decrementing `depth` by 1 for each level of depth.
+       * Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays.
+       * Base case, for `depth` equal to `1` stops recursion.
+       * Omit the second argument, `depth` to flatten only to a depth of `1` (single flatten).
+       *
+       *
+       * @param arr {any[]}
+       * @param depth
+       */
+      exports_1(
+        "flatten",
+        (flatten = (arr, depth = 1) => {
+          if (typeof Array.prototype.flat !== "undefined")
+            return arr.flat(depth);
+          return arr.reduce(
+            (a, v) =>
+              a.concat(
+                depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v
+              ),
+            []
+          );
+        })
+      );
+      /**
+       * Executes a provided function once for each array element, starting from the array's last element.
+       *
+       * @param arr {any[]}
+       * @param callback { Function }
+       */
+      exports_1(
+        "forEachRight",
+        (forEachRight = (array = [], callback) => {
+          for (let index = array.length - 1; index >= 0; index--) {
+            const element = array[index];
+            callback(element, index, array);
+          }
+        })
+      );
+      /**
+       * Returns the human readable format of the given number of milliseconds.
+       *
+       * Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`.
+       * Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values.
+       * Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.
+       * Use `String.prototype.join(', ')` to combine the values into a string.
+       *
+       * @param ms {number} in ms
+       */
+      exports_1(
+        "formatDuration",
+        (formatDuration = (ms) => {
+          ms = Math.abs(ms);
+          const time = {
+            day: Math.floor(ms / 86400000),
+            hour: Math.floor(ms / 3600000) % 24,
+            minute: Math.floor(ms / 60000) % 60,
+            second: Math.floor(ms / 1000) % 60,
+            millisecond: Math.floor(ms) % 1000,
+          };
+          return Object.entries(time)
+            .filter((val) => val[1] !== 0)
+            .map(([key, val]) => `${val} ${key}${val !== 1 ? "s" : ""}`)
+            .join(", ");
+        })
+      );
+      /**
+       * Encode a set of form elements as an `object`.
+       *
+       * Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.
+       * Collect the object from the array, using `Array.prototype.reduce()`.
+       *
+       * @param form
+       */
+      exports_1(
+        "formToObject",
+        (formToObject = (form) => {
+          const F = FormData;
+          Array.from(new F(form)).reduce(
+            (acc, [key, value]) => ({
+              ...acc,
+              [key]: value,
+            }),
+            {}
+          );
+        })
+      );
+      /**
+       * Retrieve a set of properties indicated by the given selectors from an object.
+       *
+       * Use `String.prototype.replace()` to replace square brackets with dots, `String.prototype.split('.')` to split each selector, `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by it.
+       *
+       * @param from {any}
+       * @param selectors {string}
+       */
+      exports_1(
+        "get",
+        (get = (from, selector, defaultValue = undefined) =>
+          selector
+            .replace(/\[([^\[\]]*)\]/g, ".$1.")
+            .split(".")
+            .filter((t) => t !== "")
+            .reduce((prev, cur) => prev && prev[cur], from) || defaultValue)
+      );
+      /**
+       * Retrieve a set of properties indicated by the given selectors(string[]) from an object.
+       *
+       * Use `Array.prototype.map()` for each selector, `String.prototype.replace()` to replace square brackets with dots, `String.prototype.split('.')` to split each selector, `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by it.
+       *
+       * @param from {any}
+       * @param selectors {string[]}
+       */
+      exports_1(
+        "getAll",
+        (getAll = (from, ...selectors) =>
+          [...selectors].map((s) => get(from, s)))
+      );
+      /**
+       * Returns the current URL without any parameters.
+       * Use `String.prototype.indexOf()` to check if the given `url` has parameters, `String.prototype.slice()` to remove them if necessary.
+       *
+       * @param url { string }
+       */
+      exports_1(
+        "getBaseURL",
+        (getBaseURL = (url) =>
+          url.indexOf("?") > 0 ? url.slice(0, url.indexOf("?")) : url)
+      );
+      /**
+       * Returns the native type of a value.
+       *
+       * Return `'undefined'` or `'null'` if the value is `undefined` or `null`.
+       * Otherwise, use `Object.prototype.constructor.name` to get the name of the constructor.
+       *
+       * @param v
+       */
+      exports_1(
+        "getType",
+        (getType = (v) =>
+          v === undefined
+            ? "undefined"
+            : v === null
+            ? "null"
+            : v.constructor.name.toLowerCase())
+      );
+      exports_1(
+        "getURLParameters",
+        (getURLParameters = (url) => {
+          return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce((a, v) => {
+            const [key, value] = v.split("=");
+            if (a[key]) {
+              a[key] = (typeof a[key] === "string" ? [a[key]] : a[key]).concat(
+                value
+              );
+            } else {
+              a[key] = value;
+            }
+            return a;
+          }, {});
+        })
+      );
+      exports_1(
+        "mapToObject",
+        (mapToObject = (map) => {
+          let result = {};
+          for (let [key, value] of map.entries()) {
+            result[key] = value;
+          }
+          return result;
+        })
+      );
     },
   };
 });
@@ -1017,3 +1401,24 @@ export const deepGet = __exp["deepGet"];
 export const defaults = __exp["defaults"];
 export const delay = __exp["delay"];
 export const delayedPromise = __exp["delayedPromise"];
+export const either = __exp["either"];
+export const equals = __exp["equals"];
+export const deepEquals = __exp["deepEquals"];
+export const escapeHTML = __exp["escapeHTML"];
+export const escapeRegExp = __exp["escapeRegExp"];
+export const factorial = __exp["factorial"];
+export const memoize = __exp["memoize"];
+export const fahrenheitToCelsius = __exp["fahrenheitToCelsius"];
+export const filterNonUnique = __exp["filterNonUnique"];
+export const filterNonUniqueBy = __exp["filterNonUniqueBy"];
+export const findKey = __exp["findKey"];
+export const flatten = __exp["flatten"];
+export const forEachRight = __exp["forEachRight"];
+export const formatDuration = __exp["formatDuration"];
+export const formToObject = __exp["formToObject"];
+export const get = __exp["get"];
+export const getAll = __exp["getAll"];
+export const getBaseURL = __exp["getBaseURL"];
+export const getType = __exp["getType"];
+export const getURLParameters = __exp["getURLParameters"];
+export const mapToObject = __exp["mapToObject"];
