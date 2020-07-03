@@ -70,6 +70,15 @@ import {
   getBaseURL,
   getType,
   getURLParameters,
+  groupBy,
+  hasFlags,
+  hexToRGB,
+  hexToRGB2,
+  includesAll,
+  indentString,
+  fillArray,
+  initializeArrayWithValues,
+  inRange,
 } from "./util.ts";
 
 // accumulate
@@ -110,7 +119,7 @@ Deno.test("and #1", () => {
 Deno.test("any #2", () => {
   assertEquals(
     any([1, 2, 3, 4], (x: number) => x >= 2),
-    true,
+    true
   );
   assertEquals(any([0, 0, 1, 0]), true);
 });
@@ -142,7 +151,7 @@ Deno.test("approximatelyEqual #1", () => {
       ["a", "b"],
       ["c", "d"],
     ]),
-    `"a","b"\n"c","d"`,
+    `"a","b"\n"c","d"`
   );
   assertEquals(
     arrayToCSV(
@@ -150,16 +159,16 @@ Deno.test("approximatelyEqual #1", () => {
         ["a", "b"],
         ["c", "d"],
       ],
-      ";",
+      ";"
     ),
-    `"a";"b"\n"c";"d"`,
+    `"a";"b"\n"c";"d"`
   );
   assertEquals(
     arrayToCSV([
       ["a", '"b" great'],
       ["c", 3.1415],
     ]),
-    `"a","""b"" great"\n"c",3.1415`,
+    `"a","""b"" great"\n"c",3.1415`
   );
 });
 
@@ -190,7 +199,7 @@ Deno.test("ary #1", () => {
   const firstTwoMax = ary(Math.max, 2);
   assertEquals(
     [[2, 6, 12], [6, 4, 8], [10]].map((x) => firstTwoMax(...x)),
-    [6, 6, 10],
+    [6, 6, 10]
   );
 });
 
@@ -237,7 +246,7 @@ Deno.test("average #1", () => {
 Deno.test("averageBy #1", () => {
   assertEquals(
     averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o: any) => o.n),
-    5,
+    5
   );
   assertEquals(averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 5);
 });
@@ -246,7 +255,7 @@ Deno.test("averageBy #1", () => {
 Deno.test("bifurcate #1", () => {
   assertEquals(
     bifurcate(["beep", "boop", "foo", "bar"], [true, true, false, true]),
-    [["beep", "boop", "bar"], ["foo"]],
+    [["beep", "boop", "bar"], ["foo"]]
   );
 });
 
@@ -352,7 +361,7 @@ Deno.test("chunk #1", () => {
 Deno.test("compact #1", () => {
   assertEquals(
     compact([0, 1, false, 2, "", 3, "a", Number("e") * 23, NaN, "s", 34]),
-    [1, 2, 3, "a", "s", 34],
+    [1, 2, 3, "a", "s", 34]
   );
 });
 
@@ -404,16 +413,16 @@ Deno.test("countBy #2", () => {
   assertEquals(
     countBy(
       [{ name: "Deepak" }, { name: "Deepak2" }, { name: "Deepak" }],
-      "name",
+      "name"
     ),
-    { Deepak: 2, Deepak2: 1 },
+    { Deepak: 2, Deepak2: 1 }
   );
   assertEquals(
     countBy(
       [{ name: "Deepak" }, { name: "Deepak2" }, { name: "Deepak" }],
-      (user: any) => user.name,
+      (user: any) => user.name
     ),
-    { Deepak: 2, Deepak2: 1 },
+    { Deepak: 2, Deepak2: 1 }
   );
 });
 
@@ -499,7 +508,7 @@ Deno.test("dayOfYear #1", () => {
       dayOfYear("2020-06-28T1s");
     },
     Error,
-    "Invalid Date string",
+    "Invalid Date string"
   );
 });
 // debounce
@@ -553,14 +562,14 @@ Deno.test("deepFreeze #1", () => {
       o[0] = 3; // not allowed
     },
     TypeError,
-    "Cannot assign to read only property '0' of object '[object Array]'",
+    "Cannot assign to read only property '0' of object '[object Array]'"
   );
   assertThrows(
     () => {
       o[1][1] = 4; // not allowed as well
     },
     TypeError,
-    "Cannot assign to read only property '1' of object '[object Array]'",
+    "Cannot assign to read only property '1' of object '[object Array]'"
   );
 });
 
@@ -636,9 +645,9 @@ Deno.test("equals #1", () => {
   assertEquals(
     equals(
       { a: [2, { e: 3 }], b: [4], c: "foo" },
-      { a: [2, { e: 3 }], b: [4], c: "foo" },
+      { a: [2, { e: 3 }], b: [4], c: "foo" }
     ),
-    true,
+    true
   );
   // assertEquals(equals(1, "1"), true);// compile error
   assertEquals(deepEquals(1, "1"), false); // no compile error
@@ -648,7 +657,7 @@ Deno.test("equals #1", () => {
 Deno.test("escapeHTML #1", () => {
   assertEquals(
     escapeHTML('<a href="#">Me & you</a>'),
-    "&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;",
+    "&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;"
   );
 });
 
@@ -678,12 +687,12 @@ Deno.test("fahrenheitToCelsius #1", () => {
 Deno.test("filterNonUnique #1", () => {
   assertEquals(
     filterNonUnique<number>([1, 2, 2, 3, 4, 4, 5]),
-    [1, 3, 5],
+    [1, 3, 5]
   );
   assertEquals(filterNonUnique([1, 2, 2, 3, 4, 4, 5, "s"]), [1, 3, 5, "s"]);
   assertEquals(
     filterNonUnique<number | string>([1, 2, 2, 3, 4, 4, 5, "s"]),
-    [1, 3, 5, "s"],
+    [1, 3, 5, "s"]
   );
 });
 
@@ -698,9 +707,9 @@ Deno.test("filterNonUniqueBy #1", () => {
         { id: 1, value: "d" },
         { id: 0, value: "e" },
       ],
-      (a, b) => a.id == b.id,
+      (a, b) => a.id == b.id
     ),
-    [{ id: 2, value: "c" }],
+    [{ id: 2, value: "c" }]
   );
 });
 
@@ -713,9 +722,9 @@ Deno.test("findKey #1", () => {
         fred: { age: 40, active: false },
         pebbles: { age: 1, active: true },
       },
-      (o: any) => o["active"],
+      (o: any) => o["active"]
     ),
-    "barney",
+    "barney"
   );
 });
 
@@ -747,7 +756,7 @@ Deno.test("formatDuration #1", () => {
   assertEquals(formatDuration(1001), "1 second, 1 millisecond");
   assertEquals(
     formatDuration(34325055574),
-    "397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds",
+    "397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds"
   );
 });
 
@@ -779,7 +788,7 @@ Deno.test("getAll #1", () => {
 Deno.test("getBaseURL #1", () => {
   assertEquals(
     getBaseURL("http://url.com/page?name=Adam&surname=Smith"),
-    "http://url.com/page",
+    "http://url.com/page"
   );
 });
 
@@ -795,17 +804,101 @@ Deno.test("getURLParameters #1", () => {
   assertEquals(getURLParameters("google.com"), {});
   assertEquals(
     getURLParameters("http://url.com/page?name=Adam&surname=Smith&surname=Sm"),
-    { name: "Adam", surname: ["Smith", "Sm"] },
+    { name: "Adam", surname: ["Smith", "Sm"] }
   );
   assertEquals(
     getURLParameters(
-      "http://url.com/page?name=Adam&surname=Smith&surname=Sm&surname=Tm",
+      "http://url.com/page?name=Adam&surname=Smith&surname=Sm&surname=Tm"
     ),
-    { name: "Adam", surname: ["Smith", "Sm", "Tm"] },
+    { name: "Adam", surname: ["Smith", "Sm", "Tm"] }
   );
   assertEquals(
     getURLParameters("http://url.com/page?name=Adam&surname=Smith"),
-    { name: "Adam", surname: "Smith" },
+    { name: "Adam", surname: "Smith" }
   );
   assertEquals(getURLParameters("google.com"), {});
+});
+
+// groupBy
+Deno.test("groupBy #1", () => {
+  assertEquals(groupBy(["one", "two", "three"], "length"), {
+    3: ["one", "two"],
+    5: ["three"],
+  });
+  assertEquals(groupBy([6.1, 4.2, 6.3], Math.floor), {
+    4: [4.2],
+    6: [6.1, 6.3],
+  });
+});
+
+// hasFlags
+Deno.test("hasFlags #1", () => {
+  // node myScript.js -s --test --cool=true
+  const process = {
+    argv: ["-s", "--test", "--cool=true"],
+  };
+  assertEquals(hasFlags(process.argv, "-s"), true);
+  assertEquals(hasFlags(process.argv, "--test", "cool=true", "-s"), true);
+  assertEquals(hasFlags(process.argv, "special"), false);
+
+  const processHasFlags = curry(hasFlags, 2)(process.argv);
+  assertEquals(processHasFlags("-s"), true);
+  assertEquals(processHasFlags("--tests"), false);
+});
+
+// hexToRGB
+Deno.test("hexToRGB #1", () => {
+  assertEquals(hexToRGB("#27ae60ff"), `rgba(39, 174, 96, 255)`);
+  assertEquals(hexToRGB("#27ae60"), `rgb(39, 174, 96)`);
+  assertEquals(hexToRGB("#fff"), `rgb(255, 255, 255)`);
+});
+
+// hexToRGB2
+Deno.test("hexToRGB2 #1", () => {
+  assertEquals(hexToRGB2("#27ae60ff"), `rgba(39, 174, 96, 255)`);
+  assertEquals(hexToRGB2("#27ae60"), `rgb(39, 174, 96)`);
+  assertEquals(hexToRGB2("#fff"), `rgb(255, 255, 255)`);
+});
+
+// includesAll
+Deno.test("includesAll #1", () => {
+  assertEquals(includesAll([1, 2, 3, 4], [1, 4]), true);
+  assertEquals(includesAll([1, 2, 3, 4], [1, 5]), false);
+});
+
+// indentString
+Deno.test("indentString #1", () => {
+  assertEquals(indentString("Lorem\nIpsum", 2), "  Lorem\n  Ipsum");
+  assertEquals(indentString("Lorem\nIpsum", 2, "_"), "__Lorem\n__Ipsum");
+});
+
+// fillArray
+Deno.test("fillArray #1", () => {
+  assertEquals(fillArray(3, 1), [1, 1, 1]);
+  assertEquals(fillArray(3), [0, 0, 0]);
+  assertEquals(initializeArrayWithValues(3), [0, 0, 0]);
+});
+
+// inRange
+Deno.test("inRange #1", () => {
+  assertEquals(inRange(3, 2, 5), true);
+  assertEquals(inRange(3, 4), true);
+  assertEquals(inRange(2, 3, 5), false);
+  assertEquals(inRange(3, 2), false);
+
+  assertEquals(
+    inRange(new Date(2020, 5, 1), new Date(2020, 4, 12), new Date(2020, 6, 12)),
+    true
+  );
+  assertEquals(
+    inRange(
+      new Date(2020, 5, 12),
+      new Date(2020, 6, 12),
+      new Date(2020, 8, 12)
+    ),
+    false
+  );
+
+  assertEquals(inRange("d", "a", "h"), true);
+  assertEquals(inRange("d", "e", "h"), false);
 });

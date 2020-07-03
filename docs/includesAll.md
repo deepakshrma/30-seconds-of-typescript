@@ -3,15 +3,17 @@ title: includesAll
 tags: array,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns `true` if all the elements in `values` are included in `arr`, `false` otherwise.
 
 Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.
 
-```js
-const includesAll = (arr, values) => values.every((v) => arr.includes(v));
+```ts
+const includesAll = <T = any>(arr: T[], values: T[]) =>
+  values.every((v) => arr.includes(v));
 ```
 
 ```js

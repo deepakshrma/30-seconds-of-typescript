@@ -1566,5 +1566,226 @@
       ""
     ],
     "description": "Converts any map to Plain Object\n\n\ninterface MapLike<T = any, U = T | null>\n  extends Pick<Map<string, U>, \"get\" | \"keys\" | \"values\" | \"entries\"> {\n  [Symbol.iterator](): IterableIterator<T>;\n}\nexport const mapToObject = <T = any, U = any>(map: MapLike<T, U>) => {\n  let result: { [key: string]: U | undefined } = {};\n  for (let [key, value] of map.entries()) {\n    result[key] = value;\n  }\n  return result;\n};\n// const pathname = url.split(\"?\", 2)[1];\n// if (!pathname) return {};\n// if (typeof URLSearchParams !== undefined) {\n//   return mapToObject<[string, string]>(new URLSearchParams(pathname));\n//"
+  },
+  "30_groupBy": {
+    "prefix": "30_groupBy",
+    "body": [
+      "/**",
+      " * Groups the elements of an array based on the given function.",
+      " *",
+      " * Use `Array.prototype.map()` to map the values of an array to a function or property name.",
+      " * Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.",
+      " *",
+      " * type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;",
+      " *",
+      " * @param arr {any[]}",
+      " * @param fn {MapFunc<T> | string}",
+      " */",
+      "export const groupBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>",
+      "  arr.map(isString(fn) ? (val: any) => val[fn] : fn).reduce((acc, val, i) => {",
+      "    acc[val] = (acc[val] || []).concat(arr[i]);",
+      "    return acc;",
+      "  }, {});",
+      ""
+    ],
+    "description": "Groups the elements of an array based on the given function.\nUse `Array.prototype.map()` to map the values of an array to a function or property name.\nUse `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.\ntype MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;\n\n\n"
+  },
+  "30_hasFlags": {
+    "prefix": "30_hasFlags",
+    "body": [
+      "/**",
+      " * Check if the current arguments contain the specified flags.",
+      " *",
+      " * Use `Array.prototype.every()` and `Array.prototype.includes()` to check if `args` contains all the specified flags.",
+      " * Use a regular expression to test if the specified flags are prefixed with `-` or `--` and prefix them accordingly.",
+      " *",
+      " *",
+      " * @param flags",
+      " */",
+      "export const hasFlags = (args: string[], ...flags: string[]) =>",
+      "  flags.every((flag) =>",
+      "    args.includes(/^-{1,2}/.test(flag) ? flag : \"--\" + flag)",
+      "  );",
+      ""
+    ],
+    "description": "Check if the current arguments contain the specified flags.\nUse `Array.prototype.every()` and `Array.prototype.includes()` to check if `args` contains all the specified flags.\nUse a regular expression to test if the specified flags are prefixed with `-` or `--` and prefix them accordingly.\n\n\nexport const hasFlags = (args: string[], ...flags: string[]) =>\n  flags.every((flag) =>\n    args.includes(/^-{1,2}/"
+  },
+  "30_hexToRGB": {
+    "prefix": "30_hexToRGB",
+    "body": [
+      "/**",
+      " * Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.",
+      " *",
+      " * Split string by chunk of 2, filter blank string. convert to number",
+      " *",
+      " * @param hex {string}",
+      " */",
+      "export const hexToRGB = (hex: string) => {",
+      "  hex = hex.startsWith(\"#\") ? hex.slice(1) : hex;",
+      "  if (hex.length === 3) {",
+      "    hex = Array.from(hex).reduce((str, x) => str + x + x, \"\"); // 123 -> 112233",
+      "  }",
+      "  const values = hex",
+      "    .split(/([a-z0-9]{2,2})/)",
+      "    .filter(Boolean)",
+      "    .map((x) => parseInt(x, 16));",
+      "  return `rgb${values.length == 4 ? \"a\" : \"\"}(${values.join(\", \")})`;",
+      "};",
+      ""
+    ],
+    "description": "Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.\nSplit string by chunk of 2, filter blank string. convert to number\n\n\nexport const hexToRGB = (hex: string) => {\n  hex = hex.startsWith(\"#\") ? hex.slice(1) : hex;\n  if (hex.length === 3) {\n    hex = Array.from(hex).reduce((str, x) => str + x + x, \"\"); // 123 -> 112233\n  }\n  const values = hex\n    .split(/([a-z0-9]{2,2})/"
+  },
+  "30_hexToRGB2": {
+    "prefix": "30_hexToRGB2",
+    "body": [
+      "/**",
+      " * Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.",
+      " *",
+      " * Same as hexToRGB but using chunk",
+      " *",
+      " * @param hex {string}",
+      " */",
+      "export const hexToRGB2 = (hex: string) => {",
+      "  let hexChars = Array.from(hex.startsWith(\"#\") ? hex.slice(1) : hex);",
+      "  if (hexChars.length === 3) {",
+      "    hexChars = hexChars.reduce((str, x) => [...str, x, x], [] as string[]); // 123 -> 112233",
+      "  }",
+      "  const values = chunk(hexChars, 2).map(([v1, v2]) => parseInt(v1 + v2, 16));",
+      "  return `rgb${values.length == 4 ? \"a\" : \"\"}(${values.join(\", \")})`;",
+      "};",
+      ""
+    ],
+    "description": "Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.\nSame as hexToRGB but using chunk\n\n\nexport const hexToRGB2 = (hex: string) => {\n  let hexChars = Array.from(hex.startsWith(\"#\") ? hex.slice(1) : hex);\n  if (hexChars.length === 3) {\n    hexChars = hexChars.reduce((str, x) => [...str, x, x], [] as string[]); //"
+  },
+  "30_hide": {
+    "prefix": "30_hide",
+    "body": [
+      "/**",
+      " * Hides all the elements specified.",
+      " *",
+      " * Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified.",
+      " *",
+      " * @param el {HTMLElement[]}",
+      " */",
+      "export const hide = <T extends HTMLElement>(...el: T[]) =>",
+      "  [...el].forEach((e) => (e.style.display = \"none\"));",
+      ""
+    ],
+    "description": "Hides all the elements specified.\nUse `NodeList.prototype.forEach()` to apply `display: none` to each element specified.\n\n"
+  },
+  "30_httpsRedirect": {
+    "prefix": "30_httpsRedirect",
+    "body": [
+      "/**",
+      " * Redirects the page to HTTPS if its currently in HTTP. Also, pressing the back button doesn't take it back to the HTTP page as its replaced in the history.",
+      " *",
+      " * Use `location.protocol` to get the protocol currently being used. If it's not HTTPS, use `location.replace()` to replace the existing page with the HTTPS version of the page. Use `location.href` to get the full address, split it with `String.prototype.split()` and remove the protocol part of the URL.",
+      " *",
+      " */",
+      "export const httpsRedirect = () => {",
+      "  if (location.protocol !== \"https:\")",
+      "    location.replace(\"https://\" + location.href.split(\"//\")[1]);",
+      "};",
+      ""
+    ],
+    "description": "Redirects the page to HTTPS if its currently in HTTP. Also, pressing the back button doesn't take it back to the HTTP page as its replaced in the history.\nUse `location.protocol` to get the protocol currently being used. If it's not HTTPS, use `location.replace()` to replace the existing page with the HTTPS version of the page. Use `location.href` to get the full address, split it with `String.prototype.split()` and remove the protocol part of the URL.\n\nexport const httpsRedirect = () => {\n  if (location.protocol !== \"https:\")\n    location.replace(\"https://\" + location.href.split(\"//"
+  },
+  "30_includesAll": {
+    "prefix": "30_includesAll",
+    "body": [
+      "/**",
+      " * Returns `true` if all the elements in `values` are included in `arr`, `false` otherwise.",
+      " *",
+      " * Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.",
+      " *",
+      " * @param arr {any[]}",
+      " * @param values  {any[]}",
+      " */",
+      "export const includesAll = <T = any>(arr: T[], values: T[]) =>",
+      "  values.every((v) => arr.includes(v));",
+      ""
+    ],
+    "description": "Returns `true` if all the elements in `values` are included in `arr`, `false` otherwise.\nUse `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.\n\n\n"
+  },
+  "30_indentString": {
+    "prefix": "30_indentString",
+    "body": [
+      "/**",
+      " * Indents each line in the provided string.",
+      " *",
+      " * Use `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line.",
+      " * Omit the third parameter, `indent`, to use a default indentation character of `' '`.",
+      " *",
+      " * @param str",
+      " * @param count",
+      " * @param indent",
+      " */",
+      "export const indentString = (str: string, count: number, indent = \" \") => {",
+      "  indent = indent.repeat(count);",
+      "  return str.replace(/^/gm, indent);",
+      "};",
+      ""
+    ],
+    "description": "Indents each line in the provided string.\nUse `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line.\nOmit the third parameter, `indent`, to use a default indentation character of `' '`.\n\n\n\n\nexport const indentString = (str: string, count: number, indent = \" \") => {\n  indent = indent.repeat(count);\n  return str.replace(/^/"
+  },
+  "30_fillArray": {
+    "prefix": "30_fillArray",
+    "body": [
+      "/**",
+      " * Initializes and fills an array with the specified values.",
+      " *",
+      " * Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.",
+      " * You can omit `val` to use a default value of `0`.",
+      " *",
+      " * @param n",
+      " * @param val",
+      " */",
+      "export const fillArray = (n: number, val: any = 0) => Array(n).fill(val);",
+      ""
+    ],
+    "description": "Initializes and fills an array with the specified values.\nUse `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.\nYou can omit `val` to use a default value of `0`.\n\n\n"
+  },
+  "30_initializeArrayWithValues": {
+    "prefix": "30_initializeArrayWithValues",
+    "body": [
+      "/**",
+      " * Initializes and fills an array with the specified values.",
+      " *",
+      " * Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.",
+      " * You can omit `val` to use a default value of `0`.",
+      " *",
+      " * @param n",
+      " * @param val",
+      " */",
+      "export const initializeArrayWithValues = (n: number, val: any = 0) =>",
+      "  Array(n).fill(val);",
+      ""
+    ],
+    "description": "Initializes and fills an array with the specified values.\nUse `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.\nYou can omit `val` to use a default value of `0`.\n\n\n"
+  },
+  "30_inRange": {
+    "prefix": "30_inRange",
+    "body": [
+      "/**",
+      " * Checks if the given number | Date | string falls within the given range.",
+      " *",
+      " * Use arithmetic comparison to check if the given number is in the specified range.",
+      " * If the second parameter, `end`, is not specified, the range is considered to be from `0` to `start`.",
+      " *",
+      " * @param n {number | Date | string }",
+      " * @param start {number | Date | string}",
+      " * @param end {number | Date | string}",
+      " */",
+      "export const inRange = <T extends number | Date | string>(",
+      "  n: T,",
+      "  start: T,",
+      "  end?: T",
+      ") => {",
+      "  if (end && start > end) [end, start] = [start, end];",
+      "  return end === undefined ? n >= 0 && n < start : n >= start && n < end;",
+      "};",
+      ""
+    ],
+    "description": "Checks if the given number | Date | string falls within the given range.\nUse arithmetic comparison to check if the given number is in the specified range.\nIf the second parameter, `end`, is not specified, the range is considered to be from `0` to `start`.\n\n\n\n"
   }
 }

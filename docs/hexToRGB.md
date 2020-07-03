@@ -1,39 +1,45 @@
 ---
 title: hexToRGB
-tags: string,math,advanced
+tags: string,advanced
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.
 
-Use bitwise right-shift operator and mask bits with `&` (and) operator to convert a hexadecimal color code (with or without prefixed with `#`) to a string with the RGB values. If it's 3-digit color code, first convert to 6-digit version. If an alpha value is provided alongside 6-digit hex, give `rgba()` string in return.
+Split string by chunk of 2, filter blank string. convert to number
 
-```js
-const hexToRGB = (hex) => {
-  let alpha = false,
-    h = hex.slice(hex.startsWith("#") ? 1 : 0);
-  if (h.length === 3) h = [...h].map((x) => x + x).join("");
-  else if (h.length === 8) alpha = true;
-  h = parseInt(h, 16);
-  return (
-    "rgb" +
-    (alpha ? "a" : "") +
-    "(" +
-    (h >>> (alpha ? 24 : 16)) +
-    ", " +
-    ((h & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)) +
-    ", " +
-    ((h & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)) +
-    (alpha ? `, ${h & 0x000000ff}` : "") +
-    ")"
-  );
+```ts
+const hexToRGB = (hex: string) => {
+  hex = hex.startsWith("#") ? hex.slice(1) : hex;
+  if (hex.length === 3) {
+    hex = Array.from(hex).reduce((str, x) => str + x + x, ""); // 123 -> 112233
+  }
+  const values = hex
+    .split(/([a-z0-9]{2,2})/)
+    .filter(Boolean)
+    .map((x) => parseInt(x, 16));
+  return `rgb${values.length == 4 ? "a" : ""}(${values.join(", ")})`;
+};
+
+const hexToRGB2 = (hex: string) => {
+  let hexChars = Array.from(hex.startsWith("#") ? hex.slice(1) : hex);
+  if (hexChars.length === 3) {
+    hexChars = hexChars.reduce((str, x) => [...str, x, x], [] as string[]); // 123 -> 112233
+  }
+  const values = chunk(hexChars, 2).map(([v1, v2]) => parseInt(v1 + v2, 16));
+  return `rgb${values.length == 4 ? "a" : ""}(${values.join(", ")})`;
 };
 ```
 
-```js
+```ts
 hexToRGB("#27ae60ff"); // 'rgba(39, 174, 96, 255)'
 hexToRGB("27ae60"); // 'rgb(39, 174, 96)'
 hexToRGB("#fff"); // 'rgb(255, 255, 255)'
+
+hexToRGB2("#27ae60ff"); // 'rgba(39, 174, 96, 255)'
+hexToRGB2("27ae60"); // 'rgb(39, 174, 96)'
+hexToRGB2("#fff"); // 'rgb(255, 255, 255)'
 ```

@@ -1,9 +1,16 @@
 declare global {
   let document: any;
+  let location: any;
+  interface HTMLElement {
+    style: {
+      display: string;
+    };
+  }
 }
 export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
 export type Func<T = any> = (...args: T[]) => any;
+export type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;
 
 export enum HTMLEscapeChars {
   "&" = "&amp;",
@@ -1130,3 +1137,157 @@ export const mapToObject = <T = any, U = any>(map: MapLike<T, U>) => {
 // if (typeof URLSearchParams !== undefined) {
 //   return mapToObject<[string, string]>(new URLSearchParams(pathname));
 // }
+
+/**
+ * Groups the elements of an array based on the given function.
+ *
+ * Use `Array.prototype.map()` to map the values of an array to a function or property name.
+ * Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
+ *
+ * type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;
+ *
+ * @param arr {any[]}
+ * @param fn {MapFunc<T> | string}
+ */
+export const groupBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
+  arr.map(isString(fn) ? (val: any) => val[fn] : fn).reduce((acc, val, i) => {
+    acc[val] = (acc[val] || []).concat(arr[i]);
+    return acc;
+  }, {});
+
+/**
+ * Check if the current arguments contain the specified flags.
+ *
+ * Use `Array.prototype.every()` and `Array.prototype.includes()` to check if `args` contains all the specified flags.
+ * Use a regular expression to test if the specified flags are prefixed with `-` or `--` and prefix them accordingly.
+ *
+ *
+ * @param flags
+ */
+export const hasFlags = (args: string[], ...flags: string[]) =>
+  flags.every((flag) =>
+    args.includes(/^-{1,2}/.test(flag) ? flag : "--" + flag)
+  );
+
+/**
+ * Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.
+ *
+ * Split string by chunk of 2, filter blank string. convert to number
+ *
+ * @param hex {string}
+ */
+export const hexToRGB = (hex: string) => {
+  hex = hex.startsWith("#") ? hex.slice(1) : hex;
+  if (hex.length === 3) {
+    hex = Array.from(hex).reduce((str, x) => str + x + x, ""); // 123 -> 112233
+  }
+  const values = hex
+    .split(/([a-z0-9]{2,2})/)
+    .filter(Boolean)
+    .map((x) => parseInt(x, 16));
+  return `rgb${values.length == 4 ? "a" : ""}(${values.join(", ")})`;
+};
+/**
+ * Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.
+ *
+ * Same as hexToRGB but using chunk
+ *
+ * @param hex {string}
+ */
+export const hexToRGB2 = (hex: string) => {
+  let hexChars = Array.from(hex.startsWith("#") ? hex.slice(1) : hex);
+  if (hexChars.length === 3) {
+    hexChars = hexChars.reduce((str, x) => [...str, x, x], [] as string[]); // 123 -> 112233
+  }
+  const values = chunk(hexChars, 2).map(([v1, v2]) => parseInt(v1 + v2, 16));
+  return `rgb${values.length == 4 ? "a" : ""}(${values.join(", ")})`;
+};
+
+/**
+ * Hides all the elements specified.
+ *
+ * Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified.
+ *
+ * @param el {HTMLElement[]}
+ */
+export const hide = <T extends HTMLElement>(...el: T[]) =>
+  [...el].forEach((e) => (e.style.display = "none"));
+
+/**
+ * Redirects the page to HTTPS if its currently in HTTP. Also, pressing the back button doesn't take it back to the HTTP page as its replaced in the history.
+ *
+ * Use `location.protocol` to get the protocol currently being used. If it's not HTTPS, use `location.replace()` to replace the existing page with the HTTPS version of the page. Use `location.href` to get the full address, split it with `String.prototype.split()` and remove the protocol part of the URL.
+ *
+ */
+export const httpsRedirect = () => {
+  if (location.protocol !== "https:")
+    location.replace("https://" + location.href.split("//")[1]);
+};
+
+/**
+ * Returns `true` if all the elements in `values` are included in `arr`, `false` otherwise.
+ *
+ * Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.
+ *
+ * @param arr {any[]}
+ * @param values  {any[]}
+ */
+export const includesAll = <T = any>(arr: T[], values: T[]) =>
+  values.every((v) => arr.includes(v));
+
+/**
+ * Indents each line in the provided string.
+ *
+ * Use `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line.
+ * Omit the third parameter, `indent`, to use a default indentation character of `' '`.
+ *
+ * @param str
+ * @param count
+ * @param indent
+ */
+export const indentString = (str: string, count: number, indent = " ") => {
+  indent = indent.repeat(count);
+  return str.replace(/^/gm, indent);
+};
+
+/**
+ * Initializes and fills an array with the specified values.
+ *
+ * Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.
+ * You can omit `val` to use a default value of `0`.
+ *
+ * @param n
+ * @param val
+ */
+export const fillArray = (n: number, val: any = 0) => Array(n).fill(val);
+
+/**
+ * Initializes and fills an array with the specified values.
+ *
+ * Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.
+ * You can omit `val` to use a default value of `0`.
+ *
+ * @param n
+ * @param val
+ */
+export const initializeArrayWithValues = (n: number, val: any = 0) =>
+  Array(n).fill(val);
+
+/**
+ * Checks if the given number | Date | string falls within the given range.
+ *
+ * Use arithmetic comparison to check if the given number is in the specified range.
+ * If the second parameter, `end`, is not specified, the range is considered to be from `0` to `start`.
+ *
+ * @param n {number | Date | string }
+ * @param start {number | Date | string}
+ * @param end {number | Date | string}
+ */
+export const inRange = <T extends number | Date | string>(
+  n: T,
+  start: T,
+  end?: T
+) => {
+  if (end && start > end) [end, start] = [start, end];
+  return end === undefined ? n >= 0 && n < start : n >= start && n < end;
+};

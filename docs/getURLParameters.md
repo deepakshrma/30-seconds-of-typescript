@@ -3,8 +3,9 @@ title: getURLParameters
 tags: browser,string,url,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns an object containing the parameters of the current URL.
 
@@ -32,4 +33,8 @@ const getURLParameters = (url: string) => {
 ```ts
 getURLParameters("http://url.com/page?name=Adam&surname=Smith"); // {name: 'Adam', surname: 'Smith'}
 getURLParameters("google.com"); // {}
+getURLParameters("http://url.com/page?name=Adam&surname=Smith&surname=Sm"); // { name: "Adam", surname: ["Smith", "Sm"] }
+getURLParameters(
+  "http://url.com/page?name=Adam&surname=Smith&surname=Sm&surname=Tm"
+); //    { name: "Adam", surname: ["Smith", "Sm", "Tm"] }
 ```
