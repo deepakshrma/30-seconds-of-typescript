@@ -174,7 +174,23 @@ System.register("util", [], function (exports_1, context_1) {
     getBaseURL,
     getType,
     getURLParameters,
-    mapToObject;
+    mapToObject,
+    groupBy,
+    hasFlags,
+    hexToRGB,
+    hexToRGB2,
+    hide,
+    httpsRedirect,
+    includesAll,
+    indentString,
+    fillArray,
+    initializeArray,
+    inRange,
+    insertAt,
+    insertAtImmutable,
+    intersection,
+    intersectionBy,
+    intersectionWith;
   var __moduleName = context_1 && context_1.id;
   /**
    * Guard Function to check string type
@@ -1342,6 +1358,260 @@ System.register("util", [], function (exports_1, context_1) {
           return result;
         })
       );
+      // const pathname = url.split("?", 2)[1];
+      // if (!pathname) return {};
+      // if (typeof URLSearchParams !== undefined) {
+      //   return mapToObject<[string, string]>(new URLSearchParams(pathname));
+      // }
+      /**
+       * Groups the elements of an array based on the given function.
+       *
+       * Use `Array.prototype.map()` to map the values of an array to a function or property name.
+       * Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
+       *
+       * type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;
+       *
+       * @param arr {any[]}
+       * @param fn {MapFunc<T> | string}
+       */
+      exports_1(
+        "groupBy",
+        (groupBy = (arr, fn) =>
+          arr
+            .map(isString(fn) ? (val) => val[fn] : fn)
+            .reduce((acc, val, i) => {
+              acc[val] = (acc[val] || []).concat(arr[i]);
+              return acc;
+            }, {}))
+      );
+      /**
+       * Check if the current arguments contain the specified flags.
+       *
+       * Use `Array.prototype.every()` and `Array.prototype.includes()` to check if `args` contains all the specified flags.
+       * Use a regular expression to test if the specified flags are prefixed with `-` or `--` and prefix them accordingly.
+       *
+       *
+       * @param flags
+       */
+      exports_1(
+        "hasFlags",
+        (hasFlags = (args, ...flags) =>
+          flags.every((flag) =>
+            args.includes(/^-{1,2}/.test(flag) ? flag : "--" + flag)
+          ))
+      );
+      /**
+       * Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.
+       *
+       * Split string by chunk of 2, filter blank string. convert to number
+       *
+       * @param hex {string}
+       */
+      exports_1(
+        "hexToRGB",
+        (hexToRGB = (hex) => {
+          hex = hex.startsWith("#") ? hex.slice(1) : hex;
+          if (hex.length === 3) {
+            hex = Array.from(hex).reduce((str, x) => str + x + x, ""); // 123 -> 112233
+          }
+          const values = hex
+            .split(/([a-z0-9]{2,2})/)
+            .filter(Boolean)
+            .map((x) => parseInt(x, 16));
+          return `rgb${values.length == 4 ? "a" : ""}(${values.join(", ")})`;
+        })
+      );
+      /**
+       * Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.
+       *
+       * Same as hexToRGB but using chunk
+       *
+       * @param hex {string}
+       */
+      exports_1(
+        "hexToRGB2",
+        (hexToRGB2 = (hex) => {
+          let hexChars = Array.from(hex.startsWith("#") ? hex.slice(1) : hex);
+          if (hexChars.length === 3) {
+            hexChars = hexChars.reduce((str, x) => [...str, x, x], []); // 123 -> 112233
+          }
+          const values = chunk(hexChars, 2).map(([v1, v2]) =>
+            parseInt(v1 + v2, 16)
+          );
+          return `rgb${values.length == 4 ? "a" : ""}(${values.join(", ")})`;
+        })
+      );
+      /**
+       * Hides all the elements specified.
+       *
+       * Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified.
+       *
+       * @param el {HTMLElement[]}
+       */
+      exports_1(
+        "hide",
+        (hide = (...el) => [...el].forEach((e) => (e.style.display = "none")))
+      );
+      /**
+       * Redirects the page to HTTPS if its currently in HTTP. Also, pressing the back button doesn't take it back to the HTTP page as its replaced in the history.
+       *
+       * Use `location.protocol` to get the protocol currently being used. If it's not HTTPS, use `location.replace()` to replace the existing page with the HTTPS version of the page. Use `location.href` to get the full address, split it with `String.prototype.split()` and remove the protocol part of the URL.
+       *
+       */
+      exports_1(
+        "httpsRedirect",
+        (httpsRedirect = () => {
+          if (location.protocol !== "https:")
+            location.replace("https://" + location.href.split("//")[1]);
+        })
+      );
+      /**
+       * Returns `true` if all the elements in `values` are included in `arr`, `false` otherwise.
+       *
+       * Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.
+       *
+       * @param arr {any[]}
+       * @param values  {any[]}
+       */
+      exports_1(
+        "includesAll",
+        (includesAll = (arr, values) => values.every((v) => arr.includes(v)))
+      );
+      /**
+       * Indents each line in the provided string.
+       *
+       * Use `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line.
+       * Omit the third parameter, `indent`, to use a default indentation character of `' '`.
+       *
+       * @param str
+       * @param count
+       * @param indent
+       */
+      exports_1(
+        "indentString",
+        (indentString = (str, count, indent = " ") => {
+          indent = indent.repeat(count);
+          return str.replace(/^/gm, indent);
+        })
+      );
+      /**
+       * Initializes and fills an array with the specified values.
+       *
+       * Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.
+       * You can omit `val` to use a default value of `0`.
+       *
+       * @param n
+       * @param val
+       */
+      exports_1("fillArray", (fillArray = (n, val = 0) => Array(n).fill(val)));
+      /**
+       * Initializes and fills an array with the specified values.
+       *
+       * Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.
+       * You can omit `val` to use a default value of `0`.
+       *
+       * @param n
+       * @param val
+       */
+      exports_1(
+        "initializeArray",
+        (initializeArray = (n, val = 0) => Array(n).fill(val))
+      );
+      /**
+       * Checks if the given number | Date | string falls within the given range.
+       *
+       * Use arithmetic comparison to check if the given number is in the specified range.
+       * If the second parameter, `end`, is not specified, the range is considered to be from `0` to `start`.
+       *
+       * @param n {number | Date | string }
+       * @param start {number | Date | string}
+       * @param end {number | Date | string}
+       */
+      exports_1(
+        "inRange",
+        (inRange = (n, start, end) => {
+          if (end && start > end) [end, start] = [start, end];
+          return end === undefined
+            ? n >= 0 && n < start
+            : n >= start && n < end;
+        })
+      );
+      /**
+       * Mutates the original array to insert the given values at the specified index.
+       *
+       * Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.
+       *
+       * @param arr {any[]}
+       * @param i {number}
+       * @param v {...any[]}
+       */
+      exports_1(
+        "insertAt",
+        (insertAt = (arr, i, ...v) => {
+          arr.splice(i + 1, 0, ...v);
+          return arr;
+        })
+      );
+      /**
+       * Insert the given values at the specified index.
+       *
+       * Use `Array.prototype.slice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.
+       *
+       * @param arr {any[]}
+       * @param i {number}
+       * @param v {...any[]}
+       */
+      exports_1(
+        "insertAtImmutable",
+        (insertAtImmutable = (arr, i, ...v) => {
+          return [...arr.slice(0, i + 1), ...v, ...arr.slice(i + 1)];
+        })
+      );
+      /**
+       * Returns a list of elements that exist in both arrays.
+       *
+       * Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.
+       *
+       * @param a {any[]}
+       * @param b {any[]}
+       */
+      exports_1(
+        "intersection",
+        (intersection = (a, b) => {
+          const s = new Set(b);
+          return [...new Set(a)].filter((x) => s.has(x));
+        })
+      );
+      /**
+       * Returns a list of elements that exist in both arrays, after applying the provided function to each array element of both.
+       *
+       * Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.
+       *
+       * @param a {any[]}
+       * @param b {any[]}
+       * @param fn {MapFunc}
+       */
+      exports_1(
+        "intersectionBy",
+        (intersectionBy = (a, b, fn) => {
+          const s = new Set(b.map(fn));
+          return [...new Set(a)].filter((x) => s.has(fn(x)));
+        })
+      );
+      /**
+       * Returns a list of elements that exist in both arrays, using a provided comparator function.
+       *
+       * Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.
+       *
+       * @param a
+       * @param b
+       * @param comp
+       */
+      exports_1(
+        "intersectionWith",
+        (intersectionWith = (a, b, comp) =>
+          a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1))
+      );
     },
   };
 });
@@ -1422,3 +1692,19 @@ export const getBaseURL = __exp["getBaseURL"];
 export const getType = __exp["getType"];
 export const getURLParameters = __exp["getURLParameters"];
 export const mapToObject = __exp["mapToObject"];
+export const groupBy = __exp["groupBy"];
+export const hasFlags = __exp["hasFlags"];
+export const hexToRGB = __exp["hexToRGB"];
+export const hexToRGB2 = __exp["hexToRGB2"];
+export const hide = __exp["hide"];
+export const httpsRedirect = __exp["httpsRedirect"];
+export const includesAll = __exp["includesAll"];
+export const indentString = __exp["indentString"];
+export const fillArray = __exp["fillArray"];
+export const initializeArray = __exp["initializeArray"];
+export const inRange = __exp["inRange"];
+export const insertAt = __exp["insertAt"];
+export const insertAtImmutable = __exp["insertAtImmutable"];
+export const intersection = __exp["intersection"];
+export const intersectionBy = __exp["intersectionBy"];
+export const intersectionWith = __exp["intersectionWith"];
