@@ -3,19 +3,23 @@ title: intersectionWith
 tags: array,function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns a list of elements that exist in both arrays, using a provided comparator function.
 
 Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.
 
-```js
-const intersectionWith = (a, b, comp) =>
-  a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1);
+```ts
+const intersectionWith = (
+  a: any[],
+  b: any[],
+  comp: (a: any, b: any) => boolean
+) => a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1);
 ```
 
-```js
+```ts
 intersectionWith(
   [1, 1.2, 1.5, 3, 0],
   [1.9, 3, 0, 3.9],

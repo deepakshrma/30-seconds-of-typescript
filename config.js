@@ -1,8 +1,13 @@
+const path = require("path");
+console.log(
+  require.resolve(path.resolve(__dirname, "plugins/tags-creator.js"))
+);
 module.exports = {
   plugins: [
     // require.resolve("@docusaurus/plugin-google-analytics"),
     require.resolve("@docusaurus/plugin-sitemap"),
     [require.resolve("docusaurus-lunr-search"), { languages: ["en"] }],
+    // path.resolve(__dirname, 'plugins/tags-creator.js')
   ],
   stylesheets: [
     {

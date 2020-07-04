@@ -1745,8 +1745,8 @@
     ],
     "description": "Initializes and fills an array with the specified values.\nUse `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.\nYou can omit `val` to use a default value of `0`.\n\n\n"
   },
-  "30_initializeArrayWithValues": {
-    "prefix": "30_initializeArrayWithValues",
+  "30_initializeArray": {
+    "prefix": "30_initializeArray",
     "body": [
       "/**",
       " * Initializes and fills an array with the specified values.",
@@ -1757,7 +1757,7 @@
       " * @param n",
       " * @param val",
       " */",
-      "export const initializeArrayWithValues = (n: number, val: any = 0) =>",
+      "export const initializeArray = (n: number, val: any = 0) =>",
       "  Array(n).fill(val);",
       ""
     ],
@@ -1787,5 +1787,104 @@
       ""
     ],
     "description": "Checks if the given number | Date | string falls within the given range.\nUse arithmetic comparison to check if the given number is in the specified range.\nIf the second parameter, `end`, is not specified, the range is considered to be from `0` to `start`.\n\n\n\n"
+  },
+  "30_insertAt": {
+    "prefix": "30_insertAt",
+    "body": [
+      "/**",
+      " * Mutates the original array to insert the given values at the specified index.",
+      " *",
+      " * Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.",
+      " *",
+      " * @param arr {any[]}",
+      " * @param i {number}",
+      " * @param v {...any[]}",
+      " */",
+      "export const insertAt = (arr: any[], i: number, ...v: any[]) => {",
+      "  arr.splice(i + 1, 0, ...v);",
+      "  return arr;",
+      "};",
+      ""
+    ],
+    "description": "Mutates the original array to insert the given values at the specified index.\nUse `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.\n\n\n\n"
+  },
+  "30_insertAtImmutable": {
+    "prefix": "30_insertAtImmutable",
+    "body": [
+      "/**",
+      " * Insert the given values at the specified index.",
+      " *",
+      " * Use `Array.prototype.slice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.",
+      " *",
+      " * @param arr {any[]}",
+      " * @param i {number}",
+      " * @param v {...any[]}",
+      " */",
+      "export const insertAtImmutable = (arr: any[], i: number, ...v: any[]) => {",
+      "  return [...arr.slice(0, i + 1), ...v, ...arr.slice(i + 1)];",
+      "};",
+      ""
+    ],
+    "description": "Insert the given values at the specified index.\nUse `Array.prototype.slice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.\n\n\n\n"
+  },
+  "30_intersection": {
+    "prefix": "30_intersection",
+    "body": [
+      "/**",
+      " * Returns a list of elements that exist in both arrays.",
+      " *",
+      " * Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.",
+      " *",
+      " * @param a {any[]}",
+      " * @param b {any[]}",
+      " */",
+      "export const intersection = (a: any[], b: any[]) => {",
+      "  const s = new Set(b);",
+      "  return [...new Set(a)].filter((x) => s.has(x));",
+      "};",
+      ""
+    ],
+    "description": "Returns a list of elements that exist in both arrays.\nCreate a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.\n\n\n"
+  },
+  "30_intersectionBy": {
+    "prefix": "30_intersectionBy",
+    "body": [
+      "/**",
+      " * Returns a list of elements that exist in both arrays, after applying the provided function to each array element of both.",
+      " *",
+      " * Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.",
+      " *",
+      " * @param a {any[]}",
+      " * @param b {any[]}",
+      " * @param fn {MapFunc}",
+      " */",
+      "export const intersectionBy = (a: any[], b: any[], fn: MapFunc) => {",
+      "  const s = new Set(b.map(fn));",
+      "  return [...new Set(a)].filter((x) => s.has(fn(x)));",
+      "};",
+      ""
+    ],
+    "description": "Returns a list of elements that exist in both arrays, after applying the provided function to each array element of both.\nCreate a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.\n\n\n\n"
+  },
+  "30_intersectionWith": {
+    "prefix": "30_intersectionWith",
+    "body": [
+      "/**",
+      " * Returns a list of elements that exist in both arrays, using a provided comparator function.",
+      " *",
+      " * Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.",
+      " *",
+      " * @param a",
+      " * @param b",
+      " * @param comp",
+      " */",
+      "export const intersectionWith = (",
+      "  a: any[],",
+      "  b: any[],",
+      "  comp: (a: any, b: any) => boolean",
+      ") => a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1);",
+      ""
+    ],
+    "description": "Returns a list of elements that exist in both arrays, using a provided comparator function.\nUse `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.\n\n\n\n"
   }
 }

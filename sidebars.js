@@ -144,7 +144,7 @@ module.exports = {
       "initialize2DArray",
       "initializeArrayWithRange",
       "initializeArrayWithRangeRight",
-      "initializeArrayWithValues",
+      "initializeArray",
       "initializeNDArray",
       "insertAfter",
       "insertAt",

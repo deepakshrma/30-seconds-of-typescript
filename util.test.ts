@@ -77,8 +77,13 @@ import {
   includesAll,
   indentString,
   fillArray,
-  initializeArrayWithValues,
+  initializeArray,
   inRange,
+  insertAt,
+  intersection,
+  intersectionBy,
+  intersectionWith,
+  insertAtImmutable,
 } from "./util.ts";
 
 // accumulate
@@ -876,7 +881,7 @@ Deno.test("indentString #1", () => {
 Deno.test("fillArray #1", () => {
   assertEquals(fillArray(3, 1), [1, 1, 1]);
   assertEquals(fillArray(3), [0, 0, 0]);
-  assertEquals(initializeArrayWithValues(3), [0, 0, 0]);
+  assertEquals(initializeArray(3), [0, 0, 0]);
 });
 
 // inRange
@@ -901,4 +906,41 @@ Deno.test("inRange #1", () => {
 
   assertEquals(inRange("d", "a", "h"), true);
   assertEquals(inRange("d", "e", "h"), false);
+});
+
+// insertAtImmutable
+Deno.test("insertAtImmutable #1", () => {
+  assertEquals(insertAtImmutable([1, 2, 3, 4], 2, 5), [1, 2, 3, 5, 4]);
+  assertEquals(insertAtImmutable([2, 10], 0, 4, 6, 8), [2, 4, 6, 8, 10]);
+  assertEquals(insertAtImmutable([4, 5], -1, 1, 2, 3), [1, 2, 3, 4, 5]);
+});
+
+// insertAtMut
+Deno.test("insertAtMut #1", () => {
+  const arr = [1, 2, 3, 4];
+  const mutArr = insertAt(arr, 2, 5);
+  assertEquals(mutArr, [1, 2, 3, 5, 4]);
+  assertEquals(arr === mutArr, true);
+});
+
+// intersection
+Deno.test("intersection #1", () => {
+  assertEquals(intersection([1, 2, 3], [4, 3, 2]), [2, 3]);
+});
+
+// intersectionBy
+Deno.test("intersectionBy #1", () => {
+  assertEquals(intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor), [2.1]);
+});
+
+// intersectionWith
+Deno.test("intersectionWith #1", () => {
+  assertEquals(
+    intersectionWith(
+      [1, 1.2, 1.5, 3, 0],
+      [1.9, 3, 0, 3.9],
+      (a, b) => Math.round(a) === Math.round(b)
+    ),
+    [1.5, 3, 0]
+  );
 });

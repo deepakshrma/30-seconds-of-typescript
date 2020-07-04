@@ -1270,8 +1270,7 @@ export const fillArray = (n: number, val: any = 0) => Array(n).fill(val);
  * @param n
  * @param val
  */
-export const initializeArrayWithValues = (n: number, val: any = 0) =>
-  Array(n).fill(val);
+export const initializeArray = (n: number, val: any = 0) => Array(n).fill(val);
 
 /**
  * Checks if the given number | Date | string falls within the given range.
@@ -1291,3 +1290,72 @@ export const inRange = <T extends number | Date | string>(
   if (end && start > end) [end, start] = [start, end];
   return end === undefined ? n >= 0 && n < start : n >= start && n < end;
 };
+
+/**
+ * Mutates the original array to insert the given values at the specified index.
+ *
+ * Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.
+ *
+ * @param arr {any[]}
+ * @param i {number}
+ * @param v {...any[]}
+ */
+export const insertAt = (arr: any[], i: number, ...v: any[]) => {
+  arr.splice(i + 1, 0, ...v);
+  return arr;
+};
+
+/**
+ * Insert the given values at the specified index.
+ *
+ * Use `Array.prototype.slice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.
+ *
+ * @param arr {any[]}
+ * @param i {number}
+ * @param v {...any[]}
+ */
+export const insertAtImmutable = (arr: any[], i: number, ...v: any[]) => {
+  return [...arr.slice(0, i + 1), ...v, ...arr.slice(i + 1)];
+};
+
+/**
+ * Returns a list of elements that exist in both arrays.
+ *
+ * Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.
+ *
+ * @param a {any[]}
+ * @param b {any[]}
+ */
+export const intersection = (a: any[], b: any[]) => {
+  const s = new Set(b);
+  return [...new Set(a)].filter((x) => s.has(x));
+};
+
+/**
+ * Returns a list of elements that exist in both arrays, after applying the provided function to each array element of both.
+ *
+ * Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.
+ *
+ * @param a {any[]}
+ * @param b {any[]}
+ * @param fn {MapFunc}
+ */
+export const intersectionBy = (a: any[], b: any[], fn: MapFunc) => {
+  const s = new Set(b.map(fn));
+  return [...new Set(a)].filter((x) => s.has(fn(x)));
+};
+
+/**
+ * Returns a list of elements that exist in both arrays, using a provided comparator function.
+ *
+ * Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.
+ *
+ * @param a
+ * @param b
+ * @param comp
+ */
+export const intersectionWith = (
+  a: any[],
+  b: any[],
+  comp: (a: any, b: any) => boolean
+) => a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1);
