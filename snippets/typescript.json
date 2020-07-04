@@ -1757,8 +1757,7 @@
       " * @param n",
       " * @param val",
       " */",
-      "export const initializeArray = (n: number, val: any = 0) =>",
-      "  Array(n).fill(val);",
+      "export const initializeArray = (n: number, val: any = 0) => Array(n).fill(val);",
       ""
     ],
     "description": "Initializes and fills an array with the specified values.\nUse `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.\nYou can omit `val` to use a default value of `0`.\n\n\n"

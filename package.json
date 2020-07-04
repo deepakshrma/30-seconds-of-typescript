@@ -1,7 +1,7 @@
 {
   "name": "30-seconds-of-typescript",
   "description": "User utility code snippets like lodash for typescript, typescriptreact(tsx) and deno [inspired by 30-seconds-of-code].",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": false,
   "scripts": {
     "start": "docusaurus start",
