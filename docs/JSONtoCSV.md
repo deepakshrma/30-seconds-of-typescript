@@ -3,8 +3,9 @@ title: JSONtoCSV
 tags: array,string,object,advanced
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.
 
@@ -13,8 +14,8 @@ Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for e
 Use `Array.prototype.join('\n')` to combine all rows into a string.
 Omit the third argument, `delimiter`, to use a default delimiter of `,`.
 
-```js
-const JSONtoCSV = (arr, columns, delimiter = ",") =>
+```ts
+const JSONtoCSV = (arr: any[], columns: string[], delimiter = ",") =>
   [
     columns.join(delimiter),
     ...arr.map((obj) =>
@@ -27,7 +28,7 @@ const JSONtoCSV = (arr, columns, delimiter = ",") =>
   ].join("\n");
 ```
 
-```js
+```ts
 JSONtoCSV(
   [{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }],
   ["a", "b"]

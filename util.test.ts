@@ -84,6 +84,12 @@ import {
   intersectionBy,
   intersectionWith,
   insertAtImmutable,
+  is,
+  isEmpty,
+  isLeapYear,
+  last,
+  lowercaseKeys,
+  mapKeys,
 } from "./util.ts";
 
 // accumulate
@@ -942,5 +948,81 @@ Deno.test("intersectionWith #1", () => {
       (a, b) => Math.round(a) === Math.round(b)
     ),
     [1.5, 3, 0]
+  );
+});
+
+// is
+Deno.test("is #1", () => {
+  assertEquals(is(Array, [1]), true);
+  assertEquals(is(ArrayBuffer, new ArrayBuffer(0)), true);
+  assertEquals(is(Map, new Map()), true);
+  assertEquals(is(RegExp, /./g), true);
+  assertEquals(is(Set, new Set()), true);
+  assertEquals(is(WeakMap, new WeakMap()), true);
+  assertEquals(is(WeakSet, new WeakSet()), true);
+  assertEquals(is(String, ""), true);
+  assertEquals(is(String, new String("")), true);
+  assertEquals(is(Number, 1), true);
+  assertEquals(is(Number, new Number(1)), true);
+  assertEquals(is(Boolean, true), true);
+  assertEquals(is(Boolean, new Boolean(true)), true);
+
+  assertEquals(is("Array", [1]), true);
+  assertEquals(is("ArrayBuffer", new ArrayBuffer(0)), true);
+  assertEquals(is("Map", new Map()), true);
+  assertEquals(is("RegExp", /./g), true);
+  assertEquals(is("Set", new Set()), true);
+  assertEquals(is("WeakMap", new WeakMap()), true);
+  assertEquals(is("WeakSet", new WeakSet()), true);
+  assertEquals(is("String", ""), true);
+  assertEquals(is("String", new String("")), true);
+  assertEquals(is("Number", 1), true);
+  assertEquals(is("Number", new Number(1)), true);
+  assertEquals(is("Boolean", true), true);
+  assertEquals(is("Boolean", new Boolean(true)), true);
+});
+
+// isEmpty
+Deno.test("isEmpty #1", () => {
+  assertEquals(isEmpty([]), true);
+  assertEquals(isEmpty({}), true);
+  assertEquals(isEmpty(""), true);
+  assertEquals(isEmpty([1, 2]), false);
+  assertEquals(isEmpty({ a: 1, b: 2 }), false);
+  assertEquals(isEmpty("text"), false);
+  assertEquals(isEmpty(123), true); // - type is not considered a collection);
+  assertEquals(isEmpty(true), true); // - type is not considered a collection);
+});
+
+// isLeapYear
+Deno.test("isLeapYear #1", () => {
+  assertEquals(isLeapYear(2019), false);
+  assertEquals(isLeapYear(2020), true);
+});
+
+// last
+Deno.test("last #1", () => {
+  assertEquals(last([1, 2, 3]), 3);
+  assertEquals(last([]), undefined);
+  assertEquals(last([null]), null);
+  assertEquals(last(undefined), undefined);
+});
+
+// lowercaseKeys
+Deno.test("lowercaseKeys #1", () => {
+  assertEquals(lowercaseKeys({ Name: "Adam", sUrnAME: "Smith" }), {
+    name: "Adam",
+    surname: "Smith",
+  });
+  assertEquals(
+    lowercaseKeys({ Name: "Adam", adDress: { Pin: 700000 } }, true),
+    { name: "Adam", address: { pin: 700000 } }
+  );
+});
+// mapKeys
+Deno.test("mapKeys #1", () => {
+  assertEquals(
+    mapKeys({ a: 1, b: 2 }, (val, key) => key + val),
+    { a1: 1, b2: 2 }
   );
 });

@@ -11,7 +11,16 @@ export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
 export type Func<T = any> = (...args: T[]) => any;
 export type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;
+export type ReducerFunc<T = any, R = any> = (
+  val: T,
+  index?: number,
+  arr?: T[]
+) => R;
+export type AnyObject = { [key: string]: any };
 
+export interface IEventListener {
+  addEventListener: (event: string, fn: Func) => void;
+}
 export enum HTMLEscapeChars {
   "&" = "&amp;",
   "<" = "&lt;",
@@ -22,13 +31,16 @@ export enum HTMLEscapeChars {
 const htmlEscapeReg = new RegExp(`[${Object.keys(HTMLEscapeChars)}]`, "g");
 
 /**
+ * Checks if the given argument is a string. Only works for string primitives.
+ *
+ * Use `typeof` to check if a value is classified as a string primitive.
  * Guard Function to check string type
  *
  * @param str {string|T}
  */
-export function isString<T = any>(str: string | T): str is string {
+export const isString = <T = any>(str: string | T): str is string => {
   return typeof str === "string";
-}
+};
 
 /**
  * Validate date
@@ -1359,3 +1371,279 @@ export const intersectionWith = (
   b: any[],
   comp: (a: any, b: any) => boolean
 ) => a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1);
+
+/**
+ * Checks if the provided value is of the specified type.
+ *
+ * Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`, and compare the `constructor` property on the value with `type` to check if the provided value is of the specified `type`.
+ *
+ * @param type
+ * @param val
+ */
+type ConstructorType<T = any> = new (...args: any[]) => T;
+export const is = (type: ConstructorType | string, val: any) =>
+  ![, null].includes(val) &&
+  (isString(type) ? val.constructor.name === type : val.constructor === type);
+
+/**
+ * Check if a date is after another date.
+ *
+ * Use the greater than operator (`>`) to check if the first date comes after the second one.
+ *
+ * @param dateA
+ * @param dateB
+ */
+export const isAfterDate = (dateA: Date, dateB: Date) => dateA > dateB;
+
+/**
+ * Check if a date is before another date.
+ *
+ * Use the greater than operator (`<`) to check if the first date comes before the second one.
+ *
+ * @param dateA
+ * @param dateB
+ */
+export const isBeforeDate = (dateA: Date, dateB: Date) => dateA < dateB;
+
+/**
+ * Determines if the current runtime environment is a browser so that front-end modules can run on the server (Node) without throwing errors.
+ *
+ * Use `Array.prototype.includes()` on the `typeof` values of both `window` and `document` (globals usually only available in a browser environment unless they were explicitly defined), which will return `true` if one of them is `undefined`.
+ * `typeof` allows globals to be checked for existence without throwing a `ReferenceError`.
+ * If both of them are not `undefined`, then the current environment is assumed to be a browser.
+ *
+ */
+export const isBrowser = () =>
+  ![typeof window, typeof document].includes("undefined");
+
+/**
+ * Returns true if the a value is an empty object, collection, has no enumerable properties or is any type that is not considered a collection.
+ *
+ * Check if the provided value is `null` or if its `length` is equal to `0`.
+ *
+ * @param val
+ */
+export const isEmpty = (val: any) =>
+  val == null || !(Object.keys(val) || val).length;
+
+/**
+ * Returns `true` if the given `year` is a leap year, `false` otherwise.
+ *
+ * Use `new Date()`, setting the date to February 29th of the given `year` and use `Date.prototype.getMonth()` to check if the month is equal to `1`.
+ *
+ * @param year {number}
+ */
+export const isLeapYear = (year: number) =>
+  new Date(year, 1, 29).getMonth() === 1;
+
+/**
+ * Checks if a string is lower case.
+ *
+ * Convert the given string to lower case, using `String.toLowerCase()` and compare it to the original.
+ *
+ * @param str {string}
+ */
+export const isLowerCase = (str: string) => str === str.toLowerCase();
+
+/**
+ * Returns `true` if the specified value is `null` or `undefined`, `false` otherwise.
+ *
+ * Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`.
+ *
+ * @param val {any}
+ */
+export const isNil = (val: any) => val === undefined || val === null;
+
+/**
+ * Returns `true` if the specified value is `null`, `false` otherwise.
+ *
+ * Use the strict equality operator to check if the value of `val` is equal to `null`.
+ *
+ * @param val {any}
+ */
+export const isNull = (val: any) => val === null;
+
+/**
+ * Checks if the given argument is a number.
+ *
+ * Use `typeof` to check if a value is classified as a number primitive.
+ * To safeguard against `NaN`, check if `val === val` (as `NaN` has a `typeof` equal to `number` and is the only value not equal to itself).
+ *
+ * @param val {any}
+ */
+export const isNumber = (val: any) => typeof val === "number" && val === val;
+
+/**
+ * Returns a boolean determining if the passed value is an object or not.
+ *
+ * Uses the `Object` constructor to create an object wrapper for the given value.
+ * If the value is `null` or `undefined`, create and return an empty object. Οtherwise, return an object of a type that corresponds to the given value.
+ *
+ * @param obj
+ */
+export const isObject = (obj: any) => obj === Object(obj);
+
+/**
+ * Checks if the provided value is an object created by the Object constructor.
+ *
+ * Check if the provided value is truthy, use `typeof` to check if it is an object and `Object.constructor` to make sure the constructor is equal to `Object`.
+ *
+ * @param val
+ */
+export const isPlainObject = (val: any) =>
+  !!val && typeof val === "object" && val.constructor === Object;
+
+/**
+ * Returns a boolean determining if the passed value is primitive or not.
+ *
+ * Create an object from `val` and compare it with `val` to determine if the passed value is primitive (i.e. not equal to the created object).
+ *
+ * @param val {any}
+ */
+export const isPrimitive = (val: any) => Object(val) !== val;
+
+/**
+ * Check if a date is the same as another date.
+ *
+ * Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one.
+ *
+ * @param dateA {Date}
+ * @param dateB {Date}
+ */
+export const isSameDate = (dateA: Date, dateB: Date) =>
+  dateA.toISOString() === dateB.toISOString();
+
+// TODO: Refactor
+
+/**
+ * Returns `1` if the array is sorted in ascending order, `-1` if it is sorted in descending order or `0` if it is not sorted.
+ *
+ * Calculate the ordering `direction` for the first two elements.
+ * Use `Object.entries()` to loop over array objects and compare them in pairs.
+ * Return `0` if the `direction` changes or the `direction` if the last element is reached.
+ *
+ * @param arr
+ */
+export const isSorted = (arr: any[]) => {
+  let direction = -(arr[0] - arr[1]);
+  for (let [i, val] of arr.entries()) {
+    direction = !direction ? -(arr[i - 1] - arr[i]) : direction;
+    if (i === arr.length - 1)
+      return !direction ? 0 : direction / Math.abs(direction);
+    else if ((val - arr[i + 1]) * direction > 0) return 0;
+  }
+};
+
+/**
+ * Checks if a string is upper case.
+ *
+ * Convert the given string to upper case, using `String.prototype.toUpperCase()` and compare it to the original.
+ *
+ * @param str {string}
+ */
+export const isUpperCase = (str: string) => str === str.toUpperCase();
+
+/**
+ * Checks if the provided string is a valid JSON.
+ *
+ * Use `JSON.parse()` and a `try... catch` block to check if the provided string is a valid JSON.
+ *
+ * @param str {string}
+ */
+export const isValidJSON = (str: string) => {
+  try {
+    JSON.parse(str);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+/**
+ * Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.
+ *
+ * Use `Array.prototype.join(delimiter)` to combine all the names in `columns` to create the first row.
+ * Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object, substituting non-existent values with empty strings and only mapping values in `columns`.
+ * Use `Array.prototype.join('\n')` to combine all rows into a string.
+ * Omit the third argument, `delimiter`, to use a default delimiter of `,`.
+ *
+ * @param arr
+ * @param columns
+ * @param delimiter
+ */
+export const JSONtoCSV = (arr: any[], columns: string[], delimiter = ",") =>
+  [
+    columns.join(delimiter),
+    ...arr.map((obj) =>
+      columns.reduce(
+        (acc, key) =>
+          `${acc}${!acc.length ? "" : delimiter}"${!obj[key] ? "" : obj[key]}"`,
+        ""
+      )
+    ),
+  ].join("\n");
+
+/**
+ * Returns the last element in an array.
+ *
+ * Check if `arr` is truthy and has a `length` property, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.
+ *
+ * @param arr
+ */
+export const last = (arr: any[] = []) => arr[arr.length - 1];
+
+/**
+ * Adds an event listener to an element that will only run the callback the first time the event is triggered.
+ *
+ * Use `EventTarget.addEventListener()` to add an event listener to an element, storing the reference in a variable.
+ * Use a condition to call `fn` only the first time the listener is triggered.
+ *
+ * @param el
+ * @param evt
+ * @param fn
+ */
+
+export const listenOnce = <E extends IEventListener>(
+  el: E,
+  evt: string,
+  fn: Func
+) => {
+  let fired = false;
+  el.addEventListener(evt, (e) => {
+    if (!fired) fn(e);
+    fired = true;
+  });
+};
+
+/**
+ * Creates a new object from the specified object, where all the keys are in lowercase.
+ *
+ * Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object.
+ * Convert each key in the original object to lowercase, using `String.toLowerCase()`.
+ *
+ * @param obj
+ */
+export const lowercaseKeys = (obj: AnyObject, deep = false) =>
+  Object.keys(obj).reduce((acc, key) => {
+    acc[key.toLowerCase()] =
+      deep && typeof obj[key] === "object" ? lowercaseKeys(obj[key]) : obj[key];
+    return acc;
+  }, {} as AnyObject);
+
+/**
+ * Creates an object with keys generated by running the provided function for each key and the same values as the provided object.
+ *
+ * Use `Object.keys(obj)` to iterate over the object's keys.
+ * Use `Array.prototype.reduce()` to create a new object with the same values and mapped keys using `fn`.
+ *
+ * @param obj
+ * @param fn
+ */
+export const mapKeys = (
+  obj: AnyObject,
+  fn: (v: AnyObject, k: string, o: AnyObject) => string
+) =>
+  Object.keys(obj).reduce((acc, k: string) => {
+    acc[fn(obj[k], k, obj)] = obj[k];
+    return acc;
+  }, {} as AnyObject);

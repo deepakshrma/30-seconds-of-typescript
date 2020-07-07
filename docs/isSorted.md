@@ -3,8 +3,9 @@ title: isSorted
 tags: array,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns `1` if the array is sorted in ascending order, `-1` if it is sorted in descending order or `0` if it is not sorted.
 
@@ -12,7 +13,7 @@ Calculate the ordering `direction` for the first two elements.
 Use `Object.entries()` to loop over array objects and compare them in pairs.
 Return `0` if the `direction` changes or the `direction` if the last element is reached.
 
-```js
+```ts
 const isSorted = (arr) => {
   let direction = -(arr[0] - arr[1]);
   for (let [i, val] of arr.entries()) {
@@ -24,7 +25,7 @@ const isSorted = (arr) => {
 };
 ```
 
-```js
+```ts
 isSorted([0, 1, 2, 2]); // 1
 isSorted([4, 3, 2]); // -1
 isSorted([4, 3, 5]); // 0

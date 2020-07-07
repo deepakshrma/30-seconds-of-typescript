@@ -12,8 +12,8 @@ Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `j
 
 ```js
 const fs = require("fs");
-const JSONToFile = (obj, filename) =>
-  fs.writeFileSync(`${filename}.json`, JSON.stringify(obj, null, 2));
+const JSONToFile = (obj, filename, spaces = 2) =>
+  fs.writeFileSync(`${filename}.json`, JSON.stringify(obj, null, spaces));
 ```
 
 ```js
