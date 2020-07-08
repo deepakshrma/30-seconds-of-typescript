@@ -1,16 +1,7 @@
-declare global {
-  let document: any;
-  let location: any;
-  interface HTMLElement {
-    style: {
-      display: string;
-    };
-  }
-}
 export type StringOrNumber = string | number;
 export type Predicate<T> = (item: T) => boolean;
 export type Func<T = any> = (...args: T[]) => any;
-export type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;
+export type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => any;
 export type ReducerFunc<T = any, R = any> = (
   val: T,
   index?: number,
@@ -1032,24 +1023,24 @@ export const formatDuration = (ms: number) => {
 interface IFormData {
   new (form: any): FormData;
 }
-/**
- * Encode a set of form elements as an `object`.
- *
- * Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.
- * Collect the object from the array, using `Array.prototype.reduce()`.
- *
- * @param form
- */
-export const formToObject = (form: any) => {
-  const F = FormData as IFormData;
-  Array.from(new F(form)).reduce(
-    (acc, [key, value]) => ({
-      ...acc,
-      [key]: value,
-    }),
-    {}
-  );
-};
+// /**
+//  * Encode a set of form elements as an `object`.
+//  *
+//  * Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.
+//  * Collect the object from the array, using `Array.prototype.reduce()`.
+//  *
+//  * @param form
+//  */
+// export const formToObject = (form: any) => {
+//   const F = FormData as IFormData;
+//   Array.from(new F(form)).reduce(
+//     (acc, [key, value]) => ({
+//       ...acc,
+//       [key]: value,
+//     }),
+//     {}
+//   );
+// };
 
 /**
  * Retrieve a set of properties indicated by the given selectors from an object.
@@ -1647,3 +1638,110 @@ export const mapKeys = (
     acc[fn(obj[k], k, obj)] = obj[k];
     return acc;
   }, {} as AnyObject);
+
+/**
+ * Maps the values of an array to an object using a function, where the key-value pairs consist of the original value as the key and the result of the function as the value.
+ *
+ * Use `Array.prototype.reduce()` to apply `fn` to each element in `arr` and combine the results into an object.
+ * Use `el` as the key for each property and the result of `fn` as the value.
+ *
+ * @param arr
+ * @param fn
+ */
+export const mapObject = <T = any>(arr: T[], fn: MapFunc<T>) =>
+  arr.reduce((acc, el, i) => {
+    acc[el] = fn(el, i, arr);
+    return acc;
+  }, {} as any);
+
+/**
+ * Creates a new string with the results of calling a provided function on every character in the calling string.
+ *
+ * Use `String.prototype.split('')` and `Array.prototype.map()` to call the provided function, `fn`, for each character in `str`.
+ * Use `Array.prototype.join('')` to recombine the array of characters into a string.
+ * The callback function, `fn`, takes three arguments (the current character, the index of the current character and the string `mapString` was called upon).
+ *
+ * @param str
+ * @param fn
+ */
+export const mapString = (str: string, fn: MapFunc<string>) => {
+  const chars = [...str];
+  return chars.map((c, i) => fn(c, i, chars)).join("");
+};
+/**
+ * Creates a new map with the results of calling a provided function on every value in the calling function.
+ *
+ * Use `Array.isArray()` to detect array, else destructure array like data(string).
+ * Use `Array.prototype.map()` to map array of data.
+ */
+export interface IIterator<T = any> {
+  [Symbol.iterator](): IterableIterator<T>;
+}
+export const map = <T = any>(array: IIterator, fn: MapFunc<T>) => {
+  const chars = Array.isArray(array) ? array : [...array];
+  return chars.map((c, i) => fn(c, i, chars));
+};
+
+/**
+ * Replaces all but the last `num` of characters with the specified mask character.
+ *
+ * Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked and use `String.padStart()` to fill the beginning of the string with the mask character up to the original length.
+ * Omit the second argument, `num`, to keep a default of `4` characters unmasked. If `num` is negative, the unmasked characters will be at the start of the string.
+ * Omit the third argument, `mask`, to use a default character of `'*'` for the mask.
+ *
+ * @param cc
+ * @param num
+ * @param mask
+ */
+export const mask = (cc: number | string, num = 4, mask = "*") =>
+  String(cc).slice(-num).padStart(String(cc).length, mask);
+
+/**
+ * Compares two objects to determine if the first one contains equivalent property values to the second one.
+ *
+ * Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.
+ *
+ * @param obj
+ * @param source
+ */
+export const matches = (obj: AnyObject, source: AnyObject) =>
+  Object.keys(source).every(
+    (key) => obj.hasOwnProperty(key) && obj[key] === source[key]
+  );
+
+/**
+ * Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.
+ *
+ * Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.
+ * If no function is provided, the values will be compared using the equality operator.
+ *
+ * @param obj
+ * @param source
+ * @param fn
+ */
+export const matchesWith = (obj: AnyObject, source: AnyObject, fn: Function) =>
+  Object.keys(source).every((key) =>
+    obj.hasOwnProperty(key) && fn
+      ? fn(obj[key], source[key], key, obj, source)
+      : obj[key] == source[key]
+  );
+/**
+ * Returns the maximum value of an array, after mapping each element to a value using the provided function.
+ *
+ * Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.max()` to get the maximum value.
+ *
+ * @param arr
+ * @param fn
+ */
+export const maxBy = <T = any>(arr: T[], fn: MapFunc<T>) =>
+  Math.max(...arr.map(typeof fn === "function" ? fn : (val) => val[fn]));
+
+/**
+ * Returns the maximum of the given dates.
+ *
+ * Use the ES6 spread syntax with `Math.max` to find the maximum date value, `new Date()` to convert it to a `Date` object.
+ *
+ * @param dates
+ */
+export const maxDate = (dates: Date[]) =>
+  new Date(Math.max(...dates.map(Number)));

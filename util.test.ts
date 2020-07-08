@@ -90,6 +90,14 @@ import {
   last,
   lowercaseKeys,
   mapKeys,
+  mapObject,
+  mapString,
+  map,
+  mask,
+  matches,
+  matchesWith,
+  maxDate,
+  maxBy,
 } from "./util.ts";
 
 // accumulate
@@ -1025,4 +1033,93 @@ Deno.test("mapKeys #1", () => {
     mapKeys({ a: 1, b: 2 }, (val, key) => key + val),
     { a1: 1, b2: 2 }
   );
+});
+
+// mapObject
+Deno.test("mapObject #1", () => {
+  assertEquals(
+    mapObject([1, 2, 3], (a) => a * a),
+    { 1: 1, 2: 4, 3: 9 }
+  );
+});
+
+// mapString
+Deno.test("mapString #1", () => {
+  assertEquals(
+    mapString("lorem ipsum", (c) => c.toUpperCase()),
+    "LOREM IPSUM"
+  );
+});
+
+// map
+Deno.test("map #1", () => {
+  assertEquals(
+    map("lorem ipsum", (c) => c.toUpperCase()).join(""),
+    "LOREM IPSUM"
+  );
+  assertEquals(
+    map([1, 2, 3, 4], (c) => c * c),
+    [1, 4, 9, 16]
+  );
+});
+
+// mask
+Deno.test("mask #1", () => {
+  assertEquals(mask(1234567890), "******7890");
+  assertEquals(mask(1234567890, 3), "*******890");
+  assertEquals(mask(1234567890, -4, "$"), "$$$$567890");
+});
+
+// matches
+Deno.test("matches #1", () => {
+  assertEquals(
+    matches(
+      { age: 25, hair: "long", beard: true },
+      { hair: "long", beard: true }
+    ),
+    true
+  );
+  assertEquals(
+    matches(
+      { hair: "long", beard: true },
+      { age: 25, hair: "long", beard: true }
+    ),
+    false
+  );
+});
+
+// matchesWith
+Deno.test("matchesWith #1", () => {
+  const isGreeting = (val: string) => /^h(?:i|ello)$/.test(val);
+  assertEquals(
+    matchesWith(
+      { greeting: "hello" },
+      { greeting: "hi" },
+      (oV: string, sV: string) => isGreeting(oV) && isGreeting(sV)
+    ),
+    true
+  );
+});
+
+// maxDate
+Deno.test("maxDate #1", () => {
+  const array = [
+    new Date(2017, 4, 13),
+    new Date(2018, 2, 12),
+    new Date(2016, 0, 10),
+    new Date(2016, 0, 9),
+  ];
+  assertEquals(maxDate(array).toDateString(), "Mon Mar 12 2018");
+});
+
+// maxBy
+Deno.test("maxBy #1", () => {
+  const array = [
+    new Date(2017, 4, 13),
+    new Date(2018, 2, 12),
+    new Date(2016, 0, 10),
+    new Date(2016, 0, 9),
+  ];
+  const timestamp = maxBy(array, (date) => date.getTime());
+  assertEquals(new Date(timestamp).toDateString(), "Mon Mar 12 2018");
 });

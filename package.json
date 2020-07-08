@@ -4,7 +4,9 @@
   "version": "0.0.8",
   "private": false,
   "scripts": {
+    "test": "deno test util.test.ts -c tsconfig.json",
     "start": "docusaurus start",
+    "bundle": "deno bundle util.ts > util.js -c tsconfig.json && yes|cp util.js static/util.js",
     "build": "docusaurus build",
     "code-gen": "node scripts/code_snippet.js",
     "swizzle": "docusaurus swizzle",
@@ -35,7 +37,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "deno bundle util.ts > util.js && yes|cp util.js static/util.js && npm run code-gen && git add util.js static/util.js snippets && lint-staged"
+      "pre-commit": "npm run bundle && npm run code-gen && git add util.js static/util.js snippets && lint-staged"
     }
   },
   "lint-staged": {
@@ -44,10 +46,12 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^14.0.19",
     "@types/vscode": "^1.34.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
     "prettier": "^2.0.5",
+    "typescript": "^3.9.6",
     "vsce": "^1.77.0"
   },
   "main": "util.js",

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "lib": [ "dom", "deno.ns", "es2019" ],
+    "sourceMap": true
+  },
+  "files": ["util.ts"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}

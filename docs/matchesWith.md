@@ -3,15 +3,16 @@ title: matchesWith
 tags: object,type,function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.
 
 Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.
 If no function is provided, the values will be compared using the equality operator.
 
-```js
+```ts
 const matchesWith = (obj, source, fn) =>
   Object.keys(source).every((key) =>
     obj.hasOwnProperty(key) && fn
@@ -20,11 +21,11 @@ const matchesWith = (obj, source, fn) =>
   );
 ```
 
-```js
-const isGreeting = (val) => /^h(?:i|ello)$/.test(val);
+```ts
+const isGreeting = (val: string) => /^h(?:i|ello)$/.test(val);
 matchesWith(
   { greeting: "hello" },
   { greeting: "hi" },
-  (oV, sV) => isGreeting(oV) && isGreeting(sV)
+  (oV: string, sV: string) => isGreeting(oV) && isGreeting(sV)
 ); // true
 ```
