@@ -98,6 +98,10 @@ import {
   matchesWith,
   maxDate,
   maxBy,
+  maxN,
+  merge,
+  midpoint,
+  minBy,
 } from "./util.ts";
 
 // accumulate
@@ -1122,4 +1126,44 @@ Deno.test("maxBy #1", () => {
   ];
   const timestamp = maxBy(array, (date) => date.getTime());
   assertEquals(new Date(timestamp).toDateString(), "Mon Mar 12 2018");
+
+  assertEquals(maxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 8)
+});
+
+// maxN
+Deno.test("maxN #1", () => {
+  assertEquals(maxN([1, 2, 3]), [3]);
+  assertEquals(maxN([1, 2, 3], 2), [3, 2]);
+  assertEquals(maxN([1, 2, 3], 2, -1), [1, 2]);
+});
+
+// merge
+Deno.test("merge #1", () => {
+  const object = {
+    a: [{ x: 2 }, { y: 4 }],
+    b: 1,
+  };
+  const other = {
+    a: { z: 3 },
+    b: [2, 3],
+    c: "foo",
+  };
+  assertEquals(merge(object, other), {
+    a: [{ x: 2 }, { y: 4 }, { z: 3 }],
+    b: [1, 2, 3],
+    c: "foo",
+  });
+});
+
+// midpoint
+Deno.test("midpoint #1", () => {
+    assertEquals(midpoint([2, 2], [4, 4]), [3, 3])
+    assertEquals(midpoint([4, 4], [6, 6]), [5, 5])
+    assertEquals(midpoint([1, 3], [2, 4]), [1.5, 3.5])
+});
+
+// minBy
+Deno.test("minBy #1", () => {
+  assertEquals(minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o) => o.n),2)
+  assertEquals(minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 2)
 });

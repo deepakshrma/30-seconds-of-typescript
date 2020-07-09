@@ -5,9 +5,9 @@
     "declaration": true,
     "outDir": "./lib",
     "noImplicitAny": true,
-    "removeComments": true,
+    "removeComments": false,
     "preserveConstEnums": true,
-    "lib": [ "dom", "deno.ns", "es2019" ],
+    "lib": ["dom", "es2019"],
     "sourceMap": true
   },
   "files": ["util.ts"],

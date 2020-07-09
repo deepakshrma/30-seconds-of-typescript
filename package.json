@@ -4,9 +4,16 @@
   "version": "0.0.8",
   "private": false,
   "scripts": {
-    "test": "deno test util.test.ts -c tsconfig.json",
+    "prepublishOnly": "npm test",
+    "version": "git add -A util.ts",
+    "postversion": "git push && git push --tags",
+    "tsc": "tsc",
+    "prepare": "node scripts/npm.js --prepare && npm run tsc",
+    "postpublish": "node scripts/npm.js --back",
+    "test": "deno test util.test.ts -c tsconfig.deno.json && node test",
     "start": "docusaurus start",
-    "bundle": "deno bundle util.ts > util.js -c tsconfig.json && yes|cp util.js static/util.js",
+    "npm": "node scripts/npm.js",
+    "bundle": "deno bundle util.ts > util.js -c tsconfig.deno.json && yes|cp util.js static/util.js",
     "build": "docusaurus build",
     "code-gen": "node scripts/code_snippet.js",
     "swizzle": "docusaurus swizzle",
@@ -54,7 +61,11 @@
     "typescript": "^3.9.6",
     "vsce": "^1.77.0"
   },
-  "main": "util.js",
+  "main": "lib/util.js",
+  "types": "lib/util.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "directories": {
     "doc": "docs"
   },

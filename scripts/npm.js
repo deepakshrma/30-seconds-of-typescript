@@ -17,7 +17,7 @@ async function main() {
         m[key] = obj[key];
         return m;
       }, {});
-    const vsCode = JSON.stringify(
+    const npmJSON = JSON.stringify(
       pluck(
         packageJSON,
         [
@@ -32,35 +32,25 @@ async function main() {
           "bugs",
           "icon",
           "homepage",
-          "displayName",
-          "publisher",
-          "engines",
-          "categories",
-          "contributes",
           "main",
           "types",
           "files",
         ],
         {
-          devDependencies: {
-            "@types/vscode": "^1.34.0",
-            vsce: "^1.77.0",
-          },
+          dependencies: {},
+          devDependencies: {},
         }
       )
     );
-    await ex("npm run code-gen ");
-    await rn("package.json", "_package.json");
-    await wf("package.json", vsCode);
-    if (process.argv.includes("--publish")) {
-      await ex("yarn vsce publish -p $VS_TOKEN");
-    } else {
-      await ex("yarn vsce package");
+    if (process.argv.includes("--prepare")) {
+      await rn("package.json", "_package.json");
+      await wf("package.json", npmJSON);
     }
-    await rn("_package.json", "package.json");
+    if (process.argv.includes("--back")) {
+      await rn("_package.json", "package.json");
+    }
   } catch (error) {
     console.log(error);
-  } finally {
     await wf("package.json", packageStr);
   }
 }

@@ -8,6 +8,7 @@ export type ReducerFunc<T = any, R = any> = (
   arr?: T[]
 ) => R;
 export type AnyObject = { [key: string]: any };
+export type SortOrder = 1 | -1;
 
 export interface IEventListener {
   addEventListener: (event: string, fn: Func) => void;
@@ -675,7 +676,7 @@ export const debounce = (fn: Function, ms = 300) => {
   let timeoutId: number;
   return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+    timeoutId = window.setTimeout(() => fn.apply(this, args), ms);
   };
 };
 
@@ -1733,8 +1734,8 @@ export const matchesWith = (obj: AnyObject, source: AnyObject, fn: Function) =>
  * @param arr
  * @param fn
  */
-export const maxBy = <T = any>(arr: T[], fn: MapFunc<T>) =>
-  Math.max(...arr.map(typeof fn === "function" ? fn : (val) => val[fn]));
+export const maxBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
+  Math.max(...arr.map(isString(fn) ? (val: any) => val[fn] : fn));
 
 /**
  * Returns the maximum of the given dates.
@@ -1745,3 +1746,60 @@ export const maxBy = <T = any>(arr: T[], fn: MapFunc<T>) =>
  */
 export const maxDate = (dates: Date[]) =>
   new Date(Math.max(...dates.map(Number)));
+
+/**
+ * Returns the `n` maximum elements from the provided array.
+ * If `n` is greater than or equal to the provided array's length, then return the original array (sorted in descending order).
+ *
+ * Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in descending order.
+ * Use `Array.prototype.slice()` to get the specified number of elements.
+ * Omit the second argument, `n`, to get a one-element array.
+ * @param arr
+ * @param n
+ */
+export const maxN = (arr: any[], n = 1, order: SortOrder = 1) =>
+  [...arr].sort((a, b) => order * (b - a)).slice(0, n);
+
+/**
+ * Creates a new object from the combination of two or more objects.
+ *
+ * Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys.
+ * Use `hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects.
+ *
+ * @param objs
+ */
+export const merge = (...objs: AnyObject[]) =>
+  [...objs].reduce(
+    (acc, obj) =>
+      Object.keys(obj).reduce((a, k) => {
+        acc[k] = acc.hasOwnProperty(k)
+          ? [].concat(acc[k]).concat(obj[k])
+          : obj[k];
+        return acc;
+      }, {}),
+    {}
+  );
+
+/**
+ * Calculates the midpoint between two pairs of (x,y) points.
+ * Destructure the array to get `x1`, `y1`, `x2` and `y2`, calculate the midpoint for each dimension by dividing the sum of the two endpoints by `2`.
+ *
+ * @param param0
+ * @param param1
+ */
+type IPoint = [number, number];
+export const midpoint = ([x1, y1]: IPoint, [x2, y2]: IPoint) => [
+  (x1 + x2) / 2,
+  (y1 + y2) / 2,
+];
+
+/**
+ * Returns the minimum value of an array, after mapping each element to a value using the provided function.
+ * 
+ * Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.min()` to get the minimum value.
+ * 
+ * @param arr 
+ * @param fn 
+ */
+export const minBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
+Math.min(...arr.map(isString(fn) ? (val: any) => val[fn] : fn));

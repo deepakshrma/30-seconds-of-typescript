@@ -13,7 +13,7 @@ Use `Object.keys(source)` to get all the keys of the second object, then `Array.
 If no function is provided, the values will be compared using the equality operator.
 
 ```ts
-const matchesWith = (obj, source, fn) =>
+const matchesWith = (obj: AnyObject, source: AnyObject, fn: Function) =>
   Object.keys(source).every((key) =>
     obj.hasOwnProperty(key) && fn
       ? fn(obj[key], source[key], key, obj, source)

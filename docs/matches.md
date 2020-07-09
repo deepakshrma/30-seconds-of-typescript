@@ -12,7 +12,7 @@ Compares two objects to determine if the first one contains equivalent property 
 Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.
 
 ```ts
-const matches = (obj, source) =>
+const matches = (obj: AnyObject, source: AnyObject) =>
   Object.keys(source).every(
     (key) => obj.hasOwnProperty(key) && obj[key] === source[key]
   );

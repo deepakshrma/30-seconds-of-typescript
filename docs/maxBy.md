@@ -12,8 +12,8 @@ Returns the maximum value of an array, after mapping each element to a value usi
 Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.max()` to get the maximum value.
 
 ```ts
-const maxBy = <T = any>(arr: T[], fn: MapFunc<T>) =>
-  Math.max(...arr.map(typeof fn === "function" ? fn : (val) => val[fn]));
+export const maxBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
+  Math.max(...arr.map(isString(fn) ? (val: any) => val[fn] : fn));
 ```
 
 ```ts
