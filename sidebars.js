@@ -295,6 +295,8 @@ module.exports = {
       "size",
       "sleep",
       "smoothScroll",
+      "sortBy",
+      "sortByKey",
       "sortCharactersInString",
       "sortedIndex",
       "sortedIndexBy",

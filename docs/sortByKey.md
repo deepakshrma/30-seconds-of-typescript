@@ -1,5 +1,5 @@
 ---
-title: sortBy
+title: sortByKey
 tags: string,beginner
 ---
 

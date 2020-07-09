@@ -2551,7 +2551,7 @@
     "body": [
       "/**",
       " * Sort by based on the key or function.",
-      " * ",
+      " *",
       " * Use the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.",
       " * @param arr",
       " * @param $fn",
@@ -2575,16 +2575,16 @@
       "}",
       ""
     ],
-    "description": "Sort by based on the key or function.\n\nUse the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.\n\n\n\n"
+    "description": "Sort by based on the key or function.\nUse the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.\n\n\n\n"
   },
   "30_sortByKey": {
     "prefix": "30_sortByKey",
     "body": [
       "/**",
       " * Sort by based on the key.",
-      " * ",
+      " *",
       " * Use the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.",
-      " * ",
+      " *",
       " * @param arr",
       " * @param fn",
       " */",
@@ -2599,6 +2599,6 @@
       "};",
       ""
     ],
-    "description": "Sort by based on the key.\n\nUse the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.\n\n\n\n"
+    "description": "Sort by based on the key.\nUse the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.\n\n\n"
   }
 }
