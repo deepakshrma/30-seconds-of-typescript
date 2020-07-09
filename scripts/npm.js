@@ -16,7 +16,7 @@ async function main() {
       keys.reduce((m, key) => {
         m[key] = obj[key];
         return m;
-      }, {});
+      }, def);
     const npmJSON = JSON.stringify(
       pluck(
         packageJSON,
@@ -39,8 +39,14 @@ async function main() {
         {
           dependencies: {},
           devDependencies: {},
+          scripts: {
+            tsc: "tsc",
+            test: "node test",
+          },
         }
-      )
+      ),
+      null,
+      2
     );
     if (process.argv.includes("--prepare")) {
       await rn("package.json", "_package.json");

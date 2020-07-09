@@ -16,7 +16,7 @@ async function main() {
       keys.reduce((m, key) => {
         m[key] = obj[key];
         return m;
-      }, {});
+      }, def);
     const vsCode = JSON.stringify(
       pluck(
         packageJSON,
@@ -42,6 +42,7 @@ async function main() {
           "files",
         ],
         {
+          name: "30-seconds-of-typescript",
           devDependencies: {
             "@types/vscode": "^1.34.0",
             vsce: "^1.77.0",

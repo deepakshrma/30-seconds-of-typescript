@@ -1,7 +1,7 @@
 {
-  "name": "30-seconds-of-typescript",
+  "name": "@deepakvishwakarma/ts-util",
   "description": "User utility code snippets like lodash for typescript, typescriptreact(tsx) and deno [inspired by 30-seconds-of-code].",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": false,
   "scripts": {
     "prepublishOnly": "npm test",
