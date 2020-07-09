@@ -102,6 +102,8 @@ import {
   merge,
   midpoint,
   minBy,
+  sortBy,
+  sortByKey,
 } from "./util.ts";
 
 // accumulate
@@ -1127,7 +1129,7 @@ Deno.test("maxBy #1", () => {
   const timestamp = maxBy(array, (date) => date.getTime());
   assertEquals(new Date(timestamp).toDateString(), "Mon Mar 12 2018");
 
-  assertEquals(maxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 8)
+  assertEquals(maxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 8);
 });
 
 // maxN
@@ -1157,13 +1159,40 @@ Deno.test("merge #1", () => {
 
 // midpoint
 Deno.test("midpoint #1", () => {
-    assertEquals(midpoint([2, 2], [4, 4]), [3, 3])
-    assertEquals(midpoint([4, 4], [6, 6]), [5, 5])
-    assertEquals(midpoint([1, 3], [2, 4]), [1.5, 3.5])
+  assertEquals(midpoint([2, 2], [4, 4]), [3, 3]);
+  assertEquals(midpoint([4, 4], [6, 6]), [5, 5]);
+  assertEquals(midpoint([1, 3], [2, 4]), [1.5, 3.5]);
 });
 
 // minBy
 Deno.test("minBy #1", () => {
-  assertEquals(minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o) => o.n),2)
-  assertEquals(minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 2)
+  assertEquals(
+    minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o) => o.n),
+    2
+  );
+  assertEquals(minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 2);
+});
+
+// sortBy
+Deno.test("sortBy #1", () => {
+  assertEquals(sortBy([1, 2, 4, 3, 4, -1]), [-1, 1, 2, 3, 4, 4]);
+  assertEquals(sortBy([1, 2, 4, 3, 4, -1], undefined, -1), [4, 4, 3, 2, 1, -1]);
+  assertEquals(sortBy(["Test", "test"]), ["Test", "test"]);
+  assertEquals(
+    sortBy([{ name: "02" }, { name: "01" }], (s1: any, s2: any) =>
+      s1.name.localeCompare(s2.name)
+    ),
+    [{ name: "01" }, { name: "02" }]
+  );
+});
+// sortByKey
+Deno.test("sortByKey #1", () => {
+  assertEquals(sortByKey([{ name: "02" }, { name: "01" }], "name"), [
+    { name: "01" },
+    { name: "02" },
+  ]);
+  assertEquals(sortByKey([{ name: "02" }, { name: "01" }], "name", -1), [
+    { name: "02" },
+    { name: "01" },
+  ]);
 });

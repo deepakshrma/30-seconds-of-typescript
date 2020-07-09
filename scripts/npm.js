@@ -42,6 +42,7 @@ async function main() {
           scripts: {
             tsc: "tsc",
             test: "node test",
+            postpublish: "node scripts/npm.js --back",
           },
         }
       ),

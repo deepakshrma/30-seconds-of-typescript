@@ -35,6 +35,18 @@ export const isString = <T = any>(str: string | T): str is string => {
 };
 
 /**
+ * Checks if the given argument is a string. Only works for string primitives.
+ *
+ * Use `typeof` to check if a value is classified as a string primitive.
+ * Guard Function to check string type
+ *
+ * @param str {string|T}
+ */
+export const isFunction = <T = any>(str: Function | T): str is Function => {
+  return typeof str === "function";
+};
+
+/**
  * Validate date
  *
  * @param date {Date}
@@ -1795,11 +1807,54 @@ export const midpoint = ([x1, y1]: IPoint, [x2, y2]: IPoint) => [
 
 /**
  * Returns the minimum value of an array, after mapping each element to a value using the provided function.
- * 
+ *
  * Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.min()` to get the minimum value.
- * 
- * @param arr 
- * @param fn 
+ *
+ * @param arr
+ * @param fn
  */
 export const minBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
-Math.min(...arr.map(isString(fn) ? (val: any) => val[fn] : fn));
+  Math.min(...arr.map(isString(fn) ? (val: any) => val[fn] : fn));
+
+/**
+ * Sort by based on the key or function.
+ *
+ * Use the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.
+ * @param arr
+ * @param $fn
+ * @param order {1|-1}
+ */
+type SortByFunc<T> = (s1: T, s2: T) => number;
+
+export const sortBy = <T = any>(
+  arr: T[],
+  $fn: SortByFunc<T> = (s1: any, s2: any) =>
+    order * String(s1).localeCompare(String(s2)),
+  order: SortByOrder = SortByOrder.ASC
+) => {
+  let fn = $fn;
+  return [...arr].sort(fn);
+};
+
+export enum SortByOrder {
+  ASC = 1,
+  DESC = -1,
+}
+
+/**
+ * Sort by based on the key.
+ *
+ * Use the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.
+ *
+ * @param arr
+ * @param fn
+ */
+export const sortByKey = <T = any>(
+  arr: T[],
+  key: string,
+  order: SortByOrder = SortByOrder.ASC
+) => {
+  return [...arr].sort(
+    (s1: any, s2: any) => order * String(s1[key]).localeCompare(String(s2[key]))
+  );
+};

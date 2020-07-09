@@ -13,6 +13,32 @@ All the documents can be found on [30-seconds-of-typescript](https://deepakshrma
 
 **_I am refactoring code and fixing bug along with conversion._**
 
+## Install nodejs/npm
+
+```bash
+npm i @deepakvishwakarma/ts-util
+```
+
+### How to use Typescript
+
+```ts
+import { mask } from "@deepakvishwakarma/ts-util";
+
+console.log(mask(1234567890)); // '******7890'
+console.log(mask(1234567890, 3)); // '*******890'
+console.log(mask(1234567890, -4, "$")); // '$$$$567890'
+```
+
+### How to use JS
+
+```ts
+const { mask } = require("@deepakvishwakarma/ts-util");
+
+console.log(mask(1234567890)); // '******7890'
+console.log(mask(1234567890, 3)); // '*******890'
+console.log(mask(1234567890, -4, "$")); // '$$$$567890'
+```
+
 ## Install Snippet Extension
 
 You can find working plugin on `marketplace.visualstudio.com`. You can either search for `30-seconds-of-typescript` Or Install from here [imdeepak.30-seconds-of-typescript](https://marketplace.visualstudio.com/items?itemName=imdeepak.30-seconds-of-typescript)
