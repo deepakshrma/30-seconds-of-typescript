@@ -103,6 +103,7 @@ System.register("util", [], function (exports_1, context_1) {
   var HTMLEscapeChars,
     htmlEscapeReg,
     isString,
+    isFunction,
     accumulate,
     all,
     allEqual,
@@ -169,7 +170,6 @@ System.register("util", [], function (exports_1, context_1) {
     flatten,
     forEachRight,
     formatDuration,
-    formToObject,
     get,
     getAll,
     getBaseURL,
@@ -213,7 +213,22 @@ System.register("util", [], function (exports_1, context_1) {
     last,
     listenOnce,
     lowercaseKeys,
-    mapKeys;
+    mapKeys,
+    mapObject,
+    mapString,
+    map,
+    mask,
+    matches,
+    matchesWith,
+    maxBy,
+    maxDate,
+    maxN,
+    merge,
+    midpoint,
+    minBy,
+    sortBy,
+    SortByOrder,
+    sortByKey;
   var __moduleName = context_1 && context_1.id;
   /**
    * Validate date
@@ -248,6 +263,20 @@ System.register("util", [], function (exports_1, context_1) {
         "isString",
         (isString = (str) => {
           return typeof str === "string";
+        })
+      );
+      /**
+       * Checks if the given argument is a string. Only works for string primitives.
+       *
+       * Use `typeof` to check if a value is classified as a string primitive.
+       * Guard Function to check string type
+       *
+       * @param str {string|T}
+       */
+      exports_1(
+        "isFunction",
+        (isFunction = (str) => {
+          return typeof str === "function";
         })
       );
       /**
@@ -901,7 +930,7 @@ System.register("util", [], function (exports_1, context_1) {
           let timeoutId;
           return function (...args) {
             clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => fn.apply(this, args), ms);
+            timeoutId = window.setTimeout(() => fn.apply(this, args), ms);
           };
         })
       );
@@ -1281,27 +1310,24 @@ System.register("util", [], function (exports_1, context_1) {
             .join(", ");
         })
       );
-      /**
-       * Encode a set of form elements as an `object`.
-       *
-       * Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.
-       * Collect the object from the array, using `Array.prototype.reduce()`.
-       *
-       * @param form
-       */
-      exports_1(
-        "formToObject",
-        (formToObject = (form) => {
-          const F = FormData;
-          Array.from(new F(form)).reduce(
-            (acc, [key, value]) => ({
-              ...acc,
-              [key]: value,
-            }),
-            {}
-          );
-        })
-      );
+      // /**
+      //  * Encode a set of form elements as an `object`.
+      //  *
+      //  * Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.
+      //  * Collect the object from the array, using `Array.prototype.reduce()`.
+      //  *
+      //  * @param form
+      //  */
+      // export const formToObject = (form: any) => {
+      //   const F = FormData as IFormData;
+      //   Array.from(new F(form)).reduce(
+      //     (acc, [key, value]) => ({
+      //       ...acc,
+      //       [key]: value,
+      //     }),
+      //     {}
+      //   );
+      // };
       /**
        * Retrieve a set of properties indicated by the given selectors from an object.
        *
@@ -1928,6 +1954,207 @@ System.register("util", [], function (exports_1, context_1) {
             return acc;
           }, {}))
       );
+      /**
+       * Maps the values of an array to an object using a function, where the key-value pairs consist of the original value as the key and the result of the function as the value.
+       *
+       * Use `Array.prototype.reduce()` to apply `fn` to each element in `arr` and combine the results into an object.
+       * Use `el` as the key for each property and the result of `fn` as the value.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "mapObject",
+        (mapObject = (arr, fn) =>
+          arr.reduce((acc, el, i) => {
+            acc[el] = fn(el, i, arr);
+            return acc;
+          }, {}))
+      );
+      /**
+       * Creates a new string with the results of calling a provided function on every character in the calling string.
+       *
+       * Use `String.prototype.split('')` and `Array.prototype.map()` to call the provided function, `fn`, for each character in `str`.
+       * Use `Array.prototype.join('')` to recombine the array of characters into a string.
+       * The callback function, `fn`, takes three arguments (the current character, the index of the current character and the string `mapString` was called upon).
+       *
+       * @param str
+       * @param fn
+       */
+      exports_1(
+        "mapString",
+        (mapString = (str, fn) => {
+          const chars = [...str];
+          return chars.map((c, i) => fn(c, i, chars)).join("");
+        })
+      );
+      exports_1(
+        "map",
+        (map = (array, fn) => {
+          const chars = Array.isArray(array) ? array : [...array];
+          return chars.map((c, i) => fn(c, i, chars));
+        })
+      );
+      /**
+       * Replaces all but the last `num` of characters with the specified mask character.
+       *
+       * Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked and use `String.padStart()` to fill the beginning of the string with the mask character up to the original length.
+       * Omit the second argument, `num`, to keep a default of `4` characters unmasked. If `num` is negative, the unmasked characters will be at the start of the string.
+       * Omit the third argument, `mask`, to use a default character of `'*'` for the mask.
+       *
+       * @param cc
+       * @param num
+       * @param mask
+       */
+      exports_1(
+        "mask",
+        (mask = (cc, num = 4, mask = "*") =>
+          String(cc).slice(-num).padStart(String(cc).length, mask))
+      );
+      /**
+       * Compares two objects to determine if the first one contains equivalent property values to the second one.
+       *
+       * Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.
+       *
+       * @param obj
+       * @param source
+       */
+      exports_1(
+        "matches",
+        (matches = (obj, source) =>
+          Object.keys(source).every(
+            (key) => obj.hasOwnProperty(key) && obj[key] === source[key]
+          ))
+      );
+      /**
+       * Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.
+       *
+       * Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.
+       * If no function is provided, the values will be compared using the equality operator.
+       *
+       * @param obj
+       * @param source
+       * @param fn
+       */
+      exports_1(
+        "matchesWith",
+        (matchesWith = (obj, source, fn) =>
+          Object.keys(source).every((key) =>
+            obj.hasOwnProperty(key) && fn
+              ? fn(obj[key], source[key], key, obj, source)
+              : obj[key] == source[key]
+          ))
+      );
+      /**
+       * Returns the maximum value of an array, after mapping each element to a value using the provided function.
+       *
+       * Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.max()` to get the maximum value.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "maxBy",
+        (maxBy = (arr, fn) =>
+          Math.max(...arr.map(isString(fn) ? (val) => val[fn] : fn)))
+      );
+      /**
+       * Returns the maximum of the given dates.
+       *
+       * Use the ES6 spread syntax with `Math.max` to find the maximum date value, `new Date()` to convert it to a `Date` object.
+       *
+       * @param dates
+       */
+      exports_1(
+        "maxDate",
+        (maxDate = (dates) => new Date(Math.max(...dates.map(Number))))
+      );
+      /**
+       * Returns the `n` maximum elements from the provided array.
+       * If `n` is greater than or equal to the provided array's length, then return the original array (sorted in descending order).
+       *
+       * Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in descending order.
+       * Use `Array.prototype.slice()` to get the specified number of elements.
+       * Omit the second argument, `n`, to get a one-element array.
+       * @param arr
+       * @param n
+       */
+      exports_1(
+        "maxN",
+        (maxN = (arr, n = 1, order = 1) =>
+          [...arr].sort((a, b) => order * (b - a)).slice(0, n))
+      );
+      /**
+       * Creates a new object from the combination of two or more objects.
+       *
+       * Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys.
+       * Use `hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects.
+       *
+       * @param objs
+       */
+      exports_1(
+        "merge",
+        (merge = (...objs) =>
+          [...objs].reduce(
+            (acc, obj) =>
+              Object.keys(obj).reduce((a, k) => {
+                acc[k] = acc.hasOwnProperty(k)
+                  ? [].concat(acc[k]).concat(obj[k])
+                  : obj[k];
+                return acc;
+              }, {}),
+            {}
+          ))
+      );
+      exports_1(
+        "midpoint",
+        (midpoint = ([x1, y1], [x2, y2]) => [(x1 + x2) / 2, (y1 + y2) / 2])
+      );
+      /**
+       * Returns the minimum value of an array, after mapping each element to a value using the provided function.
+       *
+       * Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.min()` to get the minimum value.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "minBy",
+        (minBy = (arr, fn) =>
+          Math.min(...arr.map(isString(fn) ? (val) => val[fn] : fn)))
+      );
+      exports_1(
+        "sortBy",
+        (sortBy = (
+          arr,
+          $fn = (s1, s2) => order * String(s1).localeCompare(String(s2)),
+          order = SortByOrder.ASC
+        ) => {
+          let fn = $fn;
+          return [...arr].sort(fn);
+        })
+      );
+      (function (SortByOrder) {
+        SortByOrder[(SortByOrder["ASC"] = 1)] = "ASC";
+        SortByOrder[(SortByOrder["DESC"] = -1)] = "DESC";
+      })(SortByOrder || (SortByOrder = {}));
+      exports_1("SortByOrder", SortByOrder);
+      /**
+       * Sort by based on the key.
+       *
+       * Use the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "sortByKey",
+        (sortByKey = (arr, key, order = SortByOrder.ASC) => {
+          return [...arr].sort(
+            (s1, s2) => order * String(s1[key]).localeCompare(String(s2[key]))
+          );
+        })
+      );
     },
   };
 });
@@ -1935,6 +2162,7 @@ System.register("util", [], function (exports_1, context_1) {
 const __exp = __instantiate("util", false);
 export const isValidDate = __exp["isValidDate"];
 export const isString = __exp["isString"];
+export const isFunction = __exp["isFunction"];
 export const accumulate = __exp["accumulate"];
 export const all = __exp["all"];
 export const allEqual = __exp["allEqual"];
@@ -2001,7 +2229,6 @@ export const findKey = __exp["findKey"];
 export const flatten = __exp["flatten"];
 export const forEachRight = __exp["forEachRight"];
 export const formatDuration = __exp["formatDuration"];
-export const formToObject = __exp["formToObject"];
 export const get = __exp["get"];
 export const getAll = __exp["getAll"];
 export const getBaseURL = __exp["getBaseURL"];
@@ -2046,3 +2273,17 @@ export const last = __exp["last"];
 export const listenOnce = __exp["listenOnce"];
 export const lowercaseKeys = __exp["lowercaseKeys"];
 export const mapKeys = __exp["mapKeys"];
+export const mapObject = __exp["mapObject"];
+export const mapString = __exp["mapString"];
+export const map = __exp["map"];
+export const mask = __exp["mask"];
+export const matches = __exp["matches"];
+export const matchesWith = __exp["matchesWith"];
+export const maxBy = __exp["maxBy"];
+export const maxDate = __exp["maxDate"];
+export const maxN = __exp["maxN"];
+export const merge = __exp["merge"];
+export const midpoint = __exp["midpoint"];
+export const minBy = __exp["minBy"];
+export const sortBy = __exp["sortBy"];
+export const sortByKey = __exp["sortByKey"];
