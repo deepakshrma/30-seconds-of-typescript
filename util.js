@@ -228,7 +228,24 @@ System.register("util", [], function (exports_1, context_1) {
     minBy,
     sortBy,
     SortByOrder,
-    sortByKey;
+    sortByKey,
+    mostFrequent,
+    mostPerformant,
+    negate,
+    nest,
+    nodeListToArray,
+    toArray,
+    none,
+    not,
+    nthArg,
+    nthElement,
+    objectToQueryString,
+    offset,
+    omit,
+    omitBy,
+    or,
+    orderBy,
+    orderByFunc;
   var __moduleName = context_1 && context_1.id;
   /**
    * Validate date
@@ -1988,6 +2005,12 @@ System.register("util", [], function (exports_1, context_1) {
           return chars.map((c, i) => fn(c, i, chars)).join("");
         })
       );
+      /**
+       * Creates a new map with the results of calling a provided function on every value in the calling function.
+       *
+       * Use `Array.isArray()` to detect array, else destructure array like data(string).
+       * Use `Array.prototype.map()` to map array of data.
+       */
       exports_1(
         "map",
         (map = (array, fn) => {
@@ -2155,6 +2178,257 @@ System.register("util", [], function (exports_1, context_1) {
           );
         })
       );
+      /**
+       * Returns the most frequent element in an array.
+       *
+       * Use `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.
+       * Use `Object.entries()` on the result in combination with `Array.prototype.reduce()` to get the most frequent value in the array.
+       *
+       * @param arr
+       */
+      exports_1(
+        "mostFrequent",
+        (mostFrequent = (arr) =>
+          Object.entries(
+            arr.reduce((a, v) => {
+              a[String(v)] = a[String(v)] ? a[String(v)] + 1 : 1;
+              return a;
+            }, {})
+          ).reduce((a, v) => (v[1] >= a[1] ? v : a), [-1, 0])[0])
+      );
+      /**
+       * Returns the index of the function in an array of functions which executed the fastest.
+       *
+       * Use `Array.prototype.map()` to generate an array where each value is the total time taken to execute the function after `iterations` times. Use the difference in `performance.now()` values before and after to get the total time in milliseconds to a high degree of accuracy.
+       * Use `Math.min()` to find the minimum execution time, and return the index of that shortest time which corresponds to the index of the most performant function.
+       * Omit the second argument, `iterations`, to use a default of 10,000 iterations. The more iterations, the more reliable the result but the longer it will take.
+       *
+       * @param fns
+       * @param iterations
+       */
+      exports_1(
+        "mostPerformant",
+        (mostPerformant = (fns, iterations = 10000) => {
+          const times = fns.map((fn) => {
+            const before = performance.now();
+            for (let i = 0; i < iterations; i++) fn();
+            return performance.now() - before;
+          });
+          return times.indexOf(Math.min(...times));
+        })
+      );
+      /**
+       * Negates a predicate function.
+       *
+       * Take a predicate function and apply the not operator (`!`) to it with its arguments.
+       *
+       * @param func
+       */
+      exports_1("negate", (negate = (func) => (...args) => !func(...args)));
+      /**
+       * Given a flat array of objects linked to one another, it will nest them recursively.
+       * Useful for nesting comments, such as the ones on reddit.com.
+       *
+       * Use recursion.
+       * Use `Array.prototype.filter()` to filter the items where the `id` matches the `link`, then `Array.prototype.map()` to map each one to a new object that has a `children` property which recursively nests the items based on which ones are children of the current item.
+       * Omit the second argument, `id`, to default to `null` which indicates the object is not linked to another one (i.e. it is a top level object).
+       * Omit the third argument, `link`, to use `'parent_id'` as the default property which links the object to another one by its `id`.
+       *
+       * @param items
+       * @param id
+       * @param link
+       */
+      exports_1(
+        "nest",
+        (nest = (items, id = null, link = "parent_id") =>
+          items
+            .filter((item) => item[link] === id)
+            .map((item) => ({ ...item, children: nest(items, item.id, link) })))
+      );
+      /**
+       * Converts a `NodeList` to an array.
+       *
+       * Use spread operator inside new array to convert a `NodeList` to an array.
+       *
+       * @param nodeList
+       */
+      exports_1(
+        "nodeListToArray",
+        (nodeListToArray = (nodeList) => [...nodeList])
+      );
+      /**
+       * Converts a `ArrayLike` to an array.
+       *
+       * Use spread operator inside new array to convert a `arrayLike` to an array.
+       *
+       * @param arrLike
+       */
+      exports_1("toArray", (toArray = (arrLike) => [...arrLike]));
+      /**
+       * Returns `true` if the provided predicate function returns `false` for all elements in a collection, `false` otherwise.
+       *
+       * Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.
+       * Omit the second argument, `fn`, to use `Boolean` as a default.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1("none", (none = (arr, fn = Boolean) => !arr.some(fn)));
+      /**
+       * Returns the logical inverse of the given value.
+       *
+       * Use the logical not (`!`) operator to return the inverse of the given value.
+       *
+       * @param a
+       */
+      exports_1("not", (not = (a) => !a));
+      /**
+       * Creates a function that gets the argument at index `n`. If `n` is negative, the nth argument from the end is returned.
+       *
+       * Use `Array.prototype.slice()` to get the desired argument at index `n`.
+       *
+       * @param n
+       */
+      exports_1("nthArg", (nthArg = (n) => (...args) => args.slice(n)[0]));
+      exports_1(
+        "nthElement",
+        (nthElement = curry(
+          (n = 0, arr) => (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0],
+          2
+        ))
+      );
+      /**
+       * Returns a query string generated from the key-value pairs of the given object.
+       *
+       * Use `Array.prototype.reduce()` on `Object.entries(queryParameters)` to create the query string.
+       * Determine the `symbol` to be either `?` or `&` based on the `length` of `queryString` and concatenate `val` to `queryString` only if it's a string.
+       * Return the `queryString` or an empty string when the `queryParameters` are falsy.
+       *
+       * @param queryParameters
+       */
+      exports_1(
+        "objectToQueryString",
+        (objectToQueryString = (queryParameters) => {
+          return queryParameters
+            ? Object.entries(queryParameters).reduce(
+                (queryString, [key, val], index) => {
+                  const symbol = queryString.length === 0 ? "?" : "&";
+                  queryString +=
+                    typeof val === "string" ? `${symbol}${key}=${val}` : "";
+                  return queryString;
+                },
+                ""
+              )
+            : "";
+        })
+      );
+      /**
+       * Moves the specified amount of elements to the end of the array.
+       *
+       * Use `Array.prototype.slice()` twice to get the elements after the specified index and the elements before that.
+       * Use the spread operator(`...`) to combine the two into one array.
+       * If `offset` is negative, the elements will be moved from end to start.
+       *
+       * @param arr
+       * @param offset
+       */
+      exports_1(
+        "offset",
+        (offset = (arr, offset) => [
+          ...arr.slice(offset),
+          ...arr.slice(0, offset),
+        ])
+      );
+      /**
+       * Omits the key-value pairs corresponding to the given keys from an object.
+       *
+       * Use `Object.keys(obj)`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys.
+       * Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
+       *
+       * @param obj
+       * @param arr
+       */
+      exports_1(
+        "omit",
+        (omit = (obj, arr) =>
+          Object.keys(obj)
+            .filter((k) => !arr.includes(k))
+            .reduce((acc, key) => ((acc[key] = obj[key]), acc), {}))
+      );
+      /**
+       * Creates an object composed of the properties the given function returns falsy for. The function is invoked with two arguments: (value, key).
+       *
+       * Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a truthy value.
+       * Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
+       *
+       * @param obj
+       * @param fn
+       */
+      exports_1(
+        "omitBy",
+        (omitBy = (obj, fn) =>
+          Object.keys(obj)
+            .filter((k) => !fn(obj[k], k))
+            .reduce((acc, key) => ((acc[key] = obj[key]), acc), {}))
+      );
+      /**
+       * Returns `true` if at least one of the arguments is `true`, `false` otherwise.
+       *
+       * Use the logical or (`||`) operator on the two given values.
+       *
+       * @param a
+       * @param b
+       */
+      exports_1("or", (or = (a, b) => a || b));
+      /**
+       * Returns a sorted array of objects ordered by properties and orders.
+       *
+       * Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`, use array destructuring to swap the properties position depending on the order passed.
+       * If no `orders` array is passed it sort by `'asc'` by default.
+       *
+       * @param arr
+       * @param props
+       * @param orders
+       */
+      exports_1(
+        "orderBy",
+        (orderBy = (arr, props, orders) =>
+          [...arr].sort((a, b) =>
+            props.reduce((acc, prop, i) => {
+              if (acc === 0) {
+                const [p1, p2] =
+                  orders && orders[i] === "desc"
+                    ? [b[prop], a[prop]]
+                    : [a[prop], b[prop]];
+                acc = p1 > p2 ? 1 : p1 < p2 ? -1 : 0;
+              }
+              return acc;
+            }, 0)
+          ))
+      );
+      /**
+       * Returns a sorted array of objects ordered by properties and orders.
+       *
+       * Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`, use array destructuring to swap the properties position depending on the order passed.
+       * If no `orders` array is passed it sort by `'asc'` by default.
+       *
+       * @param arr
+       * @param props
+       * @param orders
+       */
+      exports_1(
+        "orderByFunc",
+        (orderByFunc = (arr, props, fn) =>
+          [...arr].sort((a, b) =>
+            props.reduce((acc, prop, i) => {
+              if (acc === 0) {
+                const [p1, p2] = [a[prop], b[prop]];
+                acc = fn(p1, p2, prop);
+              }
+              return acc;
+            }, 0)
+          ))
+      );
     },
   };
 });
@@ -2287,3 +2561,20 @@ export const midpoint = __exp["midpoint"];
 export const minBy = __exp["minBy"];
 export const sortBy = __exp["sortBy"];
 export const sortByKey = __exp["sortByKey"];
+export const mostFrequent = __exp["mostFrequent"];
+export const mostPerformant = __exp["mostPerformant"];
+export const negate = __exp["negate"];
+export const nest = __exp["nest"];
+export const nodeListToArray = __exp["nodeListToArray"];
+export const toArray = __exp["toArray"];
+export const none = __exp["none"];
+export const not = __exp["not"];
+export const nthArg = __exp["nthArg"];
+export const nthElement = __exp["nthElement"];
+export const objectToQueryString = __exp["objectToQueryString"];
+export const offset = __exp["offset"];
+export const omit = __exp["omit"];
+export const omitBy = __exp["omitBy"];
+export const or = __exp["or"];
+export const orderBy = __exp["orderBy"];
+export const orderByFunc = __exp["orderByFunc"];
