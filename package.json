@@ -1,15 +1,15 @@
 {
   "name": "@deepakvishwakarma/ts-util",
   "description": "User utility code snippets like lodash for typescript, typescriptreact(tsx) and deno [inspired by 30-seconds-of-code].",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": false,
   "scripts": {
-    "prepublishOnly": "npm test",
+    "prepublishOnly": "npm test && ts-node test/test.ts",
     "version": "git add -A util.ts",
     "postversion": "git push && git push --tags",
     "tsc": "tsc",
     "postpublish": "node scripts/npm.js --back",
-    "test": "deno test util.test.ts -c tsconfig.deno.json && ts-node test/test.ts && node test",
+    "test": "deno test util.test.ts -c tsconfig.deno.json && node test",
     "start": "docusaurus start",
     "npm": "node scripts/npm.js",
     "npm:publish": "node scripts/npm.js --prepare && npm run tsc && npm publish --access=public",

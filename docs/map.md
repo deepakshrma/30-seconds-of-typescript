@@ -13,10 +13,7 @@ Use `Array.isArray()` to detect array, else destructure array like data(string).
 Use `Array.prototype.map()` to map array of data.
 
 ```ts
-interface IIterator<T = any> {
-  [Symbol.iterator](): IterableIterator<T>;
-}
-const map = <T = any>(array: IIterator, fn: MapFunc<T>) => {
+const map = <T = any>(array: Iterable<T>, fn: MapFunc<T>) => {
   const chars = Array.isArray(array) ? array : [...array];
   return chars.map((c, i) => fn(c, i, chars));
 };

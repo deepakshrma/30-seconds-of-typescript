@@ -104,6 +104,22 @@ import {
   minBy,
   sortBy,
   sortByKey,
+  mostFrequent,
+  mostPerformant,
+  negate,
+  nest,
+  nodeListToArray,
+  none,
+  not,
+  nthArg,
+  nthElement,
+  objectToQueryString,
+  offset,
+  omit,
+  omitBy,
+  or,
+  orderBy,
+  orderByFunc,
 } from "./util.ts";
 
 // accumulate
@@ -1195,4 +1211,165 @@ Deno.test("sortByKey #1", () => {
     { name: "02" },
     { name: "01" },
   ]);
+});
+
+// mostFrequent
+Deno.test("mostFrequent #1", () => {
+  assertEquals(mostFrequent(["a", "b", "a", "c", "a", "a", "b"]), "a");
+  assertEquals(mostFrequent(["1", "11", "2", 1, 2, "3", "1"]), "1");
+});
+
+// mostPerformant
+Deno.test("mostPerformant #1", () => {
+  assertEquals(
+    mostPerformant([
+      () => {
+        // 10x time iterate
+        fillArray(10000, "1").every((el) => typeof el === "number");
+      },
+      () => {
+        fillArray(1000, "2").every((el) => typeof el === "number");
+      },
+    ]),
+    1
+  );
+});
+
+// negate
+Deno.test("negate #1", () => {
+  assertEquals([1, 2, 3, 4, 5, 6].filter(negate((n: number) => n % 2 === 0)), [
+    1,
+    3,
+    5,
+  ]);
+});
+
+// nest
+Deno.test("nest #1", () => {
+  const comments = [
+    { id: 1, parent_id: null },
+    { id: 2, parent_id: 1 },
+    { id: 3, parent_id: 1 },
+    { id: 4, parent_id: 2 },
+    { id: 5, parent_id: 4 },
+  ];
+  const nestedComments = nest(comments);
+  assertEquals(nestedComments[0].children[0].children[0].id, 4);
+});
+
+// nodeListToArray
+Deno.test("nodeListToArray #1", () => {
+  const caps = (x: string) => x.toUpperCase();
+  assertEquals(nodeListToArray("caps").map(caps), ["C", "A", "P", "S"]);
+});
+
+// none
+Deno.test("none #1", () => {
+  assertEquals(
+    none([0, 1, 3, 0], (x) => x == 2),
+    true
+  );
+  assertEquals(none([0, 0, 0]), true);
+});
+
+// not
+Deno.test("not #1", () => {
+  assertEquals(not(false), true);
+  assertEquals(not(undefined), true);
+  assertEquals(not(null), true);
+});
+
+// nthArg
+Deno.test("nthArg #1", () => {
+  const third = nthArg(2);
+  const last = nthArg(-1);
+  assertEquals(third(1, 2, 3), 3);
+  assertEquals(last(1, 2, 3, 4, 5), 5);
+});
+
+// nthElement
+Deno.test("nthElement #1", () => {
+  const third = nthElement(2);
+  const last = nthElement(-1);
+  assertEquals(third([1, 2, 3]), 3);
+  assertEquals(last([1, 2, 3, 4, 5]), 5);
+
+  assertEquals(nthElement(-2, [1, 2, 3, 4, 5]), 4);
+});
+
+// objectToQueryString
+Deno.test("objectToQueryString #1", () => {
+  assertEquals(
+    objectToQueryString({ page: "1", size: "2kg", key: undefined }),
+    "?page=1&size=2kg"
+  );
+});
+
+// offset
+Deno.test("offset #1", () => {
+  assertEquals(offset([1, 2, 3, 4, 5], 2), [3, 4, 5, 1, 2]);
+  assertEquals(offset([1, 2, 3, 4, 5], -2), [4, 5, 1, 2, 3]);
+});
+
+// omit
+Deno.test("omit #1", () => {
+  assertEquals(omit({ a: 1, b: "2", c: 3 }, ["b"]), { a: 1, c: 3 });
+});
+
+// omitBy
+Deno.test("omitBy #1", () => {
+  assertEquals(
+    omitBy({ a: 1, b: "2", c: 3 }, (x: any) => typeof x === "number"),
+    { b: "2" }
+  );
+});
+
+// or
+Deno.test("or #1", () => {
+  assertEquals(or(true, true), true);
+  assertEquals(or(true, false), true);
+  assertEquals(or(false, false), false);
+});
+
+// orderBy
+Deno.test("orderBy #1", () => {
+  const users = [
+    { name: "fred", age: 48 },
+    { name: "barney", age: 36 },
+    { name: "fred", age: 40 },
+  ];
+  assertEquals(orderBy(users, ["name", "age"], ["asc", "desc"]), [
+    { name: "barney", age: 36 },
+    { name: "fred", age: 48 },
+    { name: "fred", age: 40 },
+  ]);
+  assertEquals(orderBy(users, ["name", "age"]), [
+    { name: "barney", age: 36 },
+    { name: "fred", age: 40 },
+    { name: "fred", age: 48 },
+  ]);
+});
+
+// orderBy
+Deno.test("orderBy #1", () => {
+  const users = [
+    { name: "fred", age: 48 },
+    { name: "barney", age: 36 },
+    { name: "fred", age: 40 },
+  ];
+  assertEquals(
+    orderByFunc(
+      users,
+      ["name", "age"],
+      <T extends string | number>(p1: T, p2: T, prop: string) => {
+        if (prop === "name") return String(p1).localeCompare(String(p2)); // asc
+        if (prop === "age") return Number(p2) - Number(p1); // desc
+      }
+    ),
+    [
+      { name: "barney", age: 36 },
+      { name: "fred", age: 48 },
+      { name: "fred", age: 40 },
+    ]
+  );
 });

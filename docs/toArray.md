@@ -1,5 +1,5 @@
 ---
-title: nodeListToArray
+title: toArray
 tags: browser,array,beginner
 ---
 
@@ -7,19 +7,19 @@ tags: browser,array,beginner
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-Converts a `NodeList` to an array.
+Converts a `ArrayLike` to an array.
 
-Use spread operator inside new array to convert a `NodeList` to an array.
+Use spread operator inside new array to convert a `arrayLike` to an array.
 
 ```ts
-const nodeListToArray = <T = any>(nodeList: Iterable<T>) => [...nodeList];
+const toArray = <T = any>(arrLike: Iterable<T>) => [...arrLike];
 ```
 
 ```ts
-nodeListToArray(document.childNodes); // [ <!DOCTYPE html>, html ]
+toArray(document.childNodes); // [ <!DOCTYPE html>, html ]
 
 // array like string
 
 const caps = (x: string) => x.toUpperCase();
-nodeListToArray("caps").map(caps); // ["C", "A", "P", "S"]
+toArray("caps").map(caps); // ["C", "A", "P", "S"]
 ```

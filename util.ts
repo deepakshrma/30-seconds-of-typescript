@@ -1,5 +1,5 @@
 export type StringOrNumber = string | number;
-export type Predicate<T> = (item: T) => boolean;
+export type Predicate = (...item: any[]) => boolean;
 export type Func<T = any> = (...args: T[]) => any;
 export type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => any;
 export type ReducerFunc<T = any, R = any> = (
@@ -270,7 +270,7 @@ export const bifurcate = <T = any>(arr: T[], filter: boolean[]) =>
  * @param arr {T[]}, <T = any>
  * @param filter {Predicate<T>}
  */
-export const bifurcateBy = <T = any>(arr: T[], filter: Predicate<T>) =>
+export const bifurcateBy = <T = any>(arr: T[], filter: Predicate) =>
   arr.reduce(
     (acc, val) => {
       acc[filter(val) ? 0 : 1].push(val);
@@ -1687,10 +1687,7 @@ export const mapString = (str: string, fn: MapFunc<string>) => {
  * Use `Array.isArray()` to detect array, else destructure array like data(string).
  * Use `Array.prototype.map()` to map array of data.
  */
-export interface IIterator<T = any> {
-  [Symbol.iterator](): IterableIterator<T>;
-}
-export const map = <T = any>(array: IIterator, fn: MapFunc<T>) => {
+export const map = <T = any>(array: Iterable<T>, fn: MapFunc<T>) => {
   const chars = Array.isArray(array) ? array : [...array];
   return chars.map((c, i) => fn(c, i, chars));
 };
@@ -1858,3 +1855,252 @@ export const sortByKey = <T = any>(
     (s1: any, s2: any) => order * String(s1[key]).localeCompare(String(s2[key]))
   );
 };
+
+/**
+ * Returns the most frequent element in an array.
+ *
+ * Use `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.
+ * Use `Object.entries()` on the result in combination with `Array.prototype.reduce()` to get the most frequent value in the array.
+ *
+ * @param arr
+ */
+export const mostFrequent = <T extends string | number>(arr: T[]) =>
+  Object.entries(
+    arr.reduce((a: AnyObject, v: T) => {
+      a[String(v)] = a[String(v)] ? a[String(v)] + 1 : 1;
+      return a;
+    }, {} as AnyObject)
+  ).reduce((a, v) => (v[1] >= a[1] ? v : a), [-1, 0])[0];
+
+/**
+ * Returns the index of the function in an array of functions which executed the fastest.
+ *
+ * Use `Array.prototype.map()` to generate an array where each value is the total time taken to execute the function after `iterations` times. Use the difference in `performance.now()` values before and after to get the total time in milliseconds to a high degree of accuracy.
+ * Use `Math.min()` to find the minimum execution time, and return the index of that shortest time which corresponds to the index of the most performant function.
+ * Omit the second argument, `iterations`, to use a default of 10,000 iterations. The more iterations, the more reliable the result but the longer it will take.
+ *
+ * @param fns
+ * @param iterations
+ */
+export const mostPerformant = (fns: Function[], iterations = 10000) => {
+  const times = fns.map((fn) => {
+    const before = performance.now();
+    for (let i = 0; i < iterations; i++) fn();
+    return performance.now() - before;
+  });
+  return times.indexOf(Math.min(...times));
+};
+
+/**
+ * Negates a predicate function.
+ *
+ * Take a predicate function and apply the not operator (`!`) to it with its arguments.
+ *
+ * @param func
+ */
+export const negate = (func: Function) => (...args: any[]) => !func(...args);
+
+/**
+ * Given a flat array of objects linked to one another, it will nest them recursively.
+ * Useful for nesting comments, such as the ones on reddit.com.
+ *
+ * Use recursion.
+ * Use `Array.prototype.filter()` to filter the items where the `id` matches the `link`, then `Array.prototype.map()` to map each one to a new object that has a `children` property which recursively nests the items based on which ones are children of the current item.
+ * Omit the second argument, `id`, to default to `null` which indicates the object is not linked to another one (i.e. it is a top level object).
+ * Omit the third argument, `link`, to use `'parent_id'` as the default property which links the object to another one by its `id`.
+ *
+ * @param items
+ * @param id
+ * @param link
+ */
+export const nest = (
+  items: AnyObject[],
+  id: number | null = null,
+  link = "parent_id"
+): AnyObject =>
+  items
+    .filter((item) => item[link] === id)
+    .map((item) => ({ ...item, children: nest(items, item.id, link) }));
+
+/**
+ * Converts a `NodeList` to an array.
+ *
+ * Use spread operator inside new array to convert a `NodeList` to an array.
+ *
+ * @param nodeList
+ */
+export const nodeListToArray = <T = any>(nodeList: Iterable<T>) => [
+  ...nodeList,
+];
+
+/**
+ * Converts a `ArrayLike` to an array.
+ *
+ * Use spread operator inside new array to convert a `arrayLike` to an array.
+ *
+ * @param arrLike
+ */
+export const toArray = <T = any>(arrLike: Iterable<T>) => [...arrLike];
+
+/**
+ * Returns `true` if the provided predicate function returns `false` for all elements in a collection, `false` otherwise.
+ *
+ * Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.
+ * Omit the second argument, `fn`, to use `Boolean` as a default.
+ *
+ * @param arr
+ * @param fn
+ */
+export const none = (arr: any[], fn: Predicate = Boolean) => !arr.some(fn);
+
+/**
+ * Returns the logical inverse of the given value.
+ *
+ * Use the logical not (`!`) operator to return the inverse of the given value.
+ *
+ * @param a
+ */
+export const not = (a: any) => !a;
+
+/**
+ * Creates a function that gets the argument at index `n`. If `n` is negative, the nth argument from the end is returned.
+ *
+ * Use `Array.prototype.slice()` to get the desired argument at index `n`.
+ *
+ * @param n
+ */
+export const nthArg = (n: number) => (...args: any[]) => args.slice(n)[0];
+
+export const nthElement = curry(
+  (n = 0, arr: any[]) => (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0],
+  2
+);
+
+/**
+ * Returns a query string generated from the key-value pairs of the given object.
+ *
+ * Use `Array.prototype.reduce()` on `Object.entries(queryParameters)` to create the query string.
+ * Determine the `symbol` to be either `?` or `&` based on the `length` of `queryString` and concatenate `val` to `queryString` only if it's a string.
+ * Return the `queryString` or an empty string when the `queryParameters` are falsy.
+ *
+ * @param queryParameters
+ */
+export const objectToQueryString = (queryParameters: AnyObject) => {
+  return queryParameters
+    ? Object.entries(queryParameters).reduce(
+        (queryString, [key, val], index) => {
+          const symbol = queryString.length === 0 ? "?" : "&";
+          queryString +=
+            typeof val === "string" ? `${symbol}${key}=${val}` : "";
+          return queryString;
+        },
+        ""
+      )
+    : "";
+};
+
+/**
+ * Moves the specified amount of elements to the end of the array.
+ *
+ * Use `Array.prototype.slice()` twice to get the elements after the specified index and the elements before that.
+ * Use the spread operator(`...`) to combine the two into one array.
+ * If `offset` is negative, the elements will be moved from end to start.
+ *
+ * @param arr
+ * @param offset
+ */
+export const offset = (arr: any[], offset: number) => [
+  ...arr.slice(offset),
+  ...arr.slice(0, offset),
+];
+
+/**
+ * Omits the key-value pairs corresponding to the given keys from an object.
+ *
+ * Use `Object.keys(obj)`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys.
+ * Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
+ *
+ * @param obj
+ * @param arr
+ */
+export const omit = (obj: AnyObject, arr: string[]) =>
+  Object.keys(obj)
+    .filter((k) => !arr.includes(k))
+    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {} as AnyObject);
+
+/**
+ * Creates an object composed of the properties the given function returns falsy for. The function is invoked with two arguments: (value, key).
+ *
+ * Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a truthy value.
+ * Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
+ *
+ * @param obj
+ * @param fn
+ */
+export const omitBy = (obj: AnyObject, fn: Predicate) =>
+  Object.keys(obj)
+    .filter((k) => !fn(obj[k], k))
+    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {} as AnyObject);
+
+/**
+ * Returns `true` if at least one of the arguments is `true`, `false` otherwise.
+ *
+ * Use the logical or (`||`) operator on the two given values.
+ *
+ * @param a
+ * @param b
+ */
+export const or = (a: any, b: any) => a || b;
+
+/**
+ * Returns a sorted array of objects ordered by properties and orders.
+ *
+ * Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`, use array destructuring to swap the properties position depending on the order passed.
+ * If no `orders` array is passed it sort by `'asc'` by default.
+ *
+ * @param arr
+ * @param props
+ * @param orders
+ */
+export const orderBy = <T = AnyObject>(
+  arr: T[],
+  props: (keyof T)[],
+  orders?: ("asc" | "desc")[]
+) =>
+  [...arr].sort((a, b) =>
+    props.reduce((acc, prop, i) => {
+      if (acc === 0) {
+        const [p1, p2] =
+          orders && orders[i] === "desc"
+            ? [b[prop], a[prop]]
+            : [a[prop], b[prop]];
+        acc = p1 > p2 ? 1 : p1 < p2 ? -1 : 0;
+      }
+      return acc;
+    }, 0)
+  );
+
+/**
+ * Returns a sorted array of objects ordered by properties and orders.
+ *
+ * Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`, use array destructuring to swap the properties position depending on the order passed.
+ * If no `orders` array is passed it sort by `'asc'` by default.
+ *
+ * @param arr
+ * @param props
+ * @param orders
+ */
+export const orderByFunc = <T = AnyObject>(
+  arr: T[],
+  props: (keyof T)[],
+  fn: Function
+) =>
+  [...arr].sort((a, b) =>
+    props.reduce((acc, prop, i) => {
+      if (acc === 0) {
+        const [p1, p2] = [a[prop], b[prop]];
+        acc = fn(p1, p2, prop);
+      }
+      return acc;
+    }, 0)
+  );

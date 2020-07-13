@@ -3,8 +3,9 @@ title: nest
 tags: object,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Given a flat array of objects linked to one another, it will nest them recursively.
 Useful for nesting comments, such as the ones on reddit.com.
@@ -14,14 +15,18 @@ Use `Array.prototype.filter()` to filter the items where the `id` matches the `l
 Omit the second argument, `id`, to default to `null` which indicates the object is not linked to another one (i.e. it is a top level object).
 Omit the third argument, `link`, to use `'parent_id'` as the default property which links the object to another one by its `id`.
 
-```js
-const nest = (items, id = null, link = "parent_id") =>
+```ts
+const nest = (
+  items: AnyObject[],
+  id: number | null = null,
+  link = "parent_id"
+): AnyObject =>
   items
     .filter((item) => item[link] === id)
     .map((item) => ({ ...item, children: nest(items, item.id, link) }));
 ```
 
-```js
+```ts
 // One top level comment
 const comments = [
   { id: 1, parent_id: null },
