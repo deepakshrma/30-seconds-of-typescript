@@ -2,6 +2,7 @@ import {
   assertEquals,
   assertThrows,
   assertNotEquals,
+  assertThrowsAsync,
 } from "https://deno.land/std/testing/asserts.ts";
 import {
   accumulate,
@@ -120,6 +121,32 @@ import {
   or,
   orderBy,
   orderByFunc,
+  pad,
+  partial,
+  partialRight,
+  partition,
+  partitionBy,
+  pick,
+  pickBy,
+  pipeAsyncFunctions,
+  pipeFunctions,
+  pluralize,
+  prettyBytes,
+  prettyBytesT,
+  promisify,
+  Func,
+  reduceWhich,
+  removeNonASCII,
+  reverseString,
+  RGBToHex,
+  round,
+  runPromisesInSeries,
+  serializeCookie,
+  show,
+  HTMLElementLike,
+  hide,
+  size,
+  sleep,
 } from "./util.ts";
 
 // accumulate
@@ -1372,4 +1399,200 @@ Deno.test("orderBy #1", () => {
       { name: "fred", age: 40 },
     ]
   );
+});
+
+// pad
+Deno.test("pad #1", () => {
+  assertEquals(pad("cat", 8), "  cat   ");
+  assertEquals(pad(String(42), 6, "0"), "004200");
+  assertEquals(pad("foobar", 3), "foobar");
+});
+
+// partial
+Deno.test("partial #1", () => {
+  const greet = (greeting: string, name: string) => greeting + " " + name + "!";
+  const greetHello = partial(greet, "Hello");
+  assertEquals(greetHello("John"), "Hello John!");
+});
+// partialRight
+Deno.test("partialRight #1", () => {
+  const greet = (name: string, greeting: string) => greeting + " " + name + "!";
+  const greetHello = partialRight(greet, "Hello");
+  assertEquals(greetHello("John"), "Hello John!");
+});
+
+// partition
+Deno.test("partition #1", () => {
+  const users = [
+    { user: "barney", age: 36, active: false },
+    { user: "fred", age: 40, active: true },
+  ];
+  assertEquals(
+    partition(users, (o) => o.active),
+    [
+      [{ user: "fred", age: 40, active: true }],
+      [{ user: "barney", age: 36, active: false }],
+    ]
+  );
+});
+
+// partitionBy
+Deno.test("partitionBy #1", () => {
+  const numbers = [1, 1, 3, 3, 4, 5, 5, 5];
+  assertEquals(
+    partitionBy(numbers, (n) => n % 2 === 0),
+    [[1, 1, 3, 3], [4], [5, 5, 5]]
+  );
+  assertEquals(
+    partitionBy(numbers, (n) => n),
+    [[1, 1], [3, 3], [4], [5, 5, 5]]
+  );
+});
+
+// pick
+Deno.test("pick #1", () => {
+  assertEquals(pick({ a: 1, b: "2", c: 3 }, ["a", "c"]), { a: 1, c: 3 });
+  assertEquals(
+    pickBy({ a: 1, b: "2", c: 3 }, (x: any) => typeof x === "number"),
+    { a: 1, c: 3 }
+  );
+});
+
+// pipeAsyncFunctions
+Deno.test("pipeAsyncFunctions #1", async () => {
+  const sum = pipeAsyncFunctions(
+    (x) => x + 1,
+    (x) => new Promise((resolve) => setTimeout(() => resolve(x + 2), 1000)),
+    (x) => x + 3,
+    async (x) => (await x) + 4
+  );
+  assertEquals(await sum(5), 15);
+});
+
+// pipeFunctions
+Deno.test("pipeFunctions #1", () => {
+  const add5 = (x: number) => x + 5;
+  const multiply = (x: number, y: number) => x * y;
+  const multiplyAndAdd5 = pipeFunctions(multiply, add5);
+  assertEquals(multiplyAndAdd5(5, 2), 15);
+});
+
+// pluralize
+Deno.test("pluralize #1", () => {
+  assertEquals(pluralize(0, "apple"), "apples");
+  assertEquals(pluralize(1, "apple"), "apple");
+  assertEquals(pluralize(2, "apple"), "apples");
+  assertEquals(pluralize(2, "person", "people"), "people");
+});
+
+// prettyBytes
+Deno.test("prettyBytes #1", () => {
+  assertEquals(prettyBytes(1000), "1 KB");
+  assertEquals(prettyBytes(-27145424323.5821, 5), "-27.145 GB");
+  assertEquals(prettyBytes(123456789, 3, ""), "123MB");
+  assertEquals(prettyBytes(123456789, 3, "_"), "123_MB");
+
+  assertEquals(prettyBytesT`${-27145424323.5821}${5}`, "-27.145GB");
+  assertEquals(prettyBytesT`${123456789} ${3}`, "123 MB");
+  assertEquals(prettyBytesT`${123456789}_${3}`, "123_MB");
+});
+// promisify
+Deno.test("promisify #1", async () => {
+  const delay = promisify((d: number, cb: Func) =>
+    setTimeout(cb, d, new Error("WRONG FILE"))
+  );
+  try {
+    await delay(200);
+  } catch (error) {
+    assertEquals(error.message, "WRONG FILE");
+  }
+});
+
+// reduceWhich
+Deno.test("reduceWhich #1", () => {
+  assertEquals(
+    reduceWhich([1, 3, 2], (a: number, b: number) => b - a),
+    3
+  );
+  assertEquals(reduceWhich([1, 3, 2]), 1);
+  assertEquals(
+    reduceWhich(
+      [
+        { name: "Tom", age: 12 },
+        { name: "Jack", age: 18 },
+        { name: "Lucy", age: 9 },
+      ],
+      (a: any, b: any) => a.age - b.age
+    ),
+    { name: "Lucy", age: 9 }
+  );
+});
+
+// removeNonASCII
+Deno.test("removeNonASCII #1", () => {
+  assertEquals(removeNonASCII("äÄçÇéÉêlorem-ipsumöÖÐþúÚ"), "lorem-ipsum");
+});
+
+// reverseString
+Deno.test("reverseString #1", () => {
+  assertEquals(reverseString("foobar"), "raboof");
+});
+
+// RGBToHex
+Deno.test("RGBToHex #1", () => {
+  assertEquals(RGBToHex(255, 165, 1), "ffa501");
+  assertEquals(RGBToHex(255, 165, 1, "#"), "#ffa501");
+});
+
+// round
+Deno.test("round #1", () => {
+  assertEquals(round(1.005, 2), 1.01);
+});
+
+const delay = (d: number) => new Promise((r) => setTimeout(r, d, 10));
+
+// runPromisesInSeries
+Deno.test("runPromisesInSeries #1", async () => {
+  const data = await runPromisesInSeries([() => delay(100), () => delay(200)]);
+  assertEquals(data, 10);
+});
+
+// serializeCookie
+Deno.test("serializeCookie #1", () => {
+  assertEquals(serializeCookie("foo", "bar"), "foo=bar");
+});
+
+// show
+Deno.test("show #1", () => {
+  let el: HTMLElementLike = {
+    style: {
+      display: "block",
+    },
+  };
+  show(el);
+  assertEquals(el.style.display, "");
+});
+
+// hide
+Deno.test("hide #1", () => {
+  let el: HTMLElementLike = {
+    style: {
+      display: "",
+    },
+  };
+  hide(el);
+  assertEquals(el.style.display, "none");
+});
+
+// size
+Deno.test("size #1", () => {
+  assertEquals(size([1, 2, 3, 4, 5]), 5);
+  assertEquals(size("size"), 4);
+  assertEquals(size({ one: 1, two: 2, three: 3 }), 3);
+});
+
+// sleep
+Deno.test("sleep #1", async () => {
+  await sleep(200);
+  console.log("I woke up after 200ms.");
 });

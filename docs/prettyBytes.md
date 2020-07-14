@@ -1,10 +1,11 @@
 ---
-title: prettyBytes
+title: prettyBytes|prettyBytesT
 tags: string,math,advanced
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Converts a number in bytes to a human-readable string.
 
@@ -14,10 +15,10 @@ Return the prettified string by building it up, taking into account the supplied
 Omit the second argument, `precision`, to use a default precision of `3` digits.
 Omit the third argument, `addSpace`, to add space between the number and unit by default.
 
-```js
-const prettyBytes = (num, precision = 3, addSpace = true) => {
+```ts
+const prettyBytes = (num: number, precision = 3, addSpace = " ") => {
   const UNITS = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-  if (Math.abs(num) < 1) return num + (addSpace ? " " : "") + UNITS[0];
+  if (Math.abs(num) < 1) return num + addSpace + UNITS[0];
   const exponent = Math.min(
     Math.floor(Math.log10(num < 0 ? -num : num) / 3),
     UNITS.length - 1
@@ -25,12 +26,30 @@ const prettyBytes = (num, precision = 3, addSpace = true) => {
   const n = Number(
     ((num < 0 ? -num : num) / 1000 ** exponent).toPrecision(precision)
   );
-  return (num < 0 ? "-" : "") + n + (addSpace ? " " : "") + UNITS[exponent];
+  return (num < 0 ? "-" : "") + n + addSpace + UNITS[exponent];
+};
+
+const prettyBytesT = (
+  strings: TemplateStringsArray,
+  bytes: number,
+  precision: number = 3
+) => {
+  return prettyBytes(bytes, precision, strings.join(""));
 };
 ```
 
-```js
+```ts
 prettyBytes(1000); // "1 KB"
 prettyBytes(-27145424323.5821, 5); // "-27.145 GB"
-prettyBytes(123456789, 3, false); // "123MB"
+prettyBytes(123456789, 3, ""); // "123MB"
+prettyBytes(123456789, 3, "_"), "123_MB")
+
+//No sapce
+prettyBytesT`${-27145424323.5821}${5}`; //"-27.145GB"
+
+//With sapce
+prettyBytesT`${123456789} ${3}`; //"123 MB"
+
+//With _
+prettyBytesT`${123456789}_${3}`; //"123_MB"
 ```

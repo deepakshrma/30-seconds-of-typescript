@@ -3,19 +3,20 @@ title: round
 tags: math,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Rounds a number to a specified amount of digits.
 
 Use `Math.round()` and template literals to round the number to the specified number of digits.
 Omit the second argument, `decimals` to round to an integer.
 
-```js
-const round = (n, decimals = 0) =>
-  Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
+```ts
+const round = (n: number, decimals = 0) =>
+  Number(`${Math.round(Number(`${n}e${decimals}`))}e-${decimals}`);
 ```
 
-```js
+```ts
 round(1.005, 2); // 1.01
 ```

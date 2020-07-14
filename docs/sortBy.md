@@ -28,7 +28,7 @@ const sortBy = <T = any>(
 };
 ```
 
-```js
+```ts
 sortBy([1, 2, 4, 3, 4, -1]); // [-1, 1, 2, 3, 4, 4]
 sortBy(["Test", "test"]); // ["Test", "test"]
 

@@ -3,20 +3,23 @@ title: reduceWhich
 tags: array,function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns the minimum/maximum value of an array, after applying the provided function to set comparing rule.
 
 Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.
 You can omit the second parameter, `comparator`, to use the default one that returns the minimum element in the array.
 
-```js
-const reduceWhich = (arr, comparator = (a, b) => a - b) =>
-  arr.reduce((a, b) => (comparator(a, b) >= 0 ? b : a));
+```ts
+const reduceWhich = <T extends number | string | AnyObject = number>(
+  arr: T[],
+  comparator: Function = (a: number, b: number) => (a - b) as number
+) => arr.reduce((a: T, b: T) => (comparator(a, b) >= 0 ? b : a));
 ```
 
-```js
+```ts
 reduceWhich([1, 3, 2]); // 1
 reduceWhich([1, 3, 2], (a, b) => b - a); // 3
 reduceWhich(

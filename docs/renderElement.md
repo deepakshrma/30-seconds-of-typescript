@@ -14,7 +14,7 @@ Use `Object.keys(props`, adding attributes to the DOM element and setting event 
 Use recursion to render `props.children`, if any.
 Finally, use `Node.appendChild()` to append the DOM element to the specified `container`.
 
-```js
+```ts
 const renderElement = ({ type, props = {} }, container) => {
   const isTextElement = !type;
   const element = isTextElement
@@ -39,7 +39,7 @@ const renderElement = ({ type, props = {} }, container) => {
 };
 ```
 
-```js
+```ts
 const myElement = {
   type: "button",
   props: {

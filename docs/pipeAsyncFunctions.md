@@ -3,8 +3,9 @@ title: pipeAsyncFunctions
 tags: function,promise,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Performs left-to-right function composition for asynchronous functions.
 
@@ -12,12 +13,13 @@ Use `Array.prototype.reduce()` and the spread operator (`...`) to perform functi
 The functions can return a combination of normal values, `Promise`s or be `async`, returning through `await`.
 All functions must accept a single argument.
 
-```js
-const pipeAsyncFunctions = (...fns) => (arg) =>
-  fns.reduce((p, f) => p.then(f), Promise.resolve(arg));
+```ts
+type PromiseReturn = (v: any) => Promise<any>;
+const pipeAsyncFunctions = (...fns: PromiseReturn[]) => (arg: any) =>
+  fns.reduce((p, f) => p.then(f), Promise.resolve(arg) as PromiseLike<any>);
 ```
 
-```js
+```ts
 const sum = pipeAsyncFunctions(
   (x) => x + 1,
   (x) => new Promise((resolve) => setTimeout(() => resolve(x + 2), 1000)),
