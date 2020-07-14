@@ -3570,10 +3570,10 @@
     "body": [
       "/**",
       " * Randomizes the order of the values of an array, returning a new array.",
-      " * ",
+      " *",
       " * Use the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Fisher_and_Yates'_original_method) to reorder the elements of the array.",
-      " * ",
-      " * @param param0 ",
+      " *",
+      " * @param param0",
       " */",
       "export const shuffle = ([...arr]) => {",
       "  let m = arr.length;",
@@ -3585,21 +3585,21 @@
       "};",
       ""
     ],
-    "description": "Randomizes the order of the values of an array, returning a new array.\n\nUse the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Fisher_and_Yates'_original_method) to reorder the elements of the array.\n\n\n"
+    "description": "Randomizes the order of the values of an array, returning a new array.\nUse the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Fisher_and_Yates'_original_method) to reorder the elements of the array.\n\n"
   },
   "30_size": {
     "prefix": "30_size",
     "body": [
       "/**",
       " * Gets the size of an array, object or string.",
-      " * ",
+      " *",
       " * Get type of `val` (`array`, `object` or `string`).",
       " * Use `length` property for arrays.",
       " * Use `length` or `size` value if available or number of keys for objects.",
       " * Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.",
       " * Split strings into array of characters with `split('')` and return its length.",
-      " * ",
-      " * @param val ",
+      " *",
+      " * @param val",
       " */",
       "export const size = (val: any) =>",
       "  Array.isArray(val)",
@@ -3611,21 +3611,23 @@
       "    : 0;",
       ""
     ],
-    "description": "Gets the size of an array, object or string.\n\nGet type of `val` (`array`, `object` or `string`).\nUse `length` property for arrays.\nUse `length` or `size` value if available or number of keys for objects.\nUse `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.\nSplit strings into array of characters with `split('')` and return its length.\n\n\n"
+    "description": "Gets the size of an array, object or string.\nGet type of `val` (`array`, `object` or `string`).\nUse `length` property for arrays.\nUse `length` or `size` value if available or number of keys for objects.\nUse `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.\nSplit strings into array of characters with `split('')` and return its length.\n\n"
   },
   "30_sleep": {
     "prefix": "30_sleep",
     "body": [
       "/**",
       " * Delays the execution of an asynchronous function.",
-      " * ",
+      " *",
       " * Delay executing part of an `async` function, by putting it to sleep, returning a `Promise`.",
-      " * ",
-      " * @param ms ",
-      " */ ",
-      "export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));",
+      " *",
+      " * @param ms",
+      " */",
+      "",
+      "export const sleep = (ms: number) =>",
+      "  new Promise((resolve) => setTimeout(resolve, ms));",
       ""
     ],
-    "description": "Delays the execution of an asynchronous function.\n\nDelay executing part of an `async` function, by putting it to sleep, returning a `Promise`.\n\n\n"
+    "description": "Delays the execution of an asynchronous function.\nDelay executing part of an `async` function, by putting it to sleep, returning a `Promise`.\n\n"
   }
 }
