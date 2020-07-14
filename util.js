@@ -245,7 +245,39 @@ System.register("util", [], function (exports_1, context_1) {
     omitBy,
     or,
     orderBy,
-    orderByFunc;
+    orderByFunc,
+    pad,
+    parseCookie,
+    partial,
+    partialRight,
+    partition,
+    partitionBy,
+    pick,
+    pickBy,
+    pipeAsyncFunctions,
+    pipeFunctions,
+    pluralize,
+    prefix,
+    prettyBytes,
+    prettyBytesT,
+    promisify,
+    radsToDegrees,
+    randomHexColorCode,
+    randomInt,
+    randomNumber,
+    reduceWhich,
+    removeNonASCII,
+    renderElement,
+    reverseString,
+    RGBToHex,
+    round,
+    runPromisesInSeries,
+    scrollToTop,
+    serializeCookie,
+    show,
+    shuffle,
+    size,
+    sleep;
   var __moduleName = context_1 && context_1.id;
   /**
    * Validate date
@@ -2429,6 +2461,530 @@ System.register("util", [], function (exports_1, context_1) {
             }, 0)
           ))
       );
+      /**
+       * Pads a string on both sides with the specified character, if it's shorter than the specified length.
+       *
+       * Use `String.prototype.padStart()` and `String.prototype.padEnd()` to pad both sides of the given string.
+       * Omit the third argument, `char`, to use the whitespace character as the default padding character.
+       *
+       * @param str
+       * @param length
+       * @param char
+       */
+      exports_1(
+        "pad",
+        (pad = (str, length, char = " ") =>
+          str.padStart((str.length + length) / 2, char).padEnd(length, char))
+      );
+      /**
+       *   Parse an HTTP Cookie header string and return an object of all cookie name-value pairs.
+       *
+       * Use `String.prototype.split(';')` to separate key-value pairs from each other.
+       * Use `Array.prototype.map()` and `String.prototype.split('=')` to separate keys from values in each pair.
+       * Use `Array.prototype.reduce()` and `decodeURIComponent()` to create an object with all key-value pairs.
+       *
+       * @param str
+       */
+      exports_1(
+        "parseCookie",
+        (parseCookie = (str) =>
+          str
+            .split(";")
+            .map((v) => v.split("="))
+            .reduce((acc, v) => {
+              acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(
+                v[1].trim()
+              );
+              return acc;
+            }, {}))
+      );
+      /**
+       * Creates a function that invokes `fn` with `partials` prepended to the arguments it receives.
+       *
+       * Use the spread operator (`...`) to prepend `partials` to the list of arguments of `fn`.
+       *
+       * @param fn
+       * @param partials
+       */
+      exports_1(
+        "partial",
+        (partial = (fn, ...partials) => (...args) => fn(...partials, ...args))
+      );
+      /**
+       * Creates a function that invokes `fn` with `partials` appended to the arguments it receives.
+       *
+       * Use the spread operator (`...`) to append `partials` to the list of arguments of `fn`.
+       *
+       * @param fn
+       * @param partials
+       */
+      exports_1(
+        "partialRight",
+        (partialRight = (fn, ...partials) => (...args) =>
+          fn(...args, ...partials))
+      );
+      /**
+       * Groups the elements into two arrays, depending on the provided function's truthiness for each element.
+       *
+       * Use `Array.prototype.reduce()` to create an array of two arrays.
+       * Use `Array.prototype.push()` to add elements for which `fn` returns `true` to the first array and elements for which `fn` returns `false` to the second one.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "partition",
+        (partition = (arr, fn) =>
+          arr.reduce(
+            (acc, val, i, arr) => {
+              acc[fn(val, i, arr) ? 0 : 1].push(val);
+              return acc;
+            },
+            [[], []]
+          ))
+      );
+      /**
+       * Applies `fn` to each value in `arr`, splitting it each time `fn` returns a new value.
+       *
+       * Use `Array.prototype.reduce()` with an accumulator object that will hold the resulting array and the last value returned from `fn`.
+       * Use `Array.prototype.push()` to add each value in `arr` to the appropriate partition in the accumulator array.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "partitionBy",
+        (partitionBy = (arr, fn) =>
+          arr.reduce(
+            ({ res, last }, v, i, a) => {
+              const next = fn(v, i, a);
+              if (next !== last) res.push([v]);
+              else res[res.length - 1].push(v);
+              return { res, last: next };
+            },
+            { res: [] }
+          ).res)
+      );
+      /**
+       * Picks the key-value pairs corresponding to the given keys from an object.
+       *
+       * Use `Array.prototype.reduce()` to convert the filtered/picked keys back to an object with the corresponding key-value pairs if the key exists in the object.
+       *
+       * @param obj
+       * @param arr
+       */
+      exports_1(
+        "pick",
+        (pick = (obj, arr) =>
+          arr.reduce(
+            (acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc),
+            {}
+          ))
+      );
+      /**
+       * Creates an object composed of the properties the given function returns truthy for. The function is invoked with two arguments: (value, key).
+       *
+       * Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a falsy value.
+       * Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
+       *
+       * @param obj
+       * @param fn
+       */
+      exports_1(
+        "pickBy",
+        (pickBy = (obj, fn) =>
+          Object.keys(obj)
+            .filter((k) => fn(obj[k], k))
+            .reduce((acc, key) => ((acc[key] = obj[key]), acc), {}))
+      );
+      exports_1(
+        "pipeAsyncFunctions",
+        (pipeAsyncFunctions = (...fns) => (arg) =>
+          fns.reduce((p, f) => p.then(f), Promise.resolve(arg)))
+      );
+      /**
+       * Performs left-to-right function composition.
+       *
+       * Use `Array.prototype.reduce()` with the spread operator (`...`) to perform left-to-right function composition.
+       * The first (leftmost) function can accept one or more arguments; the remaining functions must be unary.
+       *
+       *
+       * @param fns
+       */
+      exports_1(
+        "pipeFunctions",
+        (pipeFunctions = (...fns) =>
+          fns.reduce((f, g) => (...args) => g(f(...args))))
+      );
+      /**
+       * Returns the singular or plural form of the word based on the input number.
+       *
+       * If `num` is either `-1` or `1`, return the singular form of the word. If `num` is any other number, return the plural form. Omit the third argument to use the default of the singular word + `s`, or supply a custom pluralized word when necessary.
+       *
+       * @param num
+       * @param word
+       * @param plural
+       */
+      exports_1(
+        "pluralize",
+        (pluralize = (num, word, plural = word + "s") =>
+          [1, -1].includes(Number(num)) ? word : plural)
+      );
+      /**
+       * Returns the prefixed version (if necessary) of a CSS property that the browser supports.
+       *
+       * Use `Array.prototype.findIndex()` on an array of vendor prefix strings to test if `document.body` has one of them defined in its `CSSStyleDeclaration` object, otherwise return `null`.
+       * Use `String.prototype.charAt()` and `String.prototype.toUpperCase()` to capitalize the property, which will be appended to the vendor prefix string.
+       *
+       *
+       * @param prop
+       */
+      exports_1(
+        "prefix",
+        (prefix = (prop) => {
+          const capitalizedProp = prop.charAt(0).toUpperCase() + prop.slice(1);
+          const prefixes = ["", "webkit", "moz", "ms", "o"];
+          const i = prefixes.findIndex(
+            (prefix) =>
+              typeof document.body.style[
+                prefix ? prefix + capitalizedProp : prop
+              ] !== "undefined"
+          );
+          return i !== -1
+            ? i === 0
+              ? prop
+              : prefixes[i] + capitalizedProp
+            : null;
+        })
+      );
+      /**
+       * Converts a number in bytes to a human-readable string.
+       *
+       * Use an array dictionary of units to be accessed based on the exponent.
+       * Use `Number.toPrecision()` to truncate the number to a certain number of digits.
+       * Return the prettified string by building it up, taking into account the supplied options and whether it is negative or not.
+       * Omit the second argument, `precision`, to use a default precision of `3` digits.
+       * Omit the third argument, `divider`, to add space between the number and unit by default.
+       *
+       * @param num
+       * @param precision
+       * @param divider
+       */
+      exports_1(
+        "prettyBytes",
+        (prettyBytes = (num, precision = 3, addSpace = " ") => {
+          const UNITS = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+          if (Math.abs(num) < 1) return num + addSpace + UNITS[0];
+          const exponent = Math.min(
+            Math.floor(Math.log10(num < 0 ? -num : num) / 3),
+            UNITS.length - 1
+          );
+          const n = Number(
+            ((num < 0 ? -num : num) / 1000 ** exponent).toPrecision(precision)
+          );
+          return (num < 0 ? "-" : "") + n + addSpace + UNITS[exponent];
+        })
+      );
+      /**
+       * Template String funtion, Same as prettyBytes but more cleaner way
+       *
+       * @param strings
+       * @param bytes
+       * @param precision
+       */
+      exports_1(
+        "prettyBytesT",
+        (prettyBytesT = (strings, bytes, precision = 3) => {
+          return prettyBytes(bytes, precision, strings.join(""));
+        })
+      );
+      /**
+       * Converts an asynchronous function to return a promise.
+       *
+       * _In Node 8+, you can use [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original)_
+       *
+       * Use currying to return a function returning a `Promise` that calls the original function.
+       * Use the `...rest` operator to pass in all the parameters.
+       *
+       *
+       * @param func
+       */
+      exports_1(
+        "promisify",
+        (promisify = (func) => (...args) =>
+          new Promise((resolve, reject) =>
+            func(...args, (err, result) =>
+              err ? reject(err) : resolve(result)
+            )
+          ))
+      );
+      /**
+       * Converts an angle from radians to degrees.
+       *
+       * Use `Math.PI` and the radian to degree formula to convert the angle from radians to degrees.
+       *
+       * @param rad
+       */
+      exports_1(
+        "radsToDegrees",
+        (radsToDegrees = (rad) => (rad * 180.0) / Math.PI)
+      );
+      /**
+       * Generates a random hexadecimal color code.
+       *
+       * Use `Math.random` to generate a random 24-bit(6x4bits) hexadecimal number.
+       * Use bit shifting and then convert it to an hexadecimal String using `toString(16)`.
+       *
+       */
+      exports_1(
+        "randomHexColorCode",
+        (randomHexColorCode = () => {
+          let n = (Math.random() * 0xfffff * 1000000).toString(16);
+          return "#" + n.slice(0, 6);
+        })
+      );
+      /**
+       * Returns a random integer in the specified range.
+       *
+       * Use `Math.random()` to generate a random number and map it to the desired range, using `Math.floor()` to make it an integer.
+       *
+       * @param min {default 0}
+       * @param max {default 100}
+       */
+      exports_1(
+        "randomInt",
+        (randomInt = (min = 0, max = 100) =>
+          Math.floor(Math.random() * (max - min + 1)) + min)
+      );
+      /**
+       * Returns a random number in the specified range.
+       *
+       * Use `Math.random()` to generate a random number and map it to the desired range, using `Math.floor()` to make it an integer.
+       *
+       * @param min {default 0.0}
+       * @param max {default 100.0}
+       */
+      exports_1(
+        "randomNumber",
+        (randomNumber = (min = 0.0, max = 100.0) =>
+          Math.random() * (max - min + 1) + min)
+      );
+      /**
+       * Returns the minimum/maximum value of an array, after applying the provided function to set comparing rule.
+       *
+       * Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.
+       * You can omit the second parameter, `comparator`, to use the default one that returns the minimum element in the array.
+       *
+       *
+       * @param arr
+       * @param comparator
+       */
+      exports_1(
+        "reduceWhich",
+        (reduceWhich = (arr, comparator = (a, b) => a - b) =>
+          arr.reduce((a, b) => (comparator(a, b) >= 0 ? b : a)))
+      );
+      /**
+       * Removes non-printable ASCII characters.
+       *
+       * Use a regular expression to remove non-printable ASCII characters.
+       *
+       * @param str
+       */
+      exports_1(
+        "removeNonASCII",
+        (removeNonASCII = (str) => str.replace(/[^\x20-\x7E]/g, ""))
+      );
+      /**
+       * Renders the given DOM tree in the specified DOM element.
+       *
+       * Destructure the first argument into `type` and `props`, use `type` to determine if the given element is a text element.
+       * Based on the element's `type`, use either `Document.createTextNode()` or `Document.createElement()` to create the DOM element.
+       * Use `Object.keys(props`, adding attributes to the DOM element and setting event listeners, as necessary.
+       * Use recursion to render `props.children`, if any.
+       * Finally, use `Node.appendChild()` to append the DOM element to the specified `container`.
+       *
+       * @param param0
+       * @param container
+       */
+      exports_1(
+        "renderElement",
+        (renderElement = ({ type, props = {} }, container) => {
+          const isTextElement = !type;
+          const element = isTextElement
+            ? document.createTextNode("")
+            : document.createElement(type);
+          const isListener = (p) => p.startsWith("on");
+          const isAttribute = (p) => !isListener(p) && p !== "children";
+          Object.keys(props).forEach((p) => {
+            if (isAttribute(p)) element[p] = props[p];
+            if (!isTextElement && isListener(p))
+              element.addEventListener(p.toLowerCase().slice(2), props[p]);
+          });
+          if (!isTextElement && props.children && props.children.length)
+            props.children.forEach((childElement) =>
+              renderElement(childElement, element)
+            );
+          container.appendChild(element);
+        })
+      );
+      /**
+       * Reverses a string.
+       *
+       * Use the spread operator (`...`) and `Array.prototype.reverse()` to reverse the order of the characters in the string.
+       * Combine characters to get a string using `String.prototype.join('')`.
+       *
+       * @param str
+       */
+      exports_1(
+        "reverseString",
+        (reverseString = (str) => {
+          let s = "";
+          for (let char of str) {
+            s = char + s;
+          }
+          return s;
+        })
+      );
+      /**
+       * Converts the values of RGB components to a color code.
+       *
+       * Convert given RGB parameters to hexadecimal string using bitwise left-shift operator (`<<`) and `toString(16)`, then `String.padStart(6,'0')` to get a 6-digit hexadecimal value.
+       *
+       * @param r
+       * @param g
+       * @param b
+       */
+      exports_1(
+        "RGBToHex",
+        (RGBToHex = (r, g, b, hash = "") =>
+          hash + ((r << 16) + (g << 8) + b).toString(16).padStart(6, "0"))
+      );
+      /**
+       * Rounds a number to a specified amount of digits.
+       *
+       * Use `Math.round()` and template literals to round the number to the specified number of digits.
+       * Omit the second argument, `decimals` to round to an integer.
+       *
+       * @param n
+       * @param decimals
+       */
+      exports_1(
+        "round",
+        (round = (n, decimals = 0) =>
+          Number(`${Math.round(Number(`${n}e${decimals}`))}e-${decimals}`))
+      );
+      exports_1(
+        "runPromisesInSeries",
+        (runPromisesInSeries = (ps) =>
+          ps.reduce((p, next) => p.then(next), Promise.resolve()))
+      );
+      /**
+       * Smooth-scrolls to the top of the page.
+       *
+       * Get distance from top using `document.documentElement.scrollTop` or `document.body.scrollTop`.
+       * Scroll by a fraction of the distance from the top. Use `window.requestAnimationFrame()` to animate the scrolling.
+       *
+       */
+      exports_1(
+        "scrollToTop",
+        (scrollToTop = () => {
+          const c =
+            document.documentElement.scrollTop || document.body.scrollTop;
+          if (c > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, c - c / 8);
+          }
+        })
+      );
+      /**
+       * Serialize a cookie name-value pair into a Set-Cookie header string.
+       *
+       * Use template literals and `encodeURIComponent()` to create the appropriate string.
+       *
+       * @param name
+       * @param val
+       */
+      exports_1(
+        "serializeCookie",
+        (serializeCookie = (name, val) =>
+          `${encodeURIComponent(name)}=${encodeURIComponent(val)}`)
+      );
+      // /**
+      //  * Encode a set of form elements as a query string.
+      //  *
+      //  * Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array, passing a map function as the second argument.
+      //  * Use `Array.prototype.map()` and `window.encodeURIComponent()` to encode each field's value.
+      //  * Use `Array.prototype.join()` with appropriate argumens to produce an appropriate query string.
+      //  *
+      //  * @param form
+      //  */
+      // export  const serializeForm = (form: any) =>
+      //     Array.from(new FormData(form), (field) =>
+      //       field.map((str: string) => encodeURIComponent(str)).join("=")
+      //     ).join("&");
+      /**
+       * Shows all the elements specified.
+       *
+       * Use the spread operator (`...`) and `Array.prototype.forEach()` to clear the `display` property for each element specified.
+       *
+       * @param el
+       */
+      exports_1(
+        "show",
+        (show = (...el) => [...el].forEach((e) => (e.style.display = "")))
+      );
+      /**
+       * Randomizes the order of the values of an array, returning a new array.
+       *
+       * Use the [Fisher-Yates algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Fisher_and_Yates'_original_method) to reorder the elements of the array.
+       *
+       * @param param0
+       */
+      exports_1(
+        "shuffle",
+        (shuffle = ([...arr]) => {
+          let m = arr.length;
+          while (m) {
+            const i = Math.floor(Math.random() * m--);
+            [arr[m], arr[i]] = [arr[i], arr[m]];
+          }
+          return arr;
+        })
+      );
+      /**
+       * Gets the size of an array, object or string.
+       *
+       * Get type of `val` (`array`, `object` or `string`).
+       * Use `length` property for arrays.
+       * Use `length` or `size` value if available or number of keys for objects.
+       * Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.
+       * Split strings into array of characters with `split('')` and return its length.
+       *
+       * @param val
+       */
+      exports_1(
+        "size",
+        (size = (val) =>
+          Array.isArray(val)
+            ? val.length
+            : val && typeof val === "object"
+            ? val.size || val.length || Object.keys(val).length
+            : typeof val === "string"
+            ? new Blob([val]).size
+            : 0)
+      );
+      /**
+       * Delays the execution of an asynchronous function.
+       *
+       * Delay executing part of an `async` function, by putting it to sleep, returning a `Promise`.
+       *
+       * @param ms
+       */
+      exports_1(
+        "sleep",
+        (sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)))
+      );
     },
   };
 });
@@ -2578,3 +3134,35 @@ export const omitBy = __exp["omitBy"];
 export const or = __exp["or"];
 export const orderBy = __exp["orderBy"];
 export const orderByFunc = __exp["orderByFunc"];
+export const pad = __exp["pad"];
+export const parseCookie = __exp["parseCookie"];
+export const partial = __exp["partial"];
+export const partialRight = __exp["partialRight"];
+export const partition = __exp["partition"];
+export const partitionBy = __exp["partitionBy"];
+export const pick = __exp["pick"];
+export const pickBy = __exp["pickBy"];
+export const pipeAsyncFunctions = __exp["pipeAsyncFunctions"];
+export const pipeFunctions = __exp["pipeFunctions"];
+export const pluralize = __exp["pluralize"];
+export const prefix = __exp["prefix"];
+export const prettyBytes = __exp["prettyBytes"];
+export const prettyBytesT = __exp["prettyBytesT"];
+export const promisify = __exp["promisify"];
+export const radsToDegrees = __exp["radsToDegrees"];
+export const randomHexColorCode = __exp["randomHexColorCode"];
+export const randomInt = __exp["randomInt"];
+export const randomNumber = __exp["randomNumber"];
+export const reduceWhich = __exp["reduceWhich"];
+export const removeNonASCII = __exp["removeNonASCII"];
+export const renderElement = __exp["renderElement"];
+export const reverseString = __exp["reverseString"];
+export const RGBToHex = __exp["RGBToHex"];
+export const round = __exp["round"];
+export const runPromisesInSeries = __exp["runPromisesInSeries"];
+export const scrollToTop = __exp["scrollToTop"];
+export const serializeCookie = __exp["serializeCookie"];
+export const show = __exp["show"];
+export const shuffle = __exp["shuffle"];
+export const size = __exp["size"];
+export const sleep = __exp["sleep"];
