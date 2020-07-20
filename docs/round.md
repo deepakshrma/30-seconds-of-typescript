@@ -12,11 +12,11 @@ Rounds a number to a specified amount of digits.
 Use `Math.round()` and template literals to round the number to the specified number of digits.
 Omit the second argument, `decimals` to round to an integer.
 
-```ts
+```ts title="typescript"
 const round = (n: number, decimals = 0) =>
   Number(`${Math.round(Number(`${n}e${decimals}`))}e-${decimals}`);
 ```
 
-```ts
+```ts title="typescript"
 round(1.005, 2); // 1.01
 ```

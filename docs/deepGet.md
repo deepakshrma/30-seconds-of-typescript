@@ -13,7 +13,7 @@ Compare the keys you want in the nested JSON object as an `Array`.
 Use `Array.prototype.reduce()` to get value from nested JSON object one by one.
 If the key exists in object, return target value, otherwise, return `null`.
 
-```ts
+```ts title="typescript"
 // Guard
 function isString<T = any>(str: string | T): str is string {
   return typeof str === "string";
@@ -31,7 +31,7 @@ const deepGet = (
 };
 ```
 
-```ts
+```ts title="typescript"
 let index = 2;
 const data = {
   foo: {

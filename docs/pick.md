@@ -11,11 +11,11 @@ Picks the key-value pairs corresponding to the given keys from an object.
 
 Use `Array.prototype.reduce()` to convert the filtered/picked keys back to an object with the corresponding key-value pairs if the key exists in the object.
 
-```ts
+```ts title="typescript"
 const pick = (obj, arr) =>
   arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
 ```
 
-```ts
+```ts title="typescript"
 pick({ a: 1, b: "2", c: 3 }, ["a", "c"]); // { 'a': 1, 'c': 3 }
 ```

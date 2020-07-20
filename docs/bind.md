@@ -12,7 +12,7 @@ Creates a function that invokes `fn` with a given context, optionally adding any
 Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`.
 Use `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments.
 
-```ts
+```ts title="typescript"
 export const bind = <T = any>(
   fn: (...args: any[]) => any,
   context: T,
@@ -22,7 +22,7 @@ export const bind = <T = any>(
 
 **TS:** You need to bind `this` type
 
-```ts
+```ts title="typescript"
 const freddy = { user: "fred" };
 function greet(this: typeof freddy, greeting: string, punctuation: string) {
   return greeting + " " + this.user + punctuation;

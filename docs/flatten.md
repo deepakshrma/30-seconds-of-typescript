@@ -14,7 +14,7 @@ Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements 
 Base case, for `depth` equal to `1` stops recursion.
 Omit the second argument, `depth` to flatten only to a depth of `1` (single flatten).
 
-```ts
+```ts title="typescript"
 const flatten = (arr: any[], depth = 1): any[] => {
   if (typeof Array.prototype.flat !== "undefined") return arr.flat(depth);
   return arr.reduce(
@@ -25,7 +25,7 @@ const flatten = (arr: any[], depth = 1): any[] => {
 };
 ```
 
-```ts
+```ts title="typescript"
 flatten([1, [2], 3, 4]); // [1, 2, 3, 4]
 flatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]
 ```

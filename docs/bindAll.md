@@ -11,7 +11,7 @@ Binds methods of an object to the object itself, overwriting the existing method
 
 Use `Array.prototype.forEach()` to return a `function` that uses `Function.prototype.apply()` to apply the given context (`obj`) to `fn` for each function specified.
 
-```ts
+```ts title="typescript"
 export const bindAll = (obj: any, ...fns: string[]) =>
   fns.forEach((key: string) => {
     if (typeof obj[key] === "function") {
@@ -23,7 +23,7 @@ export const bindAll = (obj: any, ...fns: string[]) =>
   });
 ```
 
-```ts
+```ts title="typescript"
 class User {
   #name = "Test";
   getName() {
@@ -49,7 +49,7 @@ jQuery(element).on("click", view.click); // Logs 'clicked docs' when clicked.
 
 _React:_
 
-```ts
+```ts title="typescript"
 class Toggle extends React.Component {
   constructor(props) {
     super(props);

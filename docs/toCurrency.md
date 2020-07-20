@@ -10,15 +10,15 @@ Take a number and return specified currency formatting.
 
 Use `Intl.NumberFormat` to enable country / currency sensitive formatting.
 
-```js
-const toCurrency = (n, curr, LanguageFormat = undefined) =>
+```ts title="typescript"
+const toCurrency = (n: number, curr: string, LanguageFormat: string = "") =>
   Intl.NumberFormat(LanguageFormat, {
     style: "currency",
     currency: curr,
   }).format(n);
 ```
 
-```js
+```ts title="typescript"
 toCurrency(123456.789, "EUR"); // €123,456.79  | currency: Euro | currencyLangFormat: Local
 toCurrency(123456.789, "USD", "en-us"); // $123,456.79  | currency: US Dollar | currencyLangFormat: English (United States)
 toCurrency(123456.789, "USD", "fa"); // ۱۲۳٬۴۵۶٫۷۹ ؜$ | currency: US Dollar | currencyLangFormat: Farsi

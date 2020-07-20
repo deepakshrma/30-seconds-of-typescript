@@ -12,7 +12,7 @@ Compares two objects to determine if the first one contains equivalent property 
 Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.
 If no function is provided, the values will be compared using the equality operator.
 
-```ts
+```ts title="typescript"
 const matchesWith = (obj: AnyObject, source: AnyObject, fn: Function) =>
   Object.keys(source).every((key) =>
     obj.hasOwnProperty(key) && fn
@@ -21,7 +21,7 @@ const matchesWith = (obj: AnyObject, source: AnyObject, fn: Function) =>
   );
 ```
 
-```ts
+```ts title="typescript"
 const isGreeting = (val: string) => /^h(?:i|ello)$/.test(val);
 matchesWith(
   { greeting: "hello" },

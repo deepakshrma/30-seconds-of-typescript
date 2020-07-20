@@ -11,12 +11,12 @@ Creates a function that accepts up to two arguments, ignoring any additional arg
 
 Call the provided function, `fn`, with the first two arguments given.
 
-```ts
+```ts title="typescript"
 export const binary = (fn: (...args: any[]) => any) => (...[v1, v2]: any[]) =>
   fn(v1, v2);
 ```
 
-```ts
+```ts title="typescript"
 const max = binary(Math.max)(1, 2, 3);
 assertEquals(max, 2);
 

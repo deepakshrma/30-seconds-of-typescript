@@ -11,11 +11,11 @@ Returns `true` if both arguments are `true`, `false` otherwise.
 
 Use the logical and (`&&`) operator on the two given values.
 
-```ts
+```ts title="typescript"
 const and = <T = any = boolean>(a: T, b: T) => Boolean(a) && Boolean(b);
 ```
 
-```ts
+```ts title="typescript"
 and(true, true); // true
 and(true, false); // false
 and(false, false); // false

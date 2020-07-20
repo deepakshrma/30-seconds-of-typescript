@@ -3,20 +3,21 @@ title: yesNo
 tags: string,regexp,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.
 
 Use `RegExp.test()` to check if the string evaluates to `y/yes` or `n/no`.
 Omit the second argument, `def` to set the default answer as `no`.
 
-```js
-const yesNo = (val, def = false) =>
+```ts title="typescript"
+const yesNo = (val: string, def = false) =>
   /^(y|yes)$/i.test(val) ? true : /^(n|no)$/i.test(val) ? false : def;
 ```
 
-```js
+```ts title="typescript"
 yesNo("Y"); // true
 yesNo("yes"); // true
 yesNo("No"); // false

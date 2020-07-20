@@ -13,7 +13,7 @@ Use `Array.prototype.map()` for each selector, `String.prototype.replace()` to r
 
 ### Get
 
-```ts
+```ts title="typescript"
 export const get = (
   from: any,
   selector: string,
@@ -28,12 +28,12 @@ export const get = (
 
 ### GetAll
 
-```ts
+```ts title="typescript"
 export const getAll = (from: any, ...selectors: string[]) =>
   [...selectors].map((s) => get(from, s));
 ```
 
-```ts
+```ts title="typescript"
 const obj = {
   selector: { to: { val: "val to select" } },
   target: [1, 2, { a: "test" }],

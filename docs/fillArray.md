@@ -12,10 +12,10 @@ Initializes and fills an array with the specified values.
 Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.
 You can omit `val` to use a default value of `0`.
 
-```ts
+```ts title="typescript"
 const fillArray = (n: number, val: any = 0) => Array(n).fill(val);
 ```
 
-```ts
+```ts title="typescript"
 fillArray(5, 2); // [2, 2, 2, 2, 2]
 ```

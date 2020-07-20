@@ -12,11 +12,11 @@ Returns `true` if the provided predicate function returns `false` for all elemen
 Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.
 Omit the second argument, `fn`, to use `Boolean` as a default.
 
-```ts
+```ts title="typescript"
 const none = (arr: any[], fn: Predicate<any> = Boolean) => !arr.some(fn);
 ```
 
-```ts
+```ts title="typescript"
 none([0, 1, 3, 0], (x) => x == 2); // true
 none([0, 0, 0]); // true
 ```

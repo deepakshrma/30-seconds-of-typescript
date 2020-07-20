@@ -12,7 +12,7 @@ Creates a new object from the specified object, where all the keys are in lowerc
 Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object.
 Convert each key in the original object to lowercase, using `String.toLowerCase()`.
 
-```ts
+```ts title="typescript"
 type AnyObject = { [key: string]: any };
 const lowercaseKeys = (obj: AnyObject, deep = false) =>
   Object.keys(obj).reduce((acc, key) => {
@@ -22,7 +22,7 @@ const lowercaseKeys = (obj: AnyObject, deep = false) =>
   }, {} as AnyObject);
 ```
 
-```ts
+```ts title="typescript"
 lowercaseKeys({ Name: "Adam", sUrnAME: "Smith" }); // {name: 'Adam', surname: 'Smith'};
 lowercaseKeys({ Name: "Adam", adDress: { Pin: 700000 } }, true); // {name: 'Adam',  address: {pin: 700000} }
 ```

@@ -11,10 +11,10 @@ Converts Fahrenheit to Celsius.
 
 Follows the conversion formula `C = (F - 32) * 5/9`.
 
-```ts
+```ts title="typescript"
 const fahrenheitToCelsius = (degrees: number) => ((degrees - 32) * 5) / 9;
 ```
 
-```ts
+```ts title="typescript"
 fahrenheitToCelsius(32); // 0
 ```

@@ -13,11 +13,11 @@ Use `Array.prototype.includes()` on the `typeof` values of both `window` and `do
 `typeof` allows globals to be checked for existence without throwing a `ReferenceError`.
 If both of them are not `undefined`, then the current environment is assumed to be a browser.
 
-```ts
+```ts title="typescript"
 const isBrowser = () => ![typeof window, typeof document].includes("undefined");
 ```
 
-```ts
+```ts title="typescript"
 isBrowser(); // true (browser)
 isBrowser(); // false (Node)
 ```

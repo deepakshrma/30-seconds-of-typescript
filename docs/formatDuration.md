@@ -14,7 +14,7 @@ Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero val
 Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.
 Use `String.prototype.join(', ')` to combine the values into a string.
 
-```ts
+```ts title="typescript"
 const formatDuration = (ms: number) => {
   ms = Math.abs(ms);
   const time = {
@@ -31,7 +31,7 @@ const formatDuration = (ms: number) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 formatDuration(1001); // '1 second, 1 millisecond'
 formatDuration(34325055574); // '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'
 ```

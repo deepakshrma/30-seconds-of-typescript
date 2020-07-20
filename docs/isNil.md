@@ -11,11 +11,11 @@ Returns `true` if the specified value is `null` or `undefined`, `false` otherwis
 
 Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`.
 
-```ts
+```ts title="typescript"
 const isNil = (val) => val === undefined || val === null;
 ```
 
-```ts
+```ts title="typescript"
 isNil(null); // true
 isNil(undefined); // true
 isNil(""); // false

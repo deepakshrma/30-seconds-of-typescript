@@ -12,13 +12,13 @@ Creates an object composed of the properties the given function returns truthy f
 Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a falsy value.
 Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
 
-```ts
+```ts title="typescript"
 const pickBy = (obj: AnyObject, fn: Function) =>
   Object.keys(obj)
     .filter((k) => fn(obj[k], k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {} as AnyObject);
 ```
 
-```ts
+```ts title="typescript"
 pickBy({ a: 1, b: "2", c: 3 }, (x) => typeof x === "number"); // { 'a': 1, 'c': 3 }
 ```

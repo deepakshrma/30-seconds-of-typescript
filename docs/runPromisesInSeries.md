@@ -11,13 +11,13 @@ Runs an array of promises in series.
 
 Use `Array.prototype.reduce()` to create a promise chain, where each promise returns the next promise when resolved.
 
-```ts
+```ts title="typescript"
 type PromisableFunc = (...args: any[]) => Promise<any>;
 const runPromisesInSeries = (ps: PromisableFunc[]) =>
   ps.reduce((p, next) => p.then(next), Promise.resolve());
 ```
 
-```ts
+```ts title="typescript"
 const delay = (d) => new Promise((r) => setTimeout(r, d));
 runPromisesInSeries([() => delay(1000), () => delay(2000)]); // Executes each promise sequentially, taking a total of 3 seconds to complete
 ```

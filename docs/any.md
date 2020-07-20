@@ -12,12 +12,12 @@ Returns `true` if the provided predicate function returns `true` for at least on
 Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.
 Omit the second argument, `fn`, to use `Boolean` as a default.
 
-```ts
+```ts title="typescript"
 const any = <T = any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
   arr.some(fn);
 ```
 
-```ts
+```ts title="typescript"
 any([0, 1, 2, 0], (x) => x >= 2); // true
 any([0, 0, 1, 0]); // true
 ```

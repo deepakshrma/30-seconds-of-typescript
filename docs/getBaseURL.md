@@ -11,11 +11,11 @@ Returns the current URL without any parameters.
 
 Use `String.prototype.indexOf()` to check if the given `url` has parameters, `String.prototype.slice()` to remove them if necessary.
 
-```ts
+```ts title="typescript"
 const getBaseURL = (url: string) =>
   url.indexOf("?") > 0 ? url.slice(0, url.indexOf("?")) : url;
 ```
 
-```ts
+```ts title="typescript"
 getBaseURL("http://url.com/page?name=Adam&surname=Smith"); // 'http://url.com/page'
 ```

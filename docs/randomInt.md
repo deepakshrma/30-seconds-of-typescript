@@ -11,11 +11,11 @@ Returns a random integer in the specified range.
 
 Use `Math.random()` to generate a random number and map it to the desired range, using `Math.floor()` to make it an integer.
 
-```ts
+```ts title="typescript"
 const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 ```
 
-```ts
+```ts title="typescript"
 randomInt(0, 5); // 2
 ```

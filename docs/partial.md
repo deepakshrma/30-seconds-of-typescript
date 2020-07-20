@@ -11,12 +11,12 @@ Creates a function that invokes `fn` with `partials` prepended to the arguments 
 
 Use the spread operator (`...`) to prepend `partials` to the list of arguments of `fn`.
 
-```ts
+```ts title="typescript"
 const partial = (fn: Function, ...partials: any[]) => (...args: any[]) =>
   fn(...partials, ...args);
 ```
 
-```ts
+```ts title="typescript"
 const greet = (greeting, name) => greeting + " " + name + "!";
 const greetHello = partial(greet, "Hello");
 greetHello("John"); // 'Hello John!'

@@ -11,10 +11,10 @@ Removes non-printable ASCII characters.
 
 Use a regular expression to remove non-printable ASCII characters.
 
-```ts
+```ts title="typescript"
 const removeNonASCII = (str) => str.replace(/[^\x20-\x7E]/g, "");
 ```
 
-```ts
+```ts title="typescript"
 removeNonASCII("äÄçÇéÉêlorem-ipsumöÖÐþúÚ"); // 'lorem-ipsum'
 ```

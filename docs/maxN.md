@@ -15,13 +15,13 @@ Use `Array.prototype.sort()` combined with the spread operator (`...`) to create
 Use `Array.prototype.slice()` to get the specified number of elements.
 Omit the second argument, `n`, to get a one-element array.
 
-```ts
+```ts title="typescript"
 type SortOrder = 1 | -1;
 const maxN = (arr: any[], n = 1, order: SortOrder = 1) =>
   [...arr].sort((a, b) => order * (b - a)).slice(0, n);
 ```
 
-```ts
+```ts title="typescript"
 maxN([1, 2, 3]); // [3]
 maxN([1, 2, 3], 2); // [3,2]
 maxN([1, 2, 3], 2, -1); // [1,2]

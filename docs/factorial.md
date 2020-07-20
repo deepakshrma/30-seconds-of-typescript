@@ -14,10 +14,10 @@ If `n` is less than or equal to `1`, return `1`.
 Otherwise, return the product of `n` and the factorial of `n - 1`.
 Throws an exception if `n` is a negative number.
 
-```ts
+```ts title="typescript"
 const factorial = (n: number): number => (n <= 1 ? 1 : n * factorial(n - 1));
 ```
 
-```ts
+```ts title="typescript"
 factorial(6); // 720
 ```

@@ -11,11 +11,11 @@ Check if a date is the same as another date.
 
 Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one.
 
-```ts
+```ts title="typescript"
 const isSameDate = (dateA: Date, dateB: Date) =>
   dateA.toISOString() === dateB.toISOString();
 ```
 
-```ts
+```ts title="typescript"
 isSameDate(new Date(2010, 10, 20), new Date(2010, 10, 20)); // true
 ```

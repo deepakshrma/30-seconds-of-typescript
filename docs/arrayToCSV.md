@@ -13,7 +13,7 @@ Use `Array.prototype.map()` and `Array.prototype.join(delimiter)` to combine ind
 Use `Array.prototype.join('\n')` to combine all rows into a CSV string, separating each row with a newline.
 Omit the second argument, `delimiter`, to use a default delimiter of `,`.
 
-```ts
+```ts title="typescript"
 type StringOrNumber = string | number;
 const arrayToCSV = (arr: StringOrNumber[][], delimiter = ",") =>
   arr
@@ -25,7 +25,7 @@ const arrayToCSV = (arr: StringOrNumber[][], delimiter = ",") =>
     .join("\n");
 ```
 
-```ts
+```ts title="typescript"
 arrayToCSV([
   ["a", "b"],
   ["c", "d"],

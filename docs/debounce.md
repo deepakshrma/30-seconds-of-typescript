@@ -12,9 +12,9 @@ Creates a debounced function that delays invoking the provided function until at
 Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.
 Omit the second argument, `ms`, to set the timeout at a default of 0 ms.
 
-```ts
+```ts title="typescript"
 const debounce = (fn: Function, ms = 300) => {
-  let timeoutId: number;
+  let timeoutId: ReturnType<typeof setTimeout>;
   return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
@@ -22,7 +22,7 @@ const debounce = (fn: Function, ms = 300) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 window.addEventListener(
   "resize",
   debounce(() => {

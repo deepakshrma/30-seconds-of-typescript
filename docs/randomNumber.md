@@ -11,10 +11,10 @@ Returns a random number in the specified range.
 
 Use `Math.random()` to generate a random value, map it to the desired range using multiplication.
 
-```ts
+```ts title="typescript"
 const randomNumber = (min, max) => Math.random() * (max - min) + min;
 ```
 
-```ts
+```ts title="typescript"
 randomNumberInRange(2, 10); // 6.0211363285087005
 ```

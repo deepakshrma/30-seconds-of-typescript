@@ -12,7 +12,7 @@ Returns the prefixed version (if necessary) of a CSS property that the browser s
 Use `Array.prototype.findIndex()` on an array of vendor prefix strings to test if `document.body` has one of them defined in its `CSSStyleDeclaration` object, otherwise return `null`.
 Use `String.prototype.charAt()` and `String.prototype.toUpperCase()` to capitalize the property, which will be appended to the vendor prefix string.
 
-```ts
+```ts title="typescript"
 const prefix = (prop: string) => {
   const capitalizedProp = prop.charAt(0).toUpperCase() + prop.slice(1);
   const prefixes = ["", "webkit", "moz", "ms", "o"];
@@ -26,6 +26,6 @@ const prefix = (prop: string) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 prefix("appearance"); // 'appearance' on a supported browser, otherwise 'webkitAppearance', 'mozAppearance', 'msAppearance' or 'oAppearance'
 ```

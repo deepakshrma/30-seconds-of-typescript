@@ -12,7 +12,7 @@ Returns an object containing the parameters of the current URL.
 Use `String.prototype.match()` with an appropriate regular expression to get all key-value pairs, `Array.prototype.reduce()` to map and combine them into a single object.
 Pass `location.search` as the argument to apply to the current `url`.
 
-```ts
+```ts title="typescript"
 type URLParamValue = { [key: string]: string | string[] };
 
 const getURLParameters = (url: string) => {
@@ -30,7 +30,7 @@ const getURLParameters = (url: string) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 getURLParameters("http://url.com/page?name=Adam&surname=Smith"); // {name: 'Adam', surname: 'Smith'}
 getURLParameters("google.com"); // {}
 getURLParameters("http://url.com/page?name=Adam&surname=Smith&surname=Sm"); // { name: "Adam", surname: ["Smith", "Sm"] }

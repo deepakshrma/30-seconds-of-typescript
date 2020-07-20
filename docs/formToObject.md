@@ -11,7 +11,7 @@ Encode a set of form elements as an `object`.
 Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.
 Collect the object from the array, using `Array.prototype.reduce()`.
 
-```ts
+```ts title="typescript"
 interface IFormData {
   new (form: any): FormData;
 }
@@ -42,6 +42,6 @@ const formToObject = (form: any) => {
 </form>
 ```
 
-```ts
+```ts title="typescript"
 formToObject(document.querySelector("#form")); // { email: 'test@email.com', username: 'Test Name' }
 ```

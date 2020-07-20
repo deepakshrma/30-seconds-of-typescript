@@ -14,7 +14,7 @@ Use `String.prototype.split('\n')` to create a string for each row, then `String
 Omit the second argument, `delimiter`, to use a default delimiter of `,`.
 Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string.
 
-```ts
+```ts title="typescript"
 const CSVToArray = (data: string, delimiter = ",", omitFirstRow = false) =>
   data
     .slice(omitFirstRow ? data.indexOf("\n") + 1 : 0)
@@ -22,7 +22,7 @@ const CSVToArray = (data: string, delimiter = ",", omitFirstRow = false) =>
     .map((v) => v.split(delimiter));
 ```
 
-```ts
+```ts title="typescript"
 CSVToArray("a,b\nc,d"); // [['a','b'],['c','d']];
 CSVToArray("a;b\nc;d", ";"); // [['a','b'],['c','d']];
 CSVToArray("col1,col2\na,b\nc,d", ",", true); // [['a','b'],['c','d']];

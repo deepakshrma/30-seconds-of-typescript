@@ -12,12 +12,12 @@ Performs left-to-right function composition.
 Use `Array.prototype.reduce()` to perform left-to-right function composition.
 The first (leftmost) function can accept one or more arguments; the remaining functions must be unary.
 
-```ts
+```ts title="typescript"
 const composeRight = (...fns) =>
   fns.reduce((f, g) => (...args) => g(f(...args)));
 ```
 
-```ts
+```ts title="typescript"
 const multiply = (x: number, y: number) => x * y;
 const add5 = (x: number) => x + 5;
 const multiplyAndAdd5 = compose(multiply, add5);
@@ -26,7 +26,7 @@ multiplyAndAdd5(5, 2); // 15
 
 **Complex Example- Return with tuple:**
 
-```ts
+```ts title="typescript"
 const multiply = (x: number, y: number) => x * y; // 5* 2 = 10
 const add3 = (x: number) => [x + 3, 3]; // [10+3, 3] = [13, 3]
 const add = (x: number, y: number) => x + y; // 13 + 3 = 16

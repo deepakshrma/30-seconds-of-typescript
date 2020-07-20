@@ -11,12 +11,12 @@ Given a key and a set of arguments, call them when given a context. Primarily us
 
 Use a closure to call a stored key with stored arguments.
 
-```ts
+```ts title="typescript"
 export const call = (key: string, ...args: any[]) => (context: any) =>
   context[key](...args);
 ```
 
-```ts
+```ts title="typescript"
 Promise.resolve([1, 2, 3])
   .then(call("map", (x) => 2 * x))
   .then(console.log); // [ 2, 4, 6 ]

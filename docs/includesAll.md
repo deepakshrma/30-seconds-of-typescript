@@ -11,7 +11,7 @@ Returns `true` if all the elements in `values` are included in `arr`, `false` ot
 
 Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.
 
-```ts
+```ts title="typescript"
 const includesAll = <T = any>(arr: T[], values: T[]) =>
   values.every((v) => arr.includes(v));
 ```

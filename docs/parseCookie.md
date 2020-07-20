@@ -13,7 +13,7 @@ Use `String.prototype.split(';')` to separate key-value pairs from each other.
 Use `Array.prototype.map()` and `String.prototype.split('=')` to separate keys from values in each pair.
 Use `Array.prototype.reduce()` and `decodeURIComponent()` to create an object with all key-value pairs.
 
-```ts
+```ts title="typescript"
 const parseCookie = (str: string) =>
   str
     .split(";")
@@ -24,6 +24,6 @@ const parseCookie = (str: string) =>
     }, {} as AnyObject<string>);
 ```
 
-```ts
+```ts title="typescript"
 parseCookie("foo=bar; equation=E%3Dmc%5E2"); // { foo: 'bar', equation: 'E=mc^2' }
 ```

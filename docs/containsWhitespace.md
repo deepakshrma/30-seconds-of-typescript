@@ -11,11 +11,11 @@ Returns `true` if the given string contains any whitespace characters, `false` o
 
 Use `RegExp.prototype.test()` with an appropriate regular expression to check if the given string contains any whitespace characters.
 
-```ts
+```ts title="typescript"
 const containsWhitespace = (str: string) => /\s/.test(str);
 ```
 
-```ts
+```ts title="typescript"
 containsWhitespace("lorem"); // false
 containsWhitespace("lorem ipsum"); // true
 ```

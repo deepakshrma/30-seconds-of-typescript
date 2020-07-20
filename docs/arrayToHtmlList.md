@@ -11,7 +11,7 @@ Converts the given array elements into `<li>` tags and appends them to the list 
 
 Use `Array.prototype.map()`, `document.querySelector()`, and an anonymous inner closure to create a list of html tags.
 
-```ts
+```ts title="typescript"
 const arrayToHtmlList = (arr: (string | number)[], listID: string) => {
   let el = document.querySelector("#" + listID);
   if (el) {
@@ -20,6 +20,6 @@ const arrayToHtmlList = (arr: (string | number)[], listID: string) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 arrayToHtmlList(["item 1", "item 2"], "myListID"); // <li>item1</li><li>item2</li>
 ```

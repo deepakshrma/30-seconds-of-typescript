@@ -147,6 +147,33 @@ import {
   hide,
   size,
   sleep,
+  stableSort,
+  sumBy,
+  takeWhile,
+  takeRight,
+  take,
+  tail,
+  times,
+  toCamelCase,
+  humanizeUrl,
+  toOrdinalSuffix,
+  toPairs,
+  toSnakeCase,
+  transform,
+  ellipsis,
+  truncateString,
+  unary,
+  uncurry,
+  unescapeHTML,
+  unique,
+  uniqueBy,
+  uniqueByRight,
+  unzip,
+  unzipWith,
+  URLJoin,
+  URLJoinWithParams,
+  UUIDGeneratorBrowser,
+  yesNo,
 } from "./util.ts";
 
 // accumulate
@@ -209,7 +236,7 @@ Deno.test("aperture #1", () => {
 // approximatelyEqual
 Deno.test("approximatelyEqual #1", () => {
   assertEquals(approximatelyEqual(Math.PI / 2.0, 1.5708), true);
-  assertEquals(approximatelyEqual(Math.PI / 2.0, 1.5708, 0.000001), false); // 1.5707963267948966
+  assertEquals(approximatelyEqual(Math.PI / 2.0, 1.5708, 0.000001), false);
 });
 
 // arrayToCSV
@@ -448,18 +475,18 @@ Deno.test("complement #1", () => {
 });
 // compose
 Deno.test("compose #1", () => {
-  const add = (x: number, y: number) => x + y; // 13 + 3 = 16
-  const add3 = (x: number) => [x + 3, 3]; // [10+3, 3] = [13, 3]
-  const multiply = (x: number, y: number) => x * y; // 5* 2 = 10
+  const add = (x: number, y: number) => x + y;
+  const add3 = (x: number) => [x + 3, 3];
+  const multiply = (x: number, y: number) => x * y;
   const multiplyAndAdd3 = compose(add, add3, multiply);
   assertEquals(multiplyAndAdd3(5, 2), 16);
 });
 
 // composeRight
 Deno.test("composeRight #1", () => {
-  const add = (x: number, y: number) => x + y; // 13 + 3 = 16
-  const add3 = (x: number) => [x + 3, 3]; // [10+3, 3] = [13, 3]
-  const multiply = (x: number, y: number) => x * y; // 5* 2 = 10
+  const add = (x: number, y: number) => x + y;
+  const add3 = (x: number) => [x + 3, 3];
+  const multiply = (x: number, y: number) => x * y;
   const multiplyAndAdd3 = composeRight(multiply, add3, add);
   assertEquals(multiplyAndAdd3(5, 2), 16);
 });
@@ -505,10 +532,10 @@ Deno.test("createEventHub #1", () => {
   const numEmitter = createEventHub<number>();
   const incrementHandler = () => increment++;
   numEmitter.on("increment", incrementHandler);
-  numEmitter.emit("increment"); // `increment` variable is now 1
-  numEmitter.emit("increment"); // `increment` variable is now 1
+  numEmitter.emit("increment");
+  numEmitter.emit("increment");
   numEmitter.off("increment", incrementHandler);
-  numEmitter.emit("increment"); // `increment` variable is now 1
+  numEmitter.emit("increment");
   assertEquals(increment, 2);
 
   let user: User | undefined;
@@ -586,19 +613,19 @@ Deno.test("debounce #1", async () => {
     counter++;
   };
   const debouncedUpdate = debounce(updateState);
-  debouncedUpdate(); // counter == 1
-  debouncedUpdate(); // counter == 1
-  await delayedPromise(); // counter == 1
+  debouncedUpdate();
+  debouncedUpdate();
+  await delayedPromise();
   assertEquals(counter, 1);
-  debouncedUpdate(); // counter == 2
-  await delayedPromise(); // counter == 2
+  debouncedUpdate();
+  await delayedPromise();
   assertEquals(counter, 2);
 });
 
 // deepClone
 Deno.test("deepClone #1", () => {
   const a = { foo: "bar", obj: { a: 1, b: 2 }, arr: [1, 2, 3] };
-  const b = deepClone(a); // a !== b, a.obj !== b.obj
+  const b = deepClone(a);
   assertEquals(a.foo, b.foo);
   assertEquals(a === b, false);
   assertEquals(a.obj, b.obj);
@@ -627,14 +654,14 @@ Deno.test("deepFreeze #1", () => {
   const o = deepFreeze([1, [2, 3]]);
   assertThrows(
     () => {
-      o[0] = 3; // not allowed
+      o[0] = 3;
     },
     TypeError,
     "Cannot assign to read only property '0' of object '[object Array]'"
   );
   assertThrows(
     () => {
-      o[1][1] = 4; // not allowed as well
+      o[1][1] = 4;
     },
     TypeError,
     "Cannot assign to read only property '1' of object '[object Array]'"
@@ -718,7 +745,7 @@ Deno.test("equals #1", () => {
     true
   );
   // assertEquals(equals(1, "1"), true);// compile error
-  assertEquals(deepEquals(1, "1"), false); // no compile error
+  assertEquals(deepEquals(1, "1"), false);
 });
 
 // escapeHTML
@@ -1047,8 +1074,8 @@ Deno.test("isEmpty #1", () => {
   assertEquals(isEmpty([1, 2]), false);
   assertEquals(isEmpty({ a: 1, b: 2 }), false);
   assertEquals(isEmpty("text"), false);
-  assertEquals(isEmpty(123), true); // - type is not considered a collection);
-  assertEquals(isEmpty(true), true); // - type is not considered a collection);
+  assertEquals(isEmpty(123), true);
+  assertEquals(isEmpty(true), true);
 });
 
 // isLeapYear
@@ -1389,8 +1416,8 @@ Deno.test("orderBy #1", () => {
       users,
       ["name", "age"],
       <T extends string | number>(p1: T, p2: T, prop: string) => {
-        if (prop === "name") return String(p1).localeCompare(String(p2)); // asc
-        if (prop === "age") return Number(p2) - Number(p1); // desc
+        if (prop === "name") return String(p1).localeCompare(String(p2));
+        if (prop === "age") return Number(p2) - Number(p1);
       }
     ),
     [
@@ -1595,4 +1622,321 @@ Deno.test("size #1", () => {
 Deno.test("sleep #1", async () => {
   await sleep(200);
   console.log("I woke up after 200ms.");
+});
+
+// stableSort
+Deno.test("stableSort #1", () => {
+  const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const stable = stableSort(arr, () => 0);
+  assertEquals(stable, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+});
+
+// sumBy
+Deno.test("sumBy #1", () => {
+  assertEquals(
+    sumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o) => o.n),
+    20
+  );
+  assertEquals(sumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"), 20);
+});
+
+// takes
+Deno.test("takes #1", () => {
+  assertEquals(tail([1, 2, 3]), [2, 3]);
+  assertEquals(take([1, 2, 3], 5), [1, 2, 3]);
+  assertEquals(take([1, 2, 3], 0), []);
+
+  assertEquals(takeRight([1, 2, 3], 2), [2, 3]);
+  assertEquals(takeRight([1, 2, 3]), [3]);
+  assertEquals(
+    takeWhile([1, 2, 3, 4], (n) => n >= 3),
+    [1, 2]
+  );
+});
+
+// times
+Deno.test("times #1", () => {
+  var output = "";
+  const result = times(5, (i: string) => (output += i));
+  assertEquals(output, "01234");
+  assertEquals(result, "01234");
+});
+
+// toCamelCase
+Deno.test("toCamelCase #1", () => {
+  assertEquals(
+    toCamelCase("some_database_field_name"),
+    "someDatabaseFieldName"
+  );
+  assertEquals(
+    toCamelCase("Some label that needs to be camelized"),
+    "someLabelThatNeedsToBeCamelized"
+  );
+  assertEquals(
+    toCamelCase("some-javascript-property"),
+    "someJavascriptProperty"
+  );
+  assertEquals(
+    toCamelCase("some-mixed_string with spaces_underscores-and-hyphens"),
+    "someMixedStringWithSpacesUnderscoresAndHyphens"
+  );
+});
+
+// // toCurrency
+// Deno.test("toCurrency #1", () => {
+//   assertEquals(toCurrency(123456.789, "EUR"), "€123,456.79"),   | currency: Euro | currencyLangFormat: Local);
+//   assertEquals(toCurrency(123456.789, "USD", "en-us"), " $123,456.79 "),   | currency: US Dollar | currencyLangFormat: English (United States));
+//   assertEquals(toCurrency(123456.789, "USD", "fa"), " ۱۲۳٬۴۵۶٫۷۹ ؜$ "),  | currency: US Dollar | currencyLangFormat: Farsi);
+//   assertEquals(toCurrency(322342436423.2435, "JPY"), " ¥322,342,436,423"),   | currency: Japanese Yen | currencyLangFormat: Local);
+//   assertEquals(
+//     toCurrency(322342436423.2435, "JPY", "fi"),
+//     " 322 342 436 423 ¥"
+//   ),   | currency: Japanese Yen | currencyLangFormat: Finnish);
+//   assertEquals(toCurrency, true);
+// });
+
+// humanizeUrl
+Deno.test("humanizeUrl #1", () => {
+  assertEquals(humanizeUrl("Some label URL"), "some-label-url");
+  assertEquals(humanizeUrl("Some 1label 2URL"), "some-1label-2url");
+  assertEquals(humanizeUrl("Some 1_label 2_URL"), "some-1-label-2-url");
+  assertEquals(humanizeUrl("Some$1_label$ $2URL"), "some-1-label-2url");
+
+  assertEquals(humanizeUrl("Some 1_label 2_URL", true), "some-1_label-2_url");
+  assertEquals(
+    humanizeUrl("Some$1_label$ $2URL", false, true),
+    "Some-1-label-2URL"
+  );
+});
+
+// toOrdinalSuffix
+Deno.test("toOrdinalSuffix #1", () => {
+  assertEquals(toOrdinalSuffix("123"), "123rd");
+});
+// toPairs
+Deno.test("toPairs #1", () => {
+  assertEquals(toPairs([2, 4, 8]), [
+    [0, 2],
+    [1, 4],
+    [2, 8],
+  ]);
+  assertEquals(toPairs("shy"), [
+    ["0", "s"],
+    ["1", "h"],
+    ["2", "y"],
+  ]);
+  assertEquals(toPairs(new Set(["a", "b", "c", "a"])), [
+    ["a", "a"],
+    ["b", "b"],
+    ["c", "c"],
+  ]);
+  assertEquals(toPairs({ a: 1, b: 2 }), [
+    ["a", 1],
+    ["b", 2],
+  ]);
+  assertEquals(toPairs(undefined), []);
+  assertEquals(toPairs(null), []);
+  assertEquals(toPairs(true), []);
+  assertEquals(toPairs(false), []);
+});
+// toSnakeCase
+Deno.test("toSnakeCase #1", () => {
+  assertEquals(toSnakeCase("camelCase"), "camel_case");
+  assertEquals(toSnakeCase("some text"), "some_text");
+  assertEquals(
+    toSnakeCase("some-mixed_string With spaces_underscores-and-hyphens"),
+    "some_mixed_string_with_spaces_underscores_and_hyphens"
+  );
+  assertEquals(toSnakeCase("AllThe-small Things"), "all_the_small_things");
+  assertEquals(
+    toSnakeCase(
+      "IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML"
+    ),
+    "i_am_listening_to_fm_while_loading_different_url_on_my_browser_and_also_editing_some_xml_and_html"
+  );
+  const word = "IAmListeningToFMWhileLoading";
+  const humanizeUrlWordBreak = (str: string) =>
+    humanizeUrl(toSnakeCase(str) || "");
+  assertEquals(
+    humanizeUrlWordBreak(word),
+    "i-am-listening-to-fm-while-loading"
+  );
+});
+
+// transform
+Deno.test("transform #1", () => {
+  assertEquals(
+    transform(
+      { a: 1, b: 2, c: 1 },
+      (r: any, v: string, k: any) => {
+        (r[v] || (r[v] = [])).push(k);
+        return r;
+      },
+      {}
+    ),
+    { "1": ["a", "c"], "2": ["b"] }
+  );
+});
+
+// ellipsis
+Deno.test("ellipsis #1", () => {
+  assertEquals(truncateString("boomerang", 7), "boom...");
+  assertEquals(ellipsis("boomerang", 7), "boom...");
+  assertEquals(ellipsis("boomerang", 2), "bo...");
+  assertEquals(ellipsis("boomerang", 5), "bo...");
+  assertEquals(ellipsis("boomerang", 5), "bo...");
+
+  assertEquals(ellipsis("boomerang", 5, ".."), "boo..");
+  assertEquals(ellipsis("boomerang"), "boomer...");
+
+  assertEquals(ellipsis("boomerang", undefined, "♦♦♦"), "boomer♦♦♦");
+});
+
+// unary
+Deno.test("unary #1", () => {
+  const parseIntMapper = unary(parseInt);
+  assertEquals(["6", "8", "10"].map(parseIntMapper), [6, 8, 10]);
+});
+
+// uncurried
+Deno.test("uncurried #1", () => {
+  const add = (x: number) => (y: number) => (z: number) => x + y + z;
+  const uncurriedAdd = uncurry(add, 3);
+  assertEquals(uncurriedAdd(1, 2, 3), 6);
+});
+
+// unescapeHTML
+Deno.test("unescapeHTML #1", () => {
+  assertEquals(
+    unescapeHTML("&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;"),
+    '<a href="#">Me & you</a>'
+  );
+});
+
+// unique
+Deno.test("unique #1", () => {
+  assertEquals(unique([1, 2, 2, 3, 4, 4, 5]), [1, 2, 3, 4, 5]);
+  assertEquals(
+    uniqueByRight(
+      [
+        { id: 0, value: "a" },
+        { id: 1, value: "b" },
+        { id: 2, value: "c" },
+        { id: 1, value: "d" },
+        { id: 0, value: "e" },
+      ],
+      (a: any, b: any) => a.id == b.id
+    ),
+    [
+      { id: 0, value: "e" },
+      { id: 1, value: "d" },
+      { id: 2, value: "c" },
+    ]
+  );
+  assertEquals(
+    uniqueBy(
+      [
+        { id: 0, value: "a" },
+        { id: 1, value: "b" },
+        { id: 2, value: "c" },
+        { id: 1, value: "d" },
+        { id: 0, value: "e" },
+      ],
+      (a: any, b: any) => a.id == b.id
+    ),
+    [
+      { id: 0, value: "a" },
+      { id: 1, value: "b" },
+      { id: 2, value: "c" },
+    ]
+  );
+});
+
+// unzip
+Deno.test("unzip #1", () => {
+  assertEquals(
+    unzip([
+      ["a", 1, true],
+      ["b", 2, false],
+    ]),
+    [
+      ["a", "b"],
+      [1, 2],
+      [true, false],
+    ]
+  );
+
+  assertEquals(
+    unzip([
+      ["a", 1, true],
+      ["b", 2],
+    ]),
+    [["a", "b"], [1, 2], [true]]
+  );
+  assertEquals(
+    unzip(
+      [
+        ["a", 1],
+        ["b", 2],
+      ],
+      2
+    ),
+    [
+      ["a", "b"],
+      [1, 2],
+    ]
+  );
+});
+
+// unzipWith
+Deno.test("unzipWith #1", () => {
+  assertEquals(
+    unzipWith(
+      [
+        [1, 10, 100],
+        [2, 20, 200],
+      ],
+      (...args: number[]) => args.reduce((acc, v) => acc + v, 0)
+    ),
+    [3, 30, 300]
+  );
+  assertEquals(
+    unzipWith(
+      [
+        [1, 10, 100],
+        [2, 20, 200],
+      ],
+      (...args: number[]) => args.reduce((acc, v) => acc + v, 0),
+      3
+    ),
+    [3, 30, 300]
+  );
+});
+// URLJoin
+Deno.test("URLJoin #1", () => {
+  assertEquals(
+    URLJoin("http://www.google.com", "a", "/b/cd", "?foo=123", "?bar=foo"),
+    "http://www.google.com/a/b/cd?foo=123&bar=foo"
+  );
+  assertEquals(
+    URLJoinWithParams(URLJoin("http://www.google.com", "a", "/b/cd"), {
+      foo: 123,
+      bar: "foo",
+    }),
+    "http://www.google.com/a/b/cd?foo=123&bar=foo"
+  );
+});
+
+// UUIDGeneratorBrowser
+Deno.test("UUIDGeneratorBrowser #1", () => {
+  assertEquals(UUIDGeneratorBrowser() !== undefined, true);
+  assertEquals(UUIDGeneratorBrowser().split("-").length, 5);
+});
+
+// yesNo
+Deno.test("yesNo #1", () => {
+  assertEquals(yesNo("Y"), true);
+  assertEquals(yesNo("yes"), true);
+  assertEquals(yesNo("No"), false);
+  assertEquals(yesNo("Foo", true), true);
 });

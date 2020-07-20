@@ -11,7 +11,7 @@ Splits values into two groups. If an element in `filter` is truthy, the correspo
 
 Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`.
 
-```ts
+```ts title="typescript"
 const bifurcate = <T = any>(arr: T[], filter: boolean[]) =>
   arr.reduce(
     (acc, val, i) => {
@@ -22,6 +22,6 @@ const bifurcate = <T = any>(arr: T[], filter: boolean[]) =>
   );
 ```
 
-```ts
+```ts title="typescript"
 bifurcate(["beep", "boop", "foo", "bar"], [true, true, false, true]); // [ ['beep', 'boop', 'bar'], ['foo'] ]
 ```

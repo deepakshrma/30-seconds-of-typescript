@@ -11,7 +11,7 @@ Attempts to invoke a function with the provided arguments, returning either the 
 
 Use a `try... catch` block to return either the result of the function or an appropriate error.
 
-```ts
+```ts title="typescript"
 const attempt = (fn, ...args) => {
   try {
     return fn(...args);
@@ -21,7 +21,7 @@ const attempt = (fn, ...args) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 let elements = attempt(function (selector) {
   return document.querySelectorAll(selector);
 }, ">_>");
@@ -45,7 +45,7 @@ assertEquals(error.message, "Invalid number");
 
 Same as attempt but it return tuple of result and error.
 
-```ts
+```ts title="typescript"
 const attempt2 = (fn: (...args: any[]) => any, ...args: any[]) => {
   try {
     return [fn(...args), null];
@@ -55,7 +55,7 @@ const attempt2 = (fn: (...args: any[]) => any, ...args: any[]) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 let [elements, error] = attempt2(function (selector) {
   return document.querySelectorAll(selector);
 }, ">_>");

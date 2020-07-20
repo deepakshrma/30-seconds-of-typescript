@@ -11,12 +11,12 @@ Returns a function that is the logical complement of the given function, `fn`.
 
 Use the logical not (`!`) operator on the result of calling `fn` with any supplied `args`.
 
-```ts
+```ts title="typescript"
 type Func<T> = (...args: T[]) => any;
 const complement = (fn: Func<any>) => (...args: any[]) => !fn(...args);
 ```
 
-```ts
+```ts title="typescript"
 const isEven = (num: number) => num % 2 === 0;
 const isOdd = complement(isEven);
 isOdd(2); // false

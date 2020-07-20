@@ -11,11 +11,11 @@ Converts a `ArrayLike` to an array.
 
 Use spread operator inside new array to convert a `arrayLike` to an array.
 
-```ts
+```ts title="typescript"
 const toArray = <T = any>(arrLike: Iterable<T>) => [...arrLike];
 ```
 
-```ts
+```ts title="typescript"
 toArray(document.childNodes); // [ <!DOCTYPE html>, html ]
 
 // array like string

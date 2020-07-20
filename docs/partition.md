@@ -12,7 +12,7 @@ Groups the elements into two arrays, depending on the provided function's truthi
 Use `Array.prototype.reduce()` to create an array of two arrays.
 Use `Array.prototype.push()` to add elements for which `fn` returns `true` to the first array and elements for which `fn` returns `false` to the second one.
 
-```ts
+```ts title="typescript"
 const partition = (arr: any[], fn: Predicate) =>
   arr.reduce(
     (acc, val, i, arr) => {
@@ -23,7 +23,7 @@ const partition = (arr: any[], fn: Predicate) =>
   );
 ```
 
-```ts
+```ts title="typescript"
 const users = [
   { user: "barney", age: 36, active: false },
   { user: "fred", age: 40, active: true },

@@ -11,7 +11,7 @@ Escapes a string for use in HTML.
 
 Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped, using a callback function to replace each character instance with its associated escaped character using a dictionary (object).
 
-```ts
+```ts title="typescript"
 export enum HTMLEscapeChars {
   "&" = "&amp;",
   "<" = "&lt;",
@@ -28,6 +28,6 @@ const escapeHTML = (str: string) =>
   );
 ```
 
-```ts
+```ts title="typescript"
 escapeHTML('<a href="#">Me & you</a>'); // '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'
 ```

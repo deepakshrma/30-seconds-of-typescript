@@ -3,8 +3,9 @@ title: toOrdinalSuffix
 tags: math,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Adds an ordinal suffix to a number.
 
@@ -12,7 +13,7 @@ Use the modulo operator (`%`) to find values of single and tens digits.
 Find which ordinal pattern digits match.
 If digit is found in teens pattern, use teens ordinal.
 
-```js
+```ts title="typescript"
 const toOrdinalSuffix = (num) => {
   const int = parseInt(num),
     digits = [int % 10, int % 100],
@@ -25,6 +26,6 @@ const toOrdinalSuffix = (num) => {
 };
 ```
 
-```js
+```ts title="typescript"
 toOrdinalSuffix("123"); // "123rd"
 ```

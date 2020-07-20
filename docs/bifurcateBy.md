@@ -11,7 +11,7 @@ Splits values into two groups according to a predicate function, which specifies
 
 Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.
 
-```ts
+```ts title="typescript"
 type Predicate<T> = (item: T) => boolean;
 
 const bifurcateBy = <T = any>(arr: T[], filter: Predicate<T>) =>
@@ -24,7 +24,7 @@ const bifurcateBy = <T = any>(arr: T[], filter: Predicate<T>) =>
   );
 ```
 
-```ts
+```ts title="typescript"
 bifurcateBy(["beep", "boop", "foo", "bar"], (x: string) => x[0] === "b"); // [ ['beep', 'boop', 'bar'], ['foo'] ]
 
 // To Get Filtered(falsy) values

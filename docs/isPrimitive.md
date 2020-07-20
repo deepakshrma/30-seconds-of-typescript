@@ -11,11 +11,11 @@ Returns a boolean determining if the passed value is primitive or not.
 
 Create an object from `val` and compare it with `val` to determine if the passed value is primitive (i.e. not equal to the created object).
 
-```ts
+```ts title="typescript"
 const isPrimitive = (val) => Object(val) !== val;
 ```
 
-```ts
+```ts title="typescript"
 isPrimitive(null); // true
 isPrimitive(undefined); // true
 isPrimitive(50); // true

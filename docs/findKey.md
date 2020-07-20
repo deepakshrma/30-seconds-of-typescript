@@ -11,12 +11,12 @@ Returns the first key that satisfies the provided testing function. Otherwise `u
 
 Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test the provided function for each key-value pair. The callback receives three arguments - the value, the key and the object.
 
-```ts
+```ts title="typescript"
 const findKey = (obj: any, fn: Function) =>
   Object.keys(obj).find((key) => fn(obj[key], key, obj));
 ```
 
-```ts
+```ts title="typescript"
 findKey(
   {
     barney: { age: 36, active: true },

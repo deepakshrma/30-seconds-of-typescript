@@ -15,7 +15,7 @@ Check if `n - k` is less than `k` and switch their values accordingly.
 Loop from `2` through `k` and calculate the binomial coefficient.
 Use `Math.round()` to account for rounding errors in the calculation.
 
-```ts
+```ts title="typescript"
 const binomialCoefficient = (n: number, k: number): number => {
   if (Number.isNaN(n) || Number.isNaN(k)) return NaN;
   if (k < 0 || k > n) return 0;
@@ -28,7 +28,7 @@ const binomialCoefficient = (n: number, k: number): number => {
 };
 ```
 
-```ts
+```ts title="typescript"
 binomialCoefficient(8, 2); // 28
 const result = binomialCoefficient(8, 2);
 assertEquals(result, 28);

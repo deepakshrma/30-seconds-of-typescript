@@ -11,10 +11,10 @@ Escapes a string to use in a regular expression.
 
 Use `String.prototype.replace()` to escape special characters.
 
-```ts
+```ts title="typescript"
 const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 ```
 
-```ts
+```ts title="typescript"
 escapeRegExp("(test)"); // \\(test\\)
 ```

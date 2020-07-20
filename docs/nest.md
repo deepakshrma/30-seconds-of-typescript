@@ -15,7 +15,7 @@ Use `Array.prototype.filter()` to filter the items where the `id` matches the `l
 Omit the second argument, `id`, to default to `null` which indicates the object is not linked to another one (i.e. it is a top level object).
 Omit the third argument, `link`, to use `'parent_id'` as the default property which links the object to another one by its `id`.
 
-```ts
+```ts title="typescript"
 const nest = (
   items: AnyObject[],
   id: number | null = null,
@@ -26,7 +26,7 @@ const nest = (
     .map((item) => ({ ...item, children: nest(items, item.id, link) }));
 ```
 
-```ts
+```ts title="typescript"
 // One top level comment
 const comments = [
   { id: 1, parent_id: null },

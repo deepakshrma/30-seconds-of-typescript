@@ -13,14 +13,14 @@ Use `Array.prototype.slice()` to get an array containing the nth element at the 
 If the index is out of bounds, return `undefined`.
 Omit the second argument, `n`, to get the first element of the array.
 
-```ts
+```ts title="typescript"
 const nthElement = curry(
   (n = 0, arr: any[]) => (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0],
   2
 );
 ```
 
-```ts
+```ts title="typescript"
 nthElement(["a", "b", "c"], 1); // 'b'
 nthElement(["a", "b", "b"], -3); // 'a'
 

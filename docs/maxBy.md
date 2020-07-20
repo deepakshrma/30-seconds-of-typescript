@@ -11,12 +11,12 @@ Returns the maximum value of an array, after mapping each element to a value usi
 
 Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.max()` to get the maximum value.
 
-```ts
+```ts title="typescript"
 export const maxBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
   Math.max(...arr.map(isString(fn) ? (val: any) => val[fn] : fn));
 ```
 
-```ts
+```ts title="typescript"
 maxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], (o) => o.n); // 8
 maxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], "n"); // 8
 

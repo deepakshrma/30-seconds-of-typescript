@@ -13,13 +13,13 @@ Use `Array.prototype.reduce()` and the spread operator (`...`) to perform functi
 The functions can return a combination of normal values, `Promise`s or be `async`, returning through `await`.
 All functions must accept a single argument.
 
-```ts
+```ts title="typescript"
 type PromiseReturn = (v: any) => Promise<any>;
 const pipeAsyncFunctions = (...fns: PromiseReturn[]) => (arg: any) =>
   fns.reduce((p, f) => p.then(f), Promise.resolve(arg) as PromiseLike<any>);
 ```
 
-```ts
+```ts title="typescript"
 const sum = pipeAsyncFunctions(
   (x) => x + 1,
   (x) => new Promise((resolve) => setTimeout(() => resolve(x + 2), 1000)),

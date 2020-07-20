@@ -11,7 +11,7 @@ Sort by based on the key or function.
 
 Use the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data. If `$fn`, not given it will sort by string compare.
 
-```ts
+```ts title="typescript"
 type SortByFunc<T> = (s1: T, s2: T) => number;
 enum SortByOrder {
   ASC = 1,
@@ -28,7 +28,7 @@ const sortBy = <T = any>(
 };
 ```
 
-```ts
+```ts title="typescript"
 sortBy([1, 2, 4, 3, 4, -1]); // [-1, 1, 2, 3, 4, 4]
 sortBy(["Test", "test"]); // ["Test", "test"]
 

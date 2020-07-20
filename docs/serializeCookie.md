@@ -11,11 +11,11 @@ Serialize a cookie name-value pair into a Set-Cookie header string.
 
 Use template literals and `encodeURIComponent()` to create the appropriate string.
 
-```ts
+```ts title="typescript"
 const serializeCookie = (name, val) =>
   `${encodeURIComponent(name)}=${encodeURIComponent(val)}`;
 ```
 
-```ts
+```ts title="typescript"
 serializeCookie("foo", "bar"); // 'foo=bar'
 ```

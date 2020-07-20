@@ -12,14 +12,14 @@ Creates a new map with the results of calling a provided function on every value
 Use `Array.isArray()` to detect array, else destructure array like data(string).
 Use `Array.prototype.map()` to map array of data.
 
-```ts
+```ts title="typescript"
 const map = <T = any>(array: Iterable<T>, fn: MapFunc<T>) => {
   const chars = Array.isArray(array) ? array : [...array];
   return chars.map((c, i) => fn(c, i, chars));
 };
 ```
 
-```ts
+```ts title="typescript"
 // map array of chars
 map("lorem ipsum", (c) => c.toUpperCase()).join("")) // "LOREM IPSUM"
 

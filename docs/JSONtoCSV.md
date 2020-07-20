@@ -14,7 +14,7 @@ Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for e
 Use `Array.prototype.join('\n')` to combine all rows into a string.
 Omit the third argument, `delimiter`, to use a default delimiter of `,`.
 
-```ts
+```ts title="typescript"
 const JSONtoCSV = (arr: any[], columns: string[], delimiter = ",") =>
   [
     columns.join(delimiter),
@@ -28,7 +28,7 @@ const JSONtoCSV = (arr: any[], columns: string[], delimiter = ",") =>
   ].join("\n");
 ```
 
-```ts
+```ts title="typescript"
 JSONtoCSV(
   [{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }],
   ["a", "b"]

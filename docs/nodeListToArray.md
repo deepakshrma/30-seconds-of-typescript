@@ -11,11 +11,11 @@ Converts a `NodeList` to an array.
 
 Use spread operator inside new array to convert a `NodeList` to an array.
 
-```ts
+```ts title="typescript"
 const nodeListToArray = <T = any>(nodeList: Iterable<T>) => [...nodeList];
 ```
 
-```ts
+```ts title="typescript"
 nodeListToArray(document.childNodes); // [ <!DOCTYPE html>, html ]
 
 // array like string

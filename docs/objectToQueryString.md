@@ -13,14 +13,13 @@ Use `Array.prototype.reduce()` on `Object.entries(queryParameters)` to create th
 Determine the `symbol` to be either `?` or `&` based on the `length` of `queryString` and concatenate `val` to `queryString` only if it's a string.
 Return the `queryString` or an empty string when the `queryParameters` are falsy.
 
-```ts
+```ts title="typescript"
 const objectToQueryString = (queryParameters: AnyObject) => {
   return queryParameters
     ? Object.entries(queryParameters).reduce(
         (queryString, [key, val], index) => {
           const symbol = queryString.length === 0 ? "?" : "&";
-          queryString +=
-            typeof val === "string" ? `${symbol}${key}=${val}` : "";
+          queryString += val ? `${symbol}${key}=${val}` : "";
           return queryString;
         },
         ""
@@ -29,6 +28,6 @@ const objectToQueryString = (queryParameters: AnyObject) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 objectToQueryString({ page: "1", size: "2kg", key: undefined }); // '?page=1&size=2kg'
 ```

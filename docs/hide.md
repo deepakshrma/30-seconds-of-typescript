@@ -10,11 +10,11 @@ Hides all the elements specified.
 
 Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified.
 
-```ts
+```ts title="typescript"
 const hide = <T extends HTMLElement>(...el: T[]) =>
   [...el].forEach((e) => (e.style.display = "none"));
 ```
 
-```ts
+```ts title="typescript"
 hide(document.querySelectorAll("img")); // Hides all <img> elements on the page
 ```

@@ -12,14 +12,14 @@ Filters out the non-unique values in an array, based on a provided comparator fu
 Use `Array.prototype.filter()` and `Array.prototype.every()` for an array containing only the unique values, based on the comparator function, `fn`.
 The comparator function takes four arguments: the values of the two elements being compared and their indexes.
 
-```ts
+```ts title="typescript"
 const filterNonUniqueBy = <T = any>(
   arr: T[],
   fn: (obj1: T, obj2: T, index1: number, index2: number) => any
 ) => arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));
 ```
 
-```ts
+```ts title="typescript"
 filterNonUniqueBy(
   [
     { id: 0, value: "a" },

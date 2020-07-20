@@ -12,7 +12,7 @@ Applies `fn` to each value in `arr`, splitting it each time `fn` returns a new v
 Use `Array.prototype.reduce()` with an accumulator object that will hold the resulting array and the last value returned from `fn`.
 Use `Array.prototype.push()` to add each value in `arr` to the appropriate partition in the accumulator array.
 
-```ts
+```ts title="typescript"
 const partitionBy = <R = any>(arr: any[], fn: MapFunc<any, R>) =>
   arr.reduce(
     ({ res, last }, v, i, a) => {
@@ -25,7 +25,7 @@ const partitionBy = <R = any>(arr: any[], fn: MapFunc<any, R>) =>
   ).res;
 ```
 
-```ts
+```ts title="typescript"
 const numbers = [1, 1, 3, 3, 4, 5, 5, 5];
 partitionBy(numbers, (n) => n % 2 === 0); // [[1, 1, 3, 3], [4], [5, 5, 5]]
 partitionBy(numbers, (n) => n); // [[1, 1], [3, 3], [4], [5, 5, 5]]

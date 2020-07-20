@@ -11,7 +11,7 @@ Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided
 
 Split string by chunk of 2, filter blank string. convert to number
 
-```ts
+```ts title="typescript"
 const hexToRGB = (hex: string) => {
   hex = hex.startsWith("#") ? hex.slice(1) : hex;
   if (hex.length === 3) {
@@ -34,7 +34,7 @@ const hexToRGB2 = (hex: string) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 hexToRGB("#27ae60ff"); // 'rgba(39, 174, 96, 255)'
 hexToRGB("27ae60"); // 'rgb(39, 174, 96)'
 hexToRGB("#fff"); // 'rgb(255, 255, 255)'

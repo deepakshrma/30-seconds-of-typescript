@@ -3,22 +3,23 @@ title: toTitleCase
 tags: string,regepx,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Converts a string to title case.
 
 Break the string into words, using a regexp, and combine them capitalizing the first letter of each word and adding a whitespace between them.
 
-```js
-const toTitleCase = (str) =>
+```ts title="typescript"
+const toTitleCase = (str: string) =>
   str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-    .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+    ?.map((x) => x.charAt(0).toUpperCase() + x.slice(1))
     .join(" ");
 ```
 
-```js
+```ts title="typescript"
 toTitleCase("some_database_field_name"); // 'Some Database Field Name'
 toTitleCase("Some label that needs to be title-cased"); // 'Some Label That Needs To Be Title Cased'
 toTitleCase("some-package-name"); // 'Some Package Name'

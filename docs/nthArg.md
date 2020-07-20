@@ -11,11 +11,11 @@ Creates a function that gets the argument at index `n`. If `n` is negative, the 
 
 Use `Array.prototype.slice()` to get the desired argument at index `n`.
 
-```ts
+```ts title="typescript"
 const nthArg = (n: number) => (...args: any[]) => args.slice(n)[0];
 ```
 
-```ts
+```ts title="typescript"
 const third = nthArg(2);
 third(1, 2, 3); // 3
 third(1, 2); // undefined

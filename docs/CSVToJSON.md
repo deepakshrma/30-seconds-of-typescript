@@ -15,7 +15,7 @@ Use `String.prototype.split('\n')` to create a string for each row, then `Array.
 Use `Array.prototype.reduce()` to create an object for each row's values, with the keys parsed from the title row.
 Omit the second argument, `delimiter`, to use a default delimiter of `,`.
 
-```ts
+```ts title="typescript"
 type StringMap<T = string> = { [key: string]: T };
 
 const CSVToJSON = (data: string, delimiter = ",") => {
@@ -33,7 +33,7 @@ const CSVToJSON = (data: string, delimiter = ",") => {
 };
 ```
 
-```ts
+```ts title="typescript"
 CSVToJSON("col1,col2\na,b\nc,d"); // [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];
 CSVToJSON("col1;col2\na;b\nc;d", ";"); // [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];
 ```

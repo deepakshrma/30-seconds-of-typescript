@@ -101,9 +101,12 @@ let System, __instantiate;
 System.register("util", [], function (exports_1, context_1) {
   "use strict";
   var HTMLEscapeChars,
+    HTMLUnEscapeChars,
     htmlEscapeReg,
+    htmlUnEscapeReg,
     isString,
     isFunction,
+    isArrayLike,
     accumulate,
     all,
     allEqual,
@@ -160,6 +163,7 @@ System.register("util", [], function (exports_1, context_1) {
     equals,
     deepEquals,
     escapeHTML,
+    unescapeHTML,
     escapeRegExp,
     factorial,
     memoize,
@@ -277,7 +281,48 @@ System.register("util", [], function (exports_1, context_1) {
     show,
     shuffle,
     size,
-    sleep;
+    sleep,
+    splitLines,
+    spreadOver,
+    stableSort,
+    stripHTMLTags,
+    sum,
+    sumBy,
+    tail,
+    take,
+    takeRight,
+    takeWhile,
+    takeRightWhile,
+    throttle,
+    times,
+    timeTaken,
+    toCamelCase,
+    toDecimalMark,
+    toKebabCase,
+    humanizeUrl,
+    toOrdinalSuffix,
+    toPairs,
+    toSnakeCase,
+    toTitleCase,
+    transform,
+    triggerEvent,
+    truncateString,
+    ellipsis,
+    unary,
+    uncurry,
+    union,
+    unionBy,
+    unionWith,
+    unique,
+    uniqueBy,
+    uniqueByRight,
+    unzip,
+    unzipWith,
+    URLJoin,
+    URLJoinWithParams,
+    UUIDGeneratorBrowser,
+    validateNumber,
+    yesNo;
   var __moduleName = context_1 && context_1.id;
   /**
    * Validate date
@@ -299,7 +344,22 @@ System.register("util", [], function (exports_1, context_1) {
         HTMLEscapeChars['"'] = "&quot;";
       })(HTMLEscapeChars || (HTMLEscapeChars = {}));
       exports_1("HTMLEscapeChars", HTMLEscapeChars);
-      htmlEscapeReg = new RegExp(`[${Object.keys(HTMLEscapeChars)}]`, "g");
+      (function (HTMLUnEscapeChars) {
+        HTMLUnEscapeChars["&amp;"] = "&";
+        HTMLUnEscapeChars["&lt;"] = "<";
+        HTMLUnEscapeChars["&gt;"] = ">";
+        HTMLUnEscapeChars["&#39;"] = "'";
+        HTMLUnEscapeChars["&quot;"] = '"';
+      })(HTMLUnEscapeChars || (HTMLUnEscapeChars = {}));
+      exports_1("HTMLUnEscapeChars", HTMLUnEscapeChars);
+      htmlEscapeReg = new RegExp(
+        `[${Object.keys(HTMLEscapeChars).join("")}]`,
+        "g"
+      );
+      htmlUnEscapeReg = new RegExp(
+        `${Object.keys(HTMLUnEscapeChars).join("|")}`,
+        "g"
+      );
       /**
        * Checks if the given argument is a string. Only works for string primitives.
        *
@@ -326,6 +386,20 @@ System.register("util", [], function (exports_1, context_1) {
         "isFunction",
         (isFunction = (str) => {
           return typeof str === "function";
+        })
+      );
+      /**
+       * Checks if the given argument is a array like
+       *
+       * @param str {string|T}
+       */
+      exports_1(
+        "isArrayLike",
+        (isArrayLike = (obj) => {
+          return (
+            obj[Symbol.iterator] instanceof Function &&
+            obj.entries instanceof Function
+          );
         })
       );
       /**
@@ -979,7 +1053,7 @@ System.register("util", [], function (exports_1, context_1) {
           let timeoutId;
           return function (...args) {
             clearTimeout(timeoutId);
-            timeoutId = window.setTimeout(() => fn.apply(this, args), ms);
+            timeoutId = setTimeout(() => fn.apply(this, args), ms);
           };
         })
       );
@@ -1191,6 +1265,17 @@ System.register("util", [], function (exports_1, context_1) {
         "escapeHTML",
         (escapeHTML = (str) =>
           str.replace(htmlEscapeReg, (tag) => HTMLEscapeChars[tag] || tag))
+      );
+      /**
+       * Unescapes escaped HTML characters.
+       *
+       * Use `String.prototype.replace()` with a regex that matches the characters that need to be unescaped, using a callback function to replace each escaped character instance with its associated unescaped character using a dictionary (object).
+       * @param str
+       */
+      exports_1(
+        "unescapeHTML",
+        (unescapeHTML = (str) =>
+          str.replace(htmlUnEscapeReg, (tag) => HTMLUnEscapeChars[tag] || tag))
       );
       /**
        * Escapes a string to use in a regular expression.
@@ -2345,8 +2430,7 @@ System.register("util", [], function (exports_1, context_1) {
             ? Object.entries(queryParameters).reduce(
                 (queryString, [key, val], index) => {
                   const symbol = queryString.length === 0 ? "?" : "&";
-                  queryString +=
-                    typeof val === "string" ? `${symbol}${key}=${val}` : "";
+                  queryString += val ? `${symbol}${key}=${val}` : "";
                   return queryString;
                 },
                 ""
@@ -2985,6 +3069,651 @@ System.register("util", [], function (exports_1, context_1) {
         "sleep",
         (sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)))
       );
+      /**
+       * Splits a multiline string into an array of lines.
+       *
+       * Use `String.prototype.split()` and a regular expression to match line breaks and create an array.
+       * @param str
+       */
+      exports_1("splitLines", (splitLines = (str) => str.split(/\r?\n/)));
+      /**
+       * Takes a variadic function and returns a closure that accepts an array of arguments to map to the inputs of the function.
+       *
+       * Use closures and the spread operator (`...`) to map the array of arguments to the inputs of the function.
+       *
+       * @param fn
+       */
+      exports_1(
+        "spreadOver",
+        (spreadOver = (fn) => (argsArr) => fn(...argsArr))
+      );
+      /**
+       * Performs stable sorting of an array, preserving the initial indexes of items when their values are the same.
+       * Does not mutate the original array, but returns a new array instead.
+       *
+       * Use `Array.prototype.map()` to pair each element of the input array with its corresponding index.
+       * Use `Array.prototype.sort()` and a `compare` function to sort the list, preserving their initial order if the items compared are equal.
+       * Use `Array.prototype.map()` to convert back to the initial array items.
+       *
+       * @param arr
+       * @param compare
+       */
+      exports_1(
+        "stableSort",
+        (stableSort = (arr, compare) =>
+          arr
+            .map((item, index) => ({ item, index }))
+            .sort((a, b) => compare(a.item, b.item) || a.index - b.index)
+            .map(({ item }) => item))
+      );
+      /**
+       * Removes HTML/XML tags from string.
+       *
+       * Use a regular expression to remove HTML/XML tags from a string.
+       *
+       * @param str
+       */
+      exports_1(
+        "stripHTMLTags",
+        (stripHTMLTags = (str) => str.replace(/<[^>]*>/g, ""))
+      );
+      /**
+       * Returns the sum of two or more numbers/arrays.
+       *
+       * Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.
+       */
+      exports_1(
+        "sum",
+        (sum = (...arr) => [...arr].reduce((acc, val) => acc + val, 0))
+      );
+      /**
+       * Returns the sum of an array, after mapping each element to a value using the provided function.
+       *
+       * Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "sumBy",
+        (sumBy = (arr, fn) => {
+          return arr
+            .map(typeof fn === "function" ? fn : (val) => val[fn])
+            .reduce((acc, val) => acc + val, 0);
+        })
+      );
+      /**
+       * Returns all elements in an array except for the first one.
+       *
+       * Return `Array.prototype.slice(1)` if the array's `length` is more than `1`, otherwise, return the whole array.
+       *
+       *
+       * @param arr
+       */
+      exports_1(
+        "tail",
+        (tail = (arr) => (arr.length > 1 ? arr.slice(1) : arr))
+      );
+      /**
+       * Returns an array with n elements removed from the beginning.
+       *
+       * Use `Array.prototype.slice()` to create a slice of the array with `n` elements taken from the beginning.
+       *
+       * @param arr
+       * @param n
+       */
+      exports_1("take", (take = (arr, n = 1) => arr.slice(0, n)));
+      /**
+       * Returns an array with n elements removed from the end.
+       *
+       * Use `Array.prototype.slice()` to create a slice of the array with `n` elements taken from the end.
+       *
+       * @param arr
+       * @param n
+       */
+      exports_1(
+        "takeRight",
+        (takeRight = (arr, n = 1) => arr.slice(arr.length - n, arr.length))
+      );
+      /**
+       * Removes elements in an array until the passed function returns `true`. Returns the removed elements.
+       *
+       * Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is `true`.
+       * Return the removed elements, using `Array.prototype.slice()`.
+       *
+       * @param arr
+       * @param func
+       */
+      exports_1(
+        "takeWhile",
+        (takeWhile = (arr, func) =>
+          arr.reduce((acc, el) => (func(el) ? acc : acc.concat(el)), []))
+      );
+      /**
+       * Removes elements from the end of an array until the passed function returns `true`. Returns the removed elements.
+       *
+       * Loop through the array, using a `Array.prototype.reduceRight()` and accumulating elements while the function returns falsy value.
+       *
+       * @param arr
+       * @param func
+       */
+      exports_1(
+        "takeRightWhile",
+        (takeRightWhile = (arr, func) =>
+          arr.reduceRight((acc, el) => (func(el) ? acc : [el].concat(acc)), []))
+      );
+      /**
+       *
+       * @param fn { Function }
+       * @param wait { Number } @default 300ms
+       */
+      exports_1(
+        "throttle",
+        (throttle = (fn, wait = 300) => {
+          let inThrottle, lastFn, lastTime;
+          return function () {
+            const context = this,
+              args = arguments;
+            if (!inThrottle) {
+              fn.apply(context, args);
+              lastTime = Date.now();
+              inThrottle = true;
+            } else {
+              clearTimeout(lastFn);
+              lastFn = setTimeout(() => {
+                if (Date.now() - lastTime >= wait) {
+                  fn.apply(context, args);
+                  lastTime = Date.now();
+                }
+              }, Math.max(wait - (Date.now() - lastTime), 0));
+            }
+          };
+        })
+      );
+      /**
+       * Iterates over a callback `n` times
+       *
+       * Use `Function.call()` to call `fn` `n` times or until it returns `false`.
+       * Omit the last argument, `context`, to use an `undefined` object (or the global object in non-strict mode).
+       *
+       * @param n
+       * @param fn
+       * @param context
+       */
+      exports_1(
+        "times",
+        (times = (n, fn, context = undefined) => {
+          let i = 0;
+          let result;
+          do {
+            result = fn.call(context, i);
+          } while (result !== false && ++i < n);
+          return result;
+        })
+      );
+      /**
+       * Measures the time taken by a function to execute.
+       *
+       * Use `console.time()` and `console.timeEnd()` to measure the difference between the start and end times to determine how long the callback took to execute.
+       *
+       * @param callback
+       */
+      exports_1(
+        "timeTaken",
+        (timeTaken = (callback) => {
+          const id = `timeTaken_${Date.now()}`;
+          console.time(id);
+          const r = callback();
+          console.timeEnd(id);
+          return r;
+        })
+      );
+      /**
+       * Converts a string to camelcase.
+       *
+       * Break the string into words and combine them capitalizing the first letter of each word, using a regexp.
+       *
+       * @param str
+       */
+      exports_1(
+        "toCamelCase",
+        (toCamelCase = (str) => {
+          let s = str
+            .match(
+              /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+            )
+            ?.map((x) => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
+            .join("");
+          return s && s.slice(0, 1).toLowerCase() + s.slice(1);
+        })
+      );
+      /**
+       * Converts a number to a decimal mark formatted string.
+       *
+       * Use `Number.prototype.toLocaleString()` to convert the numbre to decimal mark format.
+       *
+       * @param num
+       */
+      exports_1(
+        "toDecimalMark",
+        (toDecimalMark = (num) => num.toLocaleString("en-US"))
+      );
+      /**
+       * Converts a string to kebab case.
+       *
+       * Break the string into words and combine them adding `-` as a separator, using a regexp.
+       *
+       * @param str
+       */
+      exports_1(
+        "toKebabCase",
+        (toKebabCase = (str) =>
+          str
+            .match(
+              /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+            )
+            ?.map((x) => x.toLowerCase())
+            .join("-"))
+      );
+      /**
+       * Converts a string to humanize string url
+       *
+       * The \w metacharacter is used to find a word character.
+       * Replace all non character with -.
+       * Note: A word character is a character from a-z, A-Z, 0-9, including the _ (underscore) character.
+       *
+       * @param str
+       */
+      exports_1(
+        "humanizeUrl",
+        (humanizeUrl = (
+          str,
+          preserveUndersore = false,
+          preserveCase = false
+        ) => {
+          const re = preserveUndersore ? /[\W]+/g : /[\W_]+/g;
+          return preserveCase
+            ? str.replace(re, "-")
+            : str.replace(re, "-").toLowerCase();
+        })
+      );
+      /**
+       * Adds an ordinal suffix to a number.
+       *
+       * Use the modulo operator (`%`) to find values of single and tens digits.
+       * Find which ordinal pattern digits match.
+       * If digit is found in teens pattern, use teens ordinal.
+       * @param num
+       */
+      exports_1(
+        "toOrdinalSuffix",
+        (toOrdinalSuffix = (num) => {
+          const int = parseInt(String(num)),
+            digits = [int % 10, int % 100],
+            ordinals = ["st", "nd", "rd", "th"],
+            oPattern = [1, 2, 3, 4],
+            tPattern = [11, 12, 13, 14, 15, 16, 17, 18, 19];
+          return oPattern.includes(digits[0]) && !tPattern.includes(digits[1])
+            ? int + ordinals[digits[0] - 1]
+            : int + ordinals[3];
+        })
+      );
+      /**
+       * Creates an array of key-value pair arrays from an object or other iterable (object, array, string, set etc.).
+       *
+       * Check if `Symbol.iterator` is defined and, if so, use `Array.prototype.entries()` to get an iterator for the given iterable, `Array.from()` to convert the result to an array of key-value pair arrays.
+       * If `Symbol.iterator` is not defined for `obj`, use `Object.entries()` instead.
+       *
+       * const isArrayLike = (obj: any): obj is Array<any> => {
+       *   return (
+       *     obj[Symbol.iterator] instanceof Function && obj.entries instanceof Function
+       *   );
+       * };
+       * @param obj
+       */
+      exports_1(
+        "toPairs",
+        (toPairs = (obj) =>
+          !obj
+            ? []
+            : isArrayLike(obj)
+            ? Array.from(obj.entries())
+            : Object.entries(obj))
+      );
+      /**
+       * Break the string into words and combine them adding `_` as a separator, using a regexp.
+       *
+       * @param str
+       */
+      exports_1(
+        "toSnakeCase",
+        (toSnakeCase = (str) =>
+          str
+            .match(
+              /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+            )
+            ?.map((x) => x.toLowerCase())
+            .join("_"))
+      );
+      /**
+       * Converts a string to title case.
+       *
+       * Break the string into words, using a regexp, and combine them capitalizing the first letter of each word and adding a whitespace between them.
+       *
+       * @param str
+       */
+      exports_1(
+        "toTitleCase",
+        (toTitleCase = (str) =>
+          str
+            .match(
+              /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+            )
+            ?.map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+            .join(" "))
+      );
+      /**
+       * Applies a function against an accumulator and each key in the object (from left to right).
+       *
+       * Use `Object.keys(obj)` to iterate over each key in the object, `Array.prototype.reduce()` to call the apply the specified function against the given accumulator.
+       *
+       * @param obj
+       * @param fn
+       * @param acc
+       */
+      exports_1(
+        "transform",
+        (transform = (obj, fn, acc = {}) =>
+          Object.keys(obj).reduce((a, k) => fn(a, obj[k], k, obj), acc))
+      );
+      /**
+       * Triggers a specific event on a given element, optionally passing custom data.
+       *
+       * Use `new CustomEvent()` to create an event from the specified `eventType` and details.
+       * Use `el.dispatchEvent()` to trigger the newly created event on the given element.
+       * Omit the third argument, `detail`, if you do not want to pass custom data to the triggered event.
+       *
+       * @param el
+       * @param eventType
+       * @param detail
+       */
+      exports_1(
+        "triggerEvent",
+        (triggerEvent = (el, eventType, detail) =>
+          el.dispatchEvent &&
+          el.dispatchEvent(new CustomEvent(eventType, { detail })))
+      );
+      /**
+       * Truncates a string up to a specified length.
+       *
+       * Determine if the string's `length` is greater than `num`.
+       * Return the string truncated to the desired length, with `'...'` appended to the end or the original string.
+       *
+       * @param str
+       * @param num
+       */
+      exports_1(
+        "truncateString",
+        (truncateString = (str, num = str.length, ellipsisStr = "...") =>
+          str.length >= num
+            ? str.slice(
+                0,
+                num >= ellipsisStr.length ? num - ellipsisStr.length : num
+              ) + ellipsisStr
+            : str)
+      );
+      /**
+       * ellipsis a string up to a specified length.
+       *
+       * Determine if the string's `length` is greater than `num`.
+       * Return the string truncated to the desired length, with `'...'` appended to the end or the original string.
+       *
+       * @param str
+       * @param num
+       */
+      exports_1(
+        "ellipsis",
+        (ellipsis = (str, num = str.length, ellipsisStr = "...") =>
+          str.length >= num
+            ? str.slice(
+                0,
+                num >= ellipsisStr.length ? num - ellipsisStr.length : num
+              ) + ellipsisStr
+            : str)
+      );
+      /**
+       * Creates a function that accepts up to one argument, ignoring any additional arguments.
+       *
+       * Call the provided function, `fn`, with just the first argument given.
+       * @param fn
+       */
+      exports_1("unary", (unary = (fn) => (val) => fn(val)));
+      /**
+       * Uncurries a function up to depth `n`.
+       *
+       * Return a variadic function.
+       * Use `Array.prototype.reduce()` on the provided arguments to call each subsequent curry level of the function.
+       * If the `length` of the provided arguments is less than `n` throw an error.
+       * Otherwise, call `fn` with the proper amount of arguments, using `Array.prototype.slice(0, n)`.
+       * Omit the second argument, `n`, to uncurry up to depth `1`.
+       * @param fn
+       * @param n
+       */
+      exports_1(
+        "uncurry",
+        (uncurry = (fn, n = 1) => (...args) => {
+          const next = (acc) => (args) => args.reduce((x, y) => x(y), acc);
+          if (n > args.length) throw new RangeError("Arguments too few!");
+          return next(fn)(args.slice(0, n));
+        })
+      );
+      /**
+       * Returns every element that exists in any of the two arrays once.
+       *
+       * Create a `Set` with all values of `a` and `b` and convert to an array.
+       *
+       * @param a
+       * @param b
+       */
+      exports_1("union", (union = (a, b) => Array.from(new Set([...a, ...b]))));
+      /**
+       * Returns every element that exists in any of the two arrays once, after applying the provided function to each array element of both.
+       *
+       * Create a `Set` by applying all `fn` to all values of `a`.
+       * Create a `Set` from `a` and all elements in `b` whose value, after applying `fn` does not match a value in the previously created set.
+       * Return the last set converted to an array.
+       *
+       * @param a
+       * @param b
+       * @param fn
+       */
+      exports_1(
+        "unionBy",
+        (unionBy = (a, b, fn) => {
+          const s = new Set(a.map(fn));
+          return Array.from(new Set([...a, ...b.filter((x) => !s.has(fn(x)))]));
+        })
+      );
+      /**
+       *
+       * @param a
+       * @param b
+       * @param comp
+       */
+      exports_1(
+        "unionWith",
+        (unionWith = (a, b, comp) =>
+          Array.from(
+            new Set([
+              ...a,
+              ...b.filter((x) => a.findIndex((y) => comp(x, y)) === -1),
+            ])
+          ))
+      );
+      /**
+       * Returns all unique values in an array.
+       *
+       * Create a `Set` from the given array to discard duplicated values, then use the spread operator (`...`) to convert it back to an array.
+       *
+       * @param arr
+       */
+      exports_1("unique", (unique = (arr) => [...new Set(arr)]));
+      /**
+       * Returns all unique values of an array, based on a provided comparator function.
+       *
+       * Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the first unique occurrence of each value, based on the comparator function, `fn`.
+       * The comparator function takes two arguments: the values of the two elements being compared.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "uniqueBy",
+        (uniqueBy = (arr, fn) =>
+          arr.reduce((acc, v) => {
+            if (!acc.some((x) => fn(v, x))) acc.push(v);
+            return acc;
+          }, []))
+      );
+      /**
+       * Returns all unique values of an array, based on a provided comparator function, starting from the right.
+       *
+       * Use `Array.prototype.reduceRight()` and `Array.prototype.some()` for an array containing only the last unique occurrence of each value, based on the comparator function, `fn`.
+       * The comparator function takes two arguments: the values of the two elements being compared.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "uniqueByRight",
+        (uniqueByRight = (arr, fn) =>
+          arr.reduceRight((acc, v) => {
+            if (!acc.some((x) => fn(v, x))) acc.push(v);
+            return acc;
+          }, []))
+      );
+      /**
+       * Creates an array of arrays, ungrouping the elements in an array produced by [zip](/js/s/zip).
+       *
+       * Note: Provide size to make calculation faster
+       *
+       * Use `Math.max.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array.
+       * Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays.
+       *
+       * @param arr
+       * @param size
+       */
+      exports_1(
+        "unzip",
+        (unzip = (arr, size = 0) => {
+          return arr.reduce(
+            (acc, val) => (val.forEach((v, i) => acc[i].push(v)), acc),
+            Array.from({
+              length: size || Math.max(...arr.map((x) => x.length)),
+            }).map(() => [])
+          );
+        })
+      );
+      /**
+       * Creates an array of elements, ungrouping the elements in an array produced by [zip](#zip) and applying the provided function.
+       *
+       * Note: Provide size to make calculation faster
+       *
+       * Use `Math.max.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array.
+       * Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays.
+       * Use `Array.prototype.map()` and the spread operator (`...`) to apply `fn` to each individual group of elements.
+       *
+       * @param arr
+       * @param fn
+       */
+      exports_1(
+        "unzipWith",
+        (unzipWith = (arr, fn, size = 0) =>
+          arr
+            .reduce(
+              (acc, val) => (val.forEach((v, i) => acc[i].push(v)), acc),
+              Array.from({
+                length: size || Math.max(...arr.map((x) => x.length)),
+              }).map((x) => [])
+            )
+            .map((val) => fn(...val)))
+      );
+      /**
+       * Joins all given URL segments together, then normalizes the resulting URL.
+       *
+       * Use `String.prototype.join('/')` to combine URL segments, then a series of `String.prototype.replace()` calls with various regexps to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter).
+       *
+       * @param args
+       */
+      exports_1(
+        "URLJoin",
+        (URLJoin = (...args) =>
+          args
+            .join("/")
+            .replace(/[\/]+/g, "/")
+            .replace(/^(.+):\//, "$1://")
+            .replace(/^file:/, "file:/")
+            .replace(/\/(\?|&|#[^!])/g, "$1")
+            .replace(/\?/g, "&")
+            .replace("&", "?"))
+      );
+      /**
+       * Joins all given URL segments together, then normalizes the resulting URL.
+       *
+       * @param args
+       */
+      exports_1(
+        "URLJoinWithParams",
+        (URLJoinWithParams = (url, params) => {
+          return URLJoin(url, objectToQueryString(params));
+        })
+      );
+      /**
+       * Generates a UUID in a browser.
+       *
+       * Use `crypto` API to generate a UUID, compliant with [RFC4122](https://www.ietf.org/rfc/rfc4122.txt) version 4.
+       */
+      exports_1(
+        "UUIDGeneratorBrowser",
+        (UUIDGeneratorBrowser = () =>
+          (String(1e7) + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+            (
+              Number(c) ^
+              (crypto.getRandomValues(new Uint8Array(1))[0] &
+                (15 >> (Number(c) / 4)))
+            ).toString(16)
+          ))
+      );
+      /**
+       * Returns `true` if the given value is a number, `false` otherwise.
+       *
+       * Use `!isNaN()` in combination with `parseFloat()` to check if the argument is a number.
+       * Use `isFinite()` to check if the number is finite.
+       * Use `Number()` to check if the coercion holds.
+       *
+       * @param n
+       */
+      exports_1(
+        "validateNumber",
+        (validateNumber = (n) =>
+          !isNaN(parseFloat(String(n))) &&
+          isFinite(Number(n)) &&
+          Number(n) == n)
+      );
+      /**
+       * Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.
+       *
+       * Use `RegExp.test()` to check if the string evaluates to `y/yes` or `n/no`.
+       * Omit the second argument, `def` to set the default answer as `no`.
+       *
+       * @param val
+       * @param def
+       */
+      exports_1(
+        "yesNo",
+        (yesNo = (val, def = false) =>
+          /^(y|yes)$/i.test(val) ? true : /^(n|no)$/i.test(val) ? false : def)
+      );
     },
   };
 });
@@ -2993,6 +3722,7 @@ const __exp = __instantiate("util", false);
 export const isValidDate = __exp["isValidDate"];
 export const isString = __exp["isString"];
 export const isFunction = __exp["isFunction"];
+export const isArrayLike = __exp["isArrayLike"];
 export const accumulate = __exp["accumulate"];
 export const all = __exp["all"];
 export const allEqual = __exp["allEqual"];
@@ -3049,6 +3779,7 @@ export const either = __exp["either"];
 export const equals = __exp["equals"];
 export const deepEquals = __exp["deepEquals"];
 export const escapeHTML = __exp["escapeHTML"];
+export const unescapeHTML = __exp["unescapeHTML"];
 export const escapeRegExp = __exp["escapeRegExp"];
 export const factorial = __exp["factorial"];
 export const memoize = __exp["memoize"];
@@ -3166,3 +3897,44 @@ export const show = __exp["show"];
 export const shuffle = __exp["shuffle"];
 export const size = __exp["size"];
 export const sleep = __exp["sleep"];
+export const splitLines = __exp["splitLines"];
+export const spreadOver = __exp["spreadOver"];
+export const stableSort = __exp["stableSort"];
+export const stripHTMLTags = __exp["stripHTMLTags"];
+export const sum = __exp["sum"];
+export const sumBy = __exp["sumBy"];
+export const tail = __exp["tail"];
+export const take = __exp["take"];
+export const takeRight = __exp["takeRight"];
+export const takeWhile = __exp["takeWhile"];
+export const takeRightWhile = __exp["takeRightWhile"];
+export const throttle = __exp["throttle"];
+export const times = __exp["times"];
+export const timeTaken = __exp["timeTaken"];
+export const toCamelCase = __exp["toCamelCase"];
+export const toDecimalMark = __exp["toDecimalMark"];
+export const toKebabCase = __exp["toKebabCase"];
+export const humanizeUrl = __exp["humanizeUrl"];
+export const toOrdinalSuffix = __exp["toOrdinalSuffix"];
+export const toPairs = __exp["toPairs"];
+export const toSnakeCase = __exp["toSnakeCase"];
+export const toTitleCase = __exp["toTitleCase"];
+export const transform = __exp["transform"];
+export const triggerEvent = __exp["triggerEvent"];
+export const truncateString = __exp["truncateString"];
+export const ellipsis = __exp["ellipsis"];
+export const unary = __exp["unary"];
+export const uncurry = __exp["uncurry"];
+export const union = __exp["union"];
+export const unionBy = __exp["unionBy"];
+export const unionWith = __exp["unionWith"];
+export const unique = __exp["unique"];
+export const uniqueBy = __exp["uniqueBy"];
+export const uniqueByRight = __exp["uniqueByRight"];
+export const unzip = __exp["unzip"];
+export const unzipWith = __exp["unzipWith"];
+export const URLJoin = __exp["URLJoin"];
+export const URLJoinWithParams = __exp["URLJoinWithParams"];
+export const UUIDGeneratorBrowser = __exp["UUIDGeneratorBrowser"];
+export const validateNumber = __exp["validateNumber"];
+export const yesNo = __exp["yesNo"];

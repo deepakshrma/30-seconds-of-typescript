@@ -12,14 +12,14 @@ Indents each line in the provided string.
 Use `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line.
 Omit the third parameter, `indent`, to use a default indentation character of `' '`.
 
-```ts
+```ts title="typescript"
 const indentString = (str: string, count: number, indent = " ") => {
   indent = indent.repeat(count);
   return str.replace(/^/gm, indent);
 };
 ```
 
-```ts
+```ts title="typescript"
 indentString("Lorem\nIpsum", 2); // '  Lorem\n  Ipsum'
 indentString("Lorem\nIpsum", 2, "_"); // '__Lorem\n__Ipsum'
 ```

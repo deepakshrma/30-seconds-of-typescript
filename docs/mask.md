@@ -13,12 +13,12 @@ Use `String.prototype.slice()` to grab the portion of the characters that will r
 Omit the second argument, `num`, to keep a default of `4` characters unmasked. If `num` is negative, the unmasked characters will be at the start of the string.
 Omit the third argument, `mask`, to use a default character of `'*'` for the mask.
 
-```ts
+```ts title="typescript"
 const mask = (cc: number | string, num = 4, mask = "*") =>
   String(cc).slice(-num).padStart(String(cc).length, mask);
 ```
 
-```ts
+```ts title="typescript"
 mask(1234567890); // '******7890'
 mask(1234567890, 3); // '*******890'
 mask(1234567890, -4, "$"); // '$$$$567890'

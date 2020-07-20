@@ -12,7 +12,7 @@ Groups the elements of an array based on the given function and returns the coun
 Use `Array.prototype.map()` to map the values of an array to a function or property name.
 Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
 
-```ts
+```ts title="typescript"
 export const countBy = <T = any>(arr: T[], fn: Func<T> | string) => {
   const mapper = typeof fn === "function" ? fn : (val: any) => val[fn];
   return arr.reduce((acc, val) => {
@@ -23,7 +23,7 @@ export const countBy = <T = any>(arr: T[], fn: Func<T> | string) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 countBy([6.1, 4.2, 6.3], Math.floor); // {4: 1, 6: 2}
 countBy(["one", "two", "three"], "length"); // {3: 2, 5: 1}
 

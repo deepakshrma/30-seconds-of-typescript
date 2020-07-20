@@ -14,14 +14,14 @@ If the number of provided arguments (`args`) is sufficient, call the passed func
 Otherwise, return a curried function `fn` that expects the rest of the arguments.
 If you want to curry a function that accepts a variable number of arguments (a variadic function, e.g. `Math.min()`), you can optionally pass the number of arguments to the second parameter `arity`.
 
-```ts
+```ts title="typescript"
 type Func<T = any> = (...args: T[]) => any;
 
 const curry = (fn: Func, arity = fn.length, ...args: any[]): any =>
   arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);
 ```
 
-```ts
+```ts title="typescript"
 curry(Math.pow)(2)(10); // 1024
 curry(Math.min, 3)(10)(50)(2); // 2
 ```

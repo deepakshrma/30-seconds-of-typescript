@@ -11,10 +11,10 @@ Converts Celsius to Fahrenheit.
 
 Follows the conversion formula `F = 1.8C + 32`.
 
-```ts
+```ts title="typescript"
 const celsiusToFahrenheit = (degrees: number) => 1.8 * degrees + 32;
 ```
 
-```ts
+```ts title="typescript"
 celsiusToFahrenheit(33); // 91.4
 ```

@@ -3,8 +3,9 @@ title: uncurry
 tags: function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Uncurries a function up to depth `n`.
 
@@ -14,7 +15,7 @@ If the `length` of the provided arguments is less than `n` throw an error.
 Otherwise, call `fn` with the proper amount of arguments, using `Array.prototype.slice(0, n)`.
 Omit the second argument, `n`, to uncurry up to depth `1`.
 
-```js
+```ts title="typescript"
 const uncurry = (fn, n = 1) => (...args) => {
   const next = (acc) => (args) => args.reduce((x, y) => x(y), acc);
   if (n > args.length) throw new RangeError("Arguments too few!");
@@ -22,7 +23,7 @@ const uncurry = (fn, n = 1) => (...args) => {
 };
 ```
 
-```js
+```ts title="typescript"
 const add = (x) => (y) => (z) => x + y + z;
 const uncurriedAdd = uncurry(add, 3);
 uncurriedAdd(1, 2, 3); // 6

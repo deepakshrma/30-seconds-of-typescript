@@ -12,7 +12,7 @@ Invokes the provided function after `wait` milliseconds.
 Use `setTimeout()` to delay execution of `fn`.
 Use the spread (`...`) operator to supply the function with an arbitrary number of arguments.
 
-```ts
+```ts title="typescript"
 const delay = (fn: Func, wait: number, ...args: any[]) =>
   setTimeout(fn, wait, ...args);
 
@@ -23,7 +23,7 @@ const delayedPromise = (wait: number = 300, ...args: any[]) =>
   });
 ```
 
-```ts
+```ts title="typescript"
 delay(
   function (text) {
     console.log(text);

@@ -14,7 +14,7 @@ Check if the passed object is `null` and, if so, return `null`.
 Use `Object.assign()` and an empty object (`{}`) to create a shallow clone of the original.
 Use `Object.keys()` and `Array.prototype.forEach()` to determine which key-value pairs need to be deep cloned.
 
-```ts
+```ts title="typescript"
 export const deepClone = (obj: any) => {
   if (obj === null) return null;
   let clone = { ...obj };
@@ -31,7 +31,7 @@ export const deepClone = (obj: any) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 const a = { foo: "bar", obj: { a: 1, b: 2 }, arr: [1, 2, 3] };
 const b = deepClone(a); // a !== b, a.obj !== b.obj,
 // a.arr[0] === b.arr[0]

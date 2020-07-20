@@ -11,7 +11,7 @@ Returns a list of elements that exist in both arrays, using a provided comparato
 
 Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.
 
-```ts
+```ts title="typescript"
 const intersectionWith = (
   a: any[],
   b: any[],
@@ -19,7 +19,7 @@ const intersectionWith = (
 ) => a.filter((x) => b.findIndex((y) => comp(x, y)) !== -1);
 ```
 
-```ts
+```ts title="typescript"
 intersectionWith(
   [1, 1.2, 1.5, 3, 0],
   [1.9, 3, 0, 3.9],

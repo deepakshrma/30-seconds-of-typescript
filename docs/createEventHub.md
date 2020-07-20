@@ -15,7 +15,7 @@ For `on`, create an array for the event if it does not yet exist, then use `Arra
 to the array.
 For `off`, use `Array.prototype.findIndex()` to find the index of the handler in the event array and remove it using `Array.prototype.splice()`.
 
-```ts
+```ts title="typescript"
 const createEventHub = <T = any>() => ({
   hub: Object.create(null),
   emit(event: string, data?: T) {
@@ -37,7 +37,7 @@ const createEventHub = <T = any>() => ({
 
 **Basic String emitter:**
 
-```ts
+```ts title="typescript"
 const handler = (data: string) => console.log(data);
 const hub = createEventHub<string>();
 
@@ -55,7 +55,7 @@ hub.emit("message", "hello world");
 
 **Number Incremental:**
 
-```ts
+```ts title="typescript"
 let increment = 0;
 const numEmitter = createEventHub<number>();
 const incrementHandler = () => increment++;
@@ -69,7 +69,7 @@ assertEquals(increment, 2);
 
 **User Emitter:**
 
-```ts
+```ts title="typescript"
 interface User {
   name: string;
 }

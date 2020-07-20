@@ -15,7 +15,7 @@ Use `length` or `size` value if available or number of keys for objects.
 Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.
 Split strings into array of characters with `split('')` and return its length.
 
-```ts
+```ts title="typescript"
 const size = (val: any) =>
   Array.isArray(val)
     ? val.length
@@ -26,7 +26,7 @@ const size = (val: any) =>
     : 0;
 ```
 
-```ts
+```ts title="typescript"
 size([1, 2, 3, 4, 5]); // 5
 size("size"); // 4
 size({ one: 1, two: 2, three: 3 }); // 3

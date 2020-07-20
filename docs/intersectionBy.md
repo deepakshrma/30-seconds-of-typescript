@@ -11,7 +11,7 @@ Returns a list of elements that exist in both arrays, after applying the provide
 
 Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.
 
-```ts
+```ts title="typescript"
 export type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;
 const intersectionBy = (a: any[], b: any[], fn: MapFunc) => {
   const s = new Set(b.map(fn));
@@ -19,6 +19,6 @@ const intersectionBy = (a: any[], b: any[], fn: MapFunc) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]
 ```

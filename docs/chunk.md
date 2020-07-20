@@ -13,13 +13,13 @@ Use `Array.from()` to create a new array, that fits the number of chunks that wi
 Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`.
 If the original array can't be split evenly, the final chunk will contain the remaining elements.
 
-```ts
+```ts title="typescript"
 export const chunk = (arr: any[], size: number) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (_: any, i: number) =>
     arr.slice(i * size, i * size + size)
   );
 ```
 
-```ts
+```ts title="typescript"
 chunk([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]
 ```

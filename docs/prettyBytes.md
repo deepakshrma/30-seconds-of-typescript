@@ -15,7 +15,7 @@ Return the prettified string by building it up, taking into account the supplied
 Omit the second argument, `precision`, to use a default precision of `3` digits.
 Omit the third argument, `addSpace`, to add space between the number and unit by default.
 
-```ts
+```ts title="typescript"
 const prettyBytes = (num: number, precision = 3, addSpace = " ") => {
   const UNITS = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
   if (Math.abs(num) < 1) return num + addSpace + UNITS[0];
@@ -38,7 +38,7 @@ const prettyBytesT = (
 };
 ```
 
-```ts
+```ts title="typescript"
 prettyBytes(1000); // "1 KB"
 prettyBytes(-27145424323.5821, 5); // "-27.145 GB"
 prettyBytes(123456789, 3, ""); // "123MB"

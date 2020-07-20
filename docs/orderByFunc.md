@@ -11,7 +11,7 @@ Returns a sorted array of objects ordered by properties and orders.
 
 Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`. Uses compare function callback `fn` to compare result based on the `prop` type.
 
-```ts
+```ts title="typescript"
 export const orderByFunc = <T = AnyObject>(
   arr: T[],
   props: (keyof T)[],
@@ -28,7 +28,7 @@ export const orderByFunc = <T = AnyObject>(
   );
 ```
 
-```ts
+```ts title="typescript"
 const users = [
   { name: "fred", age: 48 },
   { name: "barney", age: 36 },

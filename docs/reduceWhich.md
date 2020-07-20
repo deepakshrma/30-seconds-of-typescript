@@ -12,14 +12,14 @@ Returns the minimum/maximum value of an array, after applying the provided funct
 Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.
 You can omit the second parameter, `comparator`, to use the default one that returns the minimum element in the array.
 
-```ts
+```ts title="typescript"
 const reduceWhich = <T extends number | string | AnyObject = number>(
   arr: T[],
   comparator: Function = (a: number, b: number) => (a - b) as number
 ) => arr.reduce((a: T, b: T) => (comparator(a, b) >= 0 ? b : a));
 ```
 
-```ts
+```ts title="typescript"
 reduceWhich([1, 3, 2]); // 1
 reduceWhich([1, 3, 2], (a, b) => b - a); // 3
 reduceWhich(

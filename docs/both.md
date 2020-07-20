@@ -11,13 +11,13 @@ Returns `true` if both functions return `true` for a given set of arguments, `fa
 
 Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`.
 
-```ts
+```ts title="typescript"
 type Func<T> = (...args: T[]) => any;
 export const both = <T = any>(f: Func<T>, g: Func<T>) => (...args: T[]) =>
   f(...args) && g(...args);
 ```
 
-```ts
+```ts title="typescript"
 const isEven = (num: number) => num % 2 === 0;
 const isPositive = (num: number) => num > 0;
 const isPositiveEven = both(isEven, isPositive);

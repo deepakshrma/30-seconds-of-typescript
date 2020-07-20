@@ -13,14 +13,14 @@ Use `Array.prototype.slice()` twice to get the elements after the specified inde
 Use the spread operator(`...`) to combine the two into one array.
 If `offset` is negative, the elements will be moved from end to start.
 
-```ts
+```ts title="typescript"
 const offset = (arr: any[], offset: number) => [
   ...arr.slice(offset),
   ...arr.slice(0, offset),
 ];
 ```
 
-```ts
+```ts title="typescript"
 offset([1, 2, 3, 4, 5], 2); // [3, 4, 5, 1, 2]
 offset([1, 2, 3, 4, 5], -2); // [4, 5, 1, 2, 3]
 ```

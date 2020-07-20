@@ -11,14 +11,14 @@ Insert(Immutable) the given values at the specified index.
 
 Use `Array.prototype.slice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.
 
-```ts
+```ts title="typescript"
 const insertAtImmutable = (arr: any[], i: number, ...v: any[]) => {
   arr.splice(i + 1, 0, ...v);
   return arr;
 };
 ```
 
-```ts
+```ts title="typescript"
 insertAtImmutable([1, 2, 3, 4], 2, 5); // [1, 2, 3, 5, 4]
 insertAtImmutable([2, 10], 0, 4, 6, 8); // [2, 4, 6, 8, 10]
 

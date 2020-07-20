@@ -24,7 +24,7 @@ npm i @deepakvishwakarma/ts-util
 
 ### How to use Typescript
 
-```ts
+```ts title="typescript"
 import { mask } from "@deepakvishwakarma/ts-util";
 
 console.log(mask(1234567890)); // '******7890'
@@ -34,7 +34,7 @@ console.log(mask(1234567890, -4, "$")); // '$$$$567890'
 
 ### How to use JS
 
-```ts
+```ts title="typescript"
 const { mask } = require("@deepakvishwakarma/ts-util");
 
 console.log(mask(1234567890)); // '******7890'
@@ -58,7 +58,7 @@ This repo has utility file, that can be imported to Deno and modern EcmaScript.
 
 ## How to use [Deno]
 
-```ts
+```ts title="typescript"
 import { all } from "https://denopkg.com/deepakshrma/30-seconds-of-typescript/util.ts";
 all([{ name: "D" }, { name: "D2" }], hasName); //true
 ```

@@ -11,11 +11,11 @@ Returns `true` if at least one of the arguments is `true`, `false` otherwise.
 
 Use the logical or (`||`) operator on the two given values.
 
-```ts
+```ts title="typescript"
 const or = (a, b) => a || b;
 ```
 
-```ts
+```ts title="typescript"
 or(true, true); // true
 or(true, false); // true
 or(false, false); // false

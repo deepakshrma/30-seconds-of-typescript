@@ -11,12 +11,12 @@ Assigns default values for all properties in an object that are `undefined`.
 
 Use `Object.assign()` to create a new empty object and copy the original one to maintain key order, use spread operator `...` to combine the default values, finally use `obj` again to overwrite properties that originally had a value.
 
-```ts
+```ts title="typescript"
 const defaults = (obj: any, ...defs: any[]) =>
   Object.assign({}, obj, ...defs, obj);
 ```
 
-```ts
+```ts title="typescript"
 defaults({ a: 1 }, { b: 2 }, { a: 3 }); // { a: 1, b: 2 }
 
 // React Components

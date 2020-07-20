@@ -9,7 +9,7 @@ tags: array,function,intermediate
 
 Executes a provided function once for each array element, starting from the array's last element.
 
-```ts
+```ts title="typescript"
 const forEachRight = (array: any[] = [], callback: Function) => {
   for (let index = array.length - 1; index >= 0; index--) {
     const element = array[index];
@@ -18,7 +18,7 @@ const forEachRight = (array: any[] = [], callback: Function) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 forEachRight([1, 2, 3, 4], (val) => console.log(val)); // '4', '3', '2', '1'
 
 let count = 0;

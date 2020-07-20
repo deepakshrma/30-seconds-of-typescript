@@ -12,7 +12,7 @@ Creates a new object from the combination of two or more objects.
 Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys.
 Use `hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects.
 
-```ts
+```ts title="typescript"
 const merge = (...objs: AnyObject[]) =>
   [...objs].reduce(
     (acc, obj) =>
@@ -26,7 +26,7 @@ const merge = (...objs: AnyObject[]) =>
   );
 ```
 
-```ts
+```ts title="typescript"
 const object = {
   a: [{ x: 2 }, { y: 4 }],
   b: 1,

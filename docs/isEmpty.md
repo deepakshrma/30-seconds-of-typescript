@@ -11,11 +11,11 @@ Returns true if the a value is an empty object, collection, has no enumerable pr
 
 Check if the provided value is `null` or if its `length` is equal to `0`.
 
-```ts
+```ts title="typescript"
 const isEmpty = (val: any) => val == null || !(Object.keys(val) || val).length;
 ```
 
-```ts
+```ts title="typescript"
 isEmpty([]); // true
 isEmpty({}); // true
 isEmpty(""); // true

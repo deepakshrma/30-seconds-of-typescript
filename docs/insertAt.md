@@ -13,13 +13,13 @@ Use `Array.prototype.splice()` with an appropriate index and a delete count of `
 
 Note: For immutable array see `insertAtImmutable`
 
-```ts
+```ts title="typescript"
 const insertAt = (arr: any[], i: number, ...v: any[]) => {
   return [...arr.slice(0, i + 1), ...v, ...arr.slice(i + 1)];
 };
 ```
 
-```ts
+```ts title="typescript"
 insertAt([1, 2, 3, 4], 2, 5); // [1, 2, 3, 5, 4]
 insertAt([2, 10], 0, 4, 6, 8); // [2, 4, 6, 8, 10]
 

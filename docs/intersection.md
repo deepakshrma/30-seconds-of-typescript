@@ -11,13 +11,13 @@ Returns a list of elements that exist in both arrays.
 
 Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.
 
-```ts
+```ts title="typescript"
 const intersection = (a: any[], b: any[]) => {
   const s = new Set(b);
   return [...new Set(a)].filter((x) => s.has(x));
 };
 ```
 
-```ts
+```ts title="typescript"
 intersection([1, 2, 3], [4, 3, 2]); // [2, 3]
 ```

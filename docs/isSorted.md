@@ -13,7 +13,7 @@ Calculate the ordering `direction` for the first two elements.
 Use `Object.entries()` to loop over array objects and compare them in pairs.
 Return `0` if the `direction` changes or the `direction` if the last element is reached.
 
-```ts
+```ts title="typescript"
 const isSorted = (arr) => {
   let direction = -(arr[0] - arr[1]);
   for (let [i, val] of arr.entries()) {
@@ -25,7 +25,7 @@ const isSorted = (arr) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 isSorted([0, 1, 2, 2]); // 1
 isSorted([4, 3, 2]); // -1
 isSorted([4, 3, 5]); // 0

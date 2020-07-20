@@ -13,7 +13,7 @@ Use recursion.[polyfill for `Array.prototype.flat`]
 Use `Array.prototype.concat()` with an empty array (`[]`) and the spread operator (`...`) to flatten an array.
 Recursively flatten each element that is an array.
 
-```ts
+```ts title="typescript"
 const deepFlatten = (arr: any[]): any[] => {
   if (typeof Array.prototype.flat !== "undefined") return arr.flat(Infinity);
   return [].concat(
@@ -22,7 +22,7 @@ const deepFlatten = (arr: any[]): any[] => {
 };
 ```
 
-```ts
+```ts title="typescript"
 deepFlatten([1, [2], [[3], 4], 5]); // [1, 2, 3, 4, 5]
 deepFlatten([1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```

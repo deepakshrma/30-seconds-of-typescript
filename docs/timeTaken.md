@@ -3,22 +3,24 @@ title: timeTaken
 tags: function,beginner
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Measures the time taken by a function to execute.
 
 Use `console.time()` and `console.timeEnd()` to measure the difference between the start and end times to determine how long the callback took to execute.
 
-```js
-const timeTaken = (callback) => {
-  console.time("timeTaken");
+```ts title="typescript"
+const timeTaken = (callback: Function) => {
+  const id = `timeTaken_${Date.now()}`;
+  console.time(id);
   const r = callback();
-  console.timeEnd("timeTaken");
+  console.timeEnd(id);
   return r;
 };
 ```
 
-```js
+```ts title="typescript"
 timeTaken(() => Math.pow(2, 10)); // 1024, (logged): timeTaken: 0.02099609375ms
 ```

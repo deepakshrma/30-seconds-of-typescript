@@ -12,7 +12,7 @@ Add special characters to text to print in color in the console (combined with `
 Use template literals and special characters to add the appropriate color code to the string output.
 For background colors, add a special character that resets the background color at the end of the string.
 
-```ts
+```ts title="typescript"
 export const colorize = new (class {
   color = (code: number, ended = false, ...messages: any[]) =>
     `\x1b[${code}m${messages.join(" ")}${ended ? "\x1b[0m" : ""}`;
@@ -37,7 +37,7 @@ export const colorize = new (class {
 const color = colorize;
 ```
 
-```ts
+```ts title="typescript"
 console.log(color.red("foo")); // 'foo' (red letters)
 console.log(color.bgBlue("foo", "bar")); // 'foo bar' (blue background)
 console.log(color.bgWhite(color.yellow("foo"), color.green("foo"))); // 'foo bar' (first

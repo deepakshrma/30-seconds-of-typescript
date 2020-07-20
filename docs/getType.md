@@ -12,7 +12,7 @@ Returns the native type of a value.
 Return `'undefined'` or `'null'` if the value is `undefined` or `null`.
 Otherwise, use `Object.prototype.constructor.name` to get the name of the constructor.
 
-```ts
+```ts title="typescript"
 const getType = (v: any) =>
   v === undefined
     ? "undefined"
@@ -21,7 +21,7 @@ const getType = (v: any) =>
     : v.constructor.name.toLowerCase();
 ```
 
-```ts
+```ts title="typescript"
 getType(new Set([1, 2, 3])); // 'set'
 getType(null); // 'null'
 getType(Deno), "object";

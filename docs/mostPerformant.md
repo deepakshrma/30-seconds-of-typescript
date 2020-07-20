@@ -12,7 +12,7 @@ Use `Array.prototype.map()` to generate an array where each value is the total t
 Use `Math.min()` to find the minimum execution time, and return the index of that shortest time which corresponds to the index of the most performant function.
 Omit the second argument, `iterations`, to use a default of 10,000 iterations. The more iterations, the more reliable the result but the longer it will take.
 
-```ts
+```ts title="typescript"
 const mostPerformant = (fns: Function[], iterations = 10000) => {
   const times = fns.map((fn) => {
     const before = performance.now();
@@ -23,7 +23,7 @@ const mostPerformant = (fns: Function[], iterations = 10000) => {
 };
 ```
 
-```ts
+```ts title="typescript"
 mostPerformant([
   () => {
     // 10x time iterate

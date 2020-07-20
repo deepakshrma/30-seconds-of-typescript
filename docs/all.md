@@ -12,12 +12,12 @@ Returns `true` if the provided predicate function returns `true` for all element
 Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`.
 Omit the second argument, `fn`, to use `Boolean` as a default.
 
-```ts
+```ts title="typescript"
 const all = <T = any>(arr: T[], fn: (t: T) => boolean = Boolean) =>
   arr.every(fn);
 ```
 
-```ts
+```ts title="typescript"
 assertEquals(all([1, 2, 3, 4]), true);
 assertEquals(all([2, null, 1]), false);
 

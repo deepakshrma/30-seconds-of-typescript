@@ -1,26 +1,27 @@
 ---
-title: uniqueElementsByRight
+title: uniqueByRight
 tags: array,function,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns all unique values of an array, based on a provided comparator function, starting from the right.
 
 Use `Array.prototype.reduceRight()` and `Array.prototype.some()` for an array containing only the last unique occurrence of each value, based on the comparator function, `fn`.
 The comparator function takes two arguments: the values of the two elements being compared.
 
-```js
-const uniqueElementsByRight = (arr, fn) =>
+```ts title="typescript"
+const uniqueByRight = (arr: any[], fn: Predicate) =>
   arr.reduceRight((acc, v) => {
-    if (!acc.some((x) => fn(v, x))) acc.push(v);
+    if (!acc.some((x: any) => fn(v, x))) acc.push(v);
     return acc;
   }, []);
 ```
 
-```js
-uniqueElementsByRight(
+```ts title="typescript"
+uniqueByRight(
   [
     { id: 0, value: "a" },
     { id: 1, value: "b" },
@@ -28,6 +29,6 @@ uniqueElementsByRight(
     { id: 1, value: "d" },
     { id: 0, value: "e" },
   ],
-  (a, b) => a.id == b.id
+  (a: any, b: any) => a.id == b.id
 ); // [ { id: 0, value: 'e' }, { id: 1, value: 'd' }, { id: 2, value: 'c' } ]
 ```

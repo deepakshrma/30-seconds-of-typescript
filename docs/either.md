@@ -11,12 +11,12 @@ Returns `true` if at least one function returns `true` for a given set of argume
 
 Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.
 
-```ts
+```ts title="typescript"
 export const either = (f: Function, g: Function) => (...args: any[]) =>
   f(...args) || g(...args);
 ```
 
-```ts
+```ts title="typescript"
 const isEven = (num: number) => num % 2 === 0;
 const isPositive = (num: number) => num > 0;
 const isPositiveOrEven = either(isPositive, isEven);

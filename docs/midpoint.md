@@ -11,7 +11,7 @@ Calculates the midpoint between two pairs of (x,y) points.
 
 Destructure the array to get `x1`, `y1`, `x2` and `y2`, calculate the midpoint for each dimension by dividing the sum of the two endpoints by `2`.
 
-```ts
+```ts title="typescript"
 type IPoint = [number, number];
 const midpoint = ([x1, y1]: IPoint, [x2, y2]: IPoint) => [
   (x1 + x2) / 2,
@@ -19,7 +19,7 @@ const midpoint = ([x1, y1]: IPoint, [x2, y2]: IPoint) => [
 ];
 ```
 
-```ts
+```ts title="typescript"
 midpoint([2, 2], [4, 4]); // [3, 3]
 midpoint([4, 4], [6, 6]); // [5, 5]
 midpoint([1, 3], [2, 4]); // [1.5, 3.5]

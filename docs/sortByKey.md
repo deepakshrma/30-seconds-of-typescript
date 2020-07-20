@@ -11,7 +11,7 @@ Sort by based on the key.
 
 Use the spread operator (`...`), `Array.prototype.sort()` and `String.localeCompare()` to sort array of data.
 
-```ts
+```ts title="typescript"
 enum SortByOrder {
   ASC = 1,
   DESC = -1,
@@ -27,7 +27,7 @@ const sortByKey = <T = any>(
 };
 ```
 
-```ts
+```ts title="typescript"
 sortBy([{ name: "02" }, { name: "01" }], "name"); // [{ name: "01" },{ name: "02" }]
 // Descending
 sortBy([{ name: "02" }, { name: "01" }], "name", -1); // [{ name: "02" },{ name: "01" }]

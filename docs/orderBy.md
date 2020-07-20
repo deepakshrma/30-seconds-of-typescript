@@ -12,7 +12,7 @@ Returns a sorted array of objects ordered by properties and orders.
 Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`, use array destructuring to swap the properties position depending on the order passed.
 If no `orders` array is passed it sort by `'asc'` by default.
 
-```ts
+```ts title="typescript"
 const orderBy = <T = AnyObject>(
   arr: T[],
   props: (keyof T)[],
@@ -32,7 +32,7 @@ const orderBy = <T = AnyObject>(
   );
 ```
 
-```ts
+```ts title="typescript"
 const users = [
   { name: "fred", age: 48 },
   { name: "barney", age: 36 },

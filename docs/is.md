@@ -11,14 +11,14 @@ Checks if the provided value is of the specified type `String name or Class itse
 
 Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`, and compare the `constructor` property on the value with `type` to check if the provided value is of the specified `type`.
 
-```ts
+```ts title="typescript"
 type ConstructorType<T = any> = new (...args: any[]) => T;
 export const is = (type: ConstructorType | string, val: any) =>
   ![, null].includes(val) &&
   (isString(type) ? val.constructor.name === type : val.constructor === type);
 ```
 
-```ts
+```ts title="typescript"
 is(Array, [1]); // true
 is(ArrayBuffer, new ArrayBuffer()); // true
 is(Map, new Map()); // true

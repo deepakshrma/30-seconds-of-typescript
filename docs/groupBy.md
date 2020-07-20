@@ -12,7 +12,7 @@ Groups the elements of an array based on the given function.
 Use `Array.prototype.map()` to map the values of an array to a function or property name.
 Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.
 
-```ts
+```ts title="typescript"
 type MapFunc<T = any> = (val: T, index?: number, arr?: T[]) => T;
 
 const groupBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
@@ -22,7 +22,7 @@ const groupBy = <T = any>(arr: T[], fn: MapFunc<T> | string) =>
   }, {});
 ```
 
-```ts
+```ts title="typescript"
 groupBy([6.1, 4.2, 6.3], Math.floor); // {4: [4.2], 6: [6.1, 6.3]}
 groupBy(["one", "two", "three"], "length"); // {3: ['one', 'two'], 5: ['three']}
 ```

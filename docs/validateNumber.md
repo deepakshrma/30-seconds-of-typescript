@@ -3,8 +3,9 @@ title: validateNumber
 tags: math,intermediate
 ---
 
+![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Returns `true` if the given value is a number, `false` otherwise.
 
@@ -12,11 +13,11 @@ Use `!isNaN()` in combination with `parseFloat()` to check if the argument is a 
 Use `isFinite()` to check if the number is finite.
 Use `Number()` to check if the coercion holds.
 
-```js
-const validateNumber = (n) =>
+```ts title="typescript"
+const validateNumber = (n: number | string) =>
   !isNaN(parseFloat(n)) && isFinite(n) && Number(n) == n;
 ```
 
-```js
+```ts title="typescript"
 validateNumber("10"); // true
 ```

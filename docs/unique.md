@@ -1,20 +1,20 @@
 ---
-title: radsToDegrees
-tags: math,beginner
+title: unique
+tags: array,beginner
 ---
 
 ![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-Converts an angle from radians to degrees.
+Returns all unique values in an array.
 
-Use `Math.PI` and the radian to degree formula to convert the angle from radians to degrees.
+Create a `Set` from the given array to discard duplicated values, then use the spread operator (`...`) to convert it back to an array.
 
 ```ts title="typescript"
-const radsToDegrees = (rad) => (rad * 180.0) / Math.PI;
+const unique = (arr: any[]) => [...new Set(arr)];
 ```
 
 ```ts title="typescript"
-radsToDegrees(Math.PI / 2); // 90
+unique([1, 2, 2, 3, 4, 4, 5]); // [1, 2, 3, 4, 5]
 ```

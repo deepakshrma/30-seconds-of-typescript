@@ -11,11 +11,11 @@ Returns the maximum of the given dates.
 
 Use the ES6 spread syntax with `Math.max` to find the maximum date value, `new Date()` to convert it to a `Date` object.
 
-```ts
+```ts title="typescript"
 const maxDate = (dates: Date[]) => new Date(Math.max(...dates.map(Number)));
 ```
 
-```ts
+```ts title="typescript"
 const array = [
   new Date(2017, 4, 13),
   new Date(2018, 2, 12),
