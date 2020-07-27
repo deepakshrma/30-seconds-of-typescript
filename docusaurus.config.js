@@ -4,7 +4,7 @@ module.exports = {
   title: "30 Seconds of Typescript- Inspired by 30-seconds-of-code",
   tagline:
     "30 Seconds of Typescript, Code Snippets to increase productivity[WIP]",
-  url: "https://deepakshrma.github.io/30-seconds-of-typescript/docs/",
+  url: "https://decipher.dev",
   baseUrl: "/30-seconds-of-typescript/",
   favicon: "img/favicon.ico",
   organizationName: "deepakshrma", // Usually your GitHub org/user name.
@@ -17,6 +17,8 @@ module.exports = {
       logo: {
         alt: "30 Seconds of Typescript Logo",
         src: "img/logo.svg",
+        href: "https://decipher.dev/",
+        target: "_self",
       },
       links: [
         {

@@ -1,29 +1,31 @@
-export type StringOrNumber = string | number;
 export type Predicate = (...item: any[]) => boolean;
+
 export type Func<T = any> = (...args: T[]) => any;
+
 export type MapFunc<T = any, R = any> = (
   val: T,
   index?: number,
   arr?: T[]
 ) => R;
-export type ReducerFunc<T = any, R = any> = (
-  val: T,
-  index?: number,
-  arr?: T[]
-) => R;
+
 export type AnyObject<T = any> = { [key: string]: T };
+
 export type SortOrder = 1 | -1;
+
 export interface IEventListener {
   addEventListener: (event: string, fn: Func) => void;
 }
+
 export interface HTMLElementLike {
   style: AnyObject;
   dispatchEvent?: Function;
 }
+
 export interface IElement {
   type: string;
   props?: IElementProps;
 }
+
 export interface IElementProps {
   type: string;
   nodeValue?: string;
@@ -32,6 +34,7 @@ export interface IElementProps {
   children?: IElement[];
   [key: string]: any;
 }
+
 export interface ArrayLike {
   entries(): IterableIterator<any>;
 }
@@ -50,58 +53,16 @@ export enum HTMLUnEscapeChars {
   "&#39;" = "'",
   "&quot;" = '"',
 }
+
 const htmlEscapeReg = new RegExp(
   `[${Object.keys(HTMLEscapeChars).join("")}]`,
   "g"
 );
+
 const htmlUnEscapeReg = new RegExp(
   `${Object.keys(HTMLUnEscapeChars).join("|")}`,
   "g"
 );
-
-/**
- * Checks if the given argument is a string. Only works for string primitives.
- *
- * Use `typeof` to check if a value is classified as a string primitive.
- * Guard Function to check string type
- *
- * @param str {string|T}
- */
-export const isString = <T = any>(str: string | T): str is string => {
-  return typeof str === "string";
-};
-
-/**
- * Checks if the given argument is a string. Only works for string primitives.
- *
- * Use `typeof` to check if a value is classified as a string primitive.
- * Guard Function to check string type
- *
- * @param str {string|T}
- */
-export const isFunction = <T = any>(str: Function | T): str is Function => {
-  return typeof str === "function";
-};
-
-/**
- * Checks if the given argument is a array like
- *
- * @param str {string|T}
- */
-export const isArrayLike = (obj: any): obj is Array<any> => {
-  return (
-    obj[Symbol.iterator] instanceof Function && obj.entries instanceof Function
-  );
-};
-
-/**
- * Validate date
- *
- * @param date {Date}
- */
-export function isValidDate(date: Date) {
-  return date instanceof Date && !isNaN(date.getTime());
-}
 
 /**
  * Returns an array of partial sums.
@@ -502,7 +463,7 @@ export const colorize = new (class {
  * Use template literals and special characters to add the appropriate color code to the string output.
  * For background colors, add a special character that resets the background color at the end of the string.
  */
-export const color = colorize;
+export const colors = colorize;
 
 // console.log(colorize.black("foo")); // 'foo' (red letters)
 // console.log(colorize.bgBlue("foo", "bar")); // 'foo bar' (blue background)
@@ -553,6 +514,15 @@ export const compose = (...fns: Func[]) =>
  */
 export const composeRight = (...fns: Func[]) =>
   fns.reduce((f, g) => (...args: any[]) => g(...castArray(f(...args))));
+
+/**
+ * Returns `true` if given string s1 contains s2. Compare is case insensitive.
+ *
+ *
+ * @param str {string}
+ */
+export const contains = (s1: string, s2: string) =>
+  s1.toLowerCase().indexOf(s2.toLowerCase());
 
 /**
  * Returns `true` if the given string contains any whitespace characters, `false` otherwise.
@@ -922,6 +892,24 @@ export const deepEquals = (a: any, b: any): boolean => {
 };
 
 /**
+ * Convert array(csv) string to doanloadable file
+ *
+ * @param csvContent
+ * @param name
+ */
+export const downloadCSV = (
+  csvContent: string,
+  name: string = "download.csv"
+) => {
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", name);
+  document.body.appendChild(link); // Required for FF
+  link.click(); // This will download the data file named "my_data.csv".
+};
+
+/**
  * Escapes a string for use in HTML.
  *
  * Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped, using a callback function to replace each character instance with its associated escaped character using a dictionary (object).
@@ -1092,6 +1080,33 @@ export const formatDuration = (ms: number) => {
     .join(", ");
 };
 
+/**
+ * Format date based on format staring, using regex match
+ *
+ * @param formatStr
+ * @param date
+ */
+const padLeft = (str: string | number, num: number = 2, fill = "0") =>
+  String(str).padStart(num, fill);
+export const formatDate = (formatStr: string, date: Date | string) => {
+  const d = new Date(date);
+  const time: any = {
+    YY: padLeft(d.getFullYear()).substr(2, 4),
+    YYYY: padLeft(d.getFullYear()),
+    MM: padLeft(d.getMonth() + 1),
+    DD: padLeft(d.getDate()),
+    hh: padLeft(d.getHours()),
+    mm: padLeft(d.getMinutes()),
+    ss: padLeft(d.getSeconds()),
+    M: padLeft(d.getMilliseconds(), 3),
+  };
+  return formatStr.replace(
+    new RegExp(`${Object.keys(time).join("|")}`, "g"),
+    (subStr: string) => {
+      return time[subStr] || "";
+    }
+  );
+};
 interface IFormData {
   new (form: any): FormData;
 }
@@ -1324,6 +1339,50 @@ export const indentString = (str: string, count: number, indent = " ") => {
   indent = indent.repeat(count);
   return str.replace(/^/gm, indent);
 };
+
+/**
+ * Checks if the given argument is a string. Only works for string primitives.
+ *
+ * Use `typeof` to check if a value is classified as a string primitive.
+ * Guard Function to check string type
+ *
+ * @param str {string|T}
+ */
+export const isFunction = <T = any>(str: Function | T): str is Function => {
+  return typeof str === "function";
+};
+
+/**
+ * Checks if the given argument is a array like
+ *
+ * @param str {string|T}
+ */
+export const isArrayLike = (obj: any): obj is Array<any> => {
+  return (
+    obj[Symbol.iterator] instanceof Function && obj.entries instanceof Function
+  );
+};
+
+/**
+ * Checks if the given argument is a string. Only works for string primitives.
+ *
+ * Use `typeof` to check if a value is classified as a string primitive.
+ * Guard Function to check string type
+ *
+ * @param str {string|T}
+ */
+export const isString = <T = any>(str: string | T): str is string => {
+  return typeof str === "string";
+};
+
+/**
+ * Validate date
+ *
+ * @param date {Date}
+ */
+export function isValidDate(date: Date) {
+  return date instanceof Date && !isNaN(date.getTime());
+}
 
 /**
  * Initializes and fills an array with the specified values.
@@ -1826,7 +1885,7 @@ export const maxDate = (dates: Date[]) =>
  * @param n
  */
 export const maxN = (arr: any[], n = 1, order: SortOrder = 1) =>
-  [...arr].sort((a, b) => order * (b - a)).slice(0, n);
+  [...arr].sort((a, b) => (order as number) * (b - a)).slice(0, n);
 
 /**
  * Creates a new object from the combination of two or more objects.
@@ -2173,8 +2232,10 @@ export const orderByFunc = <T = AnyObject>(
  * @param length
  * @param char
  */
-export const pad = (str: string, length: number, char = " ") =>
-  str.padStart((str.length + length) / 2, char).padEnd(length, char);
+export const pad = (str: string | number, length: number, char = " ") => {
+  const s = String(str);
+  return s.padStart((s.length + length) / 2, char).padEnd(length, char);
+};
 
 /**
  *   Parse an HTTP Cookie header string and return an object of all cookie name-value pairs.

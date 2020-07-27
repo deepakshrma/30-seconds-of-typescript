@@ -78,6 +78,7 @@ import {
   includesAll,
   indentString,
   fillArray,
+  formatDate,
   initializeArray,
   inRange,
   insertAt,
@@ -1939,4 +1940,19 @@ Deno.test("yesNo #1", () => {
   assertEquals(yesNo("yes"), true);
   assertEquals(yesNo("No"), false);
   assertEquals(yesNo("Foo", true), true);
+});
+
+// formatDate
+Deno.test("formatDate #1", () => {
+  const date = new Date(2020, 7, 22, 22, 22, 22, 222);
+  assertEquals(
+    formatDate("YYYY-DD-MM hh:mm:ss M", date),
+    "2020-22-08 22:22:22 222"
+  );
+
+  const date2 = new Date(2020, 7, 9, 9, 9, 9, 99);
+  assertEquals(
+    formatDate("YYYY-DD-MM hh:mm:ss M", date2),
+    "2020-09-08 09:09:09 099"
+  );
 });

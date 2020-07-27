@@ -1,7 +1,7 @@
 {
   "name": "@deepakvishwakarma/ts-util",
   "description": "Utility library,code snippets like lodash for typescript, typescriptreact(tsx) and deno [inspired by 30-seconds-of-code].",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "scripts": {
     "prepublishOnly": "npm test && ts-node test/test.ts",

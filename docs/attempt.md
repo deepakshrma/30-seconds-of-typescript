@@ -12,7 +12,7 @@ Attempts to invoke a function with the provided arguments, returning either the 
 Use a `try... catch` block to return either the result of the function or an appropriate error.
 
 ```ts title="typescript"
-const attempt = (fn, ...args) => {
+const attempt = (fn: (...args: any[]) => any, ...args: any[]) => {
   try {
     return fn(...args);
   } catch (e) {

@@ -104,9 +104,6 @@ System.register("util", [], function (exports_1, context_1) {
     HTMLUnEscapeChars,
     htmlEscapeReg,
     htmlUnEscapeReg,
-    isString,
-    isFunction,
-    isArrayLike,
     accumulate,
     all,
     allEqual,
@@ -136,12 +133,13 @@ System.register("util", [], function (exports_1, context_1) {
     celsiusToFahrenheit,
     chunk,
     colorize,
-    color,
+    colors,
     compact,
     compactWhitespace,
     complement,
     compose,
     composeRight,
+    contains,
     containsWhitespace,
     countBy,
     countOccurrences,
@@ -162,6 +160,7 @@ System.register("util", [], function (exports_1, context_1) {
     either,
     equals,
     deepEquals,
+    downloadCSV,
     escapeHTML,
     unescapeHTML,
     escapeRegExp,
@@ -174,6 +173,8 @@ System.register("util", [], function (exports_1, context_1) {
     flatten,
     forEachRight,
     formatDuration,
+    padLeft,
+    formatDate,
     get,
     getAll,
     getBaseURL,
@@ -188,6 +189,9 @@ System.register("util", [], function (exports_1, context_1) {
     httpsRedirect,
     includesAll,
     indentString,
+    isFunction,
+    isArrayLike,
+    isString,
     fillArray,
     initializeArray,
     inRange,
@@ -359,48 +363,6 @@ System.register("util", [], function (exports_1, context_1) {
       htmlUnEscapeReg = new RegExp(
         `${Object.keys(HTMLUnEscapeChars).join("|")}`,
         "g"
-      );
-      /**
-       * Checks if the given argument is a string. Only works for string primitives.
-       *
-       * Use `typeof` to check if a value is classified as a string primitive.
-       * Guard Function to check string type
-       *
-       * @param str {string|T}
-       */
-      exports_1(
-        "isString",
-        (isString = (str) => {
-          return typeof str === "string";
-        })
-      );
-      /**
-       * Checks if the given argument is a string. Only works for string primitives.
-       *
-       * Use `typeof` to check if a value is classified as a string primitive.
-       * Guard Function to check string type
-       *
-       * @param str {string|T}
-       */
-      exports_1(
-        "isFunction",
-        (isFunction = (str) => {
-          return typeof str === "function";
-        })
-      );
-      /**
-       * Checks if the given argument is a array like
-       *
-       * @param str {string|T}
-       */
-      exports_1(
-        "isArrayLike",
-        (isArrayLike = (obj) => {
-          return (
-            obj[Symbol.iterator] instanceof Function &&
-            obj.entries instanceof Function
-          );
-        })
       );
       /**
        * Returns an array of partial sums.
@@ -815,7 +777,7 @@ System.register("util", [], function (exports_1, context_1) {
        * Use template literals and special characters to add the appropriate color code to the string output.
        * For background colors, add a special character that resets the background color at the end of the string.
        */
-      exports_1("color", (color = colorize));
+      exports_1("colors", (colors = colorize));
       // console.log(colorize.black("foo")); // 'foo' (red letters)
       // console.log(colorize.bgBlue("foo", "bar")); // 'foo bar' (blue background)
       // console.log(colorize.bgWhite(colorize.yellow("foo"), colorize.green("foo"))); // 'foo bar' (first
@@ -868,6 +830,16 @@ System.register("util", [], function (exports_1, context_1) {
         "composeRight",
         (composeRight = (...fns) =>
           fns.reduce((f, g) => (...args) => g(...castArray(f(...args)))))
+      );
+      /**
+       * Returns `true` if given string s1 contains s2. Compare is case insensitive.
+       *
+       *
+       * @param str {string}
+       */
+      exports_1(
+        "contains",
+        (contains = (s1, s2) => s1.toLowerCase().indexOf(s2.toLowerCase()))
       );
       /**
        * Returns `true` if the given string contains any whitespace characters, `false` otherwise.
@@ -1255,6 +1227,23 @@ System.register("util", [], function (exports_1, context_1) {
         })
       );
       /**
+       * Convert array(csv) string to doanloadable file
+       *
+       * @param csvContent
+       * @param name
+       */
+      exports_1(
+        "downloadCSV",
+        (downloadCSV = (csvContent, name = "download.csv") => {
+          var encodedUri = encodeURI(csvContent);
+          var link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", name);
+          document.body.appendChild(link); // Required for FF
+          link.click(); // This will download the data file named "my_data.csv".
+        })
+      );
+      /**
        * Escapes a string for use in HTML.
        *
        * Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped, using a callback function to replace each character instance with its associated escaped character using a dictionary (object).
@@ -1442,6 +1431,35 @@ System.register("util", [], function (exports_1, context_1) {
             .filter((val) => val[1] !== 0)
             .map(([key, val]) => `${val} ${key}${val !== 1 ? "s" : ""}`)
             .join(", ");
+        })
+      );
+      /**
+       * Format date based on format staring, using regex match
+       *
+       * @param formatStr
+       * @param date
+       */
+      padLeft = (str, num = 2, fill = "0") => String(str).padStart(num, fill);
+      exports_1(
+        "formatDate",
+        (formatDate = (formatStr, date) => {
+          const d = new Date(date);
+          const time = {
+            YY: padLeft(d.getFullYear()).substr(2, 4),
+            YYYY: padLeft(d.getFullYear()),
+            MM: padLeft(d.getMonth() + 1),
+            DD: padLeft(d.getDate()),
+            hh: padLeft(d.getHours()),
+            mm: padLeft(d.getMinutes()),
+            ss: padLeft(d.getSeconds()),
+            M: padLeft(d.getMilliseconds(), 3),
+          };
+          return formatStr.replace(
+            new RegExp(`${Object.keys(time).join("|")}`, "g"),
+            (subStr) => {
+              return time[subStr] || "";
+            }
+          );
         })
       );
       // /**
@@ -1680,6 +1698,48 @@ System.register("util", [], function (exports_1, context_1) {
         (indentString = (str, count, indent = " ") => {
           indent = indent.repeat(count);
           return str.replace(/^/gm, indent);
+        })
+      );
+      /**
+       * Checks if the given argument is a string. Only works for string primitives.
+       *
+       * Use `typeof` to check if a value is classified as a string primitive.
+       * Guard Function to check string type
+       *
+       * @param str {string|T}
+       */
+      exports_1(
+        "isFunction",
+        (isFunction = (str) => {
+          return typeof str === "function";
+        })
+      );
+      /**
+       * Checks if the given argument is a array like
+       *
+       * @param str {string|T}
+       */
+      exports_1(
+        "isArrayLike",
+        (isArrayLike = (obj) => {
+          return (
+            obj[Symbol.iterator] instanceof Function &&
+            obj.entries instanceof Function
+          );
+        })
+      );
+      /**
+       * Checks if the given argument is a string. Only works for string primitives.
+       *
+       * Use `typeof` to check if a value is classified as a string primitive.
+       * Guard Function to check string type
+       *
+       * @param str {string|T}
+       */
+      exports_1(
+        "isString",
+        (isString = (str) => {
+          return typeof str === "string";
         })
       );
       /**
@@ -2557,8 +2617,10 @@ System.register("util", [], function (exports_1, context_1) {
        */
       exports_1(
         "pad",
-        (pad = (str, length, char = " ") =>
-          str.padStart((str.length + length) / 2, char).padEnd(length, char))
+        (pad = (str, length, char = " ") => {
+          const s = String(str);
+          return s.padStart((s.length + length) / 2, char).padEnd(length, char);
+        })
       );
       /**
        *   Parse an HTTP Cookie header string and return an object of all cookie name-value pairs.
@@ -3720,9 +3782,6 @@ System.register("util", [], function (exports_1, context_1) {
 
 const __exp = __instantiate("util", false);
 export const isValidDate = __exp["isValidDate"];
-export const isString = __exp["isString"];
-export const isFunction = __exp["isFunction"];
-export const isArrayLike = __exp["isArrayLike"];
 export const accumulate = __exp["accumulate"];
 export const all = __exp["all"];
 export const allEqual = __exp["allEqual"];
@@ -3752,12 +3811,13 @@ export const castArray = __exp["castArray"];
 export const celsiusToFahrenheit = __exp["celsiusToFahrenheit"];
 export const chunk = __exp["chunk"];
 export const colorize = __exp["colorize"];
-export const color = __exp["color"];
+export const colors = __exp["colors"];
 export const compact = __exp["compact"];
 export const compactWhitespace = __exp["compactWhitespace"];
 export const complement = __exp["complement"];
 export const compose = __exp["compose"];
 export const composeRight = __exp["composeRight"];
+export const contains = __exp["contains"];
 export const containsWhitespace = __exp["containsWhitespace"];
 export const countBy = __exp["countBy"];
 export const countOccurrences = __exp["countOccurrences"];
@@ -3778,6 +3838,7 @@ export const delayedPromise = __exp["delayedPromise"];
 export const either = __exp["either"];
 export const equals = __exp["equals"];
 export const deepEquals = __exp["deepEquals"];
+export const downloadCSV = __exp["downloadCSV"];
 export const escapeHTML = __exp["escapeHTML"];
 export const unescapeHTML = __exp["unescapeHTML"];
 export const escapeRegExp = __exp["escapeRegExp"];
@@ -3790,6 +3851,7 @@ export const findKey = __exp["findKey"];
 export const flatten = __exp["flatten"];
 export const forEachRight = __exp["forEachRight"];
 export const formatDuration = __exp["formatDuration"];
+export const formatDate = __exp["formatDate"];
 export const get = __exp["get"];
 export const getAll = __exp["getAll"];
 export const getBaseURL = __exp["getBaseURL"];
@@ -3804,6 +3866,9 @@ export const hide = __exp["hide"];
 export const httpsRedirect = __exp["httpsRedirect"];
 export const includesAll = __exp["includesAll"];
 export const indentString = __exp["indentString"];
+export const isFunction = __exp["isFunction"];
+export const isArrayLike = __exp["isArrayLike"];
+export const isString = __exp["isString"];
 export const fillArray = __exp["fillArray"];
 export const initializeArray = __exp["initializeArray"];
 export const inRange = __exp["inRange"];

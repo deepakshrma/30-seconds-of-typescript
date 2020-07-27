@@ -14,8 +14,7 @@ Use `Array.prototype.join('\n')` to combine all rows into a CSV string, separati
 Omit the second argument, `delimiter`, to use a default delimiter of `,`.
 
 ```ts title="typescript"
-type StringOrNumber = string | number;
-const arrayToCSV = (arr: StringOrNumber[][], delimiter = ",") =>
+const arrayToCSV = (arr: (string | number)[][], delimiter = ",") =>
   arr
     .map((v) =>
       v

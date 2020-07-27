@@ -22,7 +22,7 @@ All the documents can be found on [30-seconds-of-typescript](https://deepakshrma
 npm i @deepakvishwakarma/ts-util
 ```
 
-### How to use Typescript
+### How to use [Typescript]
 
 ```ts title="typescript"
 import { mask } from "@deepakvishwakarma/ts-util";
@@ -32,7 +32,7 @@ console.log(mask(1234567890, 3)); // '*******890'
 console.log(mask(1234567890, -4, "$")); // '$$$$567890'
 ```
 
-### How to use JS
+### How to use [JS]
 
 ```ts title="typescript"
 const { mask } = require("@deepakvishwakarma/ts-util");
@@ -63,7 +63,7 @@ import { all } from "https://denopkg.com/deepakshrma/30-seconds-of-typescript/ut
 all([{ name: "D" }, { name: "D2" }], hasName); //true
 ```
 
-## How to modern HTML|JS(Using Github CDN)
+## How to use using Github CDN [Modern HTML|JS]
 
 ```html
 <script type="module">
