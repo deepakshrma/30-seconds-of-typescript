@@ -1,5 +1,7 @@
-const configs = require("./config");
-
+const path = require("path");
+console.log(
+  require.resolve(path.resolve(__dirname, "plugins/tags-creator.js"))
+);
 module.exports = {
   title: "30 Seconds of Typescript- Inspired by 30-seconds-of-code",
   tagline:
@@ -9,22 +11,34 @@ module.exports = {
   favicon: "img/favicon.ico",
   organizationName: "deepakshrma", // Usually your GitHub org/user name.
   projectName: "30-seconds-of-typescript", // Usually your repo name.
-  ...configs,
+  stylesheets: [
+    {
+      href:
+        "https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Open+Sans&display=swap",
+      type: "text/css",
+    },
+  ],
   themeConfig: {
-    ...configs.themeConfig,
+    prism: {
+      defaultLanguage: "ts",
+    },
     googleAnalytics: {
       trackingID: "UA-172955705-1",
     },
     navbar: {
       hideOnScroll: true,
-      title: "30 Seconds of Typescript",
       logo: {
-        alt: "30 Seconds of Typescript Logo",
-        src: "img/logo.svg",
+        alt: "30 Seconds of Typescript",
+        src: "img/favicon.ico",
         href: "https://decipher.dev/",
         target: "_self",
       },
       links: [
+        {
+          to: "/",
+          label: "30 Seconds of Typescript",
+          position: "left",
+        },
         {
           to: "docs/",
           activeBasePath: "docs",
@@ -38,7 +52,54 @@ module.exports = {
         },
       ],
     },
+    footer: {
+      style: "dark",
+      links: [
+        {
+          title: "Follow me",
+          items: [
+            {
+              label: "Linkdin",
+              href: "https://www.linkedin.com/in/xdeepakv/",
+            },
+            {
+              label: "Medium.com",
+              href: "https://medium.com/@deepak_v",
+            },
+            {
+              label: "Discord",
+              href: "https://discord.com/channels/@deepakv",
+            },
+          ],
+        },
+        {
+          title: "Friend with me",
+          items: [
+            { label: "Twitter", href: "https://twitter.com/nalayakshrma" },
+            {
+              label: "Instagram",
+              href: "https://www.instagram.com/nalayaksharma_poetry/",
+            },
+            {
+              label: "Unsplash",
+              href: "https://unsplash.com/@deepak_v",
+            },
+          ],
+        },
+        {
+          title: "Contact me",
+          items: [
+            {
+              label: "Email me",
+              href: "mailto:contact-me@decipher.dev?subject=Say Hi!&body=Hi,\n",
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} Deepak Vishwakarma`,
+    },
   },
+  themes: [require.resolve("@docusaurus/theme-classic")],
   presets: [
     [
       "@docusaurus/preset-classic",
@@ -62,5 +123,11 @@ module.exports = {
         },
       },
     ],
+  ],
+  plugins: [
+    // require.resolve("@docusaurus/plugin-google-analytics"),
+    require.resolve("@docusaurus/plugin-sitemap"),
+    [require.resolve("docusaurus-lunr-search"), { languages: ["en"] }],
+    // path.resolve(__dirname, 'plugins/tags-creator.js')
   ],
 };
