@@ -78,8 +78,8 @@ all([{ name: "D" }, { name: "D2" }], hasName); //true
 
 ### Contribution
 
-- Docs: [/docs](/docs)
-- Util: [/util.ts](/util.ts)
+- Docs: [/docs](https://github.com/deepakshrma/30-seconds-of-typescript/docs)
+- Util: [/util.ts](https://github.com/deepakshrma/30-seconds-of-typescript/blob/master/util.ts)
 
 #### Create New utility function
 

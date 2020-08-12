@@ -17,7 +17,7 @@ const compose = (...fns: Func<any>[]) =>
   fns.reduce((f, g) => (...args: any[]) => f(...castArray(g(...args))));
 ```
 
-You can have look on implementation of [castArray](/castArray)
+You can have look on implementation of [castArray]
 
 ```ts title="typescript"
 const add5 = (x: number) => x + 5;

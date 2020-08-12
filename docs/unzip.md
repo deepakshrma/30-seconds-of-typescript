@@ -7,7 +7,7 @@ tags: array,intermediate
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-Creates an array of arrays, ungrouping the elements in an array produced by [zip](/js/s/zip).
+Creates an array of arrays, ungrouping the elements in an array produced by [zip].
 
 Use `Math.max.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array.
 Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays.

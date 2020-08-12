@@ -23,10 +23,10 @@
     "prettify": "prettier *.ts --write && prettier *.js --write && prettier docs/*.md --write"
   },
   "dependencies": {
+    "@cmfcmf/docusaurus-search-local": "^0.3.0",
     "@docusaurus/core": "^2.0.0-alpha.58",
     "@docusaurus/preset-classic": "^2.0.0-alpha.58",
     "clsx": "^1.1.1",
-    "docusaurus-lunr-search": "^2.1.6",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },

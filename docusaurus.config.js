@@ -33,7 +33,7 @@ module.exports = {
         href: "https://decipher.dev/",
         target: "_self",
       },
-      links: [
+      items: [
         {
           to: "/",
           label: "30 Seconds of Typescript",
@@ -86,20 +86,20 @@ module.exports = {
             },
           ],
         },
-        {
-          title: "Contact me",
-          items: [
-            {
-              label: "Email me",
-              href: "mailto:contact-me@decipher.dev?subject=Say Hi!&body=Hi,\n",
-            },
-          ],
-        },
+        // {
+        //   title: "Contact me",
+        //   items: [
+        //     {
+        //       label: "Email me",
+        //       href: "mailto:contact-me@decipher.dev?subject=Say Hi!&body=Hi,\n",
+        //     },
+        //   ],
+        // },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Deepak Vishwakarma`,
     },
   },
-  themes: [require.resolve("@docusaurus/theme-classic")],
+  themes: [],
   presets: [
     [
       "@docusaurus/preset-classic",
@@ -116,7 +116,6 @@ module.exports = {
           customCss: require.resolve("./src/css/custom.css"),
         },
         sitemap: {
-          url: "https://example.com",
           cacheTime: 600 * 1000, // 600 sec - cache purge period
           changefreq: "weekly",
           priority: 0.5,
@@ -125,9 +124,9 @@ module.exports = {
     ],
   ],
   plugins: [
+    require.resolve("@cmfcmf/docusaurus-search-local"),
     // require.resolve("@docusaurus/plugin-google-analytics"),
-    require.resolve("@docusaurus/plugin-sitemap"),
-    [require.resolve("docusaurus-lunr-search"), { languages: ["en"] }],
+    // [require.resolve("docusaurus-lunr-search"), { languages: ["en"] }],
     // path.resolve(__dirname, 'plugins/tags-creator.js')
   ],
 };
