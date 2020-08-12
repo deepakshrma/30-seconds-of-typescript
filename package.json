@@ -1,7 +1,7 @@
 {
   "name": "@deepakvishwakarma/ts-util",
   "description": "Utility library,code snippets like lodash for typescript, typescriptreact(tsx) and deno [inspired by 30-seconds-of-code].",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "scripts": {
     "prepublishOnly": "npm test && ts-node test/test.ts",
@@ -26,7 +26,7 @@
     "@docusaurus/core": "^2.0.0-alpha.58",
     "@docusaurus/preset-classic": "^2.0.0-alpha.58",
     "clsx": "^1.1.1",
-    "docusaurus-lunr-search": "^2.0.1",
+    "docusaurus-lunr-search": "^2.1.6",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
@@ -58,7 +58,7 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
     "prettier": "^2.0.5",
-    "typescript": "^3.9.6",
+    "typescript": "^4.0.0-beta",
     "vsce": "^1.77.0"
   },
   "main": "lib/util.js",

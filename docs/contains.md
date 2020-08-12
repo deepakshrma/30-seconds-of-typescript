@@ -10,10 +10,11 @@ tags: function,intermediate
 Returns `true` if given string s1 contains s2. Compare is case insensitive.
 
 ```ts
-const contains = (s1: string, s2: string) =>
-  s1.toLowerCase().indexOf(s2.toLowerCase());
+const contains = (s1: string, s2: string = "") =>
+  s1.toLowerCase().indexOf(s2.toLowerCase()) !== -1;
 ```
 
 ```ts
-contains("Text1", "ext"); // true
+contains("Text1", "Ext"); // true
+contains("Text1", "et"); // false
 ```

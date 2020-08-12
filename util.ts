@@ -521,8 +521,8 @@ export const composeRight = (...fns: Func[]) =>
  *
  * @param str {string}
  */
-export const contains = (s1: string, s2: string) =>
-  s1.toLowerCase().indexOf(s2.toLowerCase());
+export const contains = (s1: string, s2: string = "") =>
+  s1.toLowerCase().indexOf(s2.toLowerCase()) !== -1;
 
 /**
  * Returns `true` if the given string contains any whitespace characters, `false` otherwise.

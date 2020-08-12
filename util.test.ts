@@ -38,6 +38,7 @@ import {
   compose,
   composeRight,
   containsWhitespace,
+  contains,
   countBy,
   countOccurrences,
   createEventHub,
@@ -496,6 +497,12 @@ Deno.test("composeRight #1", () => {
 Deno.test("containsWhitespace #1", () => {
   assertEquals(containsWhitespace("lorem"), false);
   assertEquals(containsWhitespace("lorem ipsum"), true);
+});
+
+// containsWhitespace
+Deno.test("contains #1", () => {
+  assertEquals(contains("Text1", "Ext"), true);
+  assertEquals(contains("Text1", "et"), false);
 });
 
 // countBy

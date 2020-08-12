@@ -5,14 +5,14 @@ tags: array,beginner
 
 ![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
-![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Removes falsy values from an array.
 
 Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, `""`, `undefined`, and `NaN`).
 
 ```ts title="typescript"
-const compact = (arr) => arr.filter(Boolean);
+const compact = (arr: any[]) => arr.filter(Boolean);
 ```
 
 ```ts title="typescript"

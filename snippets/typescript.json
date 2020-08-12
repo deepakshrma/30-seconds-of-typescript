@@ -669,8 +669,8 @@
       " *",
       " * @param str {string}",
       " */",
-      "export const contains = (s1: string, s2: string) =>",
-      "  s1.toLowerCase().indexOf(s2.toLowerCase());",
+      "export const contains = (s1: string, s2: string = \"\") =>",
+      "  s1.toLowerCase().indexOf(s2.toLowerCase()) !== -1;",
       ""
     ],
     "description": "Returns `true` if given string s1 contains s2. Compare is case insensitive.\n\n"
