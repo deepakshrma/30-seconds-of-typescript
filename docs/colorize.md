@@ -1,11 +1,16 @@
 ---
 title: colorize
 tags: node,string,intermediate
+author_title: Deepak Vishwakarma
+author_url: https://github.com/deepakshrma
+author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
+description: Implementation of "colorize" in typescript, javascript and deno.
+image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152-1.jpg
 ---
 
 ![TS](https://img.shields.io/badge/supports-typescript-blue.svg?style=flat-square)
 ![JS](https://img.shields.io/badge/supports-nodejs-yellow.svg?style=flat-square)
-![JS](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
+![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 Add special characters to text to print in color in the console (combined with `console.log()`).
 

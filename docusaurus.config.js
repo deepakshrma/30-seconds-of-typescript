@@ -25,6 +25,10 @@ module.exports = {
     googleAnalytics: {
       trackingID: "UA-172955705-1",
     },
+    // algolia: {
+    //   apiKey: 'e71b47af92b1daef0e43bbbfa2b4a70a',
+    //   indexName: 'decipher_dev',
+    // },
     navbar: {
       hideOnScroll: true,
       logo: {
