@@ -1,5 +1,6 @@
 ---
 title: 30-seconds-of-typescript
+slug: /
 tags: introduction, beginner
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma

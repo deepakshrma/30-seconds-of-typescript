@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run bundle
+npm run code-gen
+git add util.js static/util.js snippets 
+npx lint-staged
