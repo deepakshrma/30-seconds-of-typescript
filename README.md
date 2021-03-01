@@ -7,7 +7,11 @@
 
 This repo is collection of multiple utility function `Like lodash`, that can be used and anywhere with simply importing.
 
-All the documents can be found on [30-seconds-of-typescript](https://deepakshrma.github.io/30-seconds-of-typescript/docs/)
+All the documents can be found on [30-seconds-of-typescript](https://decipher.dev/30-seconds-of-typescript/docs/)
+
+**How to access page:**
+
+[how_to_access_page](/static/how_to_access_page.mp4)
 
 **Note:** This repo is highly inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). I am converting all JS to Typescript so that it can be used for Typescript, Modern HTML|JS and Deno. [Github](https://github.com/deepakshrma/30-seconds-of-typescript/)
 

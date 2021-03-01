@@ -77,6 +77,20 @@ function Home() {
         </div>
       </header>
       <main>
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "10px",
+          }}
+        >
+          <video
+            src={"how_to_access_page.mp4"}
+            style={{ width: 720, padding: 2, border: "1px solid #d3d3d3" }}
+            controls
+            autoplay
+          />
+        </section>
         {features && features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
