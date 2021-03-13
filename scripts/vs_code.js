@@ -6,7 +6,7 @@ const {
   wf,
   join,
   stringify,
-  packageBaseKeys,
+  extBaseKeys,
 } = require("./util");
 
 async function main() {
@@ -16,13 +16,14 @@ async function main() {
     const vsCode = stringify(
       pluck(
         packageJSON,
-        packageBaseKeys.concat([
+        extBaseKeys.concat([
           "homepage",
           "displayName",
           "publisher",
           "engines",
           "categories",
           "contributes",
+          "activationEvents",
         ]),
         {},
         {

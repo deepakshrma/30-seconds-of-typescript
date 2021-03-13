@@ -33,4 +33,30 @@ const packageBaseKeys = [
   "types",
   "files",
 ];
-module.exports = { pluck, ex, rn, rf, wf, join, stringify, packageBaseKeys };
+const extBaseKeys = [
+  "name",
+  "description",
+  "version",
+  "private",
+  "repository",
+  "keywords",
+  "author",
+  "license",
+  "bugs",
+  "icon",
+  "homepage",
+  "main",
+  "types",
+  "files",
+];
+module.exports = {
+  pluck,
+  ex,
+  rn,
+  rf,
+  wf,
+  join,
+  stringify,
+  packageBaseKeys,
+  extBaseKeys,
+};
