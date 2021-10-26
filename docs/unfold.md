@@ -29,3 +29,17 @@ const unfold = (fn, seed) => {
 var f = (n) => (n > 50 ? false : [-n, n + 10]);
 unfold(f, 10); // [-10, -20, -30, -40, -50]
 ```
+
+```ts
+function unfold<T>(fn: (i: T) => false | T[], seed: T): T[] {
+    const result: T[] = [];
+    let val: false | T[] = [null, seed]
+    while((val = fn(val[1]))) result.push(val[0])
+    return result
+}
+```
+
+```ts
+const f = (n: number) => (n > 50 ? false : [-n, n + 10]);
+unfold(f, 10); // [-10, -20, -30, -40, -50]
+```
