@@ -14,7 +14,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 
 Converts a number to a decimal mark formatted string.
 
-Use `Number.prototype.toLocaleString()` to convert the numbre to decimal mark format.
+Use `Number.prototype.toLocaleString()` to convert the number to decimal mark format.
 
 ```ts title="typescript"
 const toDecimalMark = (num: number) => num.toLocaleString("en-US");
