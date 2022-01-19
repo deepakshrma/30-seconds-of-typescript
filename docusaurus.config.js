@@ -18,6 +18,14 @@ module.exports = {
       type: "text/css",
     },
   ],
+  scripts: [
+    {
+      src:
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7756182462259588",
+      async: true,
+      crossorigin: "anonymous",
+    },
+  ],
   themeConfig: {
     prism: {
       defaultLanguage: "ts",
