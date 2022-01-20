@@ -17,7 +17,7 @@
     "build": "docusaurus build",
     "code-gen": "node scripts/code_snippet.js",
     "swizzle": "docusaurus swizzle",
-    "deploy": "GIT_USER=deepakshrma USE_SSH=true docusaurus deploy",
+    "deploy": "yarn run build && cp ads.txt ./build/ && GIT_USER=deepakshrma USE_SSH=true docusaurus deploy --skip-build",
     "extension": "node scripts/vs_code.js",
     "extension:publish": "node scripts/vs_code.js --publish",
     "prettify": "prettier *.ts --write && prettier *.js --write && prettier docs/*.md --write",
