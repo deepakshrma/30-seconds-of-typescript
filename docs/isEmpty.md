@@ -18,6 +18,9 @@ Check if the provided value is `null` or if its `length` is equal to `0`.
 
 ```ts title="typescript"
 const isEmpty = (val: any) => val == null || !(Object.keys(val) || val).length;
+
+// If typescript compiler is yelling because of the type `any`
+const isEmpty = (val: Record<string, unknown> | null | undefined) => val == null || !(Object.keys(val) || val).length;
 ```
 
 ```ts title="typescript"
