@@ -1,6 +1,6 @@
 ---
 title: either
-tags: function,logic,beginner
+tags: [function, logic, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,8 +17,10 @@ Returns `true` if at least one function returns `true` for a given set of argume
 Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.
 
 ```ts title="typescript"
-export const either = (f: Function, g: Function) => (...args: any[]) =>
-  f(...args) || g(...args);
+export const either =
+  (f: Function, g: Function) =>
+  (...args: any[]) =>
+    f(...args) || g(...args);
 ```
 
 ```ts title="typescript"

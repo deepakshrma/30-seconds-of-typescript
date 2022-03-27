@@ -1,6 +1,6 @@
 ---
 title: collectInto
-tags: function,array,intermediate
+tags: [function, array, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -15,7 +15,10 @@ Changes a function that accepts an array into a variadic function.
 Given a function, return a closure that collects all inputs into an array-accepting function.
 
 ```js
-const collectInto = (fn) => (...args) => fn(args);
+const collectInto =
+  (fn) =>
+  (...args) =>
+    fn(args);
 ```
 
 ```js

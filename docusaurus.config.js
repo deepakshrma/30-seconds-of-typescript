@@ -13,15 +13,13 @@ module.exports = {
   projectName: "30-seconds-of-typescript", // Usually your repo name.
   stylesheets: [
     {
-      href:
-        "https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Open+Sans&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Open+Sans&display=swap",
       type: "text/css",
     },
   ],
   scripts: [
     {
-      src:
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7756182462259588",
+      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7756182462259588",
       async: true,
       crossorigin: "anonymous",
     },
@@ -30,8 +28,8 @@ module.exports = {
     prism: {
       defaultLanguage: "ts",
     },
-    googleAnalytics: {
-      trackingID: "UA-172955705-1",
+    googleAdsense: {
+      dataAdClient: "ca-pub-7756182462259588",
     },
     // algolia: {
     //   apiKey: 'e71b47af92b1daef0e43bbbfa2b4a70a',
@@ -127,9 +125,12 @@ module.exports = {
           customCss: require.resolve("./src/css/custom.css"),
         },
         sitemap: {
-          cacheTime: 600 * 1000, // 600 sec - cache purge period
+          // cacheTime: 600 * 1000, // 600 sec - cache purge period
           changefreq: "weekly",
           priority: 0.5,
+        },
+        googleAnalytics: {
+          trackingID: "UA-172955705-1",
         },
       },
     ],
@@ -139,5 +140,6 @@ module.exports = {
     // require.resolve("@docusaurus/plugin-google-analytics"),
     // [require.resolve("docusaurus-lunr-search"), { languages: ["en"] }],
     // path.resolve(__dirname, 'plugins/tags-creator.js')
+    "docusaurus-plugin-google-adsense",
   ],
 };

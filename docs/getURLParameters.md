@@ -1,6 +1,6 @@
 ---
 title: getURLParameters
-tags: browser,string,url,intermediate
+tags: [browser, string, url, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -24,9 +24,9 @@ const getURLParameters = (url: string) => {
   return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce((a, v) => {
     const [key, value] = v.split("=");
     if (a[key]) {
-      a[key] = ((typeof a[key] === "string"
-        ? [a[key]]
-        : a[key]) as string[]).concat(value);
+      a[key] = (
+        (typeof a[key] === "string" ? [a[key]] : a[key]) as string[]
+      ).concat(value);
     } else {
       a[key] = value;
     }

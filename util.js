@@ -49,7 +49,10 @@ const arrayToHtmlList1 = (arr, listID) => {
     el.innerHTML += arr.map((item) => `<li>${item}</li>`).join("");
   }
 };
-const ary1 = (fn, n) => (...args) => fn(...args.slice(0, n));
+const ary1 =
+  (fn, n) =>
+  (...args) =>
+    fn(...args.slice(0, n));
 const attempt1 = (fn, ...args) => {
   try {
     return fn(...args);
@@ -86,9 +89,14 @@ const bifurcateBy1 = (arr, filter) =>
     },
     [[], []]
   );
-const binary1 = (fn) => (...[v1, v2]) => fn(v1, v2);
-const bind1 = (fn, context, ...boundArgs) => (...args) =>
-  fn.apply(context, [...boundArgs, ...args]);
+const binary1 =
+  (fn) =>
+  (...[v1, v2]) =>
+    fn(v1, v2);
+const bind1 =
+  (fn, context, ...boundArgs) =>
+  (...args) =>
+    fn.apply(context, [...boundArgs, ...args]);
 const bindAll1 = (obj, ...fns) =>
   fns.forEach((key) => {
     if (typeof obj[key] === "function") {
@@ -108,8 +116,14 @@ const binomialCoefficient1 = (n, k) => {
   for (let j = 2; j <= k; j++) res *= (n - j + 1) / j;
   return Math.round(res);
 };
-const both1 = (f, g) => (...args) => f(...args) && g(...args);
-const call1 = (key, ...args) => (context) => context[key](...args);
+const both1 =
+  (f, g) =>
+  (...args) =>
+    f(...args) && g(...args);
+const call1 =
+  (key, ...args) =>
+  (context) =>
+    context[key](...args);
 const capitalize1 = (str = "", lowerRest = false) =>
   str.slice(0, 1).toUpperCase() +
   (lowerRest ? str.slice(1).toLowerCase() : str.slice(1));
@@ -147,11 +161,22 @@ const colorize1 = new (class {
 const colors1 = colorize1;
 const compact1 = (arr) => arr.filter(Boolean);
 const compactWhitespace1 = (str) => str.replace(/\s{2,}/g, " ");
-const complement1 = (fn) => (...args) => !fn(...args);
+const complement1 =
+  (fn) =>
+  (...args) =>
+    !fn(...args);
 const compose1 = (...fns) =>
-  fns.reduce((f, g) => (...args) => f(...castArray1(g(...args))));
+  fns.reduce(
+    (f, g) =>
+      (...args) =>
+        f(...castArray1(g(...args)))
+  );
 const composeRight1 = (...fns) =>
-  fns.reduce((f, g) => (...args) => g(...castArray1(f(...args))));
+  fns.reduce(
+    (f, g) =>
+      (...args) =>
+        g(...castArray1(f(...args)))
+  );
 const contains1 = (s1, s2 = "") =>
   s1.toLowerCase().indexOf(s2.toLowerCase()) !== -1;
 const containsWhitespace1 = (str) => /\s/.test(str);
@@ -265,7 +290,10 @@ const delayedPromise1 = (wait = 300, ...args) =>
   new Promise((resolve) => {
     delay1(resolve, wait, ...args);
   });
-const either1 = (f, g) => (...args) => f(...args) || g(...args);
+const either1 =
+  (f, g) =>
+  (...args) =>
+    f(...args) || g(...args);
 const equals1 = (a, b) => {
   if (a === b) return true;
   if (a instanceof Date && b instanceof Date) {
@@ -630,7 +658,10 @@ const mostPerformant1 = (fns, iterations = 10000) => {
   });
   return times.indexOf(Math.min(...times));
 };
-const negate1 = (func) => (...args) => !func(...args);
+const negate1 =
+  (func) =>
+  (...args) =>
+    !func(...args);
 const nest1 = (items, id = null, link = "parent_id") =>
   items
     .filter((item) => item[link] === id)
@@ -642,7 +673,10 @@ const nodeListToArray1 = (nodeList) => [...nodeList];
 const toArray1 = (arrLike) => [...arrLike];
 const none1 = (arr, fn = Boolean) => !arr.some(fn);
 const not1 = (a) => !a;
-const nthArg1 = (n) => (...args) => args.slice(n)[0];
+const nthArg1 =
+  (n) =>
+  (...args) =>
+    args.slice(n)[0];
 const nthElement1 = curry1(
   (n = 0, arr) => (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0],
   2
@@ -707,9 +741,14 @@ const parseCookie1 = (str) =>
       acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
       return acc;
     }, {});
-const partial1 = (fn, ...partials) => (...args) => fn(...partials, ...args);
-const partialRight1 = (fn, ...partials) => (...args) =>
-  fn(...args, ...partials);
+const partial1 =
+  (fn, ...partials) =>
+  (...args) =>
+    fn(...partials, ...args);
+const partialRight1 =
+  (fn, ...partials) =>
+  (...args) =>
+    fn(...args, ...partials);
 const partition1 = (arr, fn) =>
   arr.reduce(
     (acc, val, i, arr1) => {
@@ -739,10 +778,16 @@ const pickBy1 = (obj, fn) =>
   Object.keys(obj)
     .filter((k) => fn(obj[k], k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
-const pipeAsyncFunctions1 = (...fns) => (arg) =>
-  fns.reduce((p, f) => p.then(f), Promise.resolve(arg));
+const pipeAsyncFunctions1 =
+  (...fns) =>
+  (arg) =>
+    fns.reduce((p, f) => p.then(f), Promise.resolve(arg));
 const pipeFunctions1 = (...fns) =>
-  fns.reduce((f, g) => (...args) => g(f(...args)));
+  fns.reduce(
+    (f, g) =>
+      (...args) =>
+        g(f(...args))
+  );
 const pluralize1 = (num, word, plural = word + "s") =>
   [1, -1].includes(Number(num)) ? word : plural;
 const prefix1 = (prop) => {
@@ -770,10 +815,12 @@ const prettyBytes1 = (num, precision = 3, addSpace = " ") => {
 const prettyBytesT1 = (strings, bytes, precision = 3) => {
   return prettyBytes1(bytes, precision, strings.join(""));
 };
-const promisify1 = (func) => (...args) =>
-  new Promise((resolve, reject) =>
-    func(...args, (err, result) => (err ? reject(err) : resolve(result)))
-  );
+const promisify1 =
+  (func) =>
+  (...args) =>
+    new Promise((resolve, reject) =>
+      func(...args, (err, result) => (err ? reject(err) : resolve(result)))
+    );
 const radsToDegrees1 = (rad) => (rad * 180) / Math.PI;
 const randomHexColorCode1 = () => {
   let n = (Math.random() * 1048575 * 1000000).toString(16);
@@ -968,11 +1015,13 @@ const ellipsis1 = (str, num = str.length, ellipsisStr = "...") =>
       ellipsisStr
     : str;
 const unary1 = (fn) => (val) => fn(val);
-const uncurry1 = (fn, n = 1) => (...args) => {
-  const next = (acc) => (args1) => args1.reduce((x, y) => x(y), acc);
-  if (n > args.length) throw new RangeError("Arguments too few!");
-  return next(fn)(args.slice(0, n));
-};
+const uncurry1 =
+  (fn, n = 1) =>
+  (...args) => {
+    const next = (acc) => (args1) => args1.reduce((x, y) => x(y), acc);
+    if (n > args.length) throw new RangeError("Arguments too few!");
+    return next(fn)(args.slice(0, n));
+  };
 const union1 = (a, b) => Array.from(new Set([...a, ...b]));
 const unionBy1 = (a, b, fn) => {
   const s = new Set(a.map(fn));

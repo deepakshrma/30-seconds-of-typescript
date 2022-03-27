@@ -1,6 +1,6 @@
 ---
 title: pipeFunctions
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -19,7 +19,11 @@ The first (leftmost) function can accept one or more arguments; the remaining fu
 
 ```ts title="typescript"
 const pipeFunctions = (...fns) =>
-  fns.reduce((f, g) => (...args) => g(f(...args)));
+  fns.reduce(
+    (f, g) =>
+      (...args) =>
+        g(f(...args))
+  );
 ```
 
 ```ts title="typescript"

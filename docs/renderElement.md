@@ -1,6 +1,6 @@
 ---
 title: renderElement
-tags: browser,recursion,advanced
+tags: [browser, recursion, advanced]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400

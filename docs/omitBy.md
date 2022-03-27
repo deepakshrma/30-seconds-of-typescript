@@ -1,6 +1,6 @@
 ---
 title: omitBy
-tags: object,array,function,intermediate
+tags: [object, array, function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400

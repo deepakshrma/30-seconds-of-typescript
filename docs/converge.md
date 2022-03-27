@@ -1,6 +1,6 @@
 ---
 title: converge
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -16,14 +16,16 @@ Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each funct
 Use the spread operator (`...`) to call `coverger` with the results of all other functions.
 
 ```js
-const converge = (converger, fns) => (...args) =>
-  converger(...fns.map((fn) => fn.apply(null, args)));
+const converge =
+  (converger, fns) =>
+  (...args) =>
+    converger(...fns.map((fn) => fn.apply(null, args)));
 ```
 
 ```js
-const average = converge((a, b) => a / b, [
-  (arr) => arr.reduce((a, v) => a + v, 0),
-  (arr) => arr.length,
-]);
+const average = converge(
+  (a, b) => a / b,
+  [(arr) => arr.reduce((a, v) => a + v, 0), (arr) => arr.length]
+);
 average([1, 2, 3, 4, 5, 6, 7]); // 4
 ```

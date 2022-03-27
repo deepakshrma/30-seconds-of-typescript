@@ -1,6 +1,6 @@
 ---
 title: bindKey
-tags: function,object,intermediate
+tags: [function, object, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -16,8 +16,10 @@ Return a `function` that uses `Function.prototype.apply()` to bind `context[fn]`
 Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments.
 
 ```js
-const bindKey = (context, fn, ...boundArgs) => (...args) =>
-  context[fn].apply(context, [...boundArgs, ...args]);
+const bindKey =
+  (context, fn, ...boundArgs) =>
+  (...args) =>
+    context[fn].apply(context, [...boundArgs, ...args]);
 ```
 
 ```js

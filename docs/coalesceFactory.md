@@ -1,6 +1,6 @@
 ---
 title: coalesceFactory
-tags: type,intermediate
+tags: [type, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -15,7 +15,10 @@ Returns a customized coalesce function that returns the first argument that retu
 Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function.
 
 ```js
-const coalesceFactory = (valid) => (...args) => args.find(valid);
+const coalesceFactory =
+  (valid) =>
+  (...args) =>
+    args.find(valid);
 ```
 
 ```js

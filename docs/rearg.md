@@ -1,6 +1,6 @@
 ---
 title: rearg
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -16,7 +16,10 @@ Creates a function that invokes the provided function with its arguments arrange
 Use `Array.prototype.map()` to reorder arguments based on `indexes` in combination with the spread operator (`...`) to pass the transformed arguments to `fn`.
 
 ```js
-const rearg = (fn, indexes) => (...args) => fn(...indexes.map((i) => args[i]));
+const rearg =
+  (fn, indexes) =>
+  (...args) =>
+    fn(...indexes.map((i) => args[i]));
 ```
 
 ```js

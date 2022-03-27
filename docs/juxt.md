@@ -1,6 +1,6 @@
 ---
 title: juxt
-tags: array,function,advanced
+tags: [array, function, advanced]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,7 +17,10 @@ Use `Array.prototype.map()` to return a `fn` that can take a variable number of 
 When `fn` is called, return an array containing the result of applying each `fn` to the `args`.
 
 ```js
-const juxt = (...fns) => (...args) => [...fns].map((fn) => [...args].map(fn));
+const juxt =
+  (...fns) =>
+  (...args) =>
+    [...fns].map((fn) => [...args].map(fn));
 ```
 
 ```js

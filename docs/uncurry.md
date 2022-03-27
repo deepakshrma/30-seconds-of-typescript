@@ -1,6 +1,6 @@
 ---
 title: uncurry
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -21,11 +21,13 @@ Otherwise, call `fn` with the proper amount of arguments, using `Array.prototype
 Omit the second argument, `n`, to uncurry up to depth `1`.
 
 ```ts title="typescript"
-const uncurry = (fn, n = 1) => (...args) => {
-  const next = (acc) => (args) => args.reduce((x, y) => x(y), acc);
-  if (n > args.length) throw new RangeError("Arguments too few!");
-  return next(fn)(args.slice(0, n));
-};
+const uncurry =
+  (fn, n = 1) =>
+  (...args) => {
+    const next = (acc) => (args) => args.reduce((x, y) => x(y), acc);
+    if (n > args.length) throw new RangeError("Arguments too few!");
+    return next(fn)(args.slice(0, n));
+  };
 ```
 
 ```ts title="typescript"

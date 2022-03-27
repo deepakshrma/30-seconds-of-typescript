@@ -1,6 +1,6 @@
 ---
 title: compose
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -19,7 +19,11 @@ The last (rightmost) function can accept one or more arguments; the remaining fu
 
 ```ts title="typescript"
 const compose = (...fns: Func<any>[]) =>
-  fns.reduce((f, g) => (...args: any[]) => f(...castArray(g(...args))));
+  fns.reduce(
+    (f, g) =>
+      (...args: any[]) =>
+        f(...castArray(g(...args)))
+  );
 ```
 
 You can have look on implementation of [castArray]

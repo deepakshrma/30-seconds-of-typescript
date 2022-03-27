@@ -1,6 +1,6 @@
 ---
 title: bind
-tags: function,object,intermediate
+tags: [function, object, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -18,11 +18,10 @@ Return a `function` that uses `Function.prototype.apply()` to apply the given `c
 Use `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments.
 
 ```ts title="typescript"
-export const bind = <T = any>(
-  fn: (...args: any[]) => any,
-  context: T,
-  ...boundArgs: any[]
-) => (...args: any[]) => fn.apply(context, [...boundArgs, ...args]);
+export const bind =
+  <T = any>(fn: (...args: any[]) => any, context: T, ...boundArgs: any[]) =>
+  (...args: any[]) =>
+    fn.apply(context, [...boundArgs, ...args]);
 ```
 
 **TS:** You need to bind `this` type

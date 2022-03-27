@@ -1,6 +1,6 @@
 ---
 title: unfold
-tags: function,array,intermediate
+tags: [function, array, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -32,10 +32,10 @@ unfold(f, 10); // [-10, -20, -30, -40, -50]
 
 ```ts
 function unfold<T>(fn: (i: T) => false | T[], seed: T): T[] {
-    const result: T[] = [];
-    let val: false | T[] = [null, seed]
-    while((val = fn(val[1]))) result.push(val[0])
-    return result
+  const result: T[] = [];
+  let val: false | T[] = [null, seed];
+  while ((val = fn(val[1]))) result.push(val[0]);
+  return result;
 }
 ```
 

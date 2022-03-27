@@ -1,6 +1,6 @@
 ---
 title: pipeAsyncFunctions
-tags: function,promise,intermediate
+tags: [function, promise, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -20,8 +20,10 @@ All functions must accept a single argument.
 
 ```ts title="typescript"
 type PromiseReturn = (v: any) => Promise<any>;
-const pipeAsyncFunctions = (...fns: PromiseReturn[]) => (arg: any) =>
-  fns.reduce((p, f) => p.then(f), Promise.resolve(arg) as PromiseLike<any>);
+const pipeAsyncFunctions =
+  (...fns: PromiseReturn[]) =>
+  (arg: any) =>
+    fns.reduce((p, f) => p.then(f), Promise.resolve(arg) as PromiseLike<any>);
 ```
 
 ```ts title="typescript"

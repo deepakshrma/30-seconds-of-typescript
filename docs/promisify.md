@@ -1,6 +1,6 @@
 ---
 title: promisify
-tags: function,promise,intermediate
+tags: [function, promise, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -20,12 +20,14 @@ Use currying to return a function returning a `Promise` that calls the original 
 Use the `...rest` operator to pass in all the parameters.
 
 ```ts title="typescript"
-const promisify = (func: Function) => (...args: any[]) =>
-  new Promise((resolve, reject) =>
-    func(...args, (err: Error, result: any) =>
-      err ? reject(err) : resolve(result)
-    )
-  );
+const promisify =
+  (func: Function) =>
+  (...args: any[]) =>
+    new Promise((resolve, reject) =>
+      func(...args, (err: Error, result: any) =>
+        err ? reject(err) : resolve(result)
+      )
+    );
 ```
 
 ```ts title="typescript"

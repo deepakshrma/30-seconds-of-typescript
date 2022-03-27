@@ -1,6 +1,6 @@
 ---
 title: negate
-tags: function,beginner
+tags: [function, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,7 +17,10 @@ Negates a predicate function.
 Take a predicate function and apply the not operator (`!`) to it with its arguments.
 
 ```ts title="typescript"
-export const negate = (func: Function) => (...args: any[]) => !func(...args);
+export const negate =
+  (func: Function) =>
+  (...args: any[]) =>
+    !func(...args);
 ```
 
 ```ts title="typescript"

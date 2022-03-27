@@ -1,6 +1,6 @@
 ---
 title: ary
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,8 +17,10 @@ Creates a function that accepts up to `n` arguments, ignoring any additional arg
 Call the provided function, `fn`, with up to `n` arguments, using `Array.prototype.slice(0, n)` and the spread operator (`...`).
 
 ```ts title="typescript"
-const ary = <T = any>(fn: (...args: T[]) => any, n: number) => (...args: T[]) =>
-  fn(...args.slice(0, n));
+const ary =
+  <T = any>(fn: (...args: T[]) => any, n: number) =>
+  (...args: T[]) =>
+    fn(...args.slice(0, n));
 ```
 
 ```ts title="typescript"

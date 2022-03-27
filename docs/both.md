@@ -1,6 +1,6 @@
 ---
 title: both
-tags: function,logic,beginner
+tags: [function, logic, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -18,8 +18,10 @@ Use the logical and (`&&`) operator on the result of calling the two functions w
 
 ```ts title="typescript"
 type Func<T> = (...args: T[]) => any;
-export const both = <T = any>(f: Func<T>, g: Func<T>) => (...args: T[]) =>
-  f(...args) && g(...args);
+export const both =
+  <T = any>(f: Func<T>, g: Func<T>) =>
+  (...args: T[]) =>
+    f(...args) && g(...args);
 ```
 
 ```ts title="typescript"

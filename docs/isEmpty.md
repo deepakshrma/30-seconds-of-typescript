@@ -1,6 +1,6 @@
 ---
 title: isEmpty
-tags: type,array,object,string,beginner
+tags: [type, array, object, string, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400

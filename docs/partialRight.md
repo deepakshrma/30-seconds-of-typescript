@@ -1,6 +1,6 @@
 ---
 title: partialRight
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,8 +17,10 @@ Creates a function that invokes `fn` with `partials` appended to the arguments i
 Use the spread operator (`...`) to append `partials` to the list of arguments of `fn`.
 
 ```ts title="typescript"
-const partialRight = (fn: Function, ...partials: any[]) => (...args: any[]) =>
-  fn(...args, ...partials);
+const partialRight =
+  (fn: Function, ...partials: any[]) =>
+  (...args: any[]) =>
+    fn(...args, ...partials);
 ```
 
 ```ts title="typescript"

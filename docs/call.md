@@ -1,6 +1,6 @@
 ---
 title: call
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,8 +17,10 @@ Given a key and a set of arguments, call them when given a context. Primarily us
 Use a closure to call a stored key with stored arguments.
 
 ```ts title="typescript"
-export const call = (key: string, ...args: any[]) => (context: any) =>
-  context[key](...args);
+export const call =
+  (key: string, ...args: any[]) =>
+  (context: any) =>
+    context[key](...args);
 ```
 
 ```ts title="typescript"

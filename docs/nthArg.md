@@ -1,6 +1,6 @@
 ---
 title: nthArg
-tags: function,beginner
+tags: [function, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,7 +17,10 @@ Creates a function that gets the argument at index `n`. If `n` is negative, the 
 Use `Array.prototype.slice()` to get the desired argument at index `n`.
 
 ```ts title="typescript"
-const nthArg = (n: number) => (...args: any[]) => args.slice(n)[0];
+const nthArg =
+  (n: number) =>
+  (...args: any[]) =>
+    args.slice(n)[0];
 ```
 
 ```ts title="typescript"

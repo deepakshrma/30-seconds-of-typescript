@@ -1,6 +1,6 @@
 ---
 title: partial
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -17,8 +17,10 @@ Creates a function that invokes `fn` with `partials` prepended to the arguments 
 Use the spread operator (`...`) to prepend `partials` to the list of arguments of `fn`.
 
 ```ts title="typescript"
-const partial = (fn: Function, ...partials: any[]) => (...args: any[]) =>
-  fn(...partials, ...args);
+const partial =
+  (fn: Function, ...partials: any[]) =>
+  (...args: any[]) =>
+    fn(...partials, ...args);
 ```
 
 ```ts title="typescript"

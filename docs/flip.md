@@ -1,6 +1,6 @@
 ---
 title: flip
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -16,7 +16,10 @@ Flip takes a function as an argument, then makes the first argument the last.
 Return a closure that takes variadic inputs, and splices the last argument to make it the first argument before applying the rest.
 
 ```js
-const flip = (fn) => (first, ...rest) => fn(...rest, first);
+const flip =
+  (fn) =>
+  (first, ...rest) =>
+    fn(...rest, first);
 ```
 
 ```js

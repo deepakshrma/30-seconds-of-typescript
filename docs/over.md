@@ -1,6 +1,6 @@
 ---
 title: over
-tags: function,intermediate
+tags: [function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
 author_image_url: https://avatars2.githubusercontent.com/u/7682731?s=400
@@ -16,7 +16,10 @@ Creates a function that invokes each provided function with the arguments it rec
 Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments.
 
 ```js
-const over = (...fns) => (...args) => fns.map((fn) => fn.apply(null, args));
+const over =
+  (...fns) =>
+  (...args) =>
+    fns.map((fn) => fn.apply(null, args));
 ```
 
 ```js
