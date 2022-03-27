@@ -29,6 +29,7 @@
     "@docusaurus/preset-classic": "2.0.0-beta.18",
     "clsx": "^1.1.1",
     "react": "^17.0.1",
+    "react-adsense": "^0.1.0",
     "react-dom": "^17.0.1"
   },
   "browserslist": {
