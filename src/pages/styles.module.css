@@ -35,3 +35,38 @@
   height: 200px;
   width: 200px;
 }
+
+.centerContent {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 40px;
+}
+.Ad {
+  min-height: 200px;
+  padding: 20px 10px;
+  min-width: 300px;
+}
+.AdSec {
+  margin-top: 20px;
+}
+.centerContent video {
+  max-width: 720px;
+  padding: 5px;
+  border: 1px solid #d3d3d3;
+}
+@media screen and (max-width: 966px) {
+  .centerContent {
+    padding: 20px 10px;
+    flex-direction: column;
+  }
+  .centerContent video {
+    margin-bottom: 20px;
+    width: auto;
+  }
+  .Ad {
+    margin-bottom: 20px;
+  }
+  .AdSec {
+    margin-top: 0;
+  }
+}

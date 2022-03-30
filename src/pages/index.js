@@ -5,7 +5,8 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
-
+import AdSense from "react-adsense";
+import { useWindowSize } from "@docusaurus/theme-common";
 const features = [
   {
     title: <>Supports</>,
@@ -57,6 +58,8 @@ function Feature({ imageUrl, title, description }) {
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
+  const windowSize = useWindowSize();
+  const renderTocDesktop = windowSize === "desktop" || windowSize === "ssr";
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
@@ -77,19 +80,39 @@ function Home() {
         </div>
       </header>
       <main>
-        <section
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            padding: "10px",
-          }}
-        >
-          <video
-            src={"how_to_access_page.mp4"}
-            style={{ width: 720, padding: 2, border: "1px solid #d3d3d3" }}
-            controls
-            autoplay
-          />
+        <section className={styles.centerContent}>
+          <div className={styles.Ad}>
+            <AdSense.Google
+              client="ca-pub-7756182462259588"
+              slot="4169179252"
+              style={{ display: "block" }}
+              format="auto"
+              responsive="true"
+            />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <video src={"how_to_access_page.mp4"} controls autoplay />
+            {renderTocDesktop && (
+              <div className={`${styles.Ad} ${styles.AdSec}`}>
+                <AdSense.Google
+                  client="ca-pub-7756182462259588"
+                  slot="3255885970"
+                  style={{ display: "block" }}
+                  format="auto"
+                  responsive="true"
+                />
+              </div>
+            )}
+          </div>
+          <div className={styles.Ad}>
+            <AdSense.Google
+              client="ca-pub-7756182462259588"
+              slot="9557608436"
+              style={{ display: "block" }}
+              format="auto"
+              responsive="true"
+            />
+          </div>
         </section>
         {features && features.length > 0 && (
           <section className={styles.features}>
