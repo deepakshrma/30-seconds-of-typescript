@@ -42,9 +42,9 @@
   padding: 20px 40px;
 }
 .Ad {
-  min-height: 200px;
   padding: 20px 10px;
   min-width: 300px;
+  border: 1px solid #e7e7e7;
 }
 .AdSec {
   margin-top: 20px;

@@ -89,29 +89,29 @@ function DocItemContent(props: Props): JSX.Element {
                 the added title is added under the same div.markdown block
                 See https://github.com/facebook/docusaurus/pull/4882#issuecomment-853021120
                 */}
-              {shouldAddTitle && (
-                <header>
-                  <Heading as="h1">{title}</Heading>
-                </header>
-              )}
+              <header>
+                <div className={styles.Ad}>
+                  <AdSense.Google
+                    client="ca-pub-7756182462259588"
+                    slot="5627199760"
+                    style={{ display: "block" }}
+                    format="auto"
+                    responsive="true"
+                  />
+                </div>
+                {shouldAddTitle && <Heading as="h1">{title}</Heading>}
+              </header>
               <MDXContent>
-                <AdSense.Google
-                  client="ca-pub-7756182462259588"
-                  slot="4715974167"
-                  // slot="4169179252"
-                  style={{ display: "block" }}
-                  format="auto"
-                  responsive="true"
-                />
-                <br />
                 <DocContent />
-                <AdSense.Google
-                  client="ca-pub-7756182462259588"
-                  slot="9213638280"
-                  style={{ display: "block" }}
-                  format="auto"
-                  responsive="true"
-                />
+                <div className={styles.Ad}>
+                  <AdSense.Google
+                    client="ca-pub-7756182462259588"
+                    slot="3255885970"
+                    style={{ display: "block" }}
+                    format="auto"
+                    responsive="true"
+                  />
+                </div>
               </MDXContent>
             </div>
 
@@ -121,9 +121,9 @@ function DocItemContent(props: Props): JSX.Element {
           <DocPaginator previous={metadata.previous} next={metadata.next} />
         </div>
       </div>
-      {renderTocDesktop ? (
+      {renderTocDesktop && (
         <div className="col col--3">
-          <div style={{ minWidth: "300px" }}>
+          <div className={styles.Ad}>
             <AdSense.Google
               client="ca-pub-7756182462259588"
               slot="4169179252"
@@ -132,22 +132,11 @@ function DocItemContent(props: Props): JSX.Element {
               responsive="true"
             />
           </div>
-          <br />
           <TOC
             toc={DocContent.toc}
             minHeadingLevel={tocMinHeadingLevel}
             maxHeadingLevel={tocMaxHeadingLevel}
             className={ThemeClassNames.docs.docTocDesktop}
-          />
-        </div>
-      ) : (
-        <div className="col col--3" style={{ minWidth: "300px" }}>
-          <AdSense.Google
-            client="ca-pub-7756182462259588"
-            slot="4169179252"
-            style={{ display: "block" }}
-            format="auto"
-            responsive="true"
           />
         </div>
       )}

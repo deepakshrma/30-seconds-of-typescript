@@ -20,3 +20,14 @@
     display: none;
   }
 }
+
+.Ad {
+  padding: 20px 10px;
+  min-width: 300px;
+  border: 1px solid #e7e7e7;
+}
+@media screen and (max-width: 966px) {
+  .Ad {
+    margin-bottom: 20px;
+  }
+}
