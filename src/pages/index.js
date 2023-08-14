@@ -1,12 +1,12 @@
-import React from "react";
-import clsx from "clsx";
-import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import styles from "./styles.module.css";
-import AdSense from "react-adsense";
 import { useWindowSize } from "@docusaurus/theme-common";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
+import clsx from "clsx";
+import React from "react";
+import AdSense from "react-adsense";
+import styles from "./styles.module.css";
 const features = [
   {
     title: <>Supports</>,
@@ -83,8 +83,8 @@ function Home() {
         <section className={styles.centerContent}>
           <div className={styles.Ad}>
             <AdSense.Google
-              client="ca-pub-7756182462259588"
-              slot="4169179252"
+              client="ca-pub-9978931678539032"
+              slot="3095184273"
               style={{ display: "block" }}
               format="auto"
               responsive="true"
@@ -95,8 +95,8 @@ function Home() {
             {renderTocDesktop && (
               <div className={`${styles.Ad} ${styles.AdSec}`}>
                 <AdSense.Google
-                  client="ca-pub-7756182462259588"
-                  slot="3255885970"
+                  client="ca-pub-9978931678539032"
+                  slot="1590530912"
                   style={{ display: "block" }}
                   format="auto"
                   responsive="true"
@@ -106,8 +106,8 @@ function Home() {
           </div>
           <div className={styles.Ad}>
             <AdSense.Google
-              client="ca-pub-7756182462259588"
-              slot="9557608436"
+              client="ca-pub-9978931678539032"
+              slot="2032797314"
               style={{ display: "block" }}
               format="auto"
               responsive="true"

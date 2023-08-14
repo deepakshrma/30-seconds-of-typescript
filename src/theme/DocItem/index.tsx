@@ -5,26 +5,26 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from "react";
-import clsx from "clsx";
-import DocPaginator from "@theme/DocPaginator";
-import DocVersionBanner from "@theme/DocVersionBanner";
-import DocVersionBadge from "@theme/DocVersionBadge";
-import type { Props } from "@theme/DocItem";
-import DocItemFooter from "@theme/DocItemFooter";
-import TOC from "@theme/TOC";
-import TOCCollapsible from "@theme/TOCCollapsible";
-import Heading from "@theme/Heading";
-import styles from "./styles.module.css";
 import {
-  PageMetadata,
   HtmlClassNameProvider,
+  PageMetadata,
   ThemeClassNames,
   useWindowSize,
 } from "@docusaurus/theme-common";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
+import type { Props } from "@theme/DocItem";
+import DocItemFooter from "@theme/DocItemFooter";
+import DocPaginator from "@theme/DocPaginator";
+import DocVersionBadge from "@theme/DocVersionBadge";
+import DocVersionBanner from "@theme/DocVersionBanner";
+import Heading from "@theme/Heading";
 import MDXContent from "@theme/MDXContent";
+import TOC from "@theme/TOC";
+import TOCCollapsible from "@theme/TOCCollapsible";
+import clsx from "clsx";
+import React from "react";
 import AdSense from "react-adsense";
+import styles from "./styles.module.css";
 
 function DocItemMetadata(props: Props): JSX.Element {
   const { content: DocContent } = props;
@@ -92,8 +92,8 @@ function DocItemContent(props: Props): JSX.Element {
               <header>
                 <div className={styles.Ad}>
                   <AdSense.Google
-                    client="ca-pub-7756182462259588"
-                    slot="5627199760"
+                    client="ca-pub-9978931678539032"
+                    slot="1590530912"
                     style={{ display: "block" }}
                     format="auto"
                     responsive="true"
@@ -105,8 +105,8 @@ function DocItemContent(props: Props): JSX.Element {
                 <DocContent />
                 <div className={styles.Ad}>
                   <AdSense.Google
-                    client="ca-pub-7756182462259588"
-                    slot="3255885970"
+                    client="ca-pub-9978931678539032"
+                    slot="9719452314"
                     style={{ display: "block" }}
                     format="auto"
                     responsive="true"
@@ -125,8 +125,8 @@ function DocItemContent(props: Props): JSX.Element {
         <div className="col col--3">
           <div className={styles.Ad}>
             <AdSense.Google
-              client="ca-pub-7756182462259588"
-              slot="4169179252"
+              client="ca-pub-9978931678539032"
+              slot="2032797314"
               style={{ display: "block" }}
               format="auto"
               responsive="true"

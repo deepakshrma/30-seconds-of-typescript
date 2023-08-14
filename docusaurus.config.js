@@ -19,7 +19,7 @@ module.exports = {
   ],
   scripts: [
     {
-      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7756182462259588",
+      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9978931678539032",
       async: true,
       crossorigin: "anonymous",
     },
@@ -29,7 +29,7 @@ module.exports = {
       defaultLanguage: "ts",
     },
     googleAdsense: {
-      dataAdClient: "ca-pub-7756182462259588",
+      dataAdClient: "ca-pub-9978931678539032",
     },
     // algolia: {
     //   apiKey: 'e71b47af92b1daef0e43bbbfa2b4a70a',
