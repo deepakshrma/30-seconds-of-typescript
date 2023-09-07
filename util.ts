@@ -8,7 +8,7 @@ export type MapFunc<T = any, R = any> = (
   arr?: T[]
 ) => R;
 
-export type AnyObject<T = any> = { [key: string]: T };
+export type AnyObject = { [key: string | number]: any };
 
 export type SortOrder = 1 | -1;
 
@@ -188,9 +188,10 @@ export const arrayToHtmlList = (arr: (string | number)[], listID: string) => {
  * @param fn {function} {(...args: T[]) => any}
  * @param n {number}
  */
-export const ary = <T = any>(fn: (...args: T[]) => any, n: number) => (
-  ...args: T[]
-) => fn(...args.slice(0, n));
+export const ary =
+  <T = any>(fn: (...args: T[]) => any, n: number) =>
+  (...args: T[]) =>
+    fn(...args.slice(0, n));
 
 // export const atob = (str: string) => Deno.Buffer.from(str, 'base64').toString('binary');
 
@@ -295,8 +296,10 @@ export const bifurcateBy = <T = any>(arr: T[], filter: Predicate) =>
  * @param fn {function} {(...args: any[]) => any}
  * @returns {function} ([v1, v2]: any[]) => fn(v1, v2)
  */
-export const binary = (fn: (...args: any[]) => any) => (...[v1, v2]: any[]) =>
-  fn(v1, v2);
+export const binary =
+  (fn: (...args: any[]) => any) =>
+  (...[v1, v2]: any[]) =>
+    fn(v1, v2);
 
 /**
  * Creates a function that invokes `fn` with a given context, optionally adding any additional supplied parameters to the beginning of the arguments.
@@ -307,11 +310,10 @@ export const binary = (fn: (...args: any[]) => any) => (...[v1, v2]: any[]) =>
  * @param context
  * @param boundArgs
  */
-export const bind = <T = any>(
-  fn: (...args: any[]) => any,
-  context: T,
-  ...boundArgs: any[]
-) => (...args: any[]) => fn.apply(context, [...boundArgs, ...args]);
+export const bind =
+  <T = any>(fn: (...args: any[]) => any, context: T, ...boundArgs: any[]) =>
+  (...args: any[]) =>
+    fn.apply(context, [...boundArgs, ...args]);
 
 /**
  * Binds methods of an object to the object itself, overwriting the existing method
@@ -360,8 +362,10 @@ export const binomialCoefficient = (n: number, k: number): number => {
  * @param f
  * @param g
  */
-export const both = (f: Function, g: Function) => (...args: any[]) =>
-  f(...args) && g(...args);
+export const both =
+  (f: Function, g: Function) =>
+  (...args: any[]) =>
+    f(...args) && g(...args);
 
 // TODO: need refactor types
 
@@ -373,8 +377,10 @@ export const both = (f: Function, g: Function) => (...args: any[]) =>
  * @param key {string}
  * @param args {any[]}
  */
-export const call = (key: string, ...args: any[]) => (context: any) =>
-  context[key](...args);
+export const call =
+  (key: string, ...args: any[]) =>
+  (context: any) =>
+    context[key](...args);
 
 /**
  *   Capitalizes the first letter of a string.
@@ -492,7 +498,10 @@ export const compactWhitespace = (str: string) => str.replace(/\s{2,}/g, " ");
  *
  * @param fn {Func<any>}
  */
-export const complement = (fn: Func) => (...args: any[]) => !fn(...args);
+export const complement =
+  (fn: Func) =>
+  (...args: any[]) =>
+    !fn(...args);
 
 /**
  * Performs right-to-left function composition.
@@ -503,7 +512,11 @@ export const complement = (fn: Func) => (...args: any[]) => !fn(...args);
  * @param fns {...fns: Func<any>[]}
  */
 export const compose = (...fns: Func[]) =>
-  fns.reduce((f, g) => (...args: any[]) => f(...castArray(g(...args))));
+  fns.reduce(
+    (f, g) =>
+      (...args: any[]) =>
+        f(...castArray(g(...args)))
+  );
 
 /**
  * Performs left-to-right function composition.
@@ -513,7 +526,11 @@ export const compose = (...fns: Func[]) =>
  * @param fns {...fns: Func<any>[]}
  */
 export const composeRight = (...fns: Func[]) =>
-  fns.reduce((f, g) => (...args: any[]) => g(...castArray(f(...args))));
+  fns.reduce(
+    (f, g) =>
+      (...args: any[]) =>
+        g(...castArray(f(...args)))
+  );
 
 /**
  * Returns `true` if given string s1 contains s2. Compare is case insensitive.
@@ -760,10 +777,13 @@ export const deepFlatten = (arr: any[]): any[] => {
  *
  * @param obj
  */
-export const deepFreeze = (obj: any) => {
+export const deepFreeze = <T extends object>(obj: T) => {
   Object.keys(obj).forEach((prop) => {
-    if (typeof obj[prop] === "object" && !Object.isFrozen(obj[prop])) {
-      deepFreeze(obj[prop]);
+    if (
+      typeof obj[prop as keyof T] === "object" &&
+      !Object.isFrozen(obj[prop as keyof T])
+    ) {
+      deepFreeze(obj[prop as keyof T]);
     }
   });
   return Object.freeze(obj);
@@ -836,8 +856,10 @@ export const delayedPromise = (wait: number = 300, ...args: any[]) =>
  * @param f { Function}
  * @param g { Function}
  */
-export const either = (f: Function, g: Function) => (...args: any[]) =>
-  f(...args) || g(...args);
+export const either =
+  (f: Function, g: Function) =>
+  (...args: any[]) =>
+    f(...args) || g(...args);
 
 /**
  * Performs a deep comparison between two values to determine if they are equivalent.
@@ -1193,17 +1215,19 @@ export const getType = (v: any) =>
  */
 type URLParamValue = { [key: string]: string | string[] };
 export const getURLParameters = (url: string) => {
-  return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce((a, v) => {
-    const [key, value] = v.split("=");
-    if (a[key]) {
-      a[key] = ((typeof a[key] === "string"
-        ? [a[key]]
-        : a[key]) as string[]).concat(value);
-    } else {
-      a[key] = value;
-    }
-    return a;
-  }, {} as URLParamValue);
+  return (
+    url.match(/([^?=&]+)(=([^&]*))/g)?.reduce((a: any, v: string) => {
+      const [key, value] = v.split("=");
+      if (a[key]) {
+        a[key] = (
+          (typeof a[key] === "string" ? [a[key]] : a[key]) as string[]
+        ).concat(value);
+      } else {
+        a[key] = value;
+      }
+      return a;
+    }, {} as URLParamValue) ?? {}
+  );
 };
 
 /**
@@ -1422,7 +1446,7 @@ export const inRange = <T extends number | Date | string>(
   end?: T
 ) => {
   if (end && start > end) [end, start] = [start, end];
-  return end === undefined ? n >= 0 && n < start : n >= start && n < end;
+  return end === undefined ? n >= (0 as T) && n < start : n >= start && n < end;
 };
 
 /**
@@ -1988,7 +2012,7 @@ export const mostFrequent = <T extends string | number>(arr: T[]) =>
       a[String(v)] = a[String(v)] ? a[String(v)] + 1 : 1;
       return a;
     }, {} as AnyObject)
-  ).reduce((a, v) => (v[1] >= a[1] ? v : a), [-1, 0])[0];
+  ).reduce((a, v) => (v[1] >= a[1] ? v : a), [-1, 0])[0] as T;
 
 /**
  * Returns the index of the function in an array of functions which executed the fastest.
@@ -2016,7 +2040,10 @@ export const mostPerformant = (fns: Function[], iterations = 10000) => {
  *
  * @param func
  */
-export const negate = (func: Function) => (...args: any[]) => !func(...args);
+export const negate =
+  (func: Function) =>
+  (...args: any[]) =>
+    !func(...args);
 
 /**
  * Given a flat array of objects linked to one another, it will nest them recursively.
@@ -2087,7 +2114,10 @@ export const not = (a: any) => !a;
  *
  * @param n
  */
-export const nthArg = (n: number) => (...args: any[]) => args.slice(n)[0];
+export const nthArg =
+  (n: number) =>
+  (...args: any[]) =>
+    args.slice(n)[0];
 
 export const nthElement = curry(
   (n = 0, arr: any[]) => (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0],
@@ -2253,7 +2283,7 @@ export const parseCookie = (str: string) =>
     .reduce((acc, v) => {
       acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
       return acc;
-    }, {} as AnyObject<string>);
+    }, {} as AnyObject);
 
 /**
  * Creates a function that invokes `fn` with `partials` prepended to the arguments it receives.
@@ -2263,8 +2293,10 @@ export const parseCookie = (str: string) =>
  * @param fn
  * @param partials
  */
-export const partial = (fn: Function, ...partials: any[]) => (...args: any[]) =>
-  fn(...partials, ...args);
+export const partial =
+  (fn: Function, ...partials: any[]) =>
+  (...args: any[]) =>
+    fn(...partials, ...args);
 
 /**
  * Creates a function that invokes `fn` with `partials` appended to the arguments it receives.
@@ -2274,9 +2306,10 @@ export const partial = (fn: Function, ...partials: any[]) => (...args: any[]) =>
  * @param fn
  * @param partials
  */
-export const partialRight = (fn: Function, ...partials: any[]) => (
-  ...args: any[]
-) => fn(...args, ...partials);
+export const partialRight =
+  (fn: Function, ...partials: any[]) =>
+  (...args: any[]) =>
+    fn(...args, ...partials);
 
 /**
  * Groups the elements into two arrays, depending on the provided function's truthiness for each element.
@@ -2356,8 +2389,10 @@ export const pickBy = (obj: AnyObject, fn: Function) =>
  * @param fns {PromiseReturn[]}
  */
 type PromiseReturn = (v: any) => Promise<any>;
-export const pipeAsyncFunctions = (...fns: PromiseReturn[]) => (arg: any) =>
-  fns.reduce((p, f) => p.then(f), Promise.resolve(arg) as PromiseLike<any>);
+export const pipeAsyncFunctions =
+  (...fns: PromiseReturn[]) =>
+  (arg: any) =>
+    fns.reduce((p, f) => p.then(f), Promise.resolve(arg) as PromiseLike<any>);
 
 /**
  * Performs left-to-right function composition.
@@ -2369,7 +2404,11 @@ export const pipeAsyncFunctions = (...fns: PromiseReturn[]) => (arg: any) =>
  * @param fns
  */
 export const pipeFunctions = (...fns: Func<any>[]) =>
-  fns.reduce((f, g) => (...args) => g(f(...args)));
+  fns.reduce(
+    (f, g) =>
+      (...args) =>
+        g(f(...args))
+  );
 
 /**
  * Returns the singular or plural form of the word based on the input number.
@@ -2456,12 +2495,14 @@ export const prettyBytesT = (
  *
  * @param func
  */
-export const promisify = (func: Function) => (...args: any[]) =>
-  new Promise((resolve, reject) =>
-    func(...args, (err: Error, result: any) =>
-      err ? reject(err) : resolve(result)
-    )
-  );
+export const promisify =
+  (func: Function) =>
+  (...args: any[]) =>
+    new Promise((resolve, reject) =>
+      func(...args, (err: Error, result: any) =>
+        err ? reject(err) : resolve(result)
+      )
+    );
 
 /**
  * Converts an angle from radians to degrees.
@@ -2617,9 +2658,9 @@ export const round = (n: number, decimals = 0) =>
  *
  * @param ps
  */
-type PromisableFunc = (...args: any[]) => Promise<any>;
-export const runPromisesInSeries = (ps: PromisableFunc[]) =>
-  ps.reduce((p, next) => p.then(next), Promise.resolve());
+type PromiseFunc = (...args: any[]) => Promise<any>;
+export const runPromisesInSeries = (ps: PromiseFunc[]) =>
+  ps.reduce((p, next) => p.then(next), Promise.resolve()) as Promise<any>;
 
 /**
  * Smooth-scrolls to the top of the page.
@@ -2780,7 +2821,7 @@ export const sum = (...arr: number[]) =>
  * @param arr
  * @param fn
  */
-export const sumBy = <T = AnyObject>(
+export const sumBy = <T extends AnyObject>(
   arr: T[],
   fn: string | ((a: T) => number)
 ) => {
@@ -3113,12 +3154,14 @@ export const unary = (fn: Function) => (val: any) => fn(val);
  * @param fn
  * @param n
  */
-export const uncurry = (fn: Function, n = 1) => (...args: any[]) => {
-  const next = (acc: any) => (args: any) =>
-    args.reduce((x: any, y: any) => x(y), acc);
-  if (n > args.length) throw new RangeError("Arguments too few!");
-  return next(fn)(args.slice(0, n));
-};
+export const uncurry =
+  (fn: Function, n = 1) =>
+  (...args: any[]) => {
+    const next = (acc: any) => (args: any) =>
+      args.reduce((x: any, y: any) => x(y), acc);
+    if (n > args.length) throw new RangeError("Arguments too few!");
+    return next(fn)(args.slice(0, n));
+  };
 
 /**
  * Returns every element that exists in any of the two arrays once.
@@ -3259,10 +3302,7 @@ export const URLJoin = (...args: string[]) =>
  *
  * @param args
  */
-export const URLJoinWithParams = (
-  url: string,
-  params: AnyObject<string | number>
-) => {
+export const URLJoinWithParams = (url: string, params: AnyObject) => {
   return URLJoin(url, objectToQueryString(params));
 };
 

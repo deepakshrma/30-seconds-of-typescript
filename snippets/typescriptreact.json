@@ -186,14 +186,15 @@
       " * @param fn {function} {(...args: T[]) => any}",
       " * @param n {number}",
       " */",
-      "export const ary = <T = any>(fn: (...args: T[]) => any, n: number) => (",
-      "  ...args: T[]",
-      ") => fn(...args.slice(0, n));",
+      "export const ary =",
+      "  <T = any>(fn: (...args: T[]) => any, n: number) =>",
+      "  (...args: T[]) =>",
+      "    fn(...args.slice(0, n));",
       "",
       "// export const atob = (str: string) => Deno.Buffer.from(str, 'base64').toString('binary');",
       ""
     ],
-    "description": "Creates a function that accepts up to `n` arguments, ignoring any additional arguments.\nCall the provided function, `fn`, with up to `n` arguments, using `Array.prototype.slice(0, n)` and the spread operator (`...`).\n\n\n\nexport const ary = <T = any>(fn: (...args: T[]) => any, n: number) => (\n  ...args: T[]\n) => fn(...args.slice(0, n));\n\n//"
+    "description": "Creates a function that accepts up to `n` arguments, ignoring any additional arguments.\nCall the provided function, `fn`, with up to `n` arguments, using `Array.prototype.slice(0, n)` and the spread operator (`...`).\n\n\n\nexport const ary =\n  <T = any>(fn: (...args: T[]) => any, n: number) =>\n  (...args: T[]) =>\n    fn(...args.slice(0, n));\n\n//"
   },
   "30_attempt": {
     "prefix": "30_attempt",
@@ -325,43 +326,6 @@
     ],
     "description": "Splits values into two groups according to a predicate function, which specifies which group an element in the input collection belongs to. If the predicate function returns a truthy value, the collection element belongs to the first group; otherwise, it belongs to the second group.\nUse `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.\n\n\n"
   },
-  "30_binary": {
-    "prefix": "30_binary",
-    "body": [
-      "/**",
-      " * Creates a function that accepts up to two arguments, ignoring any additional arguments.",
-      " * Call the provided function, `fn`, with the first two arguments given.",
-      " *",
-      " * @param fn {function} {(...args: any[]) => any}",
-      " * @returns {function} ([v1, v2]: any[]) => fn(v1, v2)",
-      " */",
-      "export const binary = (fn: (...args: any[]) => any) => (...[v1, v2]: any[]) =>",
-      "  fn(v1, v2);",
-      ""
-    ],
-    "description": "Creates a function that accepts up to two arguments, ignoring any additional arguments.\nCall the provided function, `fn`, with the first two arguments given.\n\n\n"
-  },
-  "30_bind": {
-    "prefix": "30_bind",
-    "body": [
-      "/**",
-      " * Creates a function that invokes `fn` with a given context, optionally adding any additional supplied parameters to the beginning of the arguments.",
-      " *",
-      " * Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`.",
-      " * Use `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments.",
-      " * @param fn",
-      " * @param context",
-      " * @param boundArgs",
-      " */",
-      "export const bind = <T = any>(",
-      "  fn: (...args: any[]) => any,",
-      "  context: T,",
-      "  ...boundArgs: any[]",
-      ") => (...args: any[]) => fn.apply(context, [...boundArgs, ...args]);",
-      ""
-    ],
-    "description": "Creates a function that invokes `fn` with a given context, optionally adding any additional supplied parameters to the beginning of the arguments.\nReturn a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`.\nUse `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments.\n\n\n\n"
-  },
   "30_bindAll": {
     "prefix": "30_bindAll",
     "body": [
@@ -413,41 +377,6 @@
       ""
     ],
     "description": "Evaluates the binomial coefficient of two integers `n` and `k`.\nUse `Number.isNaN()` to check if any of the two values is `NaN`.\nCheck if `k` is less than `0`, greater than or equal to `n`, equal to `1` or `n - 1` and return the appropriate result.\nCheck if `n - k` is less than `k` and switch their values accordingly.\nLoop from `2` through `k` and calculate the binomial coefficient.\nUse `Math.round()` to account for rounding errors in the calculation.\n\n\n\nexport const binomialCoefficient = (n: number, k: number): number => {\n  if (Number.isNaN(n) || Number.isNaN(k)) return NaN;\n  if (k < 0 || k > n) return 0;\n  if (k === 0 || k === n) return 1;\n  if (k === 1 || k === n - 1) return n;\n  if (n - k < k) k = n - k;\n  let res = n;\n  for (let j = 2; j <= k; j++) res= (n - j + 1) /"
-  },
-  "30_both": {
-    "prefix": "30_both",
-    "body": [
-      "/**",
-      " * Returns `true` if both functions return `true` for a given set of arguments, `false` otherwise.",
-      " * Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`.",
-      " *",
-      " * @param f",
-      " * @param g",
-      " */",
-      "export const both = (f: Function, g: Function) => (...args: any[]) =>",
-      "  f(...args) && g(...args);",
-      "",
-      "// TODO: need refactor types",
-      ""
-    ],
-    "description": "Returns `true` if both functions return `true` for a given set of arguments, `false` otherwise.\nUse the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`.\n\n\n\nexport const both = (f: Function, g: Function) => (...args: any[]) =>\n  f(...args) && g(...args);\n\n//"
-  },
-  "30_call": {
-    "prefix": "30_call",
-    "body": [
-      "/**",
-      " * Given a key and a set of arguments, call them when given a context. Primarily useful in composition.",
-      " *",
-      " * Use a closure to call a stored key with stored arguments.",
-      " *",
-      " * @param key {string}",
-      " * @param args {any[]}",
-      " */",
-      "export const call = (key: string, ...args: any[]) => (context: any) =>",
-      "  context[key](...args);",
-      ""
-    ],
-    "description": "Given a key and a set of arguments, call them when given a context. Primarily useful in composition.\nUse a closure to call a stored key with stored arguments.\n\n\n"
   },
   "30_capitalize": {
     "prefix": "30_capitalize",
@@ -612,21 +541,6 @@
     ],
     "description": "Returns a string with whitespaces compacted.\nUse `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space.\n\n\nexport const compactWhitespace = (str: string) => str.replace(/\\s{2,}/"
   },
-  "30_complement": {
-    "prefix": "30_complement",
-    "body": [
-      "/**",
-      " * Returns a function that is the logical complement of the given function, `fn`.",
-      " *",
-      " * Use the logical not (`!`) operator on the result of calling `fn` with any supplied `args`.",
-      " *",
-      " * @param fn {Func<any>}",
-      " */",
-      "export const complement = (fn: Func) => (...args: any[]) => !fn(...args);",
-      ""
-    ],
-    "description": "Returns a function that is the logical complement of the given function, `fn`.\nUse the logical not (`!`) operator on the result of calling `fn` with any supplied `args`.\n\n"
-  },
   "30_compose": {
     "prefix": "30_compose",
     "body": [
@@ -639,7 +553,11 @@
       " * @param fns {...fns: Func<any>[]}",
       " */",
       "export const compose = (...fns: Func[]) =>",
-      "  fns.reduce((f, g) => (...args: any[]) => f(...castArray(g(...args))));",
+      "  fns.reduce(",
+      "    (f, g) =>",
+      "      (...args: any[]) =>",
+      "        f(...castArray(g(...args)))",
+      "  );",
       ""
     ],
     "description": "Performs right-to-left function composition.\nUse `Array.prototype.reduce()` to perform right-to-left function composition.\nThe last (rightmost) function can accept one or more arguments; the remaining functions must be unary.\n\n"
@@ -655,7 +573,11 @@
       " * @param fns {...fns: Func<any>[]}",
       " */",
       "export const composeRight = (...fns: Func[]) =>",
-      "  fns.reduce((f, g) => (...args: any[]) => g(...castArray(f(...args))));",
+      "  fns.reduce(",
+      "    (f, g) =>",
+      "      (...args: any[]) =>",
+      "        g(...castArray(f(...args)))",
+      "  );",
       ""
     ],
     "description": "Performs left-to-right function composition.\nUse `Array.prototype.reduce()` to perform left-to-right function composition.\nThe first (leftmost) function can accept one or more arguments; the remaining functions must be unary.\n"
@@ -986,10 +908,13 @@
       " *",
       " * @param obj",
       " */",
-      "export const deepFreeze = (obj: any) => {",
+      "export const deepFreeze = <T extends object>(obj: T) => {",
       "  Object.keys(obj).forEach((prop) => {",
-      "    if (typeof obj[prop] === \"object\" && !Object.isFrozen(obj[prop])) {",
-      "      deepFreeze(obj[prop]);",
+      "    if (",
+      "      typeof obj[prop as keyof T] === \"object\" &&",
+      "      !Object.isFrozen(obj[prop as keyof T])",
+      "    ) {",
+      "      deepFreeze(obj[prop as keyof T]);",
       "    }",
       "  });",
       "  return Object.freeze(obj);",
@@ -1080,23 +1005,6 @@
       ""
     ],
     "description": "Return a promise, Resolve after `wait` milliseconds.\n\n\n"
-  },
-  "30_either": {
-    "prefix": "30_either",
-    "body": [
-      "/**",
-      " *  Returns `true` if at least one function returns `true` for a given set of arguments, `false` otherwise.",
-      " *",
-      " * Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.",
-      " *",
-      " * @param f { Function}",
-      " * @param g { Function}",
-      " */",
-      "export const either = (f: Function, g: Function) => (...args: any[]) =>",
-      "  f(...args) || g(...args);",
-      ""
-    ],
-    "description": " Returns `true` if at least one function returns `true` for a given set of arguments, `false` otherwise.\nUse the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.\n\n\n"
   },
   "30_equals": {
     "prefix": "30_equals",
@@ -1576,21 +1484,23 @@
       " */",
       "type URLParamValue = { [key: string]: string | string[] };",
       "export const getURLParameters = (url: string) => {",
-      "  return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce((a, v) => {",
-      "    const [key, value] = v.split(\"=\");",
-      "    if (a[key]) {",
-      "      a[key] = ((typeof a[key] === \"string\"",
-      "        ? [a[key]]",
-      "        : a[key]) as string[]).concat(value);",
-      "    } else {",
-      "      a[key] = value;",
-      "    }",
-      "    return a;",
-      "  }, {} as URLParamValue);",
+      "  return (",
+      "    url.match(/([^?=&]+)(=([^&]*))/g)?.reduce((a: any, v: string) => {",
+      "      const [key, value] = v.split(\"=\");",
+      "      if (a[key]) {",
+      "        a[key] = (",
+      "          (typeof a[key] === \"string\" ? [a[key]] : a[key]) as string[]",
+      "        ).concat(value);",
+      "      } else {",
+      "        a[key] = value;",
+      "      }",
+      "      return a;",
+      "    }, {} as URLParamValue) ?? {}",
+      "  );",
       "};",
       ""
     ],
-    "description": "Returns an object containing the parameters of the current URL.\nUse `String.prototype.match()` with an appropriate regular expression to get all key-value pairs, `Array.prototype.reduce()` to map and combine them into a single object.\nPass `location.search` as the argument to apply to the current `url`.\n\n\ntype URLParamValue = { [key: string]: string | string[] };\nexport const getURLParameters = (url: string) => {\n  return (url.match(/([^?=&]+)(=([^&]))/"
+    "description": "Returns an object containing the parameters of the current URL.\nUse `String.prototype.match()` with an appropriate regular expression to get all key-value pairs, `Array.prototype.reduce()` to map and combine them into a single object.\nPass `location.search` as the argument to apply to the current `url`.\n\n\ntype URLParamValue = { [key: string]: string | string[] };\nexport const getURLParameters = (url: string) => {\n  return (\n    url.match(/([^?=&]+)(=([^&]))/"
   },
   "30_mapToObject": {
     "prefix": "30_mapToObject",
@@ -1902,7 +1812,7 @@
       "  end?: T",
       ") => {",
       "  if (end && start > end) [end, start] = [start, end];",
-      "  return end === undefined ? n >= 0 && n < start : n >= start && n < end;",
+      "  return end === undefined ? n >= (0 as T) && n < start : n >= start && n < end;",
       "};",
       ""
     ],
@@ -2722,7 +2632,7 @@
       "      a[String(v)] = a[String(v)] ? a[String(v)] + 1 : 1;",
       "      return a;",
       "    }, {} as AnyObject)",
-      "  ).reduce((a, v) => (v[1] >= a[1] ? v : a), [-1, 0])[0];",
+      "  ).reduce((a, v) => (v[1] >= a[1] ? v : a), [-1, 0])[0] as T;",
       ""
     ],
     "description": "Returns the most frequent element in an array.\nUse `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.\nUse `Object.entries()` on the result in combination with `Array.prototype.reduce()` to get the most frequent value in the array.\n\n"
@@ -2751,21 +2661,6 @@
       ""
     ],
     "description": "Returns the index of the function in an array of functions which executed the fastest.\nUse `Array.prototype.map()` to generate an array where each value is the total time taken to execute the function after `iterations` times. Use the difference in `performance.now()` values before and after to get the total time in milliseconds to a high degree of accuracy.\nUse `Math.min()` to find the minimum execution time, and return the index of that shortest time which corresponds to the index of the most performant function.\nOmit the second argument, `iterations`, to use a default of 10,000 iterations. The more iterations, the more reliable the result but the longer it will take.\n\n\n"
-  },
-  "30_negate": {
-    "prefix": "30_negate",
-    "body": [
-      "/**",
-      " * Negates a predicate function.",
-      " *",
-      " * Take a predicate function and apply the not operator (`!`) to it with its arguments.",
-      " *",
-      " * @param func",
-      " */",
-      "export const negate = (func: Function) => (...args: any[]) => !func(...args);",
-      ""
-    ],
-    "description": "Negates a predicate function.\nTake a predicate function and apply the not operator (`!`) to it with its arguments.\n\n"
   },
   "30_nest": {
     "prefix": "30_nest",
@@ -2859,8 +2754,8 @@
     ],
     "description": "Returns the logical inverse of the given value.\nUse the logical not (`!`) operator to return the inverse of the given value.\n\n"
   },
-  "30_nthArg": {
-    "prefix": "30_nthArg",
+  "30_nthElement": {
+    "prefix": "30_nthElement",
     "body": [
       "/**",
       " * Creates a function that gets the argument at index `n`. If `n` is negative, the nth argument from the end is returned.",
@@ -2869,7 +2764,10 @@
       " *",
       " * @param n",
       " */",
-      "export const nthArg = (n: number) => (...args: any[]) => args.slice(n)[0];",
+      "export const nthArg =",
+      "  (n: number) =>",
+      "  (...args: any[]) =>",
+      "    args.slice(n)[0];",
       "",
       "export const nthElement = curry(",
       "  (n = 0, arr: any[]) => (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0],",
@@ -3089,45 +2987,10 @@
       "    .reduce((acc, v) => {",
       "      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());",
       "      return acc;",
-      "    }, {} as AnyObject<string>);",
+      "    }, {} as AnyObject);",
       ""
     ],
     "description": "  Parse an HTTP Cookie header string and return an object of all cookie name-value pairs.\nUse `String.prototype.split(';')` to separate key-value pairs from each other.\nUse `Array.prototype.map()` and `String.prototype.split('=')` to separate keys from values in each pair.\nUse `Array.prototype.reduce()` and `decodeURIComponent()` to create an object with all key-value pairs.\n\n"
-  },
-  "30_partial": {
-    "prefix": "30_partial",
-    "body": [
-      "/**",
-      " * Creates a function that invokes `fn` with `partials` prepended to the arguments it receives.",
-      " *",
-      " * Use the spread operator (`...`) to prepend `partials` to the list of arguments of `fn`.",
-      " *",
-      " * @param fn",
-      " * @param partials",
-      " */",
-      "export const partial = (fn: Function, ...partials: any[]) => (...args: any[]) =>",
-      "  fn(...partials, ...args);",
-      ""
-    ],
-    "description": "Creates a function that invokes `fn` with `partials` prepended to the arguments it receives.\nUse the spread operator (`...`) to prepend `partials` to the list of arguments of `fn`.\n\n\n"
-  },
-  "30_partialRight": {
-    "prefix": "30_partialRight",
-    "body": [
-      "/**",
-      " * Creates a function that invokes `fn` with `partials` appended to the arguments it receives.",
-      " *",
-      " * Use the spread operator (`...`) to append `partials` to the list of arguments of `fn`.",
-      " *",
-      " * @param fn",
-      " * @param partials",
-      " */",
-      "export const partialRight = (fn: Function, ...partials: any[]) => (",
-      "  ...args: any[]",
-      ") => fn(...args, ...partials);",
-      ""
-    ],
-    "description": "Creates a function that invokes `fn` with `partials` appended to the arguments it receives.\nUse the spread operator (`...`) to append `partials` to the list of arguments of `fn`.\n\n\n"
   },
   "30_partition": {
     "prefix": "30_partition",
@@ -3219,27 +3082,6 @@
     ],
     "description": "Creates an object composed of the properties the given function returns truthy for. The function is invoked with two arguments: (value, key).\nUse `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a falsy value.\nUse `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.\n\n\n"
   },
-  "30_pipeAsyncFunctions": {
-    "prefix": "30_pipeAsyncFunctions",
-    "body": [
-      "/**",
-      " * Performs left-to-right function composition for asynchronous functions.",
-      " *",
-      " * Use `Array.prototype.reduce()` and the spread operator (`...`) to perform function composition using `Promise.then()`.",
-      " * The functions can return a combination of normal values, `Promise`s or be `async`, returning through `await`.",
-      " * All functions must accept a single argument.",
-      " *",
-      " * type PromiseReturn = (v: any) => Promise<any>;",
-      " *",
-      " * @param fns {PromiseReturn[]}",
-      " */",
-      "type PromiseReturn = (v: any) => Promise<any>;",
-      "export const pipeAsyncFunctions = (...fns: PromiseReturn[]) => (arg: any) =>",
-      "  fns.reduce((p, f) => p.then(f), Promise.resolve(arg) as PromiseLike<any>);",
-      ""
-    ],
-    "description": "Performs left-to-right function composition for asynchronous functions.\nUse `Array.prototype.reduce()` and the spread operator (`...`) to perform function composition using `Promise.then()`.\nThe functions can return a combination of normal values, `Promise`s or be `async`, returning through `await`.\nAll functions must accept a single argument.\ntype PromiseReturn = (v: any) => Promise<any>;\n\n"
-  },
   "30_pipeFunctions": {
     "prefix": "30_pipeFunctions",
     "body": [
@@ -3253,7 +3095,11 @@
       " * @param fns",
       " */",
       "export const pipeFunctions = (...fns: Func<any>[]) =>",
-      "  fns.reduce((f, g) => (...args) => g(f(...args)));",
+      "  fns.reduce(",
+      "    (f, g) =>",
+      "      (...args) =>",
+      "        g(f(...args))",
+      "  );",
       ""
     ],
     "description": "Performs left-to-right function composition.\nUse `Array.prototype.reduce()` with the spread operator (`...`) to perform left-to-right function composition.\nThe first (leftmost) function can accept one or more arguments; the remaining functions must be unary.\n\n"
@@ -3355,30 +3201,6 @@
       ""
     ],
     "description": "Template String funtion, Same as prettyBytes but more cleaner way\n\n\n\n"
-  },
-  "30_promisify": {
-    "prefix": "30_promisify",
-    "body": [
-      "/**",
-      " * Converts an asynchronous function to return a promise.",
-      " *",
-      " * _In Node 8+, you can use [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original)_",
-      " *",
-      " * Use currying to return a function returning a `Promise` that calls the original function.",
-      " * Use the `...rest` operator to pass in all the parameters.",
-      " *",
-      " *",
-      " * @param func",
-      " */",
-      "export const promisify = (func: Function) => (...args: any[]) =>",
-      "  new Promise((resolve, reject) =>",
-      "    func(...args, (err: Error, result: any) =>",
-      "      err ? reject(err) : resolve(result)",
-      "    )",
-      "  );",
-      ""
-    ],
-    "description": "Converts an asynchronous function to return a promise.\n_In Node 8+, you can use [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original)_\nUse currying to return a function returning a `Promise` that calls the original function.\nUse the `...rest` operator to pass in all the parameters.\n\n"
   },
   "30_radsToDegrees": {
     "prefix": "30_radsToDegrees",
@@ -3597,9 +3419,9 @@
       " *",
       " * @param ps",
       " */",
-      "type PromisableFunc = (...args: any[]) => Promise<any>;",
-      "export const runPromisesInSeries = (ps: PromisableFunc[]) =>",
-      "  ps.reduce((p, next) => p.then(next), Promise.resolve());",
+      "type PromiseFunc = (...args: any[]) => Promise<any>;",
+      "export const runPromisesInSeries = (ps: PromiseFunc[]) =>",
+      "  ps.reduce((p, next) => p.then(next), Promise.resolve()) as Promise<any>;",
       ""
     ],
     "description": "Runs an array of promises in series.\nUse `Array.prototype.reduce()` to create a promise chain, where each promise returns the next promise when resolved.\n\n"
@@ -3833,7 +3655,7 @@
       " * @param arr",
       " * @param fn",
       " */",
-      "export const sumBy = <T = AnyObject>(",
+      "export const sumBy = <T extends AnyObject>(",
       "  arr: T[],",
       "  fn: string | ((a: T) => number)",
       ") => {",
@@ -4285,30 +4107,6 @@
     ],
     "description": "Creates a function that accepts up to one argument, ignoring any additional arguments.\nCall the provided function, `fn`, with just the first argument given.\n\n"
   },
-  "30_uncurry": {
-    "prefix": "30_uncurry",
-    "body": [
-      "/**",
-      " * Uncurries a function up to depth `n`.",
-      " *",
-      " * Return a variadic function.",
-      " * Use `Array.prototype.reduce()` on the provided arguments to call each subsequent curry level of the function.",
-      " * If the `length` of the provided arguments is less than `n` throw an error.",
-      " * Otherwise, call `fn` with the proper amount of arguments, using `Array.prototype.slice(0, n)`.",
-      " * Omit the second argument, `n`, to uncurry up to depth `1`.",
-      " * @param fn",
-      " * @param n",
-      " */",
-      "export const uncurry = (fn: Function, n = 1) => (...args: any[]) => {",
-      "  const next = (acc: any) => (args: any) =>",
-      "    args.reduce((x: any, y: any) => x(y), acc);",
-      "  if (n > args.length) throw new RangeError(\"Arguments too few!\");",
-      "  return next(fn)(args.slice(0, n));",
-      "};",
-      ""
-    ],
-    "description": "Uncurries a function up to depth `n`.\nReturn a variadic function.\nUse `Array.prototype.reduce()` on the provided arguments to call each subsequent curry level of the function.\nIf the `length` of the provided arguments is less than `n` throw an error.\nOtherwise, call `fn` with the proper amount of arguments, using `Array.prototype.slice(0, n)`.\nOmit the second argument, `n`, to uncurry up to depth `1`.\n\n\n"
-  },
   "30_union": {
     "prefix": "30_union",
     "body": [
@@ -4506,10 +4304,7 @@
       " *",
       " * @param args",
       " */",
-      "export const URLJoinWithParams = (",
-      "  url: string,",
-      "  params: AnyObject<string | number>",
-      ") => {",
+      "export const URLJoinWithParams = (url: string, params: AnyObject) => {",
       "  return URLJoin(url, objectToQueryString(params));",
       "};",
       ""

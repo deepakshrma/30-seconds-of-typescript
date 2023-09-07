@@ -3,20 +3,20 @@
 // This code was bundled using `deno bundle` and it's not recommended to edit it manually
 
 var HTMLEscapeChars;
-(function (HTMLEscapeChars1) {
-  HTMLEscapeChars1["&"] = "&amp;";
-  HTMLEscapeChars1["<"] = "&lt;";
-  HTMLEscapeChars1[">"] = "&gt;";
-  HTMLEscapeChars1["'"] = "&#39;";
-  HTMLEscapeChars1['"'] = "&quot;";
+(function (HTMLEscapeChars) {
+  HTMLEscapeChars["&"] = "&amp;";
+  HTMLEscapeChars["<"] = "&lt;";
+  HTMLEscapeChars[">"] = "&gt;";
+  HTMLEscapeChars["'"] = "&#39;";
+  HTMLEscapeChars['"'] = "&quot;";
 })(HTMLEscapeChars || (HTMLEscapeChars = {}));
 var HTMLUnEscapeChars;
-(function (HTMLUnEscapeChars1) {
-  HTMLUnEscapeChars1["&amp;"] = "&";
-  HTMLUnEscapeChars1["&lt;"] = "<";
-  HTMLUnEscapeChars1["&gt;"] = ">";
-  HTMLUnEscapeChars1["&#39;"] = "'";
-  HTMLUnEscapeChars1["&quot;"] = '"';
+(function (HTMLUnEscapeChars) {
+  HTMLUnEscapeChars["&amp;"] = "&";
+  HTMLUnEscapeChars["&lt;"] = "<";
+  HTMLUnEscapeChars["&gt;"] = ">";
+  HTMLUnEscapeChars["&#39;"] = "'";
+  HTMLUnEscapeChars["&quot;"] = '"';
 })(HTMLUnEscapeChars || (HTMLUnEscapeChars = {}));
 const htmlEscapeReg = new RegExp(
   `[${Object.keys(HTMLEscapeChars).join("")}]`,
@@ -135,12 +135,12 @@ const capitalizeEveryWord = (str = "") =>
   str.replace(/\b[a-z]/g, (__char) => __char.toUpperCase());
 const castArray = (val) => (Array.isArray(val) ? val : [val]);
 const celsiusToFahrenheit = (degrees) => 1.8 * degrees + 32;
-const chunk = (arr, size1) =>
+const chunk = (arr, size) =>
   Array.from(
     {
-      length: Math.ceil(arr.length / size1),
+      length: Math.ceil(arr.length / size),
     },
-    (_, i) => arr.slice(i * size1, i * size1 + size1)
+    (_, i) => arr.slice(i * size, i * size + size)
   );
 const colorize = new (class {
   color = (code, ended = false, ...messages) =>
@@ -423,19 +423,21 @@ const getType = (v) =>
     ? "null"
     : v.constructor.name.toLowerCase();
 const getURLParameters = (url) => {
-  return (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce((a, v) => {
-    const [key, value] = v.split("=");
-    if (a[key]) {
-      a[key] = (typeof a[key] === "string" ? [a[key]] : a[key]).concat(value);
-    } else {
-      a[key] = value;
-    }
-    return a;
-  }, {});
+  return (
+    url.match(/([^?=&]+)(=([^&]*))/g)?.reduce((a, v) => {
+      const [key, value] = v.split("=");
+      if (a[key]) {
+        a[key] = (typeof a[key] === "string" ? [a[key]] : a[key]).concat(value);
+      } else {
+        a[key] = value;
+      }
+      return a;
+    }, {}) ?? {}
+  );
 };
-const mapToObject = (map1) => {
+const mapToObject = (map) => {
   let result = {};
-  for (let [key, value] of map1.entries()) {
+  for (let [key, value] of map.entries()) {
     result[key] = value;
   }
   return result;
@@ -594,8 +596,8 @@ const map = (array, fn) => {
   const chars = Array.isArray(array) ? array : [...array];
   return chars.map((c, i) => fn(c, i, chars));
 };
-const mask = (cc, num = 4, mask1 = "*") =>
-  String(cc).slice(-num).padStart(String(cc).length, mask1);
+const mask = (cc, num = 4, mask = "*") =>
+  String(cc).slice(-num).padStart(String(cc).length, mask);
 const matches = (obj, source) =>
   Object.keys(source).every(
     (key) => obj.hasOwnProperty(key) && obj[key] === source[key]
@@ -634,9 +636,9 @@ const sortBy = (
   return [...arr].sort(fn);
 };
 var SortByOrder;
-(function (SortByOrder1) {
-  SortByOrder1[(SortByOrder1["ASC"] = 1)] = "ASC";
-  SortByOrder1[(SortByOrder1["DESC"] = -1)] = "DESC";
+(function (SortByOrder) {
+  SortByOrder[(SortByOrder["ASC"] = 1)] = "ASC";
+  SortByOrder[(SortByOrder["DESC"] = -1)] = "DESC";
 })(SortByOrder || (SortByOrder = {}));
 const sortByKey = (arr, key, order = SortByOrder.ASC) => {
   return [...arr].sort(
@@ -651,12 +653,12 @@ const mostFrequent = (arr) =>
     }, {})
   ).reduce((a, v) => (v[1] >= a[1] ? v : a), [-1, 0])[0];
 const mostPerformant = (fns, iterations = 10000) => {
-  const times1 = fns.map((fn) => {
+  const times = fns.map((fn) => {
     const before = performance.now();
     for (let i = 0; i < iterations; i++) fn();
     return performance.now() - before;
   });
-  return times1.indexOf(Math.min(...times1));
+  return times.indexOf(Math.min(...times));
 };
 const negate =
   (func) =>
@@ -693,10 +695,7 @@ const objectToQueryString = (queryParameters) => {
       )
     : "";
 };
-const offset = (arr, offset1) => [
-  ...arr.slice(offset1),
-  ...arr.slice(0, offset1),
-];
+const offset = (arr, offset) => [...arr.slice(offset), ...arr.slice(0, offset)];
 const omit = (obj, arr) =>
   Object.keys(obj)
     .filter((k) => !arr.includes(k))
@@ -749,8 +748,8 @@ const partialRight =
   (fn, ...partials) =>
   (...args) =>
     fn(...args, ...partials);
-const partition = (arr1, fn) =>
-  arr1.reduce(
+const partition = (arr, fn) =>
+  arr.reduce(
     (acc, val, i, arr) => {
       acc[fn(val, i, arr) ? 0 : 1].push(val);
       return acc;
@@ -759,9 +758,9 @@ const partition = (arr1, fn) =>
   );
 const partitionBy = (arr, fn) =>
   arr.reduce(
-    ({ res, last: last1 }, v, i, a) => {
+    ({ res, last }, v, i, a) => {
       const next = fn(v, i, a);
-      if (next !== last1) res.push([v]);
+      if (next !== last) res.push([v]);
       else res[res.length - 1].push(v);
       return {
         res,
@@ -794,8 +793,8 @@ const prefix = (prop) => {
   const capitalizedProp = prop.charAt(0).toUpperCase() + prop.slice(1);
   const prefixes = ["", "webkit", "moz", "ms", "o"];
   const i = prefixes.findIndex(
-    (prefix1) =>
-      typeof document.body.style[prefix1 ? prefix1 + capitalizedProp : prop] !==
+    (prefix) =>
+      typeof document.body.style[prefix ? prefix + capitalizedProp : prop] !==
       "undefined"
   );
   return i !== -1 ? (i === 0 ? prop : prefixes[i] + capitalizedProp) : null;
@@ -1017,10 +1016,10 @@ const ellipsis = (str, num = str.length, ellipsisStr = "...") =>
 const unary = (fn) => (val) => fn(val);
 const uncurry =
   (fn, n = 1) =>
-  (...args1) => {
+  (...args) => {
     const next = (acc) => (args) => args.reduce((x, y) => x(y), acc);
-    if (n > args1.length) throw new RangeError("Arguments too few!");
-    return next(fn)(args1.slice(0, n));
+    if (n > args.length) throw new RangeError("Arguments too few!");
+    return next(fn)(args.slice(0, n));
   };
 const union = (a, b) => Array.from(new Set([...a, ...b]));
 const unionBy = (a, b, fn) => {
@@ -1042,20 +1041,20 @@ const uniqueByRight = (arr, fn) =>
     if (!acc.some((x) => fn(v, x))) acc.push(v);
     return acc;
   }, []);
-const unzip = (arr, size2 = 0) => {
+const unzip = (arr, size = 0) => {
   return arr.reduce(
     (acc, val) => (val.forEach((v, i) => acc[i].push(v)), acc),
     Array.from({
-      length: size2 || Math.max(...arr.map((x) => x.length)),
+      length: size || Math.max(...arr.map((x) => x.length)),
     }).map(() => [])
   );
 };
-const unzipWith = (arr, fn, size3 = 0) =>
+const unzipWith = (arr, fn, size = 0) =>
   arr
     .reduce(
       (acc, val) => (val.forEach((v, i) => acc[i].push(v)), acc),
       Array.from({
-        length: size3 || Math.max(...arr.map((x) => x.length)),
+        length: size || Math.max(...arr.map((x) => x.length)),
       }).map((x) => [])
     )
     .map((val) => fn(...val));

@@ -2,7 +2,6 @@ import {
   assertEquals,
   assertThrows,
   assertNotEquals,
-  assertThrowsAsync,
 } from "https://deno.land/std/testing/asserts.ts";
 import {
   accumulate,
@@ -643,18 +642,10 @@ Deno.test("deepClone #1", () => {
 // deepFlatten
 Deno.test("deepFlatten #1", () => {
   assertEquals(deepFlatten([1, [2], [[3], 4], 5]), [1, 2, 3, 4, 5]);
-  assertEquals(deepFlatten([1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]), [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-  ]);
+  assertEquals(
+    deepFlatten([1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]),
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  );
 });
 
 // deepFreeze
@@ -662,14 +653,14 @@ Deno.test("deepFreeze #1", () => {
   const o = deepFreeze([1, [2, 3]]);
   assertThrows(
     () => {
-      o[0] = 3;
+      (o as any)[0] = 3;
     },
     TypeError,
     "Cannot assign to read only property '0' of object '[object Array]'"
   );
   assertThrows(
     () => {
-      o[1][1] = 4;
+      (o as any)[1][1] = 4;
     },
     TypeError,
     "Cannot assign to read only property '1' of object '[object Array]'"
@@ -788,15 +779,14 @@ Deno.test("fahrenheitToCelsius #1", () => {
 
 // filterNonUnique
 Deno.test("filterNonUnique #1", () => {
-  assertEquals(
-    filterNonUnique<number>([1, 2, 2, 3, 4, 4, 5]),
-    [1, 3, 5]
-  );
+  assertEquals(filterNonUnique<number>([1, 2, 2, 3, 4, 4, 5]), [1, 3, 5]);
   assertEquals(filterNonUnique([1, 2, 2, 3, 4, 4, 5, "s"]), [1, 3, 5, "s"]);
-  assertEquals(
-    filterNonUnique<number | string>([1, 2, 2, 3, 4, 4, 5, "s"]),
-    [1, 3, 5, "s"]
-  );
+  assertEquals(filterNonUnique<number | string>([1, 2, 2, 3, 4, 4, 5, "s"]), [
+    1,
+    3,
+    5,
+    "s",
+  ]);
 });
 
 // filterNonUniqueBy
@@ -1255,7 +1245,7 @@ Deno.test("minBy #1", () => {
 Deno.test("sortBy #1", () => {
   assertEquals(sortBy([1, 2, 4, 3, 4, -1]), [-1, 1, 2, 3, 4, 4]);
   assertEquals(sortBy([1, 2, 4, 3, 4, -1], undefined, -1), [4, 4, 3, 2, 1, -1]);
-  assertEquals(sortBy(["Test", "test"]), ["Test", "test"]);
+  assertEquals(sortBy(["Test", "test"]), ["test", "Test"]);
   assertEquals(
     sortBy([{ name: "02" }, { name: "01" }], (s1: any, s2: any) =>
       s1.name.localeCompare(s2.name)
@@ -1299,11 +1289,10 @@ Deno.test("mostPerformant #1", () => {
 
 // negate
 Deno.test("negate #1", () => {
-  assertEquals([1, 2, 3, 4, 5, 6].filter(negate((n: number) => n % 2 === 0)), [
-    1,
-    3,
-    5,
-  ]);
+  assertEquals(
+    [1, 2, 3, 4, 5, 6].filter(negate((n: number) => n % 2 === 0)),
+    [1, 3, 5]
+  );
 });
 
 // nest
@@ -1584,7 +1573,8 @@ Deno.test("round #1", () => {
   assertEquals(round(1.005, 2), 1.01);
 });
 
-const delay = (d: number) => new Promise((r) => setTimeout(r, d, 10));
+const delay = (d: number) =>
+  new Promise((r) => setTimeout(() => r(10), d)) as Promise<number>;
 
 // runPromisesInSeries
 Deno.test("runPromisesInSeries #1", async () => {
