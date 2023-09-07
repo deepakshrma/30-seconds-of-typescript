@@ -19,10 +19,13 @@ Call `Object.freeze(obj)` recursively on all properties, checking if each one is
 Finally, use `Object.freeze()` to freeze the given object.
 
 ```ts title="typescript"
-const deepFreeze = (obj: any) => {
+const deepFreeze = <T extends object>(obj: T) => {
   Object.keys(obj).forEach((prop) => {
-    if (typeof obj[prop] === "object" && !Object.isFrozen(obj[prop])) {
-      deepFreeze(obj[prop]);
+    if (
+      typeof obj[prop as keyof T] === 'object' &&
+      !Object.isFrozen(obj[prop as keyof T])
+    ) {
+      deepFreeze(obj[prop as keyof T]);
     }
   });
   return Object.freeze(obj);
