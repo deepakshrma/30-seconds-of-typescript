@@ -17,7 +17,7 @@ Returns `true` if both arguments are `true`, `false` otherwise.
 Use the logical and (`&&`) operator on the two given values.
 
 ```ts title="typescript"
-const and = <T = any = boolean>(a: T, b: T) => Boolean(a) && Boolean(b);
+const and = <T extends unknown, R extends unknown>(a: T, b: R) => Boolean(a) && Boolean(b);
 ```
 
 ```ts title="typescript"
