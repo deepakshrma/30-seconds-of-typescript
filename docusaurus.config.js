@@ -129,17 +129,12 @@ module.exports = {
           changefreq: "weekly",
           priority: 0.5,
         },
-        googleAnalytics: {
+        gtag: {
           trackingID: "UA-172955705-1",
+          anonymizeIP: true,
         },
       },
     ],
   ],
-  plugins: [
-    require.resolve("@cmfcmf/docusaurus-search-local"),
-    // require.resolve("@docusaurus/plugin-google-analytics"),
-    // [require.resolve("docusaurus-lunr-search"), { languages: ["en"] }],
-    // path.resolve(__dirname, 'plugins/tags-creator.js')
-    "docusaurus-plugin-google-adsense",
-  ],
+  plugins: [require.resolve("docusaurus-lunr-search")],
 };

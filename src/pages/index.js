@@ -5,7 +5,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 import React from "react";
-import AdSense from "react-adsense";
+// import AdSense from "react-adsense";
 import styles from "./styles.module.css";
 const features = [
   {
@@ -81,7 +81,7 @@ function Home() {
       </header>
       <main>
         <section className={styles.centerContent}>
-          <div className={styles.Ad}>
+          {/* <div className={styles.Ad}>
             <AdSense.Google
               client="ca-pub-9978931678539032"
               slot="3095184273"
@@ -89,10 +89,10 @@ function Home() {
               format="auto"
               responsive="true"
             />
-          </div>
+          </div> */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             <video src={"how_to_access_page.mp4"} controls autoplay />
-            {renderTocDesktop && (
+            {/* {renderTocDesktop && (
               <div className={`${styles.Ad} ${styles.AdSec}`}>
                 <AdSense.Google
                   client="ca-pub-9978931678539032"
@@ -102,9 +102,9 @@ function Home() {
                   responsive="true"
                 />
               </div>
-            )}
+            )} */}
           </div>
-          <div className={styles.Ad}>
+          {/* <div className={styles.Ad}>
             <AdSense.Google
               client="ca-pub-9978931678539032"
               slot="2032797314"
@@ -112,7 +112,7 @@ function Home() {
               format="auto"
               responsive="true"
             />
-          </div>
+          </div> */}
         </section>
         {features && features.length > 0 && (
           <section className={styles.features}>
