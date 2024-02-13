@@ -130,7 +130,7 @@ module.exports = {
           priority: 0.5,
         },
         gtag: {
-          trackingID: "UA-172955705-1",
+          trackingID: "G-VX1V9NRMDC",
           anonymizeIP: true,
         },
       },
