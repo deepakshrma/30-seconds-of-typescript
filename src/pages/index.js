@@ -3,6 +3,8 @@ import { useWindowSize } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
+import Head from '@docusaurus/Head';
+
 import clsx from "clsx";
 import React from "react";
 // import AdSense from "react-adsense";
@@ -62,6 +64,9 @@ function Home() {
   const renderTocDesktop = windowSize === "desktop" || windowSize === "ssr";
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
+       <Head>
+        {/* <script data-cfasync="false" type="text/javascript" src="/ad_7123489.js"></script> */}
+      </Head>
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
@@ -81,38 +86,9 @@ function Home() {
       </header>
       <main>
         <section className={styles.centerContent}>
-          {/* <div className={styles.Ad}>
-            <AdSense.Google
-              client="ca-pub-9978931678539032"
-              slot="3095184273"
-              style={{ display: "block" }}
-              format="auto"
-              responsive="true"
-            />
-          </div> */}
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <video src={"how_to_access_page.mp4"} controls autoplay />
-            {/* {renderTocDesktop && (
-              <div className={`${styles.Ad} ${styles.AdSec}`}>
-                <AdSense.Google
-                  client="ca-pub-9978931678539032"
-                  slot="1590530912"
-                  style={{ display: "block" }}
-                  format="auto"
-                  responsive="true"
-                />
-              </div>
-            )} */}
+            <video src={"how_to_access_page.mp4"} controls autoPlay />
           </div>
-          {/* <div className={styles.Ad}>
-            <AdSense.Google
-              client="ca-pub-9978931678539032"
-              slot="2032797314"
-              style={{ display: "block" }}
-              format="auto"
-              responsive="true"
-            />
-          </div> */}
         </section>
         {features && features.length > 0 && (
           <section className={styles.features}>

@@ -18,19 +18,25 @@ module.exports = {
     },
   ],
   scripts: [
+    // {
+    //   src: "https://alwingulla.com/88/tag.min.js",
+    //   "data-zone": "46090",
+    //   "data-cfasync": "false",
+    //   async: true,
+    //   crossorigin: "anonymous",
+    // },
     {
-      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9978931678539032",
+      src: "//upskittyan.com/ntfc.php?p=7123496",
       async: true,
-      crossorigin: "anonymous",
+      onerror: "_fndlwf()",
+      onload: "_zdcerrie()",
     },
   ],
   themeConfig: {
     prism: {
       defaultLanguage: "ts",
     },
-    googleAdsense: {
-      dataAdClient: "ca-pub-9978931678539032",
-    },
+
     // algolia: {
     //   apiKey: 'e71b47af92b1daef0e43bbbfa2b4a70a',
     //   indexName: 'decipher_dev',
