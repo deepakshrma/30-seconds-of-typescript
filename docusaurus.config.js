@@ -18,18 +18,9 @@ module.exports = {
     },
   ],
   scripts: [
-    // {
-    //   src: "https://alwingulla.com/88/tag.min.js",
-    //   "data-zone": "46090",
-    //   "data-cfasync": "false",
-    //   async: true,
-    //   crossorigin: "anonymous",
-    // },
     {
-      src: "//upskittyan.com/ntfc.php?p=7123496",
-      async: true,
-      onerror: "_fndlwf()",
-      onload: "_zdcerrie()",
+      "data-cfasync": "false",
+      src: "/30-seconds-of-typescript/ad_7123489.js",
     },
   ],
   themeConfig: {

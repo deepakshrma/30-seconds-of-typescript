@@ -65,7 +65,7 @@ function Home() {
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
        <Head>
-        {/* <script data-cfasync="false" type="text/javascript" src="/ad_7123489.js"></script> */}
+        {/* <script type="text/javascript" src="/ad_7123489.js"></script> */}
       </Head>
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">
