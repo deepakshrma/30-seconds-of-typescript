@@ -17,10 +17,19 @@ module.exports = {
       type: "text/css",
     },
   ],
+  // {
+  //   "data-cfasync": "false",
+  //   src: "/30-seconds-of-typescript/ad_7123489.js",
+  // },
   scripts: [
     {
       "data-cfasync": "false",
       src: "/30-seconds-of-typescript/ad_7123489.js",
+    },
+    {
+      "data-cfasync": "false",
+      src: "//thubanoa.com/1?z=7123718",
+      async: true,
     },
   ],
   themeConfig: {
