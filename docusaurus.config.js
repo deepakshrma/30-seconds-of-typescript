@@ -142,5 +142,5 @@ module.exports = {
       },
     ],
   ],
-  plugins: [require.resolve("docusaurus-lunr-search")],
+  plugins: [require.resolve("docusaurus-lunr-search"), require.resolve("./custom.plugin.js")],
 };

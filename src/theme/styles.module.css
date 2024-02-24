@@ -2,3 +2,11 @@
   border: 1px #333;
   margin: 10px;
 }
+.gifads {
+  border: 1px #333;
+  width: 200px;
+}
+.adscard {
+  display: flex;
+  gap: 8px;
+}

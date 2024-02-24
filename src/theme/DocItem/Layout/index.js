@@ -12,7 +12,7 @@ import DocItemContent from "@theme/DocItem/Content";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Unlisted from "@theme/Unlisted";
 import styles from "./styles.module.css";
-import Ad from "./../../Ad";
+import Ad, { GifAd } from "./../../Ad";
 /**
  * Decide if the toc should be rendered, on mobile or desktop viewports
  */
@@ -37,7 +37,6 @@ export default function DocItemLayout({ children }) {
   const {
     metadata: { unlisted },
   } = useDoc();
-
   return (
     <div className="row">
       <div className={clsx("col", !docTOC.hidden && styles.docItemCol)}>
@@ -49,37 +48,37 @@ export default function DocItemLayout({ children }) {
             <DocVersionBadge />
             {docTOC.mobile}
             <div>
-              <div style={{ display: "flex" }}>
-                <DocItemContent>{children}</DocItemContent>
-                <Ad
-                  options={{
-                    key: "286ff15c1b873aacf8de3968d93bdd8b",
-                    format: "iframe",
-                    height: 600,
-                    width: 160,
-                    params: {},
-                  }}
-                ></Ad>
-              </div>
               <Ad
                 options={
                   docTOC.mobile
                     ? {
-                        key: "59ef6ced01ec04fa3c9bd9047ebdb09d",
-                        format: "iframe",
-                        height: 90,
-                        width: 728,
-                        params: {},
-                      }
-                    : {
                         key: "f491f84457706cfe79a69a94e47300b3",
                         format: "iframe",
                         height: 60,
                         width: 468,
                         params: {},
                       }
+                    : {
+                        key: "59ef6ced01ec04fa3c9bd9047ebdb09d",
+                        format: "iframe",
+                        height: 90,
+                        width: 728,
+                        params: {},
+                      }
                 }
               ></Ad>
+              <div style={{ display: "flex" }}>
+                <DocItemContent>{children}</DocItemContent>
+                <Ad
+                  options={{
+                    key: "286ff15c1b873aacf8de3968d93bdd8b",
+                    height: 600,
+                    width: 160,
+                    params: {},
+                  }}
+                ></Ad>
+              </div>
+              <GifAd />
             </div>
             <DocItemFooter />
           </article>
