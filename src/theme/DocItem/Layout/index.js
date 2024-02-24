@@ -61,7 +61,7 @@ export default function DocItemLayout({ children }) {
                     : {
                         key: "59ef6ced01ec04fa3c9bd9047ebdb09d",
                         format: "iframe",
-                        height: 90,
+                        height: 100,
                         width: 728,
                         params: {},
                       }
@@ -73,7 +73,7 @@ export default function DocItemLayout({ children }) {
                   options={{
                     key: "286ff15c1b873aacf8de3968d93bdd8b",
                     height: 600,
-                    width: 160,
+                    width: 300,
                     params: {},
                   }}
                 ></Ad>

@@ -36,11 +36,6 @@ module.exports = {
     prism: {
       defaultLanguage: "ts",
     },
-
-    // algolia: {
-    //   apiKey: 'e71b47af92b1daef0e43bbbfa2b4a70a',
-    //   indexName: 'decipher_dev',
-    // },
     navbar: {
       hideOnScroll: true,
       logo: {
@@ -102,15 +97,6 @@ module.exports = {
             },
           ],
         },
-        // {
-        //   title: "Contact me",
-        //   items: [
-        //     {
-        //       label: "Email me",
-        //       href: "mailto:contact-me@decipher.dev?subject=Say Hi!&body=Hi,\n",
-        //     },
-        //   ],
-        // },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Deepak Vishwakarma`,
     },
