@@ -1,13 +1,26 @@
 .ads {
   border: 1px #333;
   margin: 10px;
+  max-width: 100vh;
 }
+
 .gifads {
   border: 1px #333;
   width: 200px;
 }
+
 .adscard {
   padding: 4px;
   display: flex;
   gap: 8px;
+}
+
+.ads iframe {
+  width: 100%;
+}
+
+.sideAds {
+  position: fixed;
+  top: 80px;
+  right: 10px;
 }

@@ -12,7 +12,10 @@ import DocItemContent from "@theme/DocItem/Content";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Unlisted from "@theme/Unlisted";
 import styles from "./styles.module.css";
+import adStyles from "./../../styles.module.css";
 import Ad, { GifAd } from "./../../Ad";
+import { useWindow } from "../../../components/hooks";
+
 /**
  * Decide if the toc should be rendered, on mobile or desktop viewports
  */
@@ -37,6 +40,9 @@ export default function DocItemLayout({ children }) {
   const {
     metadata: { unlisted },
   } = useDoc();
+  const { isMobile } = useWindow();
+
+  console.log(adStyles.sideAds);
   return (
     <div className="row">
       <div className={clsx("col", !docTOC.hidden && styles.docItemCol)}>
@@ -47,39 +53,39 @@ export default function DocItemLayout({ children }) {
             <DocBreadcrumbs />
             <DocVersionBadge />
             {docTOC.mobile}
-            <div>
+            <Ad
+              options={{
+                key: "59ef6ced01ec04fa3c9bd9047ebdb09d",
+                format: "iframe",
+                height: 100,
+                width: 728,
+                params: {},
+              }}
+            ></Ad>
+            <DocItemContent>{children}</DocItemContent>
+            {isMobile && (
               <Ad
-                options={
-                  docTOC.mobile
-                    ? {
-                        key: "f491f84457706cfe79a69a94e47300b3",
-                        format: "iframe",
-                        height: 60,
-                        width: 468,
-                        params: {},
-                      }
-                    : {
-                        key: "59ef6ced01ec04fa3c9bd9047ebdb09d",
-                        format: "iframe",
-                        height: 100,
-                        width: 728,
-                        params: {},
-                      }
-                }
+                options={{
+                  key: "f491f84457706cfe79a69a94e47300b3",
+                  format: "iframe",
+                  height: 60,
+                  width: 468,
+                  params: {},
+                }}
               ></Ad>
-              <div style={{ display: "flex" }}>
-                <DocItemContent>{children}</DocItemContent>
-                <Ad
-                  options={{
-                    key: "286ff15c1b873aacf8de3968d93bdd8b",
-                    height: 600,
-                    width: 300,
-                    params: {},
-                  }}
-                ></Ad>
-              </div>
-              <GifAd />
-            </div>
+            )}
+            {!isMobile && (
+              <Ad
+                options={{
+                  key: "286ff15c1b873aacf8de3968d93bdd8b",
+                  height: 600,
+                  width: 160,
+                  params: {},
+                  className: adStyles.sideAds,
+                }}
+              ></Ad>
+            )}
+            <GifAd />
             <DocItemFooter />
           </article>
           <div>

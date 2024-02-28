@@ -21,11 +21,16 @@ module.exports = {
   //   "data-cfasync": "false",
   //   src: "/30-seconds-of-typescript/ad_7123489.js",
   // },
+  // {
+  //   "data-cfasync": "false",
+  //   src: "/30-seconds-of-typescript/ad_7123489.js",
+  // },
+  // {
+  //   "data-cfasync": "false",
+  //   src: "//thubanoa.com/1?z=7123718",
+  //   async: true,
+  // },
   scripts: [
-    {
-      "data-cfasync": "false",
-      src: "/30-seconds-of-typescript/ad_7123489.js",
-    },
     {
       "data-cfasync": "false",
       src: "//thubanoa.com/1?z=7123718",
@@ -128,5 +133,8 @@ module.exports = {
       },
     ],
   ],
-  plugins: [require.resolve("docusaurus-lunr-search"), require.resolve("./custom.plugin.js")],
+  plugins: [
+    require.resolve("docusaurus-lunr-search"),
+    require.resolve("./custom.plugin.js"),
+  ],
 };

@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import { useWindow } from "../components/hooks";
 
 export function GifAd() {
   const [urls, setUrls] = useState();
@@ -46,6 +47,7 @@ export function GifAd() {
 function Banner({ options }) {
   const banner = useRef();
   const id = `atContainer-${options.key}`;
+  const { maxWidth, isMobile } = useWindow();
   useEffect(() => {
     if (
       options.format == "iframe" &&
@@ -62,11 +64,15 @@ function Banner({ options }) {
     }
   }, [banner]);
 
+
   return (
     <div
       id={id}
-      style={{ width: options.width, height: options.height }}
-      className={`${styles.ads} `}
+      style={{
+        width: isMobile ? (maxWidth-40): options.width,
+        height: options.height,
+      }}
+      className={`${styles.ads} ${options.className ?? ""}`}
       ref={banner}
     ></div>
   );
