@@ -14,7 +14,7 @@ import Unlisted from "@theme/Unlisted";
 import styles from "./styles.module.css";
 import adStyles from "./../../styles.module.css";
 import Ad, { GifAd } from "./../../Ad";
-import { useWindow } from "../../../components/hooks";
+import { rerenderAds, useWindow } from "../../../components/hooks";
 
 /**
  * Decide if the toc should be rendered, on mobile or desktop viewports
@@ -36,6 +36,8 @@ function useDocTOC() {
   };
 }
 export default function DocItemLayout({ children }) {
+  rerenderAds();
+
   const docTOC = useDocTOC();
   const {
     metadata: { unlisted },

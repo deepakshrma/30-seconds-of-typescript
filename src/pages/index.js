@@ -74,6 +74,9 @@ function Home() {
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
+        <Head>
+        {/* <script type='text/javascript' src=''></script> */}
+        </Head>
         <div className="container">
           <h1 className="hero__title">
             {`Welcome to  ${translate({

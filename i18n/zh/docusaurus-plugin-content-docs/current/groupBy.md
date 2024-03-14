@@ -1,5 +1,5 @@
 ---
-title: groupBy
+title: groupBy [通过 分组]
 tags: [array, object, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 根据给定函数分组数组的元素。
+根据给定函数分组数组的元素。
 
 使用 `Array.prototype.map()` 将数组的值映射到函数或属性名称.
 使用 `Array.prototype.reduce()` 为了创建一个对象，从映射结果中生成键.

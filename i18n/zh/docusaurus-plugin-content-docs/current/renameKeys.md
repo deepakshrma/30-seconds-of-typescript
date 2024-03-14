@@ -1,5 +1,5 @@
 ---
-title: renameKeys
+title: renameKeys [重命名键]
 tags: [object, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -11,9 +11,9 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
 
-[用中文] 用提供的值替换多个对象键的名称。
+用提供的值替换多个对象键的名称。
 
-Use `Object.keys()` in combination with `Array.prototype.reduce()` and the spread operator (`...`) to get the object's keys and rename them according to `keysMap`.
+使用 `Object.keys()` 结合 `Array.prototype.reduce()` 和传播操作员 (`...`) 获取对象的钥匙并根据 `keysMap`.
 
 ```js
 const renameKeys = (keysMap, obj) =>

@@ -1,5 +1,5 @@
 ---
-title: sum
+title: sum [和]
 tags: [math, array, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,9 +12,9 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 返回两个或多个数字/数组的总和。
+返回两个或多个数字/数组的总和。
 
-Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.
+使用 `Array.prototype.reduce()` 要将每个值添加到一个累加器中，以一个值初始化的值 `0`.
 
 ```ts title="typescript"
 const sum = (...arr: number[]) => [...arr].reduce((acc, val) => acc + val, 0);

@@ -1,5 +1,5 @@
 ---
-title: capitalizeEveryWord
+title: capitalizeEveryWord [大写每个单词]
 tags: [string, regexp, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 大写字符串中每个单词的首字母。
+大写字符串中每个单词的首字母。
 
 使用 `String.prototype.replace()` 匹配每个单词的第一个字符和 `String.prototype.toUpperCase()` 以大写。
 

@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-Creates an array of elements, ungrouping the elements in an array produced by [zip](#zip) and applying the provided function.
+Creates an array of elements, ungrouping the elements in an array produced by `zip` and applying the provided function.
 
 Note: Provide size to make calculation faster
 

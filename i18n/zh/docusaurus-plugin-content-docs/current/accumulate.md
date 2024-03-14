@@ -1,5 +1,5 @@
 ---
-title: accumulate
+title: accumulate [积累]
 tags: [math, array, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 返回部分和的数组。
+返回部分和的数组。
 
 使用 `Array.prototype.reduce()、Array.prototype.slice(-1)` 和一元 `+` 运算符将每个值添加到包含前一个总和的一元数组中。
 

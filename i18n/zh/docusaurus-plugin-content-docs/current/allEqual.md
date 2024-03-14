@@ -1,5 +1,5 @@
 ---
-title: AllEqual
+title: AllEqual [寓言]
 tags: [array, function, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 检查数组中的所有元素是否相等。
+检查数组中的所有元素是否相等。
 
 使用 `Array.prototype.every()` 以检查数组的所有元素是否与第一个元素相同。
 使用严格的比较操作员比较阵列中的元素，该操作员无法解释“ NAN”的自我质量。

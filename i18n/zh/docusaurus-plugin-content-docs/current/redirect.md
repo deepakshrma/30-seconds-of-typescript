@@ -1,5 +1,5 @@
 ---
-title: redirect
+title: redirect [重定向]
 tags: [browser, url, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -11,10 +11,10 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
 
-[用中文] 重定向到指定的 URL。
+重定向到指定的 URL。
 
-Use `window.location.href` or `window.location.replace()` to redirect to `url`.
-Pass a second argument to simulate a link click (`true` - default) or an HTTP redirect (`false`).
+使用 `window.location.href` or `window.location.replace()` 重定向到 `url`.
+传递第二个参数以模拟链接单击 (`true` - default) 或 HTTP 重定向 (`false`).
 
 ```js
 const redirect = (url, asLink = true) =>

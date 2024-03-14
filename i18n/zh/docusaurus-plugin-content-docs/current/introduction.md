@@ -1,5 +1,5 @@
 ---
-title: 30-seconds-of-typescript
+title: 30-seconds-of-typescript [30秒的标题]
 slug: /
 tags: [introduction, beginner]
 author_title: Deepak Vishwakarma

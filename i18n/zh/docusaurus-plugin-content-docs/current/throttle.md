@@ -1,5 +1,5 @@
 ---
-title: throttle
+title: throttle [风门]
 tags: [function, advanced]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma

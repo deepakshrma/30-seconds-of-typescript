@@ -21,24 +21,10 @@ module.exports = {
       type: "text/css",
     },
   ],
-  // {
-  //   "data-cfasync": "false",
-  //   src: "/30-seconds-of-typescript/ad_7123489.js",
-  // },
-  // {
-  //   "data-cfasync": "false",
-  //   src: "/30-seconds-of-typescript/ad_7123489.js",
-  // },
-  // {
-  //   "data-cfasync": "false",
-  //   src: "//thubanoa.com/1?z=7123718",
-  //   async: true,
-  // },
   scripts: [
     {
-      "data-cfasync": "false",
-      src: "//thubanoa.com/1?z=7123718",
-      async: true,
+      dataId: "rerender",
+      src: "//pl22785116.profitablegatecpm.com/4d/c6/af/4dc6af6f312b5b25f9e201d7b191bce0.js",
     },
   ],
   themeConfig: {

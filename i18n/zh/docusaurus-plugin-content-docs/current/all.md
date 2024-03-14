@@ -1,5 +1,5 @@
 ---
-title: all
+title: all [全部]
 tags: [array, function, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 全部
+全部
 
 如果提供的谓词函数对集合中的所有元素返回 `true`，则返回 `true`，否则返回 `false`。
 

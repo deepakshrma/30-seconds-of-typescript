@@ -1,5 +1,5 @@
 ---
-title: isEmpty
+title: isEmpty [is 空的]
 tags: [type, array, object, string, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 如果A值是一个空对象，集合，则返回true。
+如果A值是一个空对象，集合，则返回true。
 
 检查提供的值是 `null` 或者如果它 `length` 等于 `0`.
 

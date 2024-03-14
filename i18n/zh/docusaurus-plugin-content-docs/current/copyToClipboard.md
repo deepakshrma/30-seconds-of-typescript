@@ -1,5 +1,5 @@
 ---
-title: copyToClipboard
+title: copyToClipboard [复制到剪贴板]
 tags: [browser, string, advanced]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -10,7 +10,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 
-[用中文] 将字符串复制到剪贴板。
+将字符串复制到剪贴板。
 
 仅由于用户操作而起作用（即在“单击事件侦听器”内部）。
 

@@ -1,5 +1,5 @@
 ---
-title: flattenObject
+title: flattenObject [羊毛 Object]
 tags: [object, recursion, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -11,7 +11,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
 
-[用中文] 用键的路径弄平一个对象。
+用键的路径弄平一个对象。
 
 使用递归。
 使用 `Object.keys(obj)` 与 `Array.prototype.reduce()` 将每个叶子节点转换为平坦的路径节点。

@@ -1,5 +1,5 @@
 ---
-title: isNumber
+title: isNumber [is 数字]
 tags: [type, math, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,10 +12,10 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 检查给定的参数是否是数字。
+检查给定的参数是否是数字。
 
-Use `typeof` to check if a value is classified as a number primitive.
-To safeguard against `NaN`, check if `val === val` (as `NaN` has a `typeof` equal to `number` and is the only value not equal to itself).
+Use `typeof` 检查值是否分类为数字原始。
+保护反对 `NaN`, 检查是否 `val === val` (as `NaN` has a `typeof`等于 `number` 并且是唯一不等于自身的值）。
 
 ```ts title="typescript"
 const isNumber = (val: any) => typeof val === "number" && val === val;

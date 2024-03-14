@@ -1,5 +1,5 @@
 ---
-title: randomIntArrayInRange
+title: randomIntArrayInRange [随机的 Int 范围内的数组]
 tags: [math, random, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -11,9 +11,9 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![TODO](https://img.shields.io/badge///TODO-blue.svg?style=flat-square)
 
-[用中文] 返回指定范围内n个随机整数的数组。
+返回指定范围内 n 个随机整数的数组。
 
-Use `Array.from()` to create an empty array of the specific length, `Math.random()` to generate a random number and map it to the desired range, using `Math.floor()` to make it an integer.
+使用 `Array.from()`要创建一个特定长度的空数组， `Math.random()` 要生成一个随机数并将其映射到所需范围 `Math.floor()` 使其成为整数.
 
 ```js
 const randomIntArrayInRange = (min, max, n = 1) =>

@@ -1,5 +1,5 @@
 ---
-title: sleep
+title: sleep [睡觉]
 tags: [function, promise, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -13,9 +13,9 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 
-[用中文] 延迟执行异步功能。
+延迟执行异步功能。
 
-Delay executing part of an `async` function, by putting it to sleep, returning a `Promise`.
+延迟执行一部分 `async` 功能，让它入睡，返回 `Promise`.
 
 ```ts title="typescript"
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

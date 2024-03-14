@@ -1,5 +1,5 @@
 ---
-title: promisify
+title: promisify [承诺]
 tags: [function, promise, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,12 +12,12 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 转换异步功能以返回承诺。
+转换异步功能以返回承诺。
 
 _In Node 8+, you can use [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original)_
 
-Use currying to return a function returning a `Promise` that calls the original function.
-Use the `...rest` operator to pass in all the parameters.
+使用 currying 返回函数返回 `Promise` 该调用原始功能。
+使用 `...rest` 运算符传递所有参数。
 
 ```ts title="typescript"
 const promisify =

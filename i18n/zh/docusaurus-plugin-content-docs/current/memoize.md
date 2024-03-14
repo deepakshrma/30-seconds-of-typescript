@@ -1,5 +1,5 @@
 ---
-title: memoize
+title: memoize [回忆]
 tags: [function, advanced]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,11 +12,11 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 返回回忆（缓存）功能。
+返回回忆（缓存）功能。
 
-Create an empty cache by instantiating a new `Map` object.
-Return a function which takes a single argument to be supplied to the memoized function by first checking if the function's output for that specific input value is already cached, or store and return it if not. The `function` keyword must be used in order to allow the memoized function to have its `this` context changed if necessary.
-Allow access to the `cache` by setting it as a property on the returned function.
+通过实例化新的 `Map` 对象来创建一个空的缓存。
+返回一个函数，该函数首先检查该函数的特定输入值的输出是否已被缓存，或者存储并返回，该函数是否已提供给了记忆的函数。必须使用 `function` 关键字，以便在必要时更改记忆的函数 `this` 上下文''。
+通过将其设置为返回函数上的属性，允许访问 `cache`。
 
 ```ts title="typescript"
 const memoize = <T = any>(fn: Func<T>) => {

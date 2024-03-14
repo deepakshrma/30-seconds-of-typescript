@@ -1,5 +1,5 @@
 ---
-title: maxDate
+title: maxDate [最大日期]
 tags: [date, math, beginner]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,9 +12,9 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] Returns the maximum of the given dates.
+返回给定日期的最大值。
 
-Use the ES6 spread syntax with `Math.max` to find the maximum date value, `new Date()` to convert it to a `Date` object.
+使用 `Math.max` 使用 ES6 扩展语法查找最大日期值，`new Date（）`将其转换为 `Date` 对象。
 
 ```ts title="typescript"
 const maxDate = (dates: Date[]) => new Date(Math.max(...dates.map(Number)));

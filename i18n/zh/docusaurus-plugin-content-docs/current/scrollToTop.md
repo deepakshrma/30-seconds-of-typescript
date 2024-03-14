@@ -1,5 +1,5 @@
 ---
-title: scrollToTop
+title: scrollToTop [滚动到顶部]
 tags: [browser, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,10 +12,10 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 平滑滚动到页面顶部。
+平滑滚动到页面顶部。
 
-Get distance from top using `document.documentElement.scrollTop` or `document.body.scrollTop`.
-Scroll by a fraction of the distance from the top. Use `window.requestAnimationFrame()` to animate the scrolling.
+使用获取距顶部的距离 `document.documentElement.scrollTop` or `document.body.scrollTop`.
+滚动距离顶部的一小部分。使用 `window.requestAnimationFrame()` 为滚动动画。
 
 ```ts title="typescript"
 const scrollToTop = () => {

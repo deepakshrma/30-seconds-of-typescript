@@ -1,5 +1,5 @@
 ---
-title: sumBy
+title: sumBy [总和]
 tags: [math, array, function, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -14,7 +14,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 
 [用中文]在使用提供的函数将每个元素映射到值之后，返回数组的总和。
 
-Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.
+使用 `Array.prototype.map()` 将每个元素映射到返回的值 `fn`, `Array.prototype.reduce()` 要将每个值添加到一个累加器中，以一个值初始化的值 `0`.
 
 ```ts title="typescript"
 const sumBy = <T = AnyObject>(arr: T[], fn: string | ((a: T) => number)) => {

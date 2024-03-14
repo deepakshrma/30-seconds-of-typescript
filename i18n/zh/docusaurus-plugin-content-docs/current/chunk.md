@@ -1,5 +1,5 @@
 ---
-title: chunk
+title: chunk [大块]
 tags: [array, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -12,7 +12,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![JS](https://img.shields.io/badge/supports-javascript-yellow.svg?style=flat-square)
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
-[用中文] 块将一个数组分成指定尺寸的较小阵列。
+块将一个数组分成指定尺寸的较小阵列。
 
 使用 `Array.from()` 来创建一个新数组，适合将要生成的块数量。
 使用 `Array.prototype.slice()` 将新数组的每个元素映射到尺寸的长度。

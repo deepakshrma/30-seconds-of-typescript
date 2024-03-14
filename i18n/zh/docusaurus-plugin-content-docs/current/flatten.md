@@ -1,5 +1,5 @@
 ---
-title: flatten
+title: flatten [羊毛]
 tags: [array, intermediate]
 author_title: Deepak Vishwakarma
 author_url: https://github.com/deepakshrma
@@ -13,7 +13,7 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![Deno](https://img.shields.io/badge/supports-deno-green.svg?style=flat-square)
 
 
-[用中文] 将阵列弄平到指定的深度。
+将阵列弄平到指定的深度。
 
 使用递归，减少 `depth` 每个深度级别为 1。
 
