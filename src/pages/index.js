@@ -99,7 +99,6 @@ function Home() {
               to={useBaseUrl("docs/")}
             >
               <Translate>Get Started</Translate>
-              Get Started
             </Link>
           </div>
         </div>
