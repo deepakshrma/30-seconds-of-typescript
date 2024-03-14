@@ -42,7 +42,6 @@ export default function DocItemLayout({ children }) {
   } = useDoc();
   const { isMobile } = useWindow();
 
-  console.log(adStyles.sideAds);
   return (
     <div className="row">
       <div className={clsx("col", !docTOC.hidden && styles.docItemCol)}>
