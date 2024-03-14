@@ -3,14 +3,18 @@ console.log(
   require.resolve(path.resolve(__dirname, "plugins/tags-creator.js"))
 );
 module.exports = {
-  title: "30 Seconds of Typescript- Inspired by 30-seconds-of-code",
+  title: "30 Seconds of Typescript",
   tagline:
-    "30 Seconds of Typescript, Code Snippets to increase productivity[WIP]",
+    "30 Seconds of Typescript, Code snippets for programming language Typescript, Javascript, Deno and more..",
   url: "https://decipher.dev",
   baseUrl: "/30-seconds-of-typescript/",
   favicon: "img/favicon.ico",
   organizationName: "deepakshrma", // Usually your GitHub org/user name.
   projectName: "30-seconds-of-typescript", // Usually your repo name.
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "zh"],
+  },
   stylesheets: [
     {
       href: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Open+Sans&display=swap",
@@ -59,6 +63,10 @@ module.exports = {
           to: "docs/",
           activeBasePath: "docs",
           label: "Docs",
+          position: "left",
+        },
+        {
+          type: "localeDropdown",
           position: "left",
         },
         {

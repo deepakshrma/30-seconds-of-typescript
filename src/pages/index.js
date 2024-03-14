@@ -3,41 +3,50 @@ import { useWindowSize } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import Head from '@docusaurus/Head';
+import Head from "@docusaurus/Head";
+import Translate, { translate } from "@docusaurus/Translate";
 
 import clsx from "clsx";
 import React from "react";
 // import AdSense from "react-adsense";
 import styles from "./styles.module.css";
+const NoteCh = () => (
+  <p className="hero__subtitle">
+    <Translate id="home.ch_warn">
+      Note: This website supports Chinese documents, but uses a translation tool
+      which may result in inaccuracies.
+    </Translate>
+  </p>
+);
 const features = [
   {
-    title: <>Supports</>,
+    title: <Translate>Supports</Translate>,
     imageUrl: "img/undraw_docusaurus_mountain.svg",
     description: (
-      <>
+      <Translate id="home.fd1">
         Code has written mainly in typescript. Which is supper set of
         JavaScript. It also supports Deno.
-      </>
+      </Translate>
     ),
   },
   {
-    title: <>Focus on Simplicity</>,
+    title: <Translate>Focus on Simplicity</Translate>,
     imageUrl: "img/undraw_docusaurus_tree.svg",
     description: (
-      <>
-        There is always libary like lodash can be used. However, It is good to
-        learn some concept by own.
-      </>
+      <Translate id="home.fd2">
+        It is always possible to use libraries like lodash, but it is important
+        to learn the concepts on your own.
+      </Translate>
     ),
   },
   {
-    title: <>Powered by Docusaurus</>,
+    title: <Translate>Powered by Docusaurus</Translate>,
     imageUrl: "img/undraw_docusaurus_react.svg",
     description: (
-      <>
-        Extend or customize your website layout by reusing Docusaurus.
-        Docusaurus can be extended while reusing the same header and footer.
-      </>
+      <Translate id="home.fd3">
+        Reuse Docusaurus to extend or customize website layout with the same
+        header and footer.
+      </Translate>
     ),
   },
 ];
@@ -64,13 +73,23 @@ function Home() {
   const renderTocDesktop = windowSize === "desktop" || windowSize === "ssr";
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
-       <Head>
-        {/* <script type="text/javascript" src="/ad_7123489.js"></script> */}
-      </Head>
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          <h1 className="hero__title">
+            {`Welcome to  ${translate({
+              id: "home.title",
+              message: siteConfig.title,
+              description: "This is site title",
+            })}`}
+          </h1>
+          <p className="hero__subtitle">
+            {translate({
+              id: "home.tagline",
+              message: siteConfig.tagline,
+              description: "This is site tagline",
+            })}
+          </p>
+          <NoteCh />
           <div className={styles.buttons}>
             <Link
               className={clsx(
@@ -79,6 +98,7 @@ function Home() {
               )}
               to={useBaseUrl("docs/")}
             >
+              <Translate>Get Started</Translate>
               Get Started
             </Link>
           </div>

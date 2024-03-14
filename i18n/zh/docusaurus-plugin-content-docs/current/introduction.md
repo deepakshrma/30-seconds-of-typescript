@@ -14,22 +14,21 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 ![ECMAScript](https://img.shields.io/badge/supports-ECMAScript-yellow.svg?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/deepakshrma/30-seconds-of-typescript)
 
-This repository is a collection of numerous utility functions that can be easily imported and used anywhere, similar to Lodash.
-
-All the documents can be found on [30-seconds-of-typescript](https://deepakshrma.github.io/30-seconds-of-typescript/docs/)
+该存储库是众多实用程序功能的集合，可以轻松地导入和使用任何地方，类似于 Lodash。
+所有文件都可以在[30-seconds-of-typescript](https://deepakshrma.github.io/30-seconds-of-typescript/docs/)
 
 **Note:**
-This repository is heavily inspired by [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). All JavaScript code has been converted to TypeScript so that it can be used for Modern HTML|JS, TypeScript and Deno[Github](https://github.com/deepakshrma/30-seconds-of-typescript/).
+该存储库的灵感来自 [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code). 所有 JavaScript 代码已转换为打字稿，因此可以用于现代 HTML | JS，Typescript 和 Deno[Github](https://github.com/deepakshrma/30-seconds-of-typescript/).
 
-**_I am refactoring code and fixing bugs along with conversion._**
+**_我正在重构代码和修复错误以及转换._**
 
-## Install node.js/npm
+## 安装 node.js/npm
 
 ```bash
 npm i @deepakvishwakarma/ts-util
 ```
 
-### How to use [Typescript]
+### 如何使用 [Typescript]
 
 ```ts title="typescript"
 import { mask } from "@deepakvishwakarma/ts-util";
@@ -39,7 +38,7 @@ console.log(mask(1234567890, 3)); // '*******890'
 console.log(mask(1234567890, -4, "$")); // '$$$$567890'
 ```
 
-### How to use [JS]
+### 如何使用 [JS]
 
 ```ts title="typescript"
 const { mask } = require("@deepakvishwakarma/ts-util");
@@ -49,11 +48,11 @@ console.log(mask(1234567890, 3)); // '*******890'
 console.log(mask(1234567890, -4, "$")); // '$$$$567890'
 ```
 
-## Install Snippet Extension
+## 安装 Snippet Extension
 
 You can find the working plugin on `marketplace.visualstudio.com`. You can either search for `30-seconds-of-typescript` Or Install from here [imdeepak.30-seconds-of-typescript](https://marketplace.visualstudio.com/items?itemName=imdeepak.30-seconds-of-typescript)
 
-### Search for snippet- Sample[typescript & typescriptreact]
+### 搜索片段- Sample[typescript & typescriptreact]
 
 ```bash
 30_delay
@@ -61,16 +60,16 @@ You can find the working plugin on `marketplace.visualstudio.com`. You can eithe
 
 ![assets/snippets.gif](https://github.com/deepakshrma/30-seconds-of-typescript/raw/master/assets/snippets.gif)
 
-This repo has a utility file, that can be imported to Deno and modern EcmaScript.
+该存储库具有一个实用文件，可以将其导入 DeNo 和 Modern Ecmascript。
 
-## How to use [Deno]
+## 如何使用 [Deno]
 
 ```ts title="typescript"
 import { all } from "https://denopkg.com/deepakshrma/30-seconds-of-typescript/util.ts";
 all([{ name: "D" }, { name: "D2" }], hasName); //true
 ```
 
-## How to use using Github CDN [Modern HTML|JS]
+## 如何使用 使用 Github CDN [Modern HTML|JS]
 
 ```html
 <script type="module">
@@ -83,24 +82,24 @@ all([{ name: "D" }, { name: "D2" }], hasName); //true
 </script>
 ```
 
-### Contribution
+### 贡献
 
 - Docs: [/docs](https://github.com/deepakshrma/30-seconds-of-typescript/docs)
 - Util: [/util.ts](https://github.com/deepakshrma/30-seconds-of-typescript/blob/master/util.ts)
 
-#### Create New utility function
+#### 创建新的实用程序功能
 
 `export here` [util.ts](https://github.com/deepakshrma/30-seconds-of-typescript/blob/master/util.ts)
 
-**How to bundle:** It will be auto using husky githook
+**如何捆绑:** 它将是自动使用的 husky githook
 
-### How to test using Deno
+### 如何使用 Deno
 
 ```bash
 deno test util.test.ts
 ```
 
-#### Commands | Scripts
+#### 命令 | Scripts
 
 **1. Generate Snippets:**
 

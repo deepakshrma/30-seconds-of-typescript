@@ -1,0 +1,18 @@
+{
+  "logo.alt": {
+    "message": "30 Seconds of Typescript",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.30 Seconds of Typescript": {
+    "message": "30 Seconds of Typescript",
+    "description": "Navbar item with label 30 Seconds of Typescript"
+  },
+  "item.label.Docs": {
+    "message": "Docs",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

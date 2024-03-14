@@ -1,0 +1,38 @@
+{
+  "link.title.Follow me": {
+    "message": "Follow me",
+    "description": "The title of the footer links column with title=Follow me in the footer"
+  },
+  "link.title.Friend with me": {
+    "message": "Friend with me",
+    "description": "The title of the footer links column with title=Friend with me in the footer"
+  },
+  "link.item.label.Linkdin": {
+    "message": "Linkdin",
+    "description": "The label of footer link with label=Linkdin linking to https://www.linkedin.com/in/xdeepakv/"
+  },
+  "link.item.label.Medium.com": {
+    "message": "Medium.com",
+    "description": "The label of footer link with label=Medium.com linking to https://medium.com/@deepak_v"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.com/channels/@deepakv"
+  },
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/nalayakshrma"
+  },
+  "link.item.label.Instagram": {
+    "message": "Instagram",
+    "description": "The label of footer link with label=Instagram linking to https://www.instagram.com/nalayaksharma_poetry/"
+  },
+  "link.item.label.Unsplash": {
+    "message": "Unsplash",
+    "description": "The label of footer link with label=Unsplash linking to https://unsplash.com/@deepak_v"
+  },
+  "copyright": {
+    "message": "Copyright © 2024 Deepak Vishwakarma",
+    "description": "The footer copyright"
+  }
+}

@@ -18,6 +18,7 @@
     "code-gen": "node scripts/code_snippet.js",
     "swizzle": "docusaurus swizzle",
     "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
     "deploy": "yarn run build && cp ads.txt ./build/ && GIT_USER=deepakshrma USE_SSH=true docusaurus deploy --skip-build",
     "extension": "node scripts/vs_code.js",
     "extension:publish": "node scripts/vs_code.js --publish",

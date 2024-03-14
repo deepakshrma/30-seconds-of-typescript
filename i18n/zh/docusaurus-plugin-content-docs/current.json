@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.someSidebar.category.introduction": {
+    "message": "introduction",
+    "description": "The label for category introduction in sidebar someSidebar"
+  },
+  "sidebar.someSidebar.category.30-seconds-of-ts": {
+    "message": "30-seconds-of-ts",
+    "description": "The label for category 30-seconds-of-ts in sidebar someSidebar"
+  }
+}
