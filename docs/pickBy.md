@@ -14,14 +14,14 @@ image: https://www.positronx.io/wp-content/uploads/2018/11/positronx-banner-1152
 
 Creates an object composed of the properties the given function returns truthy for. The function is invoked with two arguments: (value, key).
 
-Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a falsy value.
-Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.
+Use `Object.entries(obj)` and `Object.fromEntries(obj)` to convert the object to a list of properties and convert back.
+Use `Array.prototype.filter()`to remove the keys for which `fn` returns a falsy value.
 
 ```ts title="typescript"
-const pickBy = (obj: AnyObject, fn: Function) =>
-  Object.keys(obj)
-    .filter((k) => fn(obj[k], k))
-    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {} as AnyObject);
+const pickBy = (
+    o: Record<string, any>,
+    fn: (value: any) => Boolean = (x) => x,
+) => Object.fromEntries(Object.entries(o).filter(([, v]) => fn(v)))
 ```
 
 ```ts title="typescript"
