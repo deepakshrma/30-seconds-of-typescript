@@ -275,9 +275,11 @@ const deepFlatten = (arr) => {
   return [].concat(...arr.map((v) => (Array.isArray(v) ? deepFlatten(v) : v)));
 };
 const deepFreeze = (obj) => {
-  Object.keys(obj).forEach((prop) => {
-    if (typeof obj[prop] === "object" && !Object.isFrozen(obj[prop])) {
-      deepFreeze(obj[prop]);
+  const propNames = Object.getOwnPropertyNames(obj);
+  propNames.forEach((name) => {
+    const prop = obj[name];
+    if (typeof prop === "object" && prop !== null && !Object.isFrozen(prop)) {
+      deepFreeze(prop);
     }
   });
   return Object.freeze(obj);

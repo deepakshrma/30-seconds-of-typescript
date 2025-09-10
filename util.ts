@@ -778,17 +778,16 @@ export const deepFlatten = (arr: any[]): any[] => {
  * @param obj
  */
 export const deepFreeze = <T extends object>(obj: T) => {
-  Object.keys(obj).forEach((prop) => {
-    if (
-      typeof obj[prop as keyof T] === "object" &&
-      !Object.isFrozen(obj[prop as keyof T])
-    ) {
-      deepFreeze(obj[prop as keyof T]);
+  const propNames = Object.getOwnPropertyNames(obj);
+  propNames.forEach((name) => {
+    const prop = obj[name as keyof T];
+
+    if (typeof prop === "object" && prop !== null && !Object.isFrozen(prop)) {
+      deepFreeze(prop as object);
     }
   });
   return Object.freeze(obj);
 };
-
 /**
  * Returns the target value in a nested JSON object, based on the `keys` array.
  *

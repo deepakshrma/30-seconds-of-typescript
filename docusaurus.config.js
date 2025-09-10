@@ -22,10 +22,10 @@ module.exports = {
     },
   ],
   scripts: [
-    {
-      dataId: "rerender",
-      src: "//pl22785116.profitablegatecpm.com/4d/c6/af/4dc6af6f312b5b25f9e201d7b191bce0.js",
-    },
+    // {
+    //   dataId: "rerender",
+    //   src: "//pl22785116.profitablegatecpm.com/4d/c6/af/4dc6af6f312b5b25f9e201d7b191bce0.js",
+    // },
   ],
   themeConfig: {
     prism: {

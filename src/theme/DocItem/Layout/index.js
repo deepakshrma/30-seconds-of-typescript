@@ -12,8 +12,8 @@ import DocItemContent from "@theme/DocItem/Content";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Unlisted from "@theme/Unlisted";
 import styles from "./styles.module.css";
-import adStyles from "./../../styles.module.css";
-import Ad, { GifAd } from "./../../Ad";
+// import adStyles from "./../../styles.module.css";
+// import Ad, { GifAd } from "./../../Ad";
 import { rerenderAds, useWindow } from "../../../components/hooks";
 
 /**
@@ -54,7 +54,7 @@ export default function DocItemLayout({ children }) {
             <DocBreadcrumbs />
             <DocVersionBadge />
             {docTOC.mobile}
-            <Ad
+            {/* <Ad
               options={{
                 key: "59ef6ced01ec04fa3c9bd9047ebdb09d",
                 format: "iframe",
@@ -62,9 +62,9 @@ export default function DocItemLayout({ children }) {
                 width: 728,
                 params: {},
               }}
-            ></Ad>
+            ></Ad> */}
             <DocItemContent>{children}</DocItemContent>
-            {isMobile && (
+            {/* {isMobile && (
               <Ad
                 options={{
                   key: "f491f84457706cfe79a69a94e47300b3",
@@ -74,8 +74,8 @@ export default function DocItemLayout({ children }) {
                   params: {},
                 }}
               ></Ad>
-            )}
-            {!isMobile && (
+            )} */}
+            {/* {!isMobile && (
               <Ad
                 options={{
                   key: "286ff15c1b873aacf8de3968d93bdd8b",
@@ -85,8 +85,8 @@ export default function DocItemLayout({ children }) {
                   className: adStyles.sideAds,
                 }}
               ></Ad>
-            )}
-            <GifAd />
+            )} */}
+            {/* <GifAd /> */}
             <DocItemFooter />
           </article>
           <div>
@@ -96,7 +96,7 @@ export default function DocItemLayout({ children }) {
       </div>
       {docTOC.desktop && (
         <div className="col col--3">
-          <Ad
+          {/* <Ad
             options={{
               key: "cf24f4b1ae2fdc2be88550946aee8280",
               format: "iframe",
@@ -104,7 +104,7 @@ export default function DocItemLayout({ children }) {
               width: 300,
               params: {},
             }}
-          ></Ad>
+          ></Ad> */}
           {docTOC.desktop}
         </div>
       )}
